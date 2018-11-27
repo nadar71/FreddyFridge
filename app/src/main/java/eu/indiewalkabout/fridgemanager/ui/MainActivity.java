@@ -13,6 +13,7 @@ import com.hitomi.cmlibrary.OnMenuSelectedListener;
 import com.hitomi.cmlibrary.OnMenuStatusChangeListener;
 
 import eu.indiewalkabout.fridgemanager.R;
+import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 
 
 public class MainActivity extends AppCompatActivity {

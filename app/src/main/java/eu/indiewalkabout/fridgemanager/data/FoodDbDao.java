@@ -13,11 +13,17 @@ import java.util.List;
 @Dao
 public interface FoodDbDao {
 
+    @Query("SELECT * FROM FOODLIST ORDER BY EXPIRING_AT")
+    List<FoodEntry> loadAllFood();
+
     @Query("SELECT * FROM FOODLIST ORDER BY EXPIRING_AT")  // TODO : set < data
     List<FoodEntry> loadAllFoodExpiring();
 
     @Query("SELECT * FROM FOODLIST ORDER BY EXPIRING_AT")  // TODO : set > data
     List<FoodEntry> loadAllFoodDead();
+
+    @Query("SELECT * FROM FOODLIST ORDER BY EXPIRING_AT")  // TODO : set < data or consumed flag true
+    List<FoodEntry> loadAllFoodSaved();
 
     @Insert
     void insertFoodEntry(FoodEntry foodEntry);

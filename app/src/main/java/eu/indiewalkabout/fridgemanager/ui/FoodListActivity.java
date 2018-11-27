@@ -1,6 +1,7 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
+import java.util.List;
+
 import eu.indiewalkabout.fridgemanager.R;
+import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
+import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
@@ -31,6 +36,11 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
     RecyclerView    foodList;
     FoodListAdapter foodListAdapter;
 
+    // Hold food entries data
+    private List<FoodEntry> foodEntries ;
+
+    // Db reference
+    FoodDatabase foodDb;
 
     // get the type of list to show from intent content extra
     public static final String FOOD_TYPE     = "food_type";
@@ -55,6 +65,9 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_list);
+
+        // Db instance
+        foodDb = FoodDatabase.getsDbInstance(getApplicationContext());
 
         // init toolbar
         toolBarInit();
@@ -84,10 +97,21 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
 
         // init recycle view list
         // TODO : accepts a parameter for the type of list
-        initList();
+        initRecycleView();
         
     }
 
+
+    /**
+     * TODO : temporary :
+     *  now update the list everytime the activity has been resumed
+     *  after, with viewmodel/livedata, this must go into initRecycleView()
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupAdapter();
+    }
 
     // Recycle touch an item callback to update/modify task
     @Override
@@ -122,7 +146,7 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
     * Recycle view list init
     * ---------------------------------------------------------------------------------------------
     */
-    private void initList(){
+    private void initRecycleView(){
         // Set the RecyclerView's view
         foodList = (RecyclerView) findViewById(R.id.food_list_recycleView);
 
@@ -140,6 +164,24 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
         foodList.addItemDecoration(decoration);
     }
+
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Used to reload from db the tasks list and update the list view in screen
+     * ---------------------------------------------------------------------------------------------
+     */
+    private void setupAdapter() {
+        // get all items from db
+        List<FoodEntry> foodEntries = foodDb.foodDbDao().loadAllFood();
+        foodListAdapter.setFoodEntries(foodEntries);
+
+        // TODO : add viewmodel/livedata here
+        // TODO : different query for different kind of food
+
+    }
+
 
     /**
     * ---------------------------------------------------------------------------------------------

@@ -29,8 +29,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
     // Handle item clicks
     final private ItemClickListener foodItemClickListener;
 
-    // Holds task data
-    private List<FoodEntry> foodEntries = new ArrayList<FoodEntry>();
+    // Holds food entries data
+    private List<FoodEntry> foodEntries ;
     private Context         thisContext;
 
     // Date formatter
@@ -48,11 +48,13 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
         thisContext           = context;
         foodItemClickListener = listener;
 
-        // dummy list for debug
+        // DEBUG : dummy list for debug
+        /*
+        foodEntries = new ArrayList<FoodEntry>();
         foodEntries.add(new FoodEntry("meat",new GregorianCalendar(2018, Calendar.DECEMBER, 12).getTime()) );
         foodEntries.add(new FoodEntry("meat 2",new GregorianCalendar(2018, Calendar.DECEMBER, 2).getTime())  );
         foodEntries.add(new FoodEntry("vegetables",new GregorianCalendar(2018, Calendar.DECEMBER, 20).getTime())  );
-
+        */
     }
 
     /**
@@ -102,6 +104,23 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
     }
 
 
+
+    /**
+     * ----------------------------------------------------------------------------------
+     * Set data for RecycleView as foodEntries list.
+     * Used by the activity to init the adapter
+     * @param foodEntries
+     * ----------------------------------------------------------------------------------
+     */
+    public void setFoodEntries(List<FoodEntry> foodEntries) {
+        this.foodEntries = foodEntries;
+
+        // ----------------------------------------------------
+        // TODO : with ViewModel/LiveData
+        // data changed, refresh the view : notify the related observers
+        // notifyDataSetChanged();
+    }
+
     // ----------------------------------------------------------------------------------
     // Implemented in calling class, e.g. MainActivity
     // ----------------------------------------------------------------------------------
@@ -134,6 +153,25 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             int elementId = foodEntries.get(getAdapterPosition()).getId();
             foodItemClickListener.onItemClickListener(elementId);
         }
+    }
+
+
+    /**
+     * ----------------------------------------------------------------------------------
+     * Return an food item in list at defined position
+     * ----------------------------------------------------------------------------------
+     */
+    public FoodEntry getTaskAtPosition(int position){
+        return foodEntries.get(position);
+    }
+
+    /**
+     * ----------------------------------------------------------------------------------
+     * Get all the food items list
+     * ----------------------------------------------------------------------------------
+     */
+    public List<FoodEntry> getFoodEntries(){
+        return foodEntries;
     }
 
 }
