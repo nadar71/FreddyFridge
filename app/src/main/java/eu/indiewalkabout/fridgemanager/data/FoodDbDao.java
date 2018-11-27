@@ -20,11 +20,11 @@ public interface FoodDbDao {
     List<FoodEntry> loadAllFoodDead();
 
     @Insert
-    void insertCollection(FoodEntry foodEntry);
+    void insertFoodEntry(FoodEntry foodEntry);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateTask(FoodEntry foodEntry);
+    void updateFoodEntry(FoodEntry foodEntry);
 
     @Delete
-    void deleteTask(FoodEntry foodEntry);
+    void deleteFoodEntry(FoodEntry foodEntry);
 }
