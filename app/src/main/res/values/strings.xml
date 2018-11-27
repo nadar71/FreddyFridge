@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">FridgeManager</string>
+
+    <string name="foodExpiring_activity_title">Expiring Food List</string>
+    <string name="foodDead_activity_title">Dead Food List</string>
+    <string name="foodSaved_activity_title">Saved Food List</string>
+    <string name="insertFoodActivity_title">Insert Food</string>
+
+</resources>

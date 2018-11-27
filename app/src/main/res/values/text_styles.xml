@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="parent_textstyle">
+        <item name="android:textColor">#040404</item>
+        <item name="android:typeface">sans</item>
+    </style>
+    <style name="big_textstyle" parent="parent_textstyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="small_textstyle" parent="parent_textstyle">
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="form_big_textstyle" parent="big_textstyle">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+</resources>

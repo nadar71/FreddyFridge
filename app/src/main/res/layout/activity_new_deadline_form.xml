@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical" >
+    <TableLayout
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/form_bgk"
+        android:padding="10dp"
+        android:layout_gravity="center_horizontal">
+
+        <TableRow
+            android:id="@+id/descriptionRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="6dp">
+
+            <TextView
+                android:id="@+id/descriptionLabel"
+                style="@style/form_big_textstyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:text="Descrizione:" />
+
+            <EditText
+                android:id="@+id/descriptionEdit"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/form_field_bgk"
+                android:inputType="text" />
+        </TableRow>
+<!--
+        <TableRow
+            android:id="@+id/imgRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="6dp">
+
+            <TextView
+                android:id="@+id/imgLabel"
+                style="@style/form_big_textstyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:text="Immagine:" />
+
+            <EditText
+                android:id="@+id/imgEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/form_field_bgk"
+                android:lines="4" />
+        </TableRow>
+        -->
+
+        <TableRow
+            android:id="@+id/dateRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="6dp">
+
+            <TextView
+                android:id="@+id/dateLabel"
+                style="@style/form_big_textstyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:text="Date :" />
+
+            <EditText
+                android:id="@+id/dateEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/form_field_bgk"
+                android:inputType="date" />
+        </TableRow>
+
+
+        <TableRow
+            android:id="@+id/statusRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="6dp">
+
+            <TextView
+                android:id="@+id/statusLabel"
+                style="@style/form_big_textstyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:text="Date :" />
+
+            <EditText
+                android:id="@+id/statusEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/form_field_bgk"
+                android:inputType="date" />
+        </TableRow>
+
+
+        <TableRow
+            android:id="@+id/saveRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp">
+
+            <Button
+                android:id="@+id/saveBtn"
+                style="@style/form_big_textstyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:background="@drawable/button_selector"
+                android:text="Save" />
+        </TableRow>
+    </TableLayout>
+    <ListView
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/listview"
+        android:divider="#ff8300"
+        android:dividerHeight="3dp"/>
+
+
+</LinearLayout>
