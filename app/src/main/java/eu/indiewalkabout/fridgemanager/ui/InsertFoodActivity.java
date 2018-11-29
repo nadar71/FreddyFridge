@@ -67,8 +67,6 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
         // init toolbar
         toolBarInit();
 
-
-
     }
 
 
@@ -90,7 +88,6 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
                 onSaveBtnClicked();
             }
         });
-
 
     }
 
@@ -149,7 +146,7 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
 
 
         // create a new food obj and init with data inserted by user
-        final FoodEntry foodEntry = new FoodEntry(foodName,expiringDate);
+        final FoodEntry foodEntry = new FoodEntry(0,foodName,expiringDate);
 
         // ----------------------------------------
         // Update db using executor

@@ -1,8 +1,10 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
     // Holds food entries data
     private List<FoodEntry> foodEntries ;
     private Context         thisContext;
+
 
     // Date formatter
     private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
@@ -104,6 +107,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
         holder.foodName_tv.setText(foodName);
         holder.expiringDate_tv.setText(expiringAt);
 
+
     }
 
 
@@ -113,6 +117,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             return 0;
         }
         return foodEntries.size();
+
+
     }
 
 
@@ -162,6 +168,18 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             deleteFoodItem_imgBtn = itemView.findViewById(R.id.delete_ImgBtn);
             foodConsumed_cb       = itemView.findViewById(R.id.consumed_cb);
 
+            // set correct row layout based on food list type
+            if (FoodListActivity.FOODLIST_TYPE.equals(FoodListActivity.FOOD_EXPIRING)) {
+                foodConsumed_cb.setVisibility(View.VISIBLE);
+
+            } else if (FoodListActivity.FOODLIST_TYPE.equals(FoodListActivity.FOOD_SAVED)) {
+                foodConsumed_cb.setVisibility(View.INVISIBLE);
+
+            } else if (FoodListActivity.FOODLIST_TYPE.equals(FoodListActivity.FOOD_DEAD)) {
+                foodConsumed_cb.setVisibility(View.VISIBLE);
+
+            }
+
             // row click listener
             itemView.setOnClickListener(this);
 
@@ -178,12 +196,12 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
         public void onClick(View view) {
             int elementId = foodEntries.get(getAdapterPosition()).getId();
 
+            //----------------------------
+            // delete button pressed
+            //----------------------------
             if( view.getId() == deleteFoodItem_imgBtn.getId()){
+                // get item at position
                 final FoodEntry foodItemToDelete = getFoodItemAtPosition(this.getAdapterPosition());
-                Toast.makeText(thisContext, "Delete Btn Click: " + elementId +
-                        " food id : " + foodItemToDelete.getId() +
-                        " food id : " + foodItemToDelete.getName()
-                        , Toast.LENGTH_SHORT).show();
 
                 // delete food item in db
                 AppExecutors.getInstance().diskIO().execute(new Runnable() {
@@ -193,11 +211,57 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
                     }
                 });
 
-            } else if( view.getId() == foodConsumed_cb.getId()){
-                Toast.makeText(thisContext, "Check box Clicked " + elementId, Toast.LENGTH_SHORT).show();
+                // remove object from recycle view list
+                foodEntries.remove(foodItemToDelete);
 
+                // notify changes to recycleview
+                swapItems(foodEntries);
+
+                // toast notification
+                Toast.makeText(thisContext,
+                        " Food  " + foodItemToDelete.getName() + " has been deleted.",
+                        Toast.LENGTH_SHORT).show();
+
+            // ---------------------------------
+            // consumed food check box pressed
+            // ---------------------------------
+            } else if( view.getId() == foodConsumed_cb.getId()){
+                // get item at position
+                final FoodEntry foodItemConsumed = getFoodItemAtPosition(this.getAdapterPosition());
+
+                // update check boxed food item done field in db to 1 = consumed
+                AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        foodDb.foodDbDao().updateDoneField(1,foodItemConsumed.getId());
+                    }
+                });
+
+                // remove object from recycle view list
+                foodEntries.remove(foodItemConsumed);
+
+                // notify changes to recycleview
+                swapItems(foodEntries);
+
+                Toast.makeText(thisContext,
+                        "The food " + foodItemConsumed.getName() +
+                        " has been consumed. Moved in Saved Food list!",
+                        Toast.LENGTH_SHORT).show();
+
+                // uncheck the check box because it will be on the next item after refresh
+                foodConsumed_cb.setChecked(false);
+
+
+            //----------------------------
+            // row touch
+            //----------------------------
             } else   {
-                Toast.makeText(thisContext, "Row Clicked " + elementId, Toast.LENGTH_SHORT).show();
+                final FoodEntry foodItemRowClicked = getFoodItemAtPosition(this.getAdapterPosition());
+                Toast.makeText(thisContext, "Row Clicked: " + elementId     +
+                                " food id : "     + foodItemRowClicked.getId()   +
+                                " food done : "   + foodItemRowClicked.getDone() +
+                                " food name : "   + foodItemRowClicked.getName()
+                        , Toast.LENGTH_SHORT).show();
             }
 
             foodItemClickListener.onItemClickListener(elementId);
@@ -222,5 +286,20 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
     public List<FoodEntry> getFoodEntries(){
         return foodEntries;
     }
+
+
+    /**
+     * ----------------------------------------------------------------------------------
+     * Used to refresh recycleView in case oitem modifications
+     * ----------------------------------------------------------------------------------
+     */
+    public void swapItems(List<FoodEntry> newFoodList){
+        this.foodEntries = newFoodList;
+        notifyDataSetChanged();
+    }
+
+
+
+
 
 }

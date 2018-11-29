@@ -1,7 +1,6 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,10 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -24,14 +19,6 @@ import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
-
-
-
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
 
@@ -78,7 +65,7 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
     public static final String FOOD_DEAD     = "DeadFood";
 
     // Hold the type of food to show in list
-    String foodType;
+    public static String FOODLIST_TYPE;
 
 
 
@@ -96,8 +83,13 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         // Db instance
         foodDb = FoodDatabase.getsDbInstance(getApplicationContext());
 
-        // DEBUG : TODO :delete
-        // foodDb.foodDbDao().dropTable();
+        // TODO : use this in another way
+        // get intent extra for configuring list type
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra(FOOD_TYPE)) {
+            FOODLIST_TYPE = intent.getStringExtra(FOOD_TYPE);
+            Log.d(TAG, "onCreate: FOOD_TYPE : " + FOODLIST_TYPE.toString());
+        }
 
         // init toolbar
         toolBarInit();
@@ -105,32 +97,6 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         // init recycle view list
         // TODO : accepts a parameter for the type of list
         initRecycleView();
-
-
-        // TODO : use this in another way
-        // get intent extra for configuring list type
-        Intent intent = getIntent();
-        if (intent != null && intent.hasExtra(FOOD_TYPE)) {
-            foodType = intent.getStringExtra(FOOD_TYPE);
-            Log.d(TAG, "onCreate: FOOD_TYPE : " + foodType.toString());
-
-
-            if (foodType.equals(FOOD_EXPIRING)) {
-                foodsListToolbar.setTitle(R.string.foodExpiring_activity_title);
-                Log.d(TAG, "onCreate: FOOD_TYPE : " + R.string.foodExpiring_activity_title);
-
-            }else if (foodType.equals(FOOD_SAVED)){
-                foodsListToolbar.setTitle(R.string.foodSaved_activity_title);
-                Log.d(TAG, "onCreate: FOOD_TYPE : " + R.string.foodSaved_activity_title);
-
-            }else if (foodType.equals(FOOD_DEAD)){
-                foodsListToolbar.setTitle(R.string.foodDead_activity_title);
-                Log.d(TAG, "onCreate: FOOD_TYPE : " + R.string.foodDead_activity_title);
-
-            }
-        }
-
-
 
     }
 
@@ -156,13 +122,29 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
     /**
     * ---------------------------------------------------------------------------------------------
     * Toolbar init
-    * TODO : MAKE AN EXTERNAL UTIL FUNCTIONS
+    * TODO : check if possible to MAKE it AN EXTERNAL UTIL FUNCTIONS
     * ---------------------------------------------------------------------------------------------
     */
-    private void toolBarInit(){
+    private void toolBarInit() {
 
         // get the toolbar
         foodsListToolbar = (Toolbar) findViewById(R.id.food_list_toolbar);
+
+        // set correct title
+        if (FOODLIST_TYPE.equals(FOOD_EXPIRING)) {
+            foodsListToolbar.setTitle(R.string.foodExpiring_activity_title);
+            Log.d(TAG, "onCreate: FOOD_TYPE : " + R.string.foodExpiring_activity_title);
+
+        } else if (FOODLIST_TYPE.equals(FOOD_SAVED)) {
+            foodsListToolbar.setTitle(R.string.foodSaved_activity_title);
+            Log.d(TAG, "onCreate: FOOD_TYPE : " + R.string.foodSaved_activity_title);
+
+        } else if (FOODLIST_TYPE.equals(FOOD_DEAD)) {
+            foodsListToolbar.setTitle(R.string.foodDead_activity_title);
+            Log.d(TAG, "onCreate: FOOD_TYPE : " + R.string.foodDead_activity_title);
+
+        }
+
 
         // place toolbar in place of action bar
         setSupportActionBar(foodsListToolbar);
@@ -194,9 +176,9 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         foodListAdapter = new FoodListAdapter(this, this);
         foodList.setAdapter(foodListAdapter);
 
+        // Divider decorator
         DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
         foodList.addItemDecoration(decoration);
-
 
     }
 
@@ -212,17 +194,18 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         List<FoodEntry> foodEntries = null;
 
         // choose the type of food to load from db
-        if (foodType.equals(FOOD_EXPIRING)) {
-            Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodType);
+        if (FOODLIST_TYPE.equals(FOOD_EXPIRING)) {
+            Log.d(TAG, "setupAdapter: FOOD_TYPE : " + FOODLIST_TYPE);
             foodEntries = foodDb.foodDbDao().loadAllFoodExpiring(dateUtility.getNormalizedUtcMsForToday());
 
 
-        }else if (foodType.equals(FOOD_SAVED)){
-            Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodType);
-            foodEntries = foodDb.foodDbDao().loadAllFood();
+        }else if (FOODLIST_TYPE.equals(FOOD_SAVED)){
+            Log.d(TAG, "setupAdapter: FOOD_TYPE : " + FOODLIST_TYPE);
+            foodEntries = foodDb.foodDbDao().loadAllFoodSaved();
+            // foodEntries = foodDb.foodDbDao().loadAllFood();
 
-        }else if (foodType.equals(FOOD_DEAD)){
-            Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodType);
+        }else if (FOODLIST_TYPE.equals(FOOD_DEAD)){
+            Log.d(TAG, "setupAdapter: FOOD_TYPE : " + FOODLIST_TYPE);
             foodEntries = foodDb.foodDbDao().loadAllFoodDead(dateUtility.getNormalizedUtcMsForToday());
 
         }
