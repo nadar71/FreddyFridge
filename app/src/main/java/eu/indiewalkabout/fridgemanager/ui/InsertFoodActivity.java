@@ -1,5 +1,6 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 import java.util.Date;
@@ -19,6 +21,10 @@ import eu.indiewalkabout.fridgemanager.data.DateConverter;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
+
 
 /**
  * ---------------------------------------------------------------------------------------------
@@ -26,19 +32,21 @@ import eu.indiewalkabout.fridgemanager.data.FoodEntry;
  * Get a new food to keep monitored
  * ---------------------------------------------------------------------------------------------
  */
-public class InsertFoodActivity extends AppCompatActivity {
+public class InsertFoodActivity extends AppCompatActivity implements CalendarView.OnDateChangeListener {
 
     private final static String TAG = InsertFoodActivity.class.getSimpleName();
 
     // Views ref
-    Button       save_btn;
-    EditText     foodName_et;
-    CalendarView dateExpir_cv;
-    Toolbar      foodInsertToolbar;
+    private Button       save_btn;
+    private EditText     foodName_et;
+    private CalendarView dateExpir_cv;
+    private Toolbar      foodInsertToolbar;
 
     // Db reference
-    FoodDatabase foodDb;
+    private FoodDatabase foodDb;
 
+    // Date picked up reference
+    private Calendar datePicked;
     /**
     * ---------------------------------------------------------------------------------------------
     * onCreate
@@ -74,6 +82,7 @@ public class InsertFoodActivity extends AppCompatActivity {
         save_btn     = findViewById(R.id.save_btn);
         foodName_et  = findViewById(R.id.foodName_et);
         dateExpir_cv = findViewById(R.id.calendar_cv);
+        dateExpir_cv.setOnDateChangeListener(this);
 
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +116,20 @@ public class InsertFoodActivity extends AppCompatActivity {
 
 
     /**
+     * Get the date picked up by the user from calendar
+     * @param view
+     * @param year
+     * @param month
+     * @param dayOfMonth
+     */
+    @Override
+    public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+        Log.d(TAG, "onSelectedDayChange: done");
+        datePicked = new GregorianCalendar(year, month, dayOfMonth);
+    }
+
+
+    /**
     * ---------------------------------------------------------------------------------------------
     * Save/Update Button
     * ---------------------------------------------------------------------------------------------
@@ -114,13 +137,15 @@ public class InsertFoodActivity extends AppCompatActivity {
     public void onSaveBtnClicked(){
         Log.d(TAG, "onSaveBtnClicked");
         String foodName     = foodName_et.getText().toString();
-        Long   expiringDateL = dateExpir_cv.getDate();
+        //Long   expiringDateL = dateExpir_cv.getDate();
         // convert for FoodEntry constructor
-        Date   expiringDate  = DateConverter.toDate(expiringDateL);
+        // Date   expiringDate  = DateConverter.toDate(expiringDateL);
+        Date   expiringDate  = datePicked.getTime();
 
 
-        Log.d(TAG, "foodName : " + foodName);
-        Log.d(TAG, "expiringDate : " + expiringDate);
+        Log.d(TAG, "foodName : "             + foodName);
+        Log.d(TAG, "expiringDate : "         + expiringDate);
+        Log.d(TAG, "datePicked.getTime() : " + datePicked.getTime());
 
 
         // create a new food obj and init with data inserted by user

@@ -8,7 +8,10 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import java.util.List;
+import java.util.Date;
 
+
+// using strftime('%s','now')*1000 or date('now') ?!?
 
 @Dao
 public interface FoodDbDao {
@@ -16,14 +19,20 @@ public interface FoodDbDao {
     @Query("SELECT * FROM FOODLIST ORDER BY EXPIRING_AT")
     List<FoodEntry> loadAllFood();
 
-    @Query("SELECT * FROM FOODLIST ORDER BY EXPIRING_AT")  // TODO : set < data
-    List<FoodEntry> loadAllFoodExpiring();
 
-    @Query("SELECT * FROM FOODLIST ORDER BY EXPIRING_AT")  // TODO : set > data
-    List<FoodEntry> loadAllFoodDead();
 
-    @Query("SELECT * FROM FOODLIST ORDER BY EXPIRING_AT")  // TODO : set < data or consumed flag true
+    @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT >= :date ORDER BY EXPIRING_AT")
+    List<FoodEntry> loadAllFoodExpiring(Long date);
+
+    @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT < :date ORDER BY EXPIRING_AT")
+    List<FoodEntry> loadAllFoodDead(Long date);
+
+
+    @Query("SELECT * FROM FOODLIST ORDER BY EXPIRING_AT")  // TODO : where consumed flag true
     List<FoodEntry> loadAllFoodSaved();
+
+    @Query("SELECT date('now')*1000")  // TODO : where consumed flag true
+    String showCurrentDate();
 
     @Insert
     void insertFoodEntry(FoodEntry foodEntry);
@@ -33,4 +42,8 @@ public interface FoodDbDao {
 
     @Delete
     void deleteFoodEntry(FoodEntry foodEntry);
+
+    // drop table
+    @Query("DELETE FROM FOODLIST")
+    public void dropTable();
 }

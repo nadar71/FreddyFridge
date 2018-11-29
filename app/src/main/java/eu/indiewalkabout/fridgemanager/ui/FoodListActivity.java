@@ -11,6 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -19,6 +23,18 @@ import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
+
+
+
+
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
+
+import eu.indiewalkabout.fridgemanager.util.DateUtility;
+
 
 
 /**
@@ -32,19 +48,26 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
     public static final String TAG = FoodListActivity.class.getSimpleName();
 
     // Views ref
-    Toolbar         foodsListToolbar;
-    RecyclerView    foodList;
-    FoodListAdapter foodListAdapter;
+    private Toolbar         foodsListToolbar;
+    private RecyclerView    foodList;
+    private FoodListAdapter foodListAdapter;
+
 
     // Hold food entries data
     private List<FoodEntry> foodEntries ;
 
-    // Db reference
-    FoodDatabase foodDb;
+    // Date utility class instance
+    DateUtility dateUtility;
 
+
+    // Db reference
+    private FoodDatabase foodDb;
+
+    // Key constant to use as key for intent extra
     // get the type of list to show from intent content extra
     public static final String FOOD_TYPE     = "food_type";
 
+    // Values to use for passing intent extras in key/value pair
     // expiring food flag
     public static final String FOOD_EXPIRING = "ExpiringFood";
 
@@ -53,6 +76,10 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
 
     // dead food flag
     public static final String FOOD_DEAD     = "DeadFood";
+
+    // Hold the type of food to show in list
+    String foodType;
+
 
 
     /**
@@ -69,16 +96,24 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         // Db instance
         foodDb = FoodDatabase.getsDbInstance(getApplicationContext());
 
+        // DEBUG : TODO :delete
+        // foodDb.foodDbDao().dropTable();
+
         // init toolbar
         toolBarInit();
+
+        // init recycle view list
+        // TODO : accepts a parameter for the type of list
+        initRecycleView();
 
 
         // TODO : use this in another way
         // get intent extra for configuring list type
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(FOOD_TYPE)) {
-            String foodType = intent.getStringExtra(FOOD_TYPE);
-            Log.d(TAG, "onCreate: FOOD_TYPE : " + foodType);
+            foodType = intent.getStringExtra(FOOD_TYPE);
+            Log.d(TAG, "onCreate: FOOD_TYPE : " + foodType.toString());
+
 
             if (foodType.equals(FOOD_EXPIRING)) {
                 foodsListToolbar.setTitle(R.string.foodExpiring_activity_title);
@@ -95,10 +130,8 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
             }
         }
 
-        // init recycle view list
-        // TODO : accepts a parameter for the type of list
-        initRecycleView();
-        
+
+
     }
 
 
@@ -117,7 +150,6 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
     @Override
     public void onItemClickListener(int itemId) {
         Log.d(TAG, "onItemClickListener: Item" + itemId + "touched.");
-
     }
 
 
@@ -139,6 +171,7 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         ActionBar actionBar = getSupportActionBar();
 
         actionBar.setDisplayHomeAsUpEnabled(true);
+
     }
 
     /**
@@ -163,6 +196,8 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
 
         DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
         foodList.addItemDecoration(decoration);
+
+
     }
 
 
@@ -173,8 +208,26 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
      * ---------------------------------------------------------------------------------------------
      */
     private void setupAdapter() {
-        // get all items from db
-        List<FoodEntry> foodEntries = foodDb.foodDbDao().loadAllFood();
+
+        List<FoodEntry> foodEntries = null;
+
+        // choose the type of food to load from db
+        if (foodType.equals(FOOD_EXPIRING)) {
+            Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodType);
+            foodEntries = foodDb.foodDbDao().loadAllFoodExpiring(dateUtility.getNormalizedUtcMsForToday());
+
+
+        }else if (foodType.equals(FOOD_SAVED)){
+            Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodType);
+            foodEntries = foodDb.foodDbDao().loadAllFood();
+
+        }else if (foodType.equals(FOOD_DEAD)){
+            Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodType);
+            foodEntries = foodDb.foodDbDao().loadAllFoodDead(dateUtility.getNormalizedUtcMsForToday());
+
+        }
+
+
         foodListAdapter.setFoodEntries(foodEntries);
 
         // TODO : add viewmodel/livedata here
@@ -199,4 +252,17 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * EXPERIMENT
+     * ---------------------------------------------------------------------------------------------
+     */
+
+    /*
+    public  void onClickBtnDelete(View v) {
+        Toast.makeText(this, "Delete Button pressed", Toast.LENGTH_SHORT).show();
+    }
+    */
 }

@@ -36,7 +36,6 @@
         </activity>
 
         <!-- unused, for debug only  -->
-        <activity android:name=".ui.NewDeadlineFormActivity" />
     </application>
 
 </manifest>

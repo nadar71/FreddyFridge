@@ -6,7 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +19,7 @@ import java.util.Locale;
 
 
 import eu.indiewalkabout.fridgemanager.R;
+import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 
 import java.util.Date;
@@ -36,6 +40,10 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
     // Date formatter
     private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
+    // TODO : move onClick management to MainActivity
+    // Db ref
+    FoodDatabase foodDb;
+
 
     /**
      * ----------------------------------------------------------------------------------
@@ -55,6 +63,10 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
         foodEntries.add(new FoodEntry("meat 2",new GregorianCalendar(2018, Calendar.DECEMBER, 2).getTime())  );
         foodEntries.add(new FoodEntry("vegetables",new GregorianCalendar(2018, Calendar.DECEMBER, 20).getTime())  );
         */
+
+        // TODO : move onClick management to MainActivity
+        foodDb = FoodDatabase.getsDbInstance(thisContext);
+
     }
 
     /**
@@ -134,8 +146,10 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
     class FoodViewRowHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // Class variables for the task description and priority TextViews
-        TextView foodName_tv;
-        TextView expiringDate_tv;
+        TextView    foodName_tv;
+        TextView    expiringDate_tv;
+        ImageButton deleteFoodItem_imgBtn;
+        CheckBox    foodConsumed_cb;
 
 
         // FoodViewRowHolder Constructor
@@ -143,14 +157,49 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
         public FoodViewRowHolder(View itemView) {
             super(itemView);
 
-            foodName_tv     = itemView.findViewById(R.id.foodName_tv);
-            expiringDate_tv = itemView.findViewById(R.id.expirationDate_tv);
+            foodName_tv           = itemView.findViewById(R.id.foodName_tv);
+            expiringDate_tv       = itemView.findViewById(R.id.expirationDate_tv);
+            deleteFoodItem_imgBtn = itemView.findViewById(R.id.delete_ImgBtn);
+            foodConsumed_cb       = itemView.findViewById(R.id.consumed_cb);
+
+            // row click listener
             itemView.setOnClickListener(this);
+
+            // delete imgBtn click listener
+            deleteFoodItem_imgBtn.setOnClickListener(this);
+
+            // check box click listener
+            foodConsumed_cb.setOnClickListener(this);
         }
 
+
+        // TODO : implements onClick in MainActivity  with implements FoodListAdapter.onClick or something similar
         @Override
         public void onClick(View view) {
             int elementId = foodEntries.get(getAdapterPosition()).getId();
+
+            if( view.getId() == deleteFoodItem_imgBtn.getId()){
+                final FoodEntry foodItemToDelete = getFoodItemAtPosition(this.getAdapterPosition());
+                Toast.makeText(thisContext, "Delete Btn Click: " + elementId +
+                        " food id : " + foodItemToDelete.getId() +
+                        " food id : " + foodItemToDelete.getName()
+                        , Toast.LENGTH_SHORT).show();
+
+                // delete food item in db
+                AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        foodDb.foodDbDao().deleteFoodEntry(foodItemToDelete);
+                    }
+                });
+
+            } else if( view.getId() == foodConsumed_cb.getId()){
+                Toast.makeText(thisContext, "Check box Clicked " + elementId, Toast.LENGTH_SHORT).show();
+
+            } else   {
+                Toast.makeText(thisContext, "Row Clicked " + elementId, Toast.LENGTH_SHORT).show();
+            }
+
             foodItemClickListener.onItemClickListener(elementId);
         }
     }
@@ -161,7 +210,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
      * Return an food item in list at defined position
      * ----------------------------------------------------------------------------------
      */
-    public FoodEntry getTaskAtPosition(int position){
+    public FoodEntry getFoodItemAtPosition(int position){
         return foodEntries.get(position);
     }
 
