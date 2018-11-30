@@ -45,7 +45,7 @@
         android:ems="10"
         android:hint="@string/food_name_hint"
         android:inputType="textPersonName"
-        android:text="@string/name_placeholder"
+        android:text=""
         app:layout_constraintEnd_toEndOf="@+id/name_tv"
         app:layout_constraintStart_toStartOf="@+id/name_tv"
         app:layout_constraintTop_toBottomOf="@+id/name_tv"

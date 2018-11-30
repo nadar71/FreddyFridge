@@ -1,5 +1,6 @@
 package eu.indiewalkabout.fridgemanager.data;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -33,6 +34,9 @@ public interface FoodDbDao {
     @Query("SELECT * FROM FOODLIST WHERE done == 1 ORDER BY EXPIRING_AT")
     List<FoodEntry> loadAllFoodSaved();
 
+    @Query("SELECT * FROM FOODLIST WHERE id = :id" )
+    FoodEntry loadFoodById(int id);
+
     /*
     @Query("SELECT date('now')*1000")
     String showCurrentDate();
@@ -44,13 +48,15 @@ public interface FoodDbDao {
     @Insert
     void insertFoodEntry(FoodEntry foodEntry);
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateFoodEntry(FoodEntry foodEntry);
 
 
     //----------------------------------------------------------------------------------------------
     //  UPDATE
     //----------------------------------------------------------------------------------------------
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void updateFoodEntry(FoodEntry foodEntry);
+
     @Query("UPDATE FOODLIST SET done=:done WHERE id = :id")
     void updateDoneField(int done, int id);
 

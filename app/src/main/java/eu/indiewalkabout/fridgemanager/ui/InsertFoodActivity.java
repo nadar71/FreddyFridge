@@ -1,6 +1,8 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +38,19 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
 
     private final static String TAG = InsertFoodActivity.class.getSimpleName();
 
+    // flag for open activity in udate mode
+    // public static final String UPDATEMODE = "update_mode";
+
+    // key for id item to be changed for extra content when activity invoked in update mode
+    public static final String  ID_TO_BE_UPDATED = "id";
+
+    // Extra for the food item ID to be received after device rotation
+    public static final String INSTANCE_ID = "instanceFoodId";
+
+    // default value of ID_TO_BE_UPDATED as requested in getIntExtra
+    public static final int  DEFAULT_ID = -1;
+
+
     // Views ref
     private Button       save_btn;
     private EditText     foodName_et;
@@ -47,6 +62,14 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
 
     // Date picked up reference
     private Calendar datePicked;
+
+    // set the food id as default: will be changed in case of update
+    private int foodId = DEFAULT_ID;
+
+    // Object foodEntry to change in case of update
+    FoodEntry foodEntryToChange;
+
+
     /**
     * ---------------------------------------------------------------------------------------------
     * onCreate
@@ -67,6 +90,15 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
         // init toolbar
         toolBarInit();
 
+        // restore the task id after rotation, in case savedInstanceState has been created
+        // otherwise it remains DEFAULT_TASK_ID set above
+        if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_ID)) {
+            foodId = savedInstanceState.getInt(INSTANCE_ID, DEFAULT_ID);
+        }
+
+        // check if activity requested in update mode
+        checkUpdateModeOn();
+
     }
 
 
@@ -81,6 +113,7 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
         foodName_et  = findViewById(R.id.foodName_et);
         dateExpir_cv = findViewById(R.id.calendar_cv);
         dateExpir_cv.setOnDateChangeListener(this);
+
 
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +159,47 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
     }
 
 
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * save insert data in case of rotations
+     * @param outState
+     * ---------------------------------------------------------------------------------------------
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(INSTANCE_ID, foodId);
+        super.onSaveInstanceState(outState);
+    }
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Check if the activity has been called with update mode active
+     * ---------------------------------------------------------------------------------------------
+     */
+    public void checkUpdateModeOn(){
+        // check intent extra
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra(ID_TO_BE_UPDATED))  {
+
+            Log.d(TAG, "onCreate: Update mode ACTIVE");
+            save_btn.setText(R.string.update_btn_label);
+
+            // if id is the default one insert the new to be updated
+            if(foodId ==  DEFAULT_ID) {
+                foodId =  intent.getIntExtra(ID_TO_BE_UPDATED, DEFAULT_ID);
+                // -------------------------------
+                // TODO : use  ViewModel/LiveData
+                // -------------------------------
+                foodEntryToChange = foodDb.foodDbDao().loadFoodById(foodId);
+                populateUI(foodEntryToChange);
+            }
+
+        }
+
+
+    }
+
     /**
     * ---------------------------------------------------------------------------------------------
     * Save/Update Button
@@ -133,45 +207,114 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
     */
     public void onSaveBtnClicked(){
         Log.d(TAG, "onSaveBtnClicked");
-        String foodName     = foodName_et.getText().toString();
-        //Long   expiringDateL = dateExpir_cv.getDate();
-        // convert for FoodEntry constructor
-        // Date   expiringDate  = DateConverter.toDate(expiringDateL);
-        Date   expiringDate  = datePicked.getTime();
+        final String foodName     = foodName_et.getText().toString();
 
+        // validate entry : name
+        if ( foodName.isEmpty() ) {
+            Toast.makeText(InsertFoodActivity.this, " Choose a Name...", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        Log.d(TAG, "foodName : "             + foodName);
-        Log.d(TAG, "expiringDate : "         + expiringDate);
-        Log.d(TAG, "datePicked.getTime() : " + datePicked.getTime());
+        // validate entry : date
+        if(foodId == DEFAULT_ID  && datePicked == null) {
+            Toast.makeText(InsertFoodActivity.this, " Choose a date...", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-
-        // create a new food obj and init with data inserted by user
-        final FoodEntry foodEntry = new FoodEntry(0,foodName,expiringDate);
-
-        // ----------------------------------------
+            // ----------------------------------------
         // Update db using executor
         // ----------------------------------------
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                foodDb.foodDbDao().insertFoodEntry(foodEntry);
-                finish();
+                if(foodId == DEFAULT_ID) {     // save a new task
+                    Log.d(TAG, "run: Save new food entry");
 
-                /* TODO when update is implemented
-                if(mTaskId == DEFAULT_TASK_ID) {     // save a new task
-                    mDb.taskDao().insertTask(taskEntry);
+                    Date   expiringDate       = datePicked.getTime();
+
+                    Log.d(TAG, "foodName : "             + foodName);
+                    Log.d(TAG, "expiringDate : "         + expiringDate);
+
+                    // create a new food obj and init with data inserted by user
+                    FoodEntry foodEntry = new FoodEntry(0,foodName,expiringDate);
+
+                    // db insert
+                    foodDb.foodDbDao().insertFoodEntry(foodEntry);
+
+                    // end activity
                     finish();
+
+                    // restart it for new insertion if any
+                    startActivity(getIntent());
+
                 }else{                               // update a previous task
+                    Log.d(TAG, "run: update old food entry");
+
+                    // create a new food obj and init with data inserted by user
+                    FoodEntry foodEntry;
+
+                    // date picked in case of date change
+                    Date   expiringDate;
+
+                    // date get from food selected unchanged
+                    long   expiringDate_l;
+
+                    // get date from user selection if new
+                    // or the previous date unchanged
+                    if (datePicked != null) {
+                        expiringDate       = datePicked.getTime();
+                        foodEntry = new FoodEntry(0,foodName,expiringDate);
+                    } else {
+                        expiringDate_l = dateExpir_cv.getDate();
+                        foodEntry = new FoodEntry(0,foodName,DateConverter.toDate(expiringDate_l));
+                    }
+
                     // set id to the task to update
-                    taskEntry.setId(mTaskId);
+                    foodEntry.setId(foodId);
+
+                    // keep if the has been already consumed
+                    foodEntry.setDone(foodEntryToChange.getDone());
+
                     // update task on db
-                    mDb.taskDao().updateTask(taskEntry);
+                    foodDb.foodDbDao().updateFoodEntry(foodEntry);
+
+                    // end activity
+                    finish();
+
+
                 }
-                */
             }
+
         });
+
+        /*
+        // confirm to user
+        if(foodId == DEFAULT_ID) {
+            Toast.makeText(InsertFoodActivity.this, foodName + " Saved !", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(InsertFoodActivity.this, foodName + " Updated !", Toast.LENGTH_SHORT).show();
+        }
+        */
+
+
     }
 
+
+    /**
+     * -----------------------------------------------------------------------------
+     * Called when in update mode to re-populate UI
+     * @param foodEntry
+     * -----------------------------------------------------------------------------
+     */
+    private void populateUI(FoodEntry foodEntry) {
+        if (foodEntry == null){
+            return;
+        }
+
+        foodName_et.setText(foodEntry.getName());
+        dateExpir_cv.setDate(DateConverter.fromDate(foodEntry.getExpiringAt()));
+    }
 
 
 

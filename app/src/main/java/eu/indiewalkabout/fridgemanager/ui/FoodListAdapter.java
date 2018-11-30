@@ -1,6 +1,7 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -36,8 +37,9 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
     final private ItemClickListener foodItemClickListener;
 
     // Holds food entries data
-    private List<FoodEntry> foodEntries ;
+    private List<FoodEntry> foodEntries;
     private Context         thisContext;
+    private String          listType;
 
 
     // Date formatter
@@ -55,9 +57,10 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
      * @param listener the ItemClickListener
      * ----------------------------------------------------------------------------------
      */
-    public FoodListAdapter(Context context, ItemClickListener listener) {
+    public FoodListAdapter(Context context, ItemClickListener listener, String listType) {
         thisContext           = context;
         foodItemClickListener = listener;
+        this.listType         = listType;
 
         // DEBUG : dummy list for debug
         /*
@@ -133,10 +136,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
     public void setFoodEntries(List<FoodEntry> foodEntries) {
         this.foodEntries = foodEntries;
 
-        // ----------------------------------------------------
-        // TODO : with ViewModel/LiveData
         // data changed, refresh the view : notify the related observers
-        // notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     // ----------------------------------------------------------------------------------
@@ -169,13 +170,13 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             foodConsumed_cb       = itemView.findViewById(R.id.consumed_cb);
 
             // set correct row layout based on food list type
-            if (FoodListActivity.FOODLIST_TYPE.equals(FoodListActivity.FOOD_EXPIRING)) {
+            if (listType.equals(FoodListActivity.FOOD_EXPIRING)) {
                 foodConsumed_cb.setVisibility(View.VISIBLE);
 
-            } else if (FoodListActivity.FOODLIST_TYPE.equals(FoodListActivity.FOOD_SAVED)) {
+            } else if (listType.equals(FoodListActivity.FOOD_SAVED)) {
                 foodConsumed_cb.setVisibility(View.INVISIBLE);
 
-            } else if (FoodListActivity.FOODLIST_TYPE.equals(FoodListActivity.FOOD_DEAD)) {
+            } else if (listType.equals(FoodListActivity.FOOD_DEAD)) {
                 foodConsumed_cb.setVisibility(View.VISIBLE);
 
             }
@@ -244,8 +245,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
                 swapItems(foodEntries);
 
                 Toast.makeText(thisContext,
-                        "The food " + foodItemConsumed.getName() +
-                        " has been consumed. Moved in Saved Food list!",
+                        "Moved " + foodItemConsumed.getName() +
+                        " in Consumed Food list!",
                         Toast.LENGTH_SHORT).show();
 
                 // uncheck the check box because it will be on the next item after refresh
@@ -257,11 +258,12 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             //----------------------------
             } else   {
                 final FoodEntry foodItemRowClicked = getFoodItemAtPosition(this.getAdapterPosition());
-                Toast.makeText(thisContext, "Row Clicked: " + elementId     +
-                                " food id : "     + foodItemRowClicked.getId()   +
-                                " food done : "   + foodItemRowClicked.getDone() +
-                                " food name : "   + foodItemRowClicked.getName()
-                        , Toast.LENGTH_SHORT).show();
+
+                // go to insert activity in update mode
+                Intent openInsert = new Intent(thisContext,InsertFoodActivity.class);
+                openInsert.putExtra(InsertFoodActivity.ID_TO_BE_UPDATED,foodItemRowClicked.getId());
+                thisContext.startActivity(openInsert);
+
             }
 
             foodItemClickListener.onItemClickListener(elementId);
@@ -290,7 +292,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
 
     /**
      * ----------------------------------------------------------------------------------
-     * Used to refresh recycleView in case oitem modifications
+     * Used to refresh recycleView in case of item modifications
      * ----------------------------------------------------------------------------------
      */
     public void swapItems(List<FoodEntry> newFoodList){
