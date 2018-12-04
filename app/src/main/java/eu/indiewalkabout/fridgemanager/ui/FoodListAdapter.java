@@ -1,6 +1,7 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import 	android.app.AlertDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -158,6 +160,9 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
         ImageButton deleteFoodItem_imgBtn;
         CheckBox    foodConsumed_cb;
 
+        // alert dialog object for user confirmation
+        AlertDialog alertDialog;
+
 
         // FoodViewRowHolder Constructor
         // @param itemView view inflated in onCreateViewHolder
@@ -193,6 +198,13 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
 
 
         // TODO : implements onClick in MainActivity  with implements FoodListAdapter.onClick or something similar
+
+        /**
+         * ------------------------------------------------------------------------------------
+         * Manage click on recycle view row and the widgets inside that
+         * @param view
+         * ------------------------------------------------------------------------------------
+         */
         @Override
         public void onClick(View view) {
             int elementId = foodEntries.get(getAdapterPosition()).getId();
@@ -201,56 +213,55 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             // delete button pressed
             //----------------------------
             if( view.getId() == deleteFoodItem_imgBtn.getId()){
-                // get item at position
-                final FoodEntry foodItemToDelete = getFoodItemAtPosition(this.getAdapterPosition());
 
-                // delete food item in db
-                AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        foodDb.foodDbDao().deleteFoodEntry(foodItemToDelete);
-                    }
-                });
+                // user dialog confirm
+                alertDialog = new AlertDialog.Builder(thisContext)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Are you sure you want to DELETE ?")
+                        .setMessage("")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                deleteFoodEntry();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // do nothing
+                            }
+                        })
+                        .show();
 
-                // remove object from recycle view list
-                foodEntries.remove(foodItemToDelete);
 
-                // notify changes to recycleview
-                swapItems(foodEntries);
 
-                // toast notification
-                Toast.makeText(thisContext,
-                        " Food  " + foodItemToDelete.getName() + " has been deleted.",
-                        Toast.LENGTH_SHORT).show();
 
             // ---------------------------------
             // consumed food check box pressed
             // ---------------------------------
             } else if( view.getId() == foodConsumed_cb.getId()){
-                // get item at position
-                final FoodEntry foodItemConsumed = getFoodItemAtPosition(this.getAdapterPosition());
 
-                // update check boxed food item done field in db to 1 = consumed
-                AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        foodDb.foodDbDao().updateDoneField(1,foodItemConsumed.getId());
-                    }
-                });
+                // user dialog confirm
+                alertDialog = new AlertDialog.Builder(thisContext)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Food Consumed, are you sure ?")
+                        .setMessage("")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                moveToConsumed();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                foodConsumed_cb.setChecked(false);
+                                // notify changes to recycleview
+                                // swapItems(foodEntries);
+                            }
+                        })
+                        .show();
 
-                // remove object from recycle view list
-                foodEntries.remove(foodItemConsumed);
-
-                // notify changes to recycleview
-                swapItems(foodEntries);
-
-                Toast.makeText(thisContext,
-                        "Moved " + foodItemConsumed.getName() +
-                        " in Consumed Food list!",
-                        Toast.LENGTH_SHORT).show();
-
-                // uncheck the check box because it will be on the next item after refresh
-                foodConsumed_cb.setChecked(false);
 
 
             //----------------------------
@@ -268,7 +279,74 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
 
             foodItemClickListener.onItemClickListener(elementId);
         }
-    }
+
+
+
+        /**
+         * ------------------------------------------------------------------------------------
+         * Move food entry to consumed list
+         * ------------------------------------------------------------------------------------
+         */
+        private void moveToConsumed() {
+            // get item at position
+            final FoodEntry foodItemConsumed = getFoodItemAtPosition(this.getAdapterPosition());
+
+            // update check boxed food item done field in db to 1 = consumed
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    foodDb.foodDbDao().updateDoneField(1,foodItemConsumed.getId());
+                }
+            });
+
+            // remove object from recycle view list
+            foodEntries.remove(foodItemConsumed);
+
+            // notify changes to recycleview
+            swapItems(foodEntries);
+
+            Toast.makeText(thisContext,
+                    "Moved " + foodItemConsumed.getName() +
+                    " to Consumed Food list!",
+                    Toast.LENGTH_SHORT).show();
+
+            // uncheck the check box because it will be on the next item after refresh
+            foodConsumed_cb.setChecked(false);
+        }
+
+
+        /**
+         * ------------------------------------------------------------------------------------
+         * Delete a food entry from db and recycle view
+         * ------------------------------------------------------------------------------------
+         */
+        private void deleteFoodEntry() {
+            // get item at position
+            final FoodEntry foodItemToDelete = getFoodItemAtPosition(this.getAdapterPosition());
+
+            // delete food item in db
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    foodDb.foodDbDao().deleteFoodEntry(foodItemToDelete);
+                }
+            });
+
+            // remove object from recycle view list
+            foodEntries.remove(foodItemToDelete);
+
+            // notify changes to recycleview
+            swapItems(foodEntries);
+
+            // toast notification
+            Toast.makeText(thisContext,
+                    " Food  " + foodItemToDelete.getName() + " Deleted.",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+
+
+    } // End Inner class FoodViewHolder --------------------------------------------------------
 
 
     /**
