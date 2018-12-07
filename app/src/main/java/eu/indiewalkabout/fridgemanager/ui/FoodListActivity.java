@@ -11,6 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.List;
 
 import eu.indiewalkabout.fridgemanager.R;
@@ -39,13 +44,14 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
     private RecyclerView    foodList;
     private FoodListAdapter foodListAdapter;
 
+    // admob banner ref
+    private AdView mAdView;
 
     // Hold food entries data
     private List<FoodEntry> foodEntries ;
 
     // Date utility class instance
     private DateUtility dateUtility;
-
 
     // Db reference
     private FoodDatabase foodDb;
@@ -80,6 +86,18 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_list);
+
+        // load ad banner
+        mAdView = findViewById(R.id.adView);
+
+        // Create an ad request. Check your logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("7DC1A1E8AEAD7908E42271D4B68FB270")
+                .build();
+        mAdView.loadAd(adRequest);
 
         // Db instance
         foodDb = FoodDatabase.getsDbInstance(getApplicationContext());

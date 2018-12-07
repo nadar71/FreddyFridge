@@ -10,9 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <!-- ADMOB -->
+        <!-- Sample AdMob App ID:        ca-app-pub-3940256099942544~3347511713 -->
+        <!-- THIS APP REAL AdMob App ID: ca-app-pub-8846176967909254~3156345913 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
+
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -35,7 +43,8 @@
                 android:value=".ui.MainActivity" />
         </activity>
 
-        <!-- unused, for debug only  -->
+        <!-- unused, for debug only -->
+        <activity android:name=".ui.MainSettingsActivity"></activity>
     </application>
 
 </manifest>

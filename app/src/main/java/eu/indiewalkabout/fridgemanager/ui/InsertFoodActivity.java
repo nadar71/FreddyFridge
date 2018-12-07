@@ -2,7 +2,6 @@ package eu.indiewalkabout.fridgemanager.ui;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +15,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+
 import java.util.Date;
 
 import eu.indiewalkabout.fridgemanager.R;
@@ -25,7 +28,6 @@ import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.TimeZone;
 
 
 /**
@@ -57,6 +59,12 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
     private CalendarView dateExpir_cv;
     private Toolbar      foodInsertToolbar;
 
+    // admob banner ref
+    private AdView mAdView;
+
+    // admob banner interstitial ref
+    private InterstitialAd mInterstitialAd;
+
     // Db reference
     private FoodDatabase foodDb;
 
@@ -81,6 +89,11 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert_food);
 
+        // init
+        initAds();
+
+        showInterstitialAd();
+
         // init db instance
         foodDb = FoodDatabase.getsDbInstance(getApplicationContext());
 
@@ -99,6 +112,73 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
         // check if activity requested in update mode
         checkUpdateModeOn();
 
+    }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Init and Load admob ads
+     * ---------------------------------------------------------------------------------------------
+     */
+    private void initAds() {
+
+        // load ad banner
+        mAdView = findViewById(R.id.adView);
+
+        // Create an ad request. Check your logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("7DC1A1E8AEAD7908E42271D4B68FB270")
+                .build();
+        // load and show admob banner
+        mAdView.loadAd(adRequest);
+
+
+
+
+        // init and load admob interstitial
+        mInterstitialAd = new InterstitialAd(this);
+
+        // Sample AdMob interstitial ID:         ca-app-pub-3940256099942544/1033173712
+        // THIS APP REAL AdMob interstitial ID:  ca-app-pub-8846176967909254/5671183832
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
+        if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
+            // AdRequest adInterstitialRequest = new AdRequest.Builder().build();
+
+            AdRequest adInterstitialRequest = new AdRequest.Builder()
+                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .addTestDevice("7DC1A1E8AEAD7908E42271D4B68FB270")
+                    .build();
+
+
+
+            // load and show admob interstitial
+            mInterstitialAd.loadAd(adInterstitialRequest);
+        }
+
+
+
+    }
+
+
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Show an interstitial on ui request
+     * ---------------------------------------------------------------------------------------------
+     */
+    private void showInterstitialAd() {
+        initAds();
+
+        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            Toast.makeText(this, "Ad interstitial did not load", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -123,6 +203,7 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
         });
 
     }
+
 
 
     /**
@@ -329,6 +410,10 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
 
         // When the home button is pressed, take the user back to Home
         if (id == android.R.id.home) {
+            // show interstitial ads
+            showInterstitialAd();
+
+            // go home
             onBackPressed();
         }
 
