@@ -20,19 +20,19 @@ public interface FoodDbDao {
     //----------------------------------------------------------------------------------------------
     // retrieve ALL KIND OF FOOD  without regarding exipring date
     @Query("SELECT * FROM FOODLIST ORDER BY EXPIRING_AT")
-    List<FoodEntry> loadAllFood();
+    LiveData<List<FoodEntry>> loadAllFood();
 
     // retrieve EXPIRING FOOD
     @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT >= :date and done == 0 ORDER BY EXPIRING_AT")
-    List<FoodEntry> loadAllFoodExpiring(Long date);
+    LiveData<List<FoodEntry>> loadAllFoodExpiring(Long date);
 
     // retrieve DEAD/EXPIRED FOOD
     @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT < :date and done == 0 ORDER BY EXPIRING_AT")
-    List<FoodEntry> loadAllFoodDead(Long date);
+    LiveData<List<FoodEntry>> loadAllFoodDead(Long date);
 
     // retrieve DONE/CONSUMED FOOD
     @Query("SELECT * FROM FOODLIST WHERE done == 1 ORDER BY EXPIRING_AT")
-    List<FoodEntry> loadAllFoodSaved();
+    LiveData<List<FoodEntry>> loadAllFoodSaved();
 
     @Query("SELECT * FROM FOODLIST WHERE id = :id" )
     FoodEntry loadFoodById(int id);

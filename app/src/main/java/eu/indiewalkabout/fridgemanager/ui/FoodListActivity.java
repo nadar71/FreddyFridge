@@ -1,6 +1,9 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -214,33 +217,124 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
 
         Log.d(TAG, "setupAdapter: LOAD FOOD ENTRIES IN LIST ");
 
-        List<FoodEntry> foodEntries = null;
+        // List<FoodEntry> foodEntries = null;
 
         // choose the type of food to load from db
         if (foodlistType.equals(FOOD_EXPIRING)) {
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
-            foodEntries = foodDb.foodDbDao().loadAllFoodExpiring(dateUtility.getNormalizedUtcMsForToday());
-
+            // foodEntries = foodDb.foodDbDao().loadAllFoodExpiring(dateUtility.getNormalizedUtcMsForToday());
+            retrieveAllFoodExpiring();
 
         }else if (foodlistType.equals(FOOD_SAVED)){
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
-            foodEntries = foodDb.foodDbDao().loadAllFoodSaved();
-            // foodEntries = foodDb.foodDbDao().loadAllFood();
+            //foodEntries = foodDb.foodDbDao().loadAllFoodSaved();
+            retrieveAllSavedFood();
 
         }else if (foodlistType.equals(FOOD_DEAD)){
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
-            foodEntries = foodDb.foodDbDao().loadAllFoodDead(dateUtility.getNormalizedUtcMsForToday());
+            // foodEntries = foodDb.foodDbDao().loadAllFoodDead(dateUtility.getNormalizedUtcMsForToday());
+            retrieveAllDeadFood();
 
         }
 
 
-        foodListAdapter.setFoodEntries(foodEntries);
-
-        // TODO : add viewmodel/livedata here
         // TODO : different query for different kind of food
 
     }
 
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Livedata recovering Expiring Food list
+     * ---------------------------------------------------------------------------------------------
+     */
+    private void retrieveAllFoodExpiring() {
+        Log.d(TAG, "Actively retrieving Expiring Food from DB");
+
+        // set livedata to this query
+        LiveData<List<FoodEntry>> foods = foodDb.foodDbDao().loadAllFoodExpiring(dateUtility.getNormalizedUtcMsForToday());
+
+        // setup the observer for these data
+        //setUpObserver(foods, "Expiring Food");
+        // observe changes in data
+        foods.observe(this, new Observer<List<FoodEntry>>() {
+            @Override
+            public void onChanged(@Nullable List<FoodEntry> foodEntries) {
+                Log.d(TAG, "Receiving database "+ "Expiring Food" + " LiveData");
+                foodListAdapter.setFoodEntries(foodEntries);
+            }
+        });
+    }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Livedata recovering Saved Food list
+     * ---------------------------------------------------------------------------------------------
+     */
+    private void retrieveAllSavedFood() {
+        Log.d(TAG, "Actively retrieving Saved Food from DB");
+
+        // set livedata to this query
+        LiveData<List<FoodEntry>> foods = foodDb.foodDbDao().loadAllFoodSaved();
+
+        // setup the observer for these data
+        // setUpObserver(foods, "Saved Food");
+        // observe changes in data
+        foods.observe(this, new Observer<List<FoodEntry>>() {
+            @Override
+            public void onChanged(@Nullable List<FoodEntry> foodEntries) {
+                Log.d(TAG, "Receiving database "+ "Saved Food" + " LiveData");
+                foodListAdapter.setFoodEntries(foodEntries);
+            }
+        });
+    }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Livedata recovering Dead Food list
+     * ---------------------------------------------------------------------------------------------
+     */
+    private void retrieveAllDeadFood() {
+        Log.d(TAG, "Actively retrieving Dead Food from DB");
+
+        // set livedata to this query
+        LiveData<List<FoodEntry>> foods = foodDb.foodDbDao().loadAllFoodDead(dateUtility.getNormalizedUtcMsForToday());
+
+        // setup the observer for these data
+        // setUpObserver(foods, "Dead Food");
+        // observe changes in data
+        foods.observe(this, new Observer<List<FoodEntry>>() {
+            @Override
+            public void onChanged(@Nullable List<FoodEntry> foodEntries) {
+                Log.d(TAG, "Receiving database "+ "Dead Food" + " LiveData");
+                foodListAdapter.setFoodEntries(foodEntries);
+            }
+        });
+    }
+
+
+    /**
+     * setUpObserver : recall when LiveData target the data, to set an observer which observe on data changes
+     * @param foods
+     * @param foodTypeTag
+     */
+    private void setUpObserver(LiveData<List<FoodEntry>> foods, String foodTypeTag){
+
+        // convert to static to use in inner class
+        final String foodTag = foodTypeTag;
+
+        // observe changes in data
+        foods.observe(this, new Observer<List<FoodEntry>>() {
+            @Override
+            public void onChanged(@Nullable List<FoodEntry> foodEntries) {
+                Log.d(TAG, "Receiving database "+ foodTag + " LiveData");
+                foodListAdapter.setFoodEntries(foodEntries);
+            }
+        });
+
+    }
 
     /**
     * ---------------------------------------------------------------------------------------------

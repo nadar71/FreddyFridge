@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
+    buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "eu.indiewalkabout.fridgemanager"
         minSdkVersion 15
@@ -27,6 +28,10 @@ dependencies {
     // Room dependencies
     implementation "android.arch.persistence.room:runtime:1.1.1"
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+
+    // LiveData dependencies
+    implementation "android.arch.lifecycle:extensions:1.1.0"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
 
     // Firebase
     implementation 'com.google.firebase:firebase-ads:17.1.1'

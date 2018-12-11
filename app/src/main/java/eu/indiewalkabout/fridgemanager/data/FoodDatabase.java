@@ -50,7 +50,7 @@ public abstract class FoodDatabase extends RoomDatabase {
             synchronized (LOCK){
                 Log.d(TAG, "Creating App db singleton instance...");
                 sDbInstance = Room.databaseBuilder(context.getApplicationContext(), FoodDatabase.class,FoodDatabase.DBNAME)
-                        .allowMainThreadQueries() // TODO : temporary for debugging, delete this
+                        //.allowMainThreadQueries() // TODO : temporary for debugging, delete this
                         .addMigrations(MIGRATION_1_2)
                         .build();
             }
