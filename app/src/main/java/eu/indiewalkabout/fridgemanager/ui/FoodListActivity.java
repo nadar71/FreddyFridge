@@ -119,20 +119,19 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         // init recycle view list
         // TODO : accepts a parameter for the type of list
         initRecycleView();
-
     }
 
 
     /**
-     * TODO : temporary :
-     *  now update the list everytime the activity has been resumed
-     *  after, with viewmodel/livedata, this must go into initRecycleView()
+     * with livedata, this is not no more necessary
      */
+    /*
     @Override
     protected void onResume() {
         super.onResume();
-        setupAdapter();
+        // setupAdapter();
     }
+    */
 
     // Recycle touch an item callback to update/modify task
     @Override
@@ -176,6 +175,7 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         // get a support action bar
         ActionBar actionBar = getSupportActionBar();
 
+        // up button
         actionBar.setDisplayHomeAsUpEnabled(true);
 
     }
@@ -203,6 +203,9 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         // Divider decorator
         DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
         foodList.addItemDecoration(decoration);
+
+        // Configure the adpater; it uses LiveData to keep updated
+        setupAdapter();
 
     }
 
@@ -238,8 +241,6 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         }
 
 
-        // TODO : different query for different kind of food
-
     }
 
 
@@ -255,7 +256,8 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         LiveData<List<FoodEntry>> foods = foodDb.foodDbDao().loadAllFoodExpiring(dateUtility.getNormalizedUtcMsForToday());
 
         // setup the observer for these data
-        //setUpObserver(foods, "Expiring Food");
+        setUpObserver(foods, "Expiring Food");
+        /*
         // observe changes in data
         foods.observe(this, new Observer<List<FoodEntry>>() {
             @Override
@@ -264,6 +266,7 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
                 foodListAdapter.setFoodEntries(foodEntries);
             }
         });
+        */
     }
 
 
@@ -279,8 +282,9 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         LiveData<List<FoodEntry>> foods = foodDb.foodDbDao().loadAllFoodSaved();
 
         // setup the observer for these data
-        // setUpObserver(foods, "Saved Food");
+        setUpObserver(foods, "Saved Food");
         // observe changes in data
+        /*
         foods.observe(this, new Observer<List<FoodEntry>>() {
             @Override
             public void onChanged(@Nullable List<FoodEntry> foodEntries) {
@@ -288,6 +292,7 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
                 foodListAdapter.setFoodEntries(foodEntries);
             }
         });
+        */
     }
 
 
@@ -303,7 +308,8 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         LiveData<List<FoodEntry>> foods = foodDb.foodDbDao().loadAllFoodDead(dateUtility.getNormalizedUtcMsForToday());
 
         // setup the observer for these data
-        // setUpObserver(foods, "Dead Food");
+        setUpObserver(foods, "Dead Food");
+        /*
         // observe changes in data
         foods.observe(this, new Observer<List<FoodEntry>>() {
             @Override
@@ -312,6 +318,7 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
                 foodListAdapter.setFoodEntries(foodEntries);
             }
         });
+        */
     }
 
 
