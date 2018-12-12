@@ -35,7 +35,7 @@ public interface FoodDbDao {
     LiveData<List<FoodEntry>> loadAllFoodSaved();
 
     @Query("SELECT * FROM FOODLIST WHERE id = :id" )
-    FoodEntry loadFoodById(int id);
+    LiveData<FoodEntry> loadFoodById(int id);
 
     /*
     @Query("SELECT date('now')*1000")

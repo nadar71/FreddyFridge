@@ -30,8 +30,10 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
 
     // LiveData dependencies
-    implementation "android.arch.lifecycle:extensions:1.1.0"
-    annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
+    // implementation "android.arch.lifecycle:extensions:1.1.0"
+    // annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
+    implementation 'android.arch.lifecycle:runtime:1.1.1'
+    implementation 'android.arch.lifecycle:livedata:1.1.1'
 
     // Firebase
     implementation 'com.google.firebase:firebase-ads:17.1.1'

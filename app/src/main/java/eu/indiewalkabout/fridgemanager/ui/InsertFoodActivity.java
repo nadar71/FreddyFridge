@@ -1,7 +1,10 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -75,7 +78,7 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
     private int foodId = DEFAULT_ID;
 
     // Object foodEntry to change in case of update
-    FoodEntry foodEntryToChange;
+    LiveData<FoodEntry> foodEntryToChange;
 
 
     /**
@@ -269,15 +272,26 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
             // if id is the default one insert the new to be updated
             if(foodId ==  DEFAULT_ID) {
                 foodId =  intent.getIntExtra(ID_TO_BE_UPDATED, DEFAULT_ID);
-                // -------------------------------
-                // TODO : use  ViewModel/LiveData
-                // -------------------------------
+
+                // use  LiveData to retrieve food entry attributes
                 foodEntryToChange = foodDb.foodDbDao().loadFoodById(foodId);
-                populateUI(foodEntryToChange);
+                // foodEntryToChange = foodDb.foodDbDao().loadFoodById(foodId);
+
+                // observe foodEntryToChange
+                foodEntryToChange.observe(this, new Observer<FoodEntry>() {
+                    @Override
+                    public void onChanged(@Nullable FoodEntry foodEntry) {
+
+                        // dispose observer do not need it no more
+                        foodEntryToChange.removeObserver(this);
+                        // update UI with new data from db
+                        populateUI(foodEntry);
+                    }
+                });
+
             }
 
         }
-
 
     }
 
@@ -302,7 +316,7 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
             return;
         }
 
-            // ----------------------------------------
+        // ----------------------------------------
         // Update db using executor
         // ----------------------------------------
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
@@ -354,7 +368,7 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
                     foodEntry.setId(foodId);
 
                     // keep if the has been already consumed
-                    foodEntry.setDone(foodEntryToChange.getDone());
+                    foodEntry.setDone(foodEntryToChange.getValue().getDone());
 
                     // update task on db
                     foodDb.foodDbDao().updateFoodEntry(foodEntry);
