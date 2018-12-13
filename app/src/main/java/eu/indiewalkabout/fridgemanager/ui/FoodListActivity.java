@@ -2,6 +2,7 @@ package eu.indiewalkabout.fridgemanager.ui;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -117,7 +118,6 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         toolBarInit();
 
         // init recycle view list
-        // TODO : accepts a parameter for the type of list
         initRecycleView();
     }
 
@@ -204,7 +204,7 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
         foodList.addItemDecoration(decoration);
 
-        // Configure the adpater; it uses LiveData to keep updated
+        // Configure the adpater; it uses LiveData to keep updated on changes
         setupAdapter();
 
     }
@@ -220,22 +220,18 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
 
         Log.d(TAG, "setupAdapter: LOAD FOOD ENTRIES IN LIST ");
 
-        // List<FoodEntry> foodEntries = null;
 
         // choose the type of food to load from db
         if (foodlistType.equals(FOOD_EXPIRING)) {
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
-            // foodEntries = foodDb.foodDbDao().loadAllFoodExpiring(dateUtility.getNormalizedUtcMsForToday());
             retrieveAllFoodExpiring();
 
         }else if (foodlistType.equals(FOOD_SAVED)){
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
-            //foodEntries = foodDb.foodDbDao().loadAllFoodSaved();
             retrieveAllSavedFood();
 
         }else if (foodlistType.equals(FOOD_DEAD)){
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
-            // foodEntries = foodDb.foodDbDao().loadAllFoodDead(dateUtility.getNormalizedUtcMsForToday());
             retrieveAllDeadFood();
 
         }
@@ -252,21 +248,14 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
     private void retrieveAllFoodExpiring() {
         Log.d(TAG, "Actively retrieving Expiring Food from DB");
 
+        // Set viewmodel object
+        // FoodListsViewModel foodListsViewModel = ViewModelProviders.of(this).get(FoodListsViewModel.class);
+
         // set livedata to this query
         LiveData<List<FoodEntry>> foods = foodDb.foodDbDao().loadAllFoodExpiring(dateUtility.getNormalizedUtcMsForToday());
 
         // setup the observer for these data
         setUpObserver(foods, "Expiring Food");
-        /*
-        // observe changes in data
-        foods.observe(this, new Observer<List<FoodEntry>>() {
-            @Override
-            public void onChanged(@Nullable List<FoodEntry> foodEntries) {
-                Log.d(TAG, "Receiving database "+ "Expiring Food" + " LiveData");
-                foodListAdapter.setFoodEntries(foodEntries);
-            }
-        });
-        */
     }
 
 
@@ -283,16 +272,6 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
 
         // setup the observer for these data
         setUpObserver(foods, "Saved Food");
-        // observe changes in data
-        /*
-        foods.observe(this, new Observer<List<FoodEntry>>() {
-            @Override
-            public void onChanged(@Nullable List<FoodEntry> foodEntries) {
-                Log.d(TAG, "Receiving database "+ "Saved Food" + " LiveData");
-                foodListAdapter.setFoodEntries(foodEntries);
-            }
-        });
-        */
     }
 
 
@@ -309,16 +288,6 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
 
         // setup the observer for these data
         setUpObserver(foods, "Dead Food");
-        /*
-        // observe changes in data
-        foods.observe(this, new Observer<List<FoodEntry>>() {
-            @Override
-            public void onChanged(@Nullable List<FoodEntry> foodEntries) {
-                Log.d(TAG, "Receiving database "+ "Dead Food" + " LiveData");
-                foodListAdapter.setFoodEntries(foodEntries);
-            }
-        });
-        */
     }
 
 

@@ -28,6 +28,7 @@ import eu.indiewalkabout.fridgemanager.R;
 import eu.indiewalkabout.fridgemanager.data.DateConverter;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
+import eu.indiewalkabout.fridgemanager.util.AppExecutors;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -381,17 +382,6 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
             }
 
         });
-
-        /*
-        // confirm to user
-        if(foodId == DEFAULT_ID) {
-            Toast.makeText(InsertFoodActivity.this, foodName + " Saved !", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Toast.makeText(InsertFoodActivity.this, foodName + " Updated !", Toast.LENGTH_SHORT).show();
-        }
-        */
-
 
     }
 
