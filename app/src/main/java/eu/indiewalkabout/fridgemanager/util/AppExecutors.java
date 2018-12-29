@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
  * --------------------------------------------------------------------------------
  */
 public class AppExecutors {
-    // singleton instantion
+    // singleton instantiation
     private static final Object LOCK = new Object();
     private static AppExecutors singleInstance;
     private final Executor diskIO;

@@ -13,11 +13,22 @@ public class FoodEntry {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
+
     private String name;
+
     @ColumnInfo(name = "EXPIRING_AT")
     private Date expiringAt;
+
     private int done;
 
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Create a new FoodEntry
+     * ---------------------------------------------------------------------------------------------
+     * @param done
+     * @param name
+     * @param expiringAt
+     */
     @Ignore
     public FoodEntry(int done, String name, Date expiringAt) {
         this.done       = done;
@@ -26,6 +37,16 @@ public class FoodEntry {
     }
 
 
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Create a new FoodEntry for db
+     * ---------------------------------------------------------------------------------------------
+     * @param id
+     * @param done
+     * @param name
+     * @param expiringAt
+     */
     public FoodEntry(int id, int done, String name, Date expiringAt) {
         this.id         = id;
         this.done       = done;

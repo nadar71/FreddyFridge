@@ -3,6 +3,7 @@ package eu.indiewalkabout.fridgemanager.ui;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import eu.indiewalkabout.fridgemanager.util.DateUtility;
  * ViewModel Class for retrieving all items in db, based on kind
  * -------------------------------------------------------------------------------------------------
  */
-public class FoodListsViewModel extends AndroidViewModel {
+public class FoodListsViewModel extends ViewModel {
 
     // tag for logging
     private static final String TAG = FoodListsViewModel.class.getSimpleName();
@@ -31,12 +32,11 @@ public class FoodListsViewModel extends AndroidViewModel {
     /**
      * ---------------------------------------------------------------------------------------------
      * Viewmodel class Constructor : init the attributes with dao
-     * @param application
+     * @param foodDb
+     * @param foodlistType
      * ---------------------------------------------------------------------------------------------
      */
-    public FoodListsViewModel(Application application, String foodlistType) {
-        super(application);
-        FoodDatabase foodDb = FoodDatabase.getsDbInstance(this.getApplication());
+    public FoodListsViewModel(FoodDatabase foodDb, String foodlistType) {
         Log.d(TAG, "Actively retrieving the collections from db");
 
         // choose the type of food list to load from db
