@@ -31,7 +31,8 @@ public class FoodListsViewModel extends ViewModel {
 
     /**
      * ---------------------------------------------------------------------------------------------
-     * Viewmodel class Constructor : init the attributes with dao
+     * Constructor for {@link FoodListsViewModelFactory} : init the attributes with
+     * LiveData<List<FoodEntry>>
      * @param foodDb
      * @param foodlistType
      * ---------------------------------------------------------------------------------------------
@@ -58,7 +59,7 @@ public class FoodListsViewModel extends ViewModel {
 
     /**
      * ---------------------------------------------------------------------------------------------
-     * Public method to retrieve the selected foodList through ViewModel
+     * Getter for LiveData<List<FoodEntry>> list
      * @return
      * ---------------------------------------------------------------------------------------------
      */

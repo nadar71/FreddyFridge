@@ -233,6 +233,7 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         retrieveAllFood();
         Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
 
+
     }
 
 
@@ -252,7 +253,8 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         final FoodListsViewModel  viewModel = ViewModelProviders.of(this,factory).get(FoodListsViewModel.class);
 
         // Observe changes in data through LvieData: getFoodList() actually return LiveData<List<FoodEntry>>
-        viewModel.getFoodList().observe(this, new Observer<List<FoodEntry>>() {
+        LiveData<List<FoodEntry>> foods = viewModel.getFoodList();
+        foods.observe(this, new Observer<List<FoodEntry>>() {
             @Override
             public void onChanged(@Nullable List<FoodEntry> foodEntries) {
                 Log.d(TAG, "Receiving database "+ foodlistType + " LiveData");

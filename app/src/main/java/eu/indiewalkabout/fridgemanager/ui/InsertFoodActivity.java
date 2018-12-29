@@ -2,6 +2,7 @@ package eu.indiewalkabout.fridgemanager.ui;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -274,6 +275,27 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
             if(foodId ==  DEFAULT_ID) {
                 foodId =  intent.getIntExtra(ID_TO_BE_UPDATED, DEFAULT_ID);
 
+                // factory for FoodInsertViewModel, with param foodId
+                FoodInsertViewModelFactory factory = new FoodInsertViewModelFactory(foodDb,foodId);
+
+                // Create the viewModel for the food entry, based on  foodId
+                final FoodInsertViewModel  viewModel = ViewModelProviders.of(this,factory).get(FoodInsertViewModel.class);
+
+                // Populate the text edit fields and
+                // observe changes in data through LiveData: getFoodEntry() actually return 1 LiveData<FoodEntry>
+                foodEntryToChange = viewModel.getFoodEntry();
+                foodEntryToChange.observe(this, new Observer<FoodEntry>() {
+                    @Override
+                    public void onChanged(@Nullable FoodEntry foodEntry) {
+                        // dispose observer do not need it no more
+                        foodEntryToChange.removeObserver(this);
+
+                        // update UI with new data from db
+                        populateUI(foodEntry);
+                    }
+                });
+
+                /*
                 // use  LiveData to retrieve food entry attributes
                 foodEntryToChange = foodDb.foodDbDao().loadFoodById(foodId);
                 // foodEntryToChange = foodDb.foodDbDao().loadFoodById(foodId);
@@ -289,6 +311,8 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
                         populateUI(foodEntry);
                     }
                 });
+                */
+
 
             }
 
