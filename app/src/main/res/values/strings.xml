@@ -21,6 +21,11 @@
     <!--                   String for Settings                       -->
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
+    <!-- - - - - - - - - - - - - - - - - Category titles - - - - - - - - - - - - - - - - - - - - -->
+    <string name="category_settings_title">Settings</string>
+    <string name="category_help_title">Help</string>
+
+
     <!-- Settings menu item -->
     <string name="main_settings_menu_item">  Settings</string>
 
@@ -45,5 +50,11 @@
     <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
     <string name="settings_order_by_DATE_label">                        Date</string>
     <string name="settings_order_by_DATE_value" translatable="false">   date</string>
+
+    <!-- - - - - - - - - - - - - - - - - - GDPR  - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="gdpr_btn_key">gdpr_withdraw</string>
+    <string name="gdpr_btn_title">GDPR</string>
+    <string name="gdpr_btn_summary">GDPR Consent Withdraw.</string>
+
 
 </resources>

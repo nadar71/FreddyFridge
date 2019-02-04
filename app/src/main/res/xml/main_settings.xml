@@ -1,19 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference
-        android:defaultValue=       "@string/settings_order_by_default"
-        android:entries=            "@array/settings_order_by_labels"
-        android:entryValues=        "@array/settings_order_by_values"
-        android:key=                "@string/settings_order_by_key"
-        android:title=              "@string/settings_order_by_label" />
+
+    <PreferenceCategory android:title="@string/category_settings_title">
+        <ListPreference
+            android:defaultValue="@string/settings_order_by_default"
+            android:entries="@array/settings_order_by_labels"
+            android:entryValues="@array/settings_order_by_values"
+            android:key="@string/settings_order_by_key"
+            android:title="@string/settings_order_by_label" />
 
 
-    <EditTextPreference
-        android:defaultValue=       "@string/settings_some_value_default"
-        android:inputType=          "numberDecimal"
-        android:key=                "@string/settings_some_value_key"
-        android:selectAllOnFocus=   "true"
-        android:title=              "@string/settings_some_value_label" />
+        <EditTextPreference
+            android:defaultValue="@string/settings_some_value_default"
+            android:inputType="numberDecimal"
+            android:key="@string/settings_some_value_key"
+            android:selectAllOnFocus="true"
+            android:title="@string/settings_some_value_label" />
+
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="@string/category_help_title">
+        <Preference
+            android:key="@string/gdpr_btn_key"
+            android:summary="@string/gdpr_btn_summary"
+            android:title="@string/gdpr_btn_title" />
+
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

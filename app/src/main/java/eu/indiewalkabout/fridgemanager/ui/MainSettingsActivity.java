@@ -1,31 +1,45 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdView;
+
 import eu.indiewalkabout.fridgemanager.R;
+import eu.indiewalkabout.fridgemanager.util.ConsentSDK;
 
 public class MainSettingsActivity extends AppCompatActivity {
 
 
-    public static final String LOG_TAG = MainSettingsActivity.class.getName();
+    public static final String TAG = MainSettingsActivity.class.getName();
 
-    private Toolbar      foodInsertToolbar;
+    private Toolbar foodInsertToolbar;
+
+    // admob banner ref
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_settings);
+
+        mAdView = findViewById(R.id.adView);
+
+        // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
+        mAdView.loadAd(ConsentSDK.getAdRequest(MainSettingsActivity.this));
 
         // init toolbar
         toolBarInit();
@@ -34,12 +48,18 @@ public class MainSettingsActivity extends AppCompatActivity {
 
     public static class MainPreferenceFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener{
 
+        private ConsentSDK consentSDK = null;
+
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
+
             // show and keep update the preferences
             addPreferencesFromResource(R.xml.main_settings);
+
+            // get preference Screen reference
+            PreferenceScreen preferenceScreen = getPreferenceManager().createPreferenceScreen(getActivity());
 
             // bind prefs on changes
             Preference someValue = findPreference(getString(R.string.settings_some_value_key));
@@ -47,6 +67,53 @@ public class MainSettingsActivity extends AppCompatActivity {
 
             Preference orderBy = findPreference(getString(R.string.settings_order_by_key));
             bindPreferenceSummaryToValue(orderBy);
+
+            Preference gdprConsentBtn = findPreference(getString(R.string.gdpr_btn_key));
+
+            // Initialize ConsentSDK
+            initConsentSDK(getActivity());
+
+            // Checking the status of the user
+            if(ConsentSDK.isUserLocationWithinEea(getActivity())) {
+                String choice = ConsentSDK.isConsentPersonalized(getActivity())? "Personalize": "Non-Personalize";
+                Log.i(TAG, "onCreate: consent choice : "+choice);
+
+                gdprConsentBtn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        // Check Consent SDK
+                        // Request the consent without callback
+                        // consentSDK.requestConsent(null);
+                        //To get the result of the consent
+                        consentSDK.requestConsent(new ConsentSDK.ConsentStatusCallback() {
+                            @Override
+                            public void onResult(boolean isRequestLocationInEeaOrUnknown, int isConsentPersonalized) {
+                                String choice = "";
+                                switch (isConsentPersonalized) {
+                                    case 0:
+                                        choice = "Non-Personalize";
+                                        break;
+                                    case 1:
+                                        choice = "Personalized";
+                                        break;
+                                    case -1:
+                                        choice = "Error occurred";
+                                }
+                                Log.i(TAG, "onCreate: consent choice : "+choice);
+                            }
+
+                        });
+
+                        return true;
+                    }
+                });
+
+            } else {
+                preferenceScreen.removePreference(gdprConsentBtn);;
+            }
+
+
+
         }
 
 
@@ -86,6 +153,24 @@ public class MainSettingsActivity extends AppCompatActivity {
 
             }
             return true;
+        }
+
+
+
+        /**
+         * -----------------------------------------------------------------------------------------
+         * Initialize consent
+         * @param context
+         * -----------------------------------------------------------------------------------------
+         */
+        private void initConsentSDK(Context context) {
+            // Initialize ConsentSDK
+            consentSDK = new ConsentSDK.Builder(context)
+                    .addTestDeviceId("7DC1A1E8AEAD7908E42271D4B68FB270") // Add your test device id "Remove addTestDeviceId on production!"
+                    .addCustomLogTag("gdpr_TAG") // Add custom tag default: ID_LOG
+                    .addPrivacyPolicy("http://www.indie-walkabout.eu/privacy-policy-app") // Add your privacy policy url
+                    .addPublisherId("pub-8846176967909254") // Add your admob publisher id
+                    .build();
         }
     }
 

@@ -22,6 +22,7 @@ import com.hitomi.cmlibrary.OnMenuStatusChangeListener;
 
 import eu.indiewalkabout.fridgemanager.R;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
+import eu.indiewalkabout.fridgemanager.util.ConsentSDK;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -40,6 +41,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        // Initialize ConsentSDK
+        ConsentSDK consentSDK = new ConsentSDK.Builder(this)
+                .addTestDeviceId("7DC1A1E8AEAD7908E42271D4B68FB270") // redminote 5 // Add your test device id "Remove addTestDeviceId on production!"
+                // .addTestDeviceId("9978A5F791A259430A0156313ED9C6A2")
+                .addCustomLogTag("gdpr_TAG") // Add custom tag default: ID_LOG
+                .addPrivacyPolicy("http://www.indie-walkabout.eu/privacy-policy-app") // Add your privacy policy url
+                .addPublisherId("pub-8846176967909254") // Add your admob publisher id
+                .build();
+
+
+        // To check the consent and load ads
+        consentSDK.checkConsent(new ConsentSDK.ConsentCallback() {
+            @Override
+            public void onResult(boolean isRequestLocationInEeaOrUnknown) {
+                Log.i("gdpr_TAG", "onResult: isRequestLocationInEeaOrUnknown : "+isRequestLocationInEeaOrUnknown);
+                // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
+                mAdView.loadAd(ConsentSDK.getAdRequest(MainActivity.this));
+            }
+        });
+
+
         temporarySettingsBtn = findViewById(R.id.settingsBtn);
         temporarySettingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,24 +71,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // -----------------------------------------------------------------------------------------
-        // Init admob
-        // Sample AdMob banner ID:         ca-app-pub-3940256099942544~3347511713
-        // THIS APP REAL AdMob banner ID:  ca-app-pub-8846176967909254~3156345913
-        // -----------------------------------------------------------------------------------------
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
-
-        // load ads banner
         mAdView = findViewById(R.id.adView);
 
-        // Create an ad request. Check your logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("7DC1A1E8AEAD7908E42271D4B68FB270")
-                .build();
-        mAdView.loadAd(adRequest);
+        // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
+        mAdView.loadAd(ConsentSDK.getAdRequest(MainActivity.this));
 
 
 

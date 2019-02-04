@@ -37,8 +37,11 @@ dependencies {
     // implementation "android.arch.lifecycle:viewmodel:1.1.1"
     implementation "android.arch.lifecycle:extensions:1.1.1"
 
-    // Firebase
-    implementation 'com.google.firebase:firebase-ads:17.1.1'
+    //  Ads through Firebase
+    // implementation 'com.google.firebase:firebase-ads:17.1.1'
+
+    // Ads through  Playservices : it gives me problem....
+    implementation 'com.google.android.gms:play-services-ads:15.0.1'
 
     // GDPR
     implementation 'com.google.android.ads.consent:consent-library:1.0.6'

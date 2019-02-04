@@ -29,6 +29,7 @@ import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
 
+import eu.indiewalkabout.fridgemanager.util.ConsentSDK;
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
 
 
@@ -91,17 +92,10 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_list);
 
-        // load ad banner
         mAdView = findViewById(R.id.adView);
 
-        // Create an ad request. Check your logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("7DC1A1E8AEAD7908E42271D4B68FB270")
-                .build();
-        mAdView.loadAd(adRequest);
+        // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
+        mAdView.loadAd(ConsentSDK.getAdRequest(FoodListActivity.this));
 
         // Db instance
         foodDb = FoodDatabase.getsDbInstance(getApplicationContext());
