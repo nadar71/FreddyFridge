@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+    <!-- ADMOB APP ID -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- Sample AdMob app ID:         ca-app-pub-3940256099942544~3347511713 - - - - - - - - - - -->
+    <!-- THIS APP REAL AdMob app ID:   - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="admob_key_app_id" templateMergeStrategy="preserve" translatable="false">
+        ca-app-pub-3940256099942544~3347511713</string>
+
+
+    <!-- ADMOB BOTTOM BANNER ID -->
+    <!-- Sample AdMob banner ID       : ca-app-pub-3940256099942544/6300978111 -->
+    <!-- THIS APP REAL AdMob banner ID:  -->
+
+    <string name="admob_key_bottom_banner" templateMergeStrategy="preserve" translatable="false">
+        ca-app-pub-3940256099942544/6300978111</string>
+
+
+</resources>
