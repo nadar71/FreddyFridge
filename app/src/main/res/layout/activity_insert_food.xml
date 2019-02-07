@@ -35,7 +35,7 @@
         app:layout_constraintStart_toStartOf="@+id/insert_food_toolbar"
         app:layout_constraintTop_toBottomOf="@+id/insert_food_toolbar" />
 
-    <EditText
+    <eu.indiewalkabout.fridgemanager.util.EditTextWithClear
         android:id="@+id/foodName_et"
         android:layout_width="245dp"
         android:layout_height="wrap_content"
@@ -44,12 +44,13 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/food_name_hint"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:text=""
         app:layout_constraintEnd_toEndOf="@+id/name_tv"
         app:layout_constraintStart_toStartOf="@+id/name_tv"
         app:layout_constraintTop_toBottomOf="@+id/name_tv"
-        android:importantForAutofill="no" tools:targetApi="o" />
+        tools:targetApi="o" />
 
     <TextView
         android:id="@+id/date_tv"
@@ -114,5 +115,18 @@
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
+
+    <ImageView
+        android:id="@+id/speak_btn"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/holo_green_dark"
+        app:layout_constraintBottom_toTopOf="@+id/foodName_et"
+        app:layout_constraintStart_toEndOf="@+id/foodName_et"
+        app:layout_constraintTop_toBottomOf="@+id/foodName_et"
+        app:layout_constraintVertical_bias="0.455"
+        app:srcCompat="@drawable/ic_mic_black_24dp" />
 
 </android.support.constraint.ConstraintLayout>
