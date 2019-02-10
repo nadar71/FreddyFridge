@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * Class for handling date conversions that are useful for Sunshine.
+ * Class for handling date conversions.
  */
 public final class DateUtility {
 
@@ -109,7 +109,7 @@ public final class DateUtility {
      *                          database
      * @return The local date corresponding to the given normalized UTC date
      */
-    private static long getLocalMidnightFromNormalizedUtcDate(long normalizedUtcDate) {
+    public static long getLocalMidnightFromNormalizedUtcDate(long normalizedUtcDate) {
         /* The timeZone object will provide us the current user's time zone offset */
         TimeZone timeZone = TimeZone.getDefault();
         /*

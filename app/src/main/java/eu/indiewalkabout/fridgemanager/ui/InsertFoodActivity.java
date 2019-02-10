@@ -33,7 +33,7 @@ import eu.indiewalkabout.fridgemanager.R;
 import eu.indiewalkabout.fridgemanager.data.DateConverter;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
-import eu.indiewalkabout.fridgemanager.util.AppExecutors;
+import eu.indiewalkabout.fridgemanager.sync.AppExecutors;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

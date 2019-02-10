@@ -10,13 +10,13 @@ public class DateConverter {
 
     @TypeConverter
     public static Date toDate(Long timestamp){
-        Log.d(TAG, "to Date from milllisec : " + timestamp + " is " + new Date(timestamp));
+        Log.d(TAG, "from milllisec to Date : " + timestamp + " is " + new Date(timestamp));
         return timestamp == null ? null : new Date(timestamp);
 
     }
     @TypeConverter
     public static Long fromDate(Date date){
-        Log.d(TAG, "to millisecfromepoch from date: " + date + " is " + date.getTime());
+        Log.d(TAG, "from date to millisecfromepoch: " + date + " is " + date.getTime());
         return date == null ? null : date.getTime();
 
     }

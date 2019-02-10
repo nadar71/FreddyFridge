@@ -14,11 +14,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
+
 
 import java.util.List;
 
@@ -30,7 +31,6 @@ import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
 
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK;
-import eu.indiewalkabout.fridgemanager.util.DateUtility;
 
 
 
@@ -48,32 +48,30 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
     private Toolbar         foodsListToolbar;
     private RecyclerView    foodList;
     private FoodListAdapter foodListAdapter;
+    private TextView        emptyListText;
 
     // admob banner ref
     private AdView mAdView;
-
-    // Hold food entries data
-    private List<FoodEntry> foodEntries ;
-
-    // Date utility class instance
-    private DateUtility dateUtility;
 
     // Db reference
     private FoodDatabase foodDb;
 
     // Key constant to use as key for intent extra
     // get the type of list to show from intent content extra
-    public static final String FOOD_TYPE     = "food_type";
+    public static final String FOOD_TYPE         = "food_type";
 
     // Values to use for passing intent extras in key/value pair
     // expiring food flag
-    public static final String FOOD_EXPIRING = "ExpiringFood";
+    public static final String FOOD_EXPIRING      = "ExpiringFood";
+
+    // expiring food Today flag
+    public static final String FOOD_EXPIRING_TODAY = "ExpiringFood";
 
     // saved food flag
-    public static final String FOOD_SAVED    = "SavedFood";
+    public static final String FOOD_SAVED          = "SavedFood";
 
     // dead food flag
-    public static final String FOOD_DEAD     = "DeadFood";
+    public static final String FOOD_DEAD           = "DeadFood";
 
     // Hold the type of food to show in list, use here and by adapter
     // TODO : find a better way to pass this info to adapter
@@ -97,6 +95,9 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
         mAdView.loadAd(ConsentSDK.getAdRequest(FoodListActivity.this));
 
+        // empty view for empty list message
+        emptyListText = findViewById(R.id.empty_view);
+
         // Db instance
         foodDb = FoodDatabase.getsDbInstance(getApplicationContext());
 
@@ -116,16 +117,6 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
     }
 
 
-    /**
-     * with livedata, this is not no more necessary
-     */
-    /*
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // setupAdapter();
-    }
-    */
 
     // Recycle touch an item callback to update/modify task
     @Override
@@ -191,7 +182,7 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
     */
     private void initRecycleView(){
         // Set the RecyclerView's view
-        foodList = (RecyclerView) findViewById(R.id.food_list_recycleView);
+        foodList = findViewById(R.id.food_list_recycleView);
 
         if (foodList == null) {
             Log.d(TAG, "onCreate: foodList == null ");
@@ -246,13 +237,18 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         // Create the viewModel for the food list, based on  foodlistType
         final FoodListsViewModel  viewModel = ViewModelProviders.of(this,factory).get(FoodListsViewModel.class);
 
-        // Observe changes in data through LvieData: getFoodList() actually return LiveData<List<FoodEntry>>
+        // Observe changes in data through LiveData: getFoodList() actually return LiveData<List<FoodEntry>>
         LiveData<List<FoodEntry>> foods = viewModel.getFoodList();
         foods.observe(this, new Observer<List<FoodEntry>>() {
             @Override
             public void onChanged(@Nullable List<FoodEntry> foodEntries) {
                 Log.d(TAG, "Receiving database "+ foodlistType + " LiveData");
                 foodListAdapter.setFoodEntries(foodEntries);
+                if (foodEntries.size() > 0 ) {
+                    emptyListText.setVisibility(View.INVISIBLE);
+                } else {
+                    emptyListText.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -280,15 +276,4 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
     }
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * EXPERIMENT
-     * ---------------------------------------------------------------------------------------------
-     */
-
-    /*
-    public  void onClickBtnDelete(View v) {
-        Toast.makeText(this, "Delete Button pressed", Toast.LENGTH_SHORT).show();
-    }
-    */
 }

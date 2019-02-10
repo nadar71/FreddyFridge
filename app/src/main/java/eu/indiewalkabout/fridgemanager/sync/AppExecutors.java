@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.util;
+package eu.indiewalkabout.fridgemanager.sync;
 
 import android.os.Handler;
 import android.os.Looper;

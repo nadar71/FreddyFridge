@@ -22,7 +22,7 @@ import java.util.Locale;
 import eu.indiewalkabout.fridgemanager.R;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
-import eu.indiewalkabout.fridgemanager.util.AppExecutors;
+import eu.indiewalkabout.fridgemanager.sync.AppExecutors;
 
 public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodViewRowHolder> {
 
@@ -57,14 +57,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
         thisContext           = context;
         foodItemClickListener = listener;
         this.listType         = listType;
-
-        // DEBUG : dummy list for debug
-        /*
-        foodEntries = new ArrayList<FoodEntry>();
-        foodEntries.add(new FoodEntry("meat",new GregorianCalendar(2018, Calendar.DECEMBER, 12).getTime()) );
-        foodEntries.add(new FoodEntry("meat 2",new GregorianCalendar(2018, Calendar.DECEMBER, 2).getTime())  );
-        foodEntries.add(new FoodEntry("vegetables",new GregorianCalendar(2018, Calendar.DECEMBER, 20).getTime())  );
-        */
 
         // TODO : move onClick management to MainActivity
         foodDb = FoodDatabase.getsDbInstance(thisContext);

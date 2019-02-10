@@ -1,14 +1,23 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.android.gms.ads.AdRequest;
@@ -20,26 +29,52 @@ import com.hitomi.cmlibrary.CircleMenuRectMain;
 import com.hitomi.cmlibrary.OnMenuSelectedListener;
 import com.hitomi.cmlibrary.OnMenuStatusChangeListener;
 
+import java.util.List;
+
 import eu.indiewalkabout.fridgemanager.R;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
+import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK;
+import eu.indiewalkabout.fridgemanager.util.NotificationsUtility;
+
+import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FoodListAdapter.ItemClickListener{
+
+    public static final String TAG = MainActivity.class.getSimpleName();
 
     // admob banner ref
     private AdView mAdView;
+
+    // Db reference
+    private FoodDatabase foodDb;
 
     // UI item reference
     private CircleMenu circleMenu;
     private CircleMenuRectMain circleMenuRect;
     private Button temporarySettingsBtn;
+    private TextView emptyListText;
+
+
+
+    // recycle View stuff
+    private RecyclerView    foodList;
+    private FoodListAdapter foodListAdapter;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Db instance
+        foodDb = FoodDatabase.getsDbInstance(getApplicationContext());
+
+        // empty view for empty list message
+        emptyListText = findViewById(R.id.empty_view);
 
         // Initialize ConsentSDK
         ConsentSDK consentSDK = new ConsentSDK.Builder(this)
@@ -71,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
         mAdView = findViewById(R.id.adView);
 
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
@@ -96,8 +133,6 @@ public class MainActivity extends AppCompatActivity {
                   //.addSubMenu(Color.parseColor("#8A39FF"), R.mipmap.icon_setting)
                   //.addSubMenu(Color.parseColor("#FF6A00"), R.mipmap.icon_gps)
                   .setOnMenuSelectedListener(new OnMenuSelectedListener() {
-
-
                     @Override
                     public void onMenuSelected(int index) { // btn numbered in clockwise direction from top
                         switch(index){
@@ -145,35 +180,117 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        /*
-        // variante con menu rettangolare
-        circleMenuRect = (CircleMenuRectMain) findViewById(R.id.circle_menu_rect); //
 
-        // Log.d("MainActivity", "Before circleMenu.setMainMenu");
+        // Recycle view
+        initRecycleView();
 
-        //circleMenu.setMainMenu(Color.parseColor("#CDCDCD"), R.mipmap.icon_menu, R.mipmap.icon_cancel)
-        circleMenuRect.setMainMenu(Color.parseColor("#740001"), R.drawable.ic_main_menu_icon, R.mipmap.icon_cancel)
-                .addSubMenu(Color.parseColor("#258CFF"), R.mipmap.icon_home)
-                .addSubMenu(Color.parseColor("#30A400"), R.mipmap.icon_search)
-                .addSubMenu(Color.parseColor("#FF4B32"), R.mipmap.icon_notify)
-                //.addSubMenu(Color.parseColor("#8A39FF"), R.mipmap.icon_setting)
-                //.addSubMenu(Color.parseColor("#FF6A00"), R.mipmap.icon_gps)
-                .setOnMenuSelectedListener(new OnMenuSelectedListener() {
+    }
 
-                    @Override
-                    public void onMenuSelected(int index) {}
 
-                }).setOnMenuStatusChangeListener(new OnMenuStatusChangeListener() {
+    /**
+     * *** only for debug notifications
+     * @param view
+     */
+    public void testNotification(View view) {
+        NotificationsUtility.remindExpiringFood(this);
+    }
 
+
+    /**
+     * *** only for debug notifications
+     * @param view
+     */
+    public void testTodayNotification(View view) {
+        NotificationsUtility.remindTodayExpiringFood(this);
+    }
+
+
+    // Recycle touch an item callback to update/modify task
+    @Override
+    public void onItemClickListener(int itemId) {
+        Log.d(TAG, "onItemClickListener: Item" + itemId + "touched.");
+    }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Recycle view list init
+     * ---------------------------------------------------------------------------------------------
+     */
+    private void initRecycleView(){
+        // Set the RecyclerView's view
+        foodList = findViewById(R.id.main_today_food_list_recycleView);
+
+        // Set LinearLayout
+        foodList.setLayoutManager(new LinearLayoutManager(this));
+
+        // Initialize the adapter and attach it to the RecyclerView
+        foodListAdapter = new FoodListAdapter(this, this,
+                FoodListActivity.FOOD_EXPIRING_TODAY);
+        foodList.setAdapter(foodListAdapter);
+
+        // Divider decorator
+        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
+        foodList.addItemDecoration(decoration);
+
+        // Configure the adpater; it uses LiveData to keep updated on changes
+        setupAdapter();
+
+    }
+
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Used to reload from db the tasks list and update the list view in screen
+     * ---------------------------------------------------------------------------------------------
+     */
+    private void setupAdapter() {
+        Log.d(TAG, "setupAdapter: LOAD FOOD ENTRIES IN LIST ");
+        retrieveFoodExpiringToday();
+        Log.d(TAG, "setupAdapter: FOOD_TYPE : " + FoodListActivity.FOOD_EXPIRING_TODAY);
+    }
+
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Livedata/ViewModel recovering Expiring Food list
+     * ---------------------------------------------------------------------------------------------
+     */
+    private void retrieveFoodExpiringToday() {
+        Log.d(TAG, "Actively retrieving Expiring Food from DB");
+
+        // Declare my viewModel factory, parametrized with foodlistType
+        FoodListsViewModelFactory factory =
+                new FoodListsViewModelFactory(foodDb,FoodListActivity.FOOD_EXPIRING_TODAY);
+
+        // Create the viewModel for the food list, based on  foodlistType
+        final FoodListsViewModel  viewModel = ViewModelProviders.of(this,factory).get(FoodListsViewModel.class);
+
+        // Observe changes in data through LiveData: getFoodList() actually return LiveData<List<FoodEntry>>
+        LiveData<List<FoodEntry>> foods = viewModel.getFoodList();
+        foods.observe(this, new Observer<List<FoodEntry>>() {
             @Override
-            public void onMenuOpened() {}
+            public void onChanged(@Nullable List<FoodEntry> foodEntries) {
+                Log.d(TAG, "Receiving database "+ FoodListActivity.FOOD_EXPIRING_TODAY + " LiveData");
+                // foodList.setVisibility(View.VISIBLE);
+                foodListAdapter.setFoodEntries(foodEntries);
+                if (foodEntries.size() > 0 ) {
+                    emptyListText.setVisibility(View.INVISIBLE);
+                } else {
+                    emptyListText.setVisibility(View.VISIBLE);
+                }
+            }
 
-            @Override
-            public void onMenuClosed() {}
 
         });
-        */
+
     }
+
+
+
+
 
     // ---------------------------------------------------------------------------------------------
     //                                          MENU STUFF
