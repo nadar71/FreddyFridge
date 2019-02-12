@@ -17,13 +17,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
 import com.hitomi.cmlibrary.CircleMenu;
 import com.hitomi.cmlibrary.CircleMenuRectMain;
 import com.hitomi.cmlibrary.OnMenuSelectedListener;
@@ -34,6 +30,7 @@ import java.util.List;
 import eu.indiewalkabout.fridgemanager.R;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
+import eu.indiewalkabout.fridgemanager.reminder.ReminderScheduler;
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK;
 import eu.indiewalkabout.fridgemanager.util.NotificationsUtility;
 
@@ -184,6 +181,9 @@ public class MainActivity extends AppCompatActivity implements FoodListAdapter.I
         // Recycle view
         initRecycleView();
 
+        // start scheduler for notifications reminder
+        ReminderScheduler.scheduleChargingReminder(this);
+
     }
 
 
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements FoodListAdapter.I
      * @param view
      */
     public void testNotification(View view) {
-        NotificationsUtility.remindExpiringFood(this);
+        NotificationsUtility.remindNextDaysExpiringFood(this);
     }
 
 

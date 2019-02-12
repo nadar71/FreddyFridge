@@ -22,13 +22,13 @@ import eu.indiewalkabout.fridgemanager.ui.MainActivity;
 public class NotificationsUtility {
 
     // Unique Id to Refer to notification when displayed
-    private static final int FOOD_DEADLINE_NOTIFICATION_ID  = 1000;
+    private static final int FOOD_DEADLINE_NOTIFICATION_ID         = 1000;
 
     // Reference to notification pendingitent
-    private static final int FOOD_DEADLINE_PENDING_INTENT_ID = 1100;
+    private static final int FOOD_DEADLINE_PENDING_INTENT_ID       = 1100;
 
     // Unique Id to Refer to notification when displayed
-    private static final int FOOD_TODAY_DEADLINE_NOTIFICATION_ID  = 2000;
+    private static final int FOOD_TODAY_DEADLINE_NOTIFICATION_ID   = 2000;
 
     // Reference to notification pendingitent
     private static final int FOOD_TODAY_DEADLINE_PENDING_INTENT_ID = 2100;
@@ -37,9 +37,9 @@ public class NotificationsUtility {
     private static final String FOOD_DEADLINE_NOTIFICATION_CHANNEL_ID = "food_deadline_notification_channel";
     private static final String FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID = "food_today_deadline_notification_channel";
 
-    private static final int ACTION_SHOW_PENDING_INTENT_ID   = 10;
+    private static final int ACTION_SHOW_PENDING_INTENT_ID         = 10;
     private static final int ACTION_SHOW_TODAY_PENDING_INTENT_ID   = 10;
-    private static final int ACTION_IGNORE_PENDING_INTENT_ID = 20;
+    private static final int ACTION_IGNORE_PENDING_INTENT_ID       = 20;
 
 
     /**
@@ -61,7 +61,7 @@ public class NotificationsUtility {
      * @param context
      * ---------------------------------------------------------------------------------------------
      */
-    public static void remindExpiringFood(Context context) {
+    public static void remindNextDaysExpiringFood(Context context) {
 
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -88,7 +88,7 @@ public class NotificationsUtility {
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent(context))
 
-                .addAction(showFoodExpiringAction(context))
+                .addAction(showFoodExpiringNextDaysAction(context))
                 .addAction(ignoreNotificationAction(context))
 
                 .setAutoCancel(true);
@@ -117,7 +117,7 @@ public class NotificationsUtility {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel mChannel = new NotificationChannel(
                     FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID,
-                    context.getString(R.string.nextdays_expiring_notification_channel_name),
+                    context.getString(R.string.today_expiring_notification_channel_name),
                     NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(mChannel);
         }
@@ -177,12 +177,12 @@ public class NotificationsUtility {
 
     /**
      * ---------------------------------------------------------------------------------------------
-     * Action Show list of expiring food in the nxt days opening app on expiring list activity
+     * Action Show list of expiring food in the next days opening app on expiring list activity
      * @param context
      * @return
      * ---------------------------------------------------------------------------------------------
      */
-    private static NotificationCompat.Action showFoodExpiringAction(Context context) {
+    private static NotificationCompat.Action showFoodExpiringNextDaysAction(Context context) {
         // Intent foodReminderIntent = new Intent(context, FoodReminderIntentService.class);
         // foodReminderIntent.setAction(ReminderOps.ACTION_SHOW_EXPIRING_FOOD); //TODO : check if necessary doing some action
         Intent showExpiringFoodIntent = new Intent(context, FoodListActivity.class);

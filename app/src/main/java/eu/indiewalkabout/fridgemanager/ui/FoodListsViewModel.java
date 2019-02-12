@@ -43,7 +43,6 @@ public class FoodListsViewModel extends ViewModel {
                     DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
             foodEntries = foodDb.foodDbDao().loadAllFoodExpiring(dataNormalizedAtMidnight);
 
-
         }else if (foodlistType.equals(FoodListActivity.FOOD_SAVED)){
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
             foodEntries = foodDb.foodDbDao().loadAllFoodSaved();

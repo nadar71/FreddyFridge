@@ -214,7 +214,6 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
     private void setupAdapter() {
 
         Log.d(TAG, "setupAdapter: LOAD FOOD ENTRIES IN LIST ");
-
         retrieveAllFood();
         Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
 

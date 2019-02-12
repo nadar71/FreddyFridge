@@ -62,11 +62,11 @@
     <!-- - - - - - - - - - - - - Notifications   - - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="nextdays_expiring_food_notification_title">Next days Expiring Foods : </string>
     <string name="nextdays_expiring_notification_body">Food list</string>
-    <string name="nextdays_expiring_notification_channel_name">next days notifications</string>
+    <string name="nextdays_expiring_notification_channel_name">next-days-expiring-food  notifications</string>
 
     <string name="today_expiring_food_notification_title">TODAY Expiring Foods : </string>
     <string name="today_expiring_notification_body">Food list</string>
-    <string name="today_expiring_notification_channel_name">today notifications</string>
+    <string name="today_expiring_notification_channel_name">today-expiring-food notifications</string>
 
     <string name="show_food_expiring_action_title">Show me expiring food</string>
     <string name="show_food_expiring_today_action_title">Show me TODAY expiring food</string>

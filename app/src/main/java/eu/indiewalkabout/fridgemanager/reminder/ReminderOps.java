@@ -1,27 +1,25 @@
 package eu.indiewalkabout.fridgemanager.reminder;
 
 import android.content.Context;
-import android.content.Intent;
 
-import eu.indiewalkabout.fridgemanager.ui.MainActivity;
 import eu.indiewalkabout.fridgemanager.util.NotificationsUtility;
 
 
 public class ReminderOps {
 
-    public static final String ACTION_SHOW_EXPIRING_FOOD   = "show-expiring-food";
-    public static final String ACTION_DISMISS_NOTIFICATION = "dismiss-notification";
+    public static final String ACTION_REMIND_NEXT_DAYS_EXPIRING_FOOD   = "notify-next-days-expiring-food";
+    public static final String ACTION_REMIND_TODAY_EXPIRING_FOOD       = "notify-today-expiring-food";
+    public static final String ACTION_DISMISS_NOTIFICATION             = "dismiss-notification";
 
     public static void executeTask(Context context, String action) {
         if (ACTION_DISMISS_NOTIFICATION.equals(action)) {
             NotificationsUtility.clearAllNotifications(context);
-        } else if (ACTION_SHOW_EXPIRING_FOOD.equals(action)){
-            // TODO : delete if no needed
-            /*
-            NotificationsUtility.clearAllNotifications(context);
-            Intent startActivityIntent = new Intent(context, MainActivity.class);
-            context.startActivity(startActivityIntent);
-            */
+
+        } else if (ACTION_REMIND_NEXT_DAYS_EXPIRING_FOOD.equals(action)){
+            NotificationsUtility.remindNextDaysExpiringFood(context);
+
+        } else if (ACTION_REMIND_TODAY_EXPIRING_FOOD.equals(action)){
+            NotificationsUtility.remindTodayExpiringFood(context);
         }
     }
 

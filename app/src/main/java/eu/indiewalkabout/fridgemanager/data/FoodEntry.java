@@ -5,6 +5,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 
 import java.util.Date;
 
@@ -17,6 +18,7 @@ public class FoodEntry {
     private String name;
 
     @ColumnInfo(name = "EXPIRING_AT")
+    @TypeConverters({DateConverter.class})
     private Date expiringAt;
 
     private int done;
