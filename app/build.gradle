@@ -52,8 +52,8 @@ dependencies {
     implementation 'com.google.android.ads.consent:consent-library:1.0.6'
 
     // FAB
-    implementation 'com.hlab.fabrevealmenu:fab-reveal-menu:1.0.3'
-
+    // implementation 'com.hlab.fabrevealmenu:fab-reveal-menu:1.0.3'
+    implementation project(':fabrevealmenu')
 
     // test stuff
     testImplementation 'junit:junit:4.12'
@@ -64,4 +64,6 @@ dependencies {
     // debug stuff
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
     implementation 'com.android.support:design:27.1.1'
+
+    implementation project(':fabrevealmenu')
 }
