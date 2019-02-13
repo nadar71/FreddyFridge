@@ -28,6 +28,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':fabrevealmenu')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation "com.android.support:support-core-utils:27.1.1"
@@ -52,7 +53,7 @@ dependencies {
     implementation 'com.google.android.ads.consent:consent-library:1.0.6'
 
     // FAB
-    implementation 'com.hlab.fabrevealmenu:fab-reveal-menu:1.0.3'
+    // implementation 'com.hlab.fabrevealmenu:fab-reveal-menu:1.0.3'
 
 
     // test stuff
@@ -64,4 +65,5 @@ dependencies {
     // debug stuff
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
     implementation 'com.android.support:design:27.1.1'
+
 }
