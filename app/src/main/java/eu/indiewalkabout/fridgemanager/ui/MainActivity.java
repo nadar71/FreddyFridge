@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.support.design.widget.FloatingActionButton;
+import android.widget.Toast;
 
 
 import com.google.android.gms.ads.AdView;
@@ -24,6 +26,9 @@ import com.hitomi.cmlibrary.CircleMenu;
 import com.hitomi.cmlibrary.CircleMenuRectMain;
 import com.hitomi.cmlibrary.OnMenuSelectedListener;
 import com.hitomi.cmlibrary.OnMenuStatusChangeListener;
+import com.hlab.fabrevealmenu.enums.Direction;
+import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener;
+import com.hlab.fabrevealmenu.view.FABRevealMenu;
 
 import java.util.List;
 
@@ -37,7 +42,8 @@ import eu.indiewalkabout.fridgemanager.util.NotificationsUtility;
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
 
-public class MainActivity extends AppCompatActivity implements FoodListAdapter.ItemClickListener{
+public class MainActivity extends AppCompatActivity
+        implements FoodListAdapter.ItemClickListener, OnFABMenuSelectedListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements FoodListAdapter.I
     private CircleMenuRectMain circleMenuRect;
     private Button temporarySettingsBtn;
     private TextView emptyListText;
+    private FABRevealMenu fabMenu;
 
 
 
@@ -177,6 +184,8 @@ public class MainActivity extends AppCompatActivity implements FoodListAdapter.I
 
         });
 
+        // add fab revealing menu
+        addRevealFabBtn();
 
         // Recycle view
         initRecycleView();
@@ -312,4 +321,83 @@ public class MainActivity extends AppCompatActivity implements FoodListAdapter.I
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    // ---------------------------------------------------------------------------------------------
+    //                                  REVEALING FAB BTN STUFF
+    // ---------------------------------------------------------------------------------------------
+    public void onBackPressed() {
+        if (fabMenu != null) {
+            if (fabMenu.isShowing()) {
+                fabMenu.closeMenu();
+
+            }
+        }
+    }
+
+    public FABRevealMenu getFabMenu() {
+        return fabMenu;
+    }
+
+    public void setFabMenu(FABRevealMenu fabMenu) {
+        this.fabMenu = fabMenu;
+    }
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Adding revealing fab button
+     * ---------------------------------------------------------------------------------------------
+     */
+    private void addRevealFabBtn(){
+        final FloatingActionButton fab = findViewById(R.id.fab);
+        final FABRevealMenu fabMenu = findViewById(R.id.fabMenu);
+
+        try {
+            if (fab != null && fabMenu != null) {
+                setFabMenu(fabMenu);
+
+                //attach menu to fab
+                fabMenu.bindAnchorView(fab);
+
+                //set menu selection listener
+                fabMenu.setOnFABMenuSelectedListener(this);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        fabMenu.setMenuDirection(Direction.LEFT);
+
+    }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Revealing fab button menu management
+     * ---------------------------------------------------------------------------------------------
+     */
+    @Override
+    public void onMenuItemSelected(View view, int id) {
+        if (id == R.id.menu_insert) {
+            Intent toInsertFood = new Intent(MainActivity.this, InsertFoodActivity.class);
+            startActivity(toInsertFood);
+
+        } else if (id == R.id.menu_expiring_food) {
+            Intent showExpiringFood = new Intent(MainActivity.this, FoodListActivity.class);
+            showExpiringFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_EXPIRING);
+            startActivity(showExpiringFood);
+
+        } else if (id == R.id.menu_consumed_food) {
+            Intent showSavedFood = new Intent(MainActivity.this, FoodListActivity.class);
+            showSavedFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_SAVED);
+            startActivity(showSavedFood);
+
+        } else if (id == R.id.menu_dead_food) {
+            Intent showDeadFood = new Intent(MainActivity.this, FoodListActivity.class);
+            showDeadFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_DEAD);
+            startActivity(showDeadFood);
+        }
+    }
+
+
 }

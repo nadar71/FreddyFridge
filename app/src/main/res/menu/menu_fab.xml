@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_dead_food"
+        android:icon="@drawable/ic_ghost"
+        android:title="Wasted" />
+
+    <item
+        android:id="@+id/menu_consumed_food"
+        android:icon="@drawable/ic_done_all_black_24dp"
+        android:title="Consumed" />
+
+    <item
+        android:id="@+id/menu_expiring_food"
+        android:icon="@drawable/ic_hourglass_empty_black_24dp"
+        android:title="Expiring" />
+
+    <item
+        android:id="@+id/menu_insert"
+        android:icon="@drawable/ic_add_box_white_24dp"
+        android:title="Insert" />
+
+
+</menu>

@@ -132,5 +132,40 @@
         app:layout_constraintStart_toStartOf="@+id/testNotifications_btn"
         app:layout_constraintTop_toBottomOf="@+id/testNotifications_btn" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:backgroundTint="@color/colorAccent"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintEnd_toEndOf="@+id/main_today_food_list_recycleView"
+        app:srcCompat="@drawable/ic_menu_black_24dp" />
+
+    <com.hlab.fabrevealmenu.view.FABRevealMenu
+        android:id="@+id/fabMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        app:animateItems="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menuBackgroundColor="@color/colorAccent"
+        app:menuDirection="left"
+        app:menuRes="@menu/menu_fab"
+        app:menuSize="small"
+        app:menuTitleFontFamily="@font/quicksand"
+        app:menuTitleTextColor="@color/colorWhite"
+        app:showOverlay="true"
+        app:showTitle="true" />
+
 
 </android.support.constraint.ConstraintLayout>

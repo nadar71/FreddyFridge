@@ -5,18 +5,24 @@ android {
     buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "eu.indiewalkabout.fridgemanager"
-        minSdkVersion 17
-        targetSdkVersion 27
+        minSdkVersion 21
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -31,24 +37,23 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
 
     // LiveData dependencies
-    // implementation "android.arch.lifecycle:extensions:1.1.0"
-    // annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
     implementation 'android.arch.lifecycle:runtime:1.1.1'
     implementation 'android.arch.lifecycle:livedata:1.1.1'
-    // implementation "android.arch.lifecycle:viewmodel:1.1.1"
     implementation "android.arch.lifecycle:extensions:1.1.1"
 
     // JobService
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
 
-    //  Ads through Firebase
-    // implementation 'com.google.firebase:firebase-ads:17.1.1'
 
     // Ads through  Playservices : it gives me problem....
     implementation 'com.google.android.gms:play-services-ads:15.0.1'
 
     // GDPR
     implementation 'com.google.android.ads.consent:consent-library:1.0.6'
+
+    // FAB
+    implementation 'com.hlab.fabrevealmenu:fab-reveal-menu:1.0.3'
+
 
     // test stuff
     testImplementation 'junit:junit:4.12'
@@ -58,4 +63,5 @@ dependencies {
 
     // debug stuff
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
+    implementation 'com.android.support:design:27.1.1'
 }
