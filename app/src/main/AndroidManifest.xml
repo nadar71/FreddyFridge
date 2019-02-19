@@ -17,7 +17,8 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_key_app_id" />
 
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,7 +29,8 @@
         <!-- InsertFoodActivity -->
         <activity
             android:name=".ui.InsertFoodActivity"
-            android:parentActivityName=".ui.MainActivity">
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
@@ -37,7 +39,8 @@
         <!-- FoodListActivity -->
         <activity
             android:name=".ui.FoodListActivity"
-            android:parentActivityName=".ui.MainActivity">
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
@@ -49,7 +52,8 @@
             android:exported="false"/>
 
         <!-- unused, for debug only -->
-        <activity android:name=".ui.MainSettingsActivity"></activity>
+        <activity android:name=".ui.MainSettingsActivity"
+            android:screenOrientation="portrait"></activity>
 
         <!-- JobService declaration used in FirebaseJobDispatcher -->
         <service

@@ -22,8 +22,9 @@ import android.widget.Toast;
 
 
 import com.google.android.gms.ads.AdView;
+// import com.hitomi.cmlibrary.CircleMenu;
+// import com.hitomi.cmlibrary.CircleMenuRectMain;
 import com.hitomi.cmlibrary.CircleMenu;
-import com.hitomi.cmlibrary.CircleMenuRectMain;
 import com.hitomi.cmlibrary.OnMenuSelectedListener;
 import com.hitomi.cmlibrary.OnMenuStatusChangeListener;
 import com.hlab.fabrevealmenu.enums.Direction;
@@ -54,8 +55,8 @@ public class MainActivity extends AppCompatActivity
     private FoodDatabase foodDb;
 
     // UI item reference
-    private CircleMenu circleMenu;
-    private CircleMenuRectMain circleMenuRect;
+    // private CircleMenu circleMenu;
+    // private CircleMenuRectMain circleMenuRect;
     private Button temporarySettingsBtn;
     private TextView emptyListText;
     private FABRevealMenu fabMenu;
@@ -120,10 +121,10 @@ public class MainActivity extends AppCompatActivity
 
 
         // -----------------------------------------------------------------------------------------
-        // Costum UI
+        // Costum UI : circle menu
         // -----------------------------------------------------------------------------------------
         // Log.d("MainActivity", "Before getting circleMenu from R");
-
+        /*
         circleMenu = (CircleMenu) findViewById(R.id.circle_menu); //
 
         // Log.d("MainActivity", "Before circleMenu.setMainMenu");
@@ -183,6 +184,7 @@ public class MainActivity extends AppCompatActivity
             public void onMenuClosed() {}
 
         });
+        */
 
         // add fab revealing menu
         addRevealFabBtn();

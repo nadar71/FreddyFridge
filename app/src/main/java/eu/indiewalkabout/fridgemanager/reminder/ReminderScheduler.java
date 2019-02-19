@@ -13,14 +13,16 @@ import com.firebase.jobdispatcher.Trigger;
 
 import java.util.concurrent.TimeUnit;
 
+import eu.indiewalkabout.fridgemanager.util.PreferenceUtility;
+
 public class ReminderScheduler {
 
-    /*
-     * Interval at which to remind the user to drink water. Use TimeUnit for convenience, rather
-     * than writing out a bunch of multiplication ourselves and risk making a silly mistake.
-     */
-    private static final int periodicity         = (int) (TimeUnit.MINUTES.toSeconds(3600));
-    private static final int toleranceInterval   = (int) (TimeUnit.MINUTES.toSeconds(60));
+    // Hours interval at which remind the user about food expiring
+    // private static final int periodicity         = (int) (TimeUnit.MINUTES.toSeconds(3600));
+    // private static final int toleranceInterval   = (int) (TimeUnit.MINUTES.toSeconds(60));
+    private static int periodicity         ;
+    private static int toleranceInterval   ;
+
     private static final String REMINDER_JOB_TAG = "food_reminder_tag";
 
     private static boolean sInitialized;
@@ -28,6 +30,11 @@ public class ReminderScheduler {
     synchronized public static void scheduleChargingReminder(@NonNull final Context context) {
 
         if (sInitialized) return;
+
+        // get frequency of daily reminder from preferences
+        int hoursFrequency  = PreferenceUtility.getHoursCount(context);
+        periodicity         = (int) (TimeUnit.HOURS.toSeconds(hoursFrequency));
+        toleranceInterval   = periodicity;
 
         Driver driver = new GooglePlayDriver(context);
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(driver);

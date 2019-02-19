@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
+import eu.indiewalkabout.fridgemanager.util.PreferenceUtility;
 
 public class FoodReminder_fbjob extends JobService {
     private AsyncTask bgReminderTask;
@@ -53,9 +54,11 @@ public class FoodReminder_fbjob extends JobService {
         // TODO : hardcoded for debug, next in preferences key
         // day before in millisec
         // 2 days = 172800000
-        final int DAYS_BEFORE = (int) (TimeUnit.DAYS.toSeconds(2))*1000;
+        // final int DAYS_BEFORE = (int) (TimeUnit.DAYS.toSeconds(2))*1000;
+        int days = PreferenceUtility.getDaysCount(context);
+        final int DAYS_BEFORE = (int) (TimeUnit.DAYS.toSeconds(days));
 
-        // Db reference
+                // Db reference
         FoodDatabase foodDb;
         foodDb = FoodDatabase.getsDbInstance(getApplicationContext());
 

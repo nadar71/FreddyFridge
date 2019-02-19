@@ -25,22 +25,21 @@
         android:id="@+id/name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:contentDescription="@string/insert_food_name_tv"
         android:text="@string/insert_food_name_tv"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/insert_food_toolbar"
-        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/insert_food_toolbar"
-        app:layout_constraintTop_toBottomOf="@+id/insert_food_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/calendar_cv" />
 
     <eu.indiewalkabout.fridgemanager.util.EditTextWithClear
         android:id="@+id/foodName_et"
         android:layout_width="245dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/food_name_hint"
@@ -48,6 +47,7 @@
         android:inputType="textPersonName"
         android:text=""
         app:layout_constraintEnd_toEndOf="@+id/name_tv"
+        app:layout_constraintHorizontal_bias="0.617"
         app:layout_constraintStart_toStartOf="@+id/name_tv"
         app:layout_constraintTop_toBottomOf="@+id/name_tv"
         tools:targetApi="o" />
@@ -56,13 +56,13 @@
         android:id="@+id/date_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/choose_expiring_date_label"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/foodName_et"
-        app:layout_constraintStart_toStartOf="@+id/foodName_et"
-        app:layout_constraintTop_toBottomOf="@+id/foodName_et" />
+        app:layout_constraintEnd_toEndOf="@+id/calendar_cv"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="@+id/calendar_cv"
+        app:layout_constraintTop_toBottomOf="@+id/insert_food_toolbar" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -73,30 +73,28 @@
 
     <CalendarView
         android:id="@+id/calendar_cv"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
+        android:layout_width="335dp"
+        android:layout_height="288dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_tv"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/date_tv" />
 
     <Button
         android:id="@+id/save_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="48dp"
         android:text="@string/save_btn_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/calendar_cv"
+        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="@+id/calendar_cv"
-        app:layout_constraintTop_toBottomOf="@+id/calendar_cv"
+        app:layout_constraintTop_toBottomOf="@+id/foodName_et"
         app:layout_constraintVertical_bias="0.0" />
 
 
@@ -123,6 +121,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:background="@android:color/holo_green_dark"
+        android:contentDescription="@string/speak_btn_description"
         app:layout_constraintBottom_toTopOf="@+id/foodName_et"
         app:layout_constraintStart_toEndOf="@+id/foodName_et"
         app:layout_constraintTop_toBottomOf="@+id/foodName_et"

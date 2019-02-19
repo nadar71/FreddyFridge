@@ -19,7 +19,9 @@ import android.view.MenuItem;
 import com.google.android.gms.ads.AdView;
 
 import eu.indiewalkabout.fridgemanager.R;
+import eu.indiewalkabout.fridgemanager.reminder.ReminderScheduler;
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK;
+import eu.indiewalkabout.fridgemanager.util.PreferenceUtility;
 
 public class MainSettingsActivity extends AppCompatActivity {
 
@@ -27,6 +29,8 @@ public class MainSettingsActivity extends AppCompatActivity {
     public static final String TAG = MainSettingsActivity.class.getName();
 
     private Toolbar foodInsertToolbar;
+
+    private static String dayBeforeKey,hoursFreqKey;
 
     // admob banner ref
     private AdView mAdView;
@@ -49,11 +53,14 @@ public class MainSettingsActivity extends AppCompatActivity {
     public static class MainPreferenceFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener{
 
         private ConsentSDK consentSDK = null;
+        private Context context;
 
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
+            dayBeforeKey = getString(R.string.days_before_deadline_count);
+            hoursFreqKey = getString(R.string.hours_freq_today_deadline_count);
 
             // show and keep update the preferences
             addPreferencesFromResource(R.xml.main_settings);
@@ -62,11 +69,11 @@ public class MainSettingsActivity extends AppCompatActivity {
             PreferenceScreen preferenceScreen = getPreferenceManager().createPreferenceScreen(getActivity());
 
             // bind prefs on changes
-            Preference someValue = findPreference(getString(R.string.settings_some_value_key));
-            bindPreferenceSummaryToValue(someValue);
+            Preference dayBeforePref = findPreference(dayBeforeKey);
+            bindPreferenceSummaryToValue(dayBeforePref);
 
-            Preference orderBy = findPreference(getString(R.string.settings_order_by_key));
-            bindPreferenceSummaryToValue(orderBy);
+            Preference hoursFreq     = findPreference(hoursFreqKey);
+            bindPreferenceSummaryToValue(hoursFreq);
 
             Preference gdprConsentBtn = findPreference(getString(R.string.gdpr_btn_key));
 
@@ -144,7 +151,13 @@ public class MainSettingsActivity extends AppCompatActivity {
                 int prefindex = ((ListPreference) preference).findIndexOfValue(sValue);
                 if(prefindex >= 0){
                     CharSequence[] labels = listPreference.getEntries();
-                    preference.setSummary(labels[prefindex]);
+
+                    if (preference.getKey() == hoursFreqKey ) {
+                        preference.setSummary("Notify every "+ labels[prefindex] + " hours");
+                    } else {
+                        preference.setSummary(labels[prefindex]);
+                    }
+
                 }
 
             }else{
@@ -152,6 +165,13 @@ public class MainSettingsActivity extends AppCompatActivity {
                 preference.setSummary(sValue);
 
             }
+
+            // Relaunch job scheduler in case
+            if ( (preference.getKey() == dayBeforeKey ) || (preference.getKey() == hoursFreqKey )){
+                context = getContext();
+                ReminderScheduler.scheduleChargingReminder(context);
+            }
+
             return true;
         }
 
@@ -213,4 +233,9 @@ public class MainSettingsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        int hoursFrequency  = PreferenceUtility.getHoursCount(MainSettingsActivity.this);
+    }
 }

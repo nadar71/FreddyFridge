@@ -35,23 +35,46 @@
     <string name="main_settings_title">      AlgoVisio Settings</string>
 
 
-    <!-- Strings for editing Some Value -->
-    <string name="settings_some_value_label">                           Some value : </string>
-    <string name="settings_some_value_key" translatable="false">        some_value_key</string>
-    <string name="settings_some_value_default" translatable="false">    0</string>
+    <!-- Strings for how many day before deadline notify users  -->
+    <string name="how_many_days_before_title">Days Before food-deadline notifications</string>
+    <string name="how_many_days_before_label">How many DAYS \nBEFORE food expiration date want you to be notified ?
+        (Default is 2 days before expiring date)</string>
+    <string name="days_before_deadline_count" translatable="false">days_before_deadline</string>
+    <string name="days_before_default" translatable="false">2</string>
 
-    <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
-    <string name="settings_order_by_label">                             Order By</string>
-    <string name="settings_order_by_key" translatable="false">          order_by</string>
-    <string name="settings_order_by_default" translatable="false">      @string/settings_order_by_NAME_value</string>
+    <!-- Strings for how many hours a days for today deadline notify user -->
+    <string name="how_many_hours_title">Notifications Hours frequency</string>
+    <string name="how_many_hours_label">With what HOURS FREQUENCY \n in a day want to be notified about food expiring?
+        (Default is every 6 hours)</string>
+    <string name="hours_freq_today_deadline_count" translatable="false">todays_howmany_each_hours</string>
+    <string name="today_hours_repeat_default" translatable="false">@string/settings_6_hours_value</string>
 
-    <!-- Label for order-by magnitude option [CHAR LIMIT=20] -->
-    <string name="settings_order_by_NAME_label">                        Name</string>
-    <string name="settings_order_by_NAME_value" translatable="false">   name</string>
+        <string name="settings_1_hours_label" >1</string>
+        <string name="settings_2_hours_label" >2</string>
+        <string name="settings_3_hours_label" >3</string>
+        <string name="settings_4_hours_label" >4</string>
+        <string name="settings_5_hours_label" >5</string>
+        <string name="settings_6_hours_label" >6</string>
+        <string name="settings_7_hours_label" >7</string>
+        <string name="settings_8_hours_label" >8</string>
+        <string name="settings_9_hours_label" >9</string>
+        <string name="settings_10_hours_label">10</string>
+        <string name="settings_11_hours_label">11</string>
+        <string name="settings_12_hours_label">12</string>
 
-    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
-    <string name="settings_order_by_DATE_label">                        Date</string>
-    <string name="settings_order_by_DATE_value" translatable="false">   date</string>
+
+        <string name="settings_1_hours_value"  translatable="false">1</string>
+        <string name="settings_2_hours_value"  translatable="false">2</string>
+        <string name="settings_3_hours_value"  translatable="false">3</string>
+        <string name="settings_4_hours_value"  translatable="false">4</string>
+        <string name="settings_5_hours_value"  translatable="false">5</string>
+        <string name="settings_6_hours_value"  translatable="false">6</string>
+        <string name="settings_7_hours_value"  translatable="false">7</string>
+        <string name="settings_8_hours_value"  translatable="false">8</string>
+        <string name="settings_9_hours_value"  translatable="false">9</string>
+        <string name="settings_10_hours_value" translatable="false">10</string>
+        <string name="settings_11_hours_value" translatable="false">11</string>
+        <string name="settings_12_hours_value" translatable="false">12</string>
 
     <!-- - - - - - - - - - - - - - - - - - GDPR  - - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="gdpr_btn_key">gdpr_withdraw</string>
@@ -71,6 +94,18 @@
     <string name="show_food_expiring_action_title">Show me expiring food</string>
     <string name="show_food_expiring_today_action_title">Show me TODAY expiring food</string>
     <string name="dismiss_notification_action_title">Got it</string>
+
+
+    <!-- - - - - - - - - - - - - FAB menu label   - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="home_label">Home</string>
+    <string name="wasted_label">Wasted</string>
+    <string name="consumed_label">Done</string>
+    <string name="expiring_label">Expiring</string>
+    <string name="add_label">NEW</string>
+
+
+    <!-- - - - - - - - - - - - - Content Descriptions   - - - - - - - - - - - - - - - - - - - - -->
+    <string name="speak_btn_description">Press and speak</string>
 
 
 </resources>
