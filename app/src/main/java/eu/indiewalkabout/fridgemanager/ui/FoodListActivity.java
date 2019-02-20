@@ -58,14 +58,14 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
 
     // Key constant to use as key for intent extra
     // get the type of list to show from intent content extra
-    public static final String FOOD_TYPE         = "food_type";
+    public static final String FOOD_TYPE           = "food_type";
 
     // Values to use for passing intent extras in key/value pair
     // expiring food flag
-    public static final String FOOD_EXPIRING      = "ExpiringFood";
+    public static final String FOOD_EXPIRING       = "ExpiringFood";
 
     // expiring food Today flag
-    public static final String FOOD_EXPIRING_TODAY = "ExpiringFood";
+    public static final String FOOD_EXPIRING_TODAY = "ExpiringFoodToday";
 
     // saved food flag
     public static final String FOOD_SAVED          = "SavedFood";

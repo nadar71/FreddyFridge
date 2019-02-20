@@ -25,13 +25,13 @@
         android:id="@+id/name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/insert_food_name_tv"
         android:text="@string/insert_food_name_tv"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/insert_food_toolbar"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="@+id/insert_food_toolbar"
         app:layout_constraintTop_toBottomOf="@+id/calendar_cv" />
 
@@ -58,6 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/choose_expiring_date_label"
+        android:textAlignment="center"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/calendar_cv"
         app:layout_constraintHorizontal_bias="0.502"
@@ -73,29 +74,28 @@
 
     <CalendarView
         android:id="@+id/calendar_cv"
-        android:layout_width="335dp"
-        android:layout_height="288dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="342dp"
+        android:layout_height="295dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintHorizontal_bias="0.722"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_tv" />
 
     <Button
         android:id="@+id/save_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="48dp"
+        android:layout_width="128dp"
+        android:layout_height="35dp"
         android:text="@string/save_btn_label"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="@+id/calendar_cv"
-        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="@+id/calendar_cv"
         app:layout_constraintTop_toBottomOf="@+id/foodName_et"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.6" />
 
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"

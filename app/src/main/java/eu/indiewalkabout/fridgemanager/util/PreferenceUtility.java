@@ -14,9 +14,9 @@ public class PreferenceUtility {
     public static int getDaysCount(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String key   = context.getString(R.string.days_before_deadline_count);
-        String  default_value_s = context.getString(R.string.days_before_default);
-        int default_value = Integer.parseInt(default_value_s);
-        int daysBefore = prefs.getInt(key, default_value);
+        String  default_value = context.getString(R.string.days_before_default);
+        String daysBefore_s = prefs.getString(key, default_value);
+        int daysBefore = Integer.parseInt(daysBefore_s);
         return daysBefore;
     }
 

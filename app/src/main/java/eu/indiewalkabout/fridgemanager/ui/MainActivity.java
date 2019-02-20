@@ -272,6 +272,8 @@ public class MainActivity extends AppCompatActivity
     private void retrieveFoodExpiringToday() {
         Log.d(TAG, "Actively retrieving Expiring Food from DB");
 
+        // Log.d(TAG, "Time now : "+System.currentTimeMillis().)
+
         // Declare my viewModel factory, parametrized with foodlistType
         FoodListsViewModelFactory factory =
                 new FoodListsViewModelFactory(foodDb,FoodListActivity.FOOD_EXPIRING_TODAY);

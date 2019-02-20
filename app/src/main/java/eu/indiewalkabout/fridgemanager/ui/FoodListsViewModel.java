@@ -57,7 +57,9 @@ public class FoodListsViewModel extends ViewModel {
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
             long dataNormalizedAtMidnight  =
                     DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
-            foodEntries = foodDb.foodDbDao().loadFoodExpiringToday(dataNormalizedAtMidnight);
+            long previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS;
+            long nextDayDate     = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS;
+            foodEntries = foodDb.foodDbDao().loadFoodExpiringToday(previousDayDate,nextDayDate);
         }
 
     }

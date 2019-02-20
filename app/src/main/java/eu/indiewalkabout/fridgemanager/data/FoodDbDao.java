@@ -27,8 +27,9 @@ public interface FoodDbDao {
     LiveData<List<FoodEntry>> loadAllFoodExpiring(Long date);
 
     // retrieve EXPIRING FOOD TODAY
-    @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT == :date and done == 0 ORDER BY EXPIRING_AT")
-    LiveData<List<FoodEntry>> loadFoodExpiringToday(Long date);
+    @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT > :daybefore AND EXPIRING_AT < :dayafter " +
+            " and done == 0 ORDER BY EXPIRING_AT")
+    LiveData<List<FoodEntry>> loadFoodExpiringToday(Long daybefore, Long dayafter);
 
     // retrieve DEAD/EXPIRED FOOD
     @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT < :date and done == 0 ORDER BY EXPIRING_AT")

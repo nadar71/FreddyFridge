@@ -33,26 +33,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="16dp" />
 
-    <com.hitomi.cmlibrary.CircleMenu
-        android:id="@+id/circle_menu"
-        android:layout_width="368dp"
-        android:layout_height="226dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <!--
-        <com.hitomi.cmlibrary.CircleMenuRectMain
-            android:id="@+id/circle_menu_rect"
-            android:layout_width="368dp"
-            android:layout_height="245dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-            -->
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
@@ -92,8 +73,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circle_menu" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Empty view is only visible when the list has no items. -->
     <TextView
@@ -156,8 +136,10 @@
         app:animateItems="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:menuBackgroundColor="@color/colorAccent"
         app:menuDirection="left"
         app:menuRes="@menu/menu_fab"

@@ -8,7 +8,7 @@
     <string name="insertFoodActivity_title"     >Insert Food</string>
     <string name="mainSettingsActivity_title"   >Settings</string>
 
-    <string name="insert_food_name_tv"          >Insert food name :</string>
+    <string name="insert_food_name_tv"          >Insert your food description :</string>
     <string name="food_name_hint"               >Food name</string>
     <string name="name_placeholder"             >Name</string>
     <string name="choose_expiring_date_label"   >Choose Expiring Date</string>

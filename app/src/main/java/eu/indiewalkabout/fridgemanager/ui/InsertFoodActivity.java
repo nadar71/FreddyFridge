@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import java.util.concurrent.TimeUnit;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -34,11 +35,11 @@ import eu.indiewalkabout.fridgemanager.data.DateConverter;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import eu.indiewalkabout.fridgemanager.sync.AppExecutors;
+import eu.indiewalkabout.fridgemanager.util.DateUtility;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
-
 
 /**
  * ---------------------------------------------------------------------------------------------
@@ -212,6 +213,10 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
         speakerBtn   = findViewById(R.id.speak_btn);
         dateExpir_cv.setOnDateChangeListener(this);
 
+        // set tomorro selected in calendar widget
+        long dateTodayNormalizedAtMidnight  =
+                DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
+        dateExpir_cv.setDate(dateTodayNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS);
 
         // saving editing test click
         save_btn.setOnClickListener(new View.OnClickListener() {
@@ -354,7 +359,7 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
 
         // validate entry : name
         if ( foodName.isEmpty() ) {
-            Toast.makeText(InsertFoodActivity.this, " Choose a Name...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(InsertFoodActivity.this, " Insert your food description...", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -364,6 +369,7 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
             return;
         }
 
+        Toast.makeText(this, foodName + " Inserted ", Toast.LENGTH_SHORT).show();
         // ----------------------------------------
         // Update db using executor
         // ----------------------------------------
