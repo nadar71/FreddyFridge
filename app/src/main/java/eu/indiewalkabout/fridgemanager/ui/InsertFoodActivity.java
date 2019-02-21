@@ -40,6 +40,7 @@ import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import eu.indiewalkabout.fridgemanager.sync.AppExecutors;
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
+import eu.indiewalkabout.fridgemanager.util.KeyboardUtils;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -142,6 +143,23 @@ public class InsertFoodActivity extends AppCompatActivity
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        KeyboardUtils.addKeyboardToggleListener(this, new KeyboardUtils.SoftKeyboardToggleListener()
+        {
+            @Override
+            public void onToggleSoftKeyboard(boolean isVisible)
+            {
+                Log.d("keyboard", "keyboard visible: "+isVisible);
+                if (isVisible == true){
+                    mAdView.setVisibility(View.INVISIBLE);
+                } else {
+                    mAdView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
 
     /**
      * ---------------------------------------------------------------------------------------------
@@ -267,6 +285,9 @@ public class InsertFoodActivity extends AppCompatActivity
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
+
+
+
 
 
     /**
