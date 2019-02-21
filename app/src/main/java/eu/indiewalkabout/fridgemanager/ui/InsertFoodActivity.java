@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,9 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.hlab.fabrevealmenu.enums.Direction;
+import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener;
+import com.hlab.fabrevealmenu.view.FABRevealMenu;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,7 +51,8 @@ import java.util.Locale;
  * Get a new food to keep monitored
  * ---------------------------------------------------------------------------------------------
  */
-public class InsertFoodActivity extends AppCompatActivity implements CalendarView.OnDateChangeListener {
+public class InsertFoodActivity extends AppCompatActivity
+        implements CalendarView.OnDateChangeListener, OnFABMenuSelectedListener {
 
     private final static String TAG = InsertFoodActivity.class.getSimpleName();
 
@@ -68,11 +73,13 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
 
 
     // Views ref
-    private Button       save_btn;
-    private ImageView    speakerBtn;
-    private EditText     foodName_et;
-    private CalendarView dateExpir_cv;
-    private Toolbar      foodInsertToolbar;
+    private Button         save_btn;
+    private ImageView      speakerBtn;
+    private EditText       foodName_et;
+    private CalendarView   dateExpir_cv;
+    // private Toolbar        foodInsertToolbar;
+    private FABRevealMenu  fabMenu;
+
 
     // admob banner ref
     private AdView mAdView;
@@ -117,7 +124,10 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
         initViews();
 
         // init toolbar
-        toolBarInit();
+        // toolBarInit();
+
+        // navigation fab
+        addRevealFabBtn();
 
         // restore the task id after rotation, in case savedInstanceState has been created
         // otherwise it remains DEFAULT_TASK_ID set above
@@ -218,6 +228,7 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
                 DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
         dateExpir_cv.setDate(dateTodayNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS);
 
+
         // saving editing test click
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -246,25 +257,26 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
     */
     private void toolBarInit(){
         // get the toolbar
-        foodInsertToolbar = (Toolbar) findViewById(R.id.insert_food_toolbar);
-        foodInsertToolbar.setTitle(R.string.insertFoodActivity_title);
+        // foodInsertToolbar = (Toolbar) findViewById(R.id.insert_food_toolbar);
+        // foodInsertToolbar.setTitle(R.string.insertFoodActivity_title);
 
         // place toolbar in place of action bar
-        setSupportActionBar(foodInsertToolbar);
+        // setSupportActionBar(foodInsertToolbar);
 
         // get a support action bar
         ActionBar actionBar = getSupportActionBar();
-
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
 
     /**
+     * ---------------------------------------------------------------------------------------------
      * Get the date picked up by the user from calendar
      * @param view
      * @param year
      * @param month
      * @param dayOfMonth
+     * ---------------------------------------------------------------------------------------------
      */
     @Override
     public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -504,6 +516,89 @@ public class InsertFoodActivity extends AppCompatActivity implements CalendarVie
                 break;
             }
 
+        }
+    }
+
+
+
+
+    // ---------------------------------------------------------------------------------------------
+    //                                  REVEALING FAB BTN STUFF
+    // ---------------------------------------------------------------------------------------------
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (fabMenu != null) {
+            if (fabMenu.isShowing()) {
+                fabMenu.closeMenu();
+
+            }
+        }
+    }
+
+    public FABRevealMenu getFabMenu() {
+        return fabMenu;
+    }
+
+    public void setFabMenu(FABRevealMenu fabMenu) {
+        this.fabMenu = fabMenu;
+    }
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Adding revealing main_fab button
+     * ---------------------------------------------------------------------------------------------
+     */
+    private void addRevealFabBtn(){
+        final FloatingActionButton fab = findViewById(R.id.insert_food_fab);
+        final FABRevealMenu fabMenu    = findViewById(R.id.insert_food_fabMenu);
+
+        // remove insert menu item
+        fabMenu.removeItem(R.id.menu_insert);
+
+        try {
+            if (fab != null && fabMenu != null) {
+                setFabMenu(fabMenu);
+
+                //attach menu to main_fab
+                fabMenu.bindAnchorView(fab);
+
+                //set menu selection listener
+                fabMenu.setOnFABMenuSelectedListener(InsertFoodActivity.this);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        fabMenu.setMenuDirection(Direction.LEFT);
+
+    }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Revealing main_fab button menu management
+     * ---------------------------------------------------------------------------------------------
+     */
+    @Override
+    public void onMenuItemSelected(View view, int id) {
+        if (id == R.id.menu_expiring_food) {
+            Intent showExpiringFood = new Intent(InsertFoodActivity.this, FoodListActivity.class);
+            showExpiringFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_EXPIRING);
+            startActivity(showExpiringFood);
+
+        } else if (id == R.id.menu_consumed_food) {
+            Intent showSavedFood = new Intent(InsertFoodActivity.this, FoodListActivity.class);
+            showSavedFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_SAVED);
+            startActivity(showSavedFood);
+
+        } else if (id == R.id.menu_dead_food) {
+            Intent showDeadFood = new Intent(InsertFoodActivity.this, FoodListActivity.class);
+            showDeadFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_DEAD);
+            startActivity(showDeadFood);
+
+        } else if (id == R.id.menu_home) {
+            Intent returnHome = new Intent(InsertFoodActivity.this, MainActivity.class);
+            startActivity(returnHome);
         }
     }
 }

@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,10 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.hlab.fabrevealmenu.enums.Direction;
+import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener;
+import com.hlab.fabrevealmenu.model.FABMenuItem;
+import com.hlab.fabrevealmenu.view.FABRevealMenu;
 
 
 import java.util.List;
@@ -40,7 +45,8 @@ import eu.indiewalkabout.fridgemanager.util.ConsentSDK;
 * Show list of food depending on FOOD_TYPE
 * ---------------------------------------------------------------------------------------------
 */
-public class FoodListActivity extends AppCompatActivity implements FoodListAdapter.ItemClickListener  {
+public class FoodListActivity extends AppCompatActivity
+        implements FoodListAdapter.ItemClickListener, OnFABMenuSelectedListener {
 
     public static final String TAG = FoodListActivity.class.getSimpleName();
 
@@ -49,6 +55,7 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
     private RecyclerView    foodList;
     private FoodListAdapter foodListAdapter;
     private TextView        emptyListText;
+    private FABRevealMenu   fabMenu;
 
     // admob banner ref
     private AdView mAdView;
@@ -111,6 +118,9 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
 
         // init toolbar
         toolBarInit();
+
+        // navigation fab btn
+        addRevealFabBtn();
 
         // init recycle view list
         initRecycleView();
@@ -274,5 +284,97 @@ public class FoodListActivity extends AppCompatActivity implements FoodListAdapt
         return super.onOptionsItemSelected(item);
     }
 
+
+    // ---------------------------------------------------------------------------------------------
+    //                                  REVEALING FAB BTN STUFF
+    // ---------------------------------------------------------------------------------------------
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (fabMenu != null) {
+            if (fabMenu.isShowing()) {
+                fabMenu.closeMenu();
+
+            }
+        }
+    }
+
+    public FABRevealMenu getFabMenu() {
+        return fabMenu;
+    }
+
+    public void setFabMenu(FABRevealMenu fabMenu) {
+        this.fabMenu = fabMenu;
+    }
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Adding revealing main_fab button
+     * ---------------------------------------------------------------------------------------------
+     */
+    private void addRevealFabBtn(){
+        final FloatingActionButton fab = findViewById(R.id.food_list_fab);
+        final FABRevealMenu fabMenu    = findViewById(R.id.food_list_fabMenu);
+
+        // choose what menu item must be seen based on type of list
+        if (foodlistType.equals(FoodListActivity.FOOD_EXPIRING)){
+            fabMenu.removeItem(R.id.menu_expiring_food);
+
+        } else if (foodlistType.equals(FoodListActivity.FOOD_DEAD)){
+            fabMenu.removeItem(R.id.menu_dead_food);
+
+        } else if (foodlistType.equals(FoodListActivity.FOOD_SAVED)){
+            fabMenu.removeItem(R.id.menu_consumed_food);
+        }
+
+        try {
+            if (fab != null && fabMenu != null) {
+                setFabMenu(fabMenu);
+
+                //attach menu to main_fab
+                fabMenu.bindAnchorView(fab);
+
+                //set menu selection listener
+                fabMenu.setOnFABMenuSelectedListener(this);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        fabMenu.setMenuDirection(Direction.LEFT);
+
+    }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Revealing main_fab button menu management
+     * ---------------------------------------------------------------------------------------------
+     */
+    @Override
+    public void onMenuItemSelected(View view, int id) {
+        if (id == R.id.menu_insert) {
+            Intent toInsertFood = new Intent(FoodListActivity.this, InsertFoodActivity.class);
+            startActivity(toInsertFood);
+
+        } else if (id == R.id.menu_expiring_food) {
+            Intent showExpiringFood = new Intent(FoodListActivity.this, FoodListActivity.class);
+            showExpiringFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_EXPIRING);
+            startActivity(showExpiringFood);
+
+        } else if (id == R.id.menu_consumed_food) {
+            Intent showSavedFood = new Intent(FoodListActivity.this, FoodListActivity.class);
+            showSavedFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_SAVED);
+            startActivity(showSavedFood);
+
+        } else if (id == R.id.menu_dead_food) {
+            Intent showDeadFood = new Intent(FoodListActivity.this, FoodListActivity.class);
+            showDeadFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_DEAD);
+            startActivity(showDeadFood);
+
+        } else if (id == R.id.menu_home) {
+            Intent returnHome = new Intent(FoodListActivity.this, MainActivity.class);
+            startActivity(returnHome);
+        }
+    }
 
 }

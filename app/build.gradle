@@ -52,7 +52,7 @@ dependencies {
     implementation 'com.google.android.ads.consent:consent-library:1.0.6'
 
     // FAB
-    // implementation 'com.hlab.fabrevealmenu:fab-reveal-menu:1.0.3'
+    // implementation 'com.hlab.fabrevealmenu:main_fab-reveal-menu:1.0.3'
     implementation project(':fabrevealmenu')
 
     // test stuff

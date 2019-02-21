@@ -20,6 +20,11 @@
         android:icon="@drawable/ic_hourglass_empty_black_24dp"
         android:title="@string/expiring_label" />
 
+    <item
+        android:id="@+id/menu_insert"
+        android:icon="@drawable/ic_add_box_white_24dp"
+        android:title="@string/add_label" />
+
 
 
 

@@ -2,6 +2,7 @@ package eu.indiewalkabout.fridgemanager.ui;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -9,26 +10,33 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.ads.AdView;
+import com.hlab.fabrevealmenu.enums.Direction;
+import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener;
+import com.hlab.fabrevealmenu.view.FABRevealMenu;
 
 import eu.indiewalkabout.fridgemanager.R;
 import eu.indiewalkabout.fridgemanager.reminder.ReminderScheduler;
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK;
 import eu.indiewalkabout.fridgemanager.util.PreferenceUtility;
 
-public class MainSettingsActivity extends AppCompatActivity {
+public class MainSettingsActivity extends AppCompatActivity
+        implements OnFABMenuSelectedListener {
 
 
     public static final String TAG = MainSettingsActivity.class.getName();
 
     private Toolbar foodInsertToolbar;
+    private FABRevealMenu  fabMenu;
 
     private static String dayBeforeKey,hoursFreqKey;
 
@@ -47,6 +55,9 @@ public class MainSettingsActivity extends AppCompatActivity {
 
         // init toolbar
         toolBarInit();
+
+        // navigation fab
+        addRevealFabBtn();
     }
 
 
@@ -237,5 +248,91 @@ public class MainSettingsActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         int hoursFrequency  = PreferenceUtility.getHoursCount(MainSettingsActivity.this);
+    }
+
+
+    // ---------------------------------------------------------------------------------------------
+    //                                  REVEALING FAB BTN STUFF
+    // ---------------------------------------------------------------------------------------------
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (fabMenu != null) {
+            if (fabMenu.isShowing()) {
+                fabMenu.closeMenu();
+
+            }
+        }
+    }
+
+    public FABRevealMenu getFabMenu() {
+        return fabMenu;
+    }
+
+    public void setFabMenu(FABRevealMenu fabMenu) {
+        this.fabMenu = fabMenu;
+    }
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Adding revealing main_fab button
+     * ---------------------------------------------------------------------------------------------
+     */
+    private void addRevealFabBtn(){
+        final FloatingActionButton fab = findViewById(R.id.settings_fab);
+        final FABRevealMenu fabMenu    = findViewById(R.id.settings_fabMenu);
+
+        // remove insert menu item
+        fabMenu.removeItem(R.id.menu_insert);
+
+        try {
+            if (fab != null && fabMenu != null) {
+                setFabMenu(fabMenu);
+
+                //attach menu to main_fab
+                fabMenu.bindAnchorView(fab);
+
+                //set menu selection listener
+                fabMenu.setOnFABMenuSelectedListener(MainSettingsActivity.this);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        fabMenu.setMenuDirection(Direction.LEFT);
+
+    }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Revealing main_fab button menu management
+     * ---------------------------------------------------------------------------------------------
+     */
+    @Override
+    public void onMenuItemSelected(View view, int id) {
+
+        if (id == R.id.menu_insert) {
+            Intent toInsertFood = new Intent(MainSettingsActivity.this, InsertFoodActivity.class);
+            startActivity(toInsertFood);
+
+        } else if (id == R.id.menu_expiring_food) {
+            Intent showExpiringFood = new Intent(MainSettingsActivity.this, FoodListActivity.class);
+            showExpiringFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_EXPIRING);
+            startActivity(showExpiringFood);
+
+        } else if (id == R.id.menu_consumed_food) {
+            Intent showSavedFood = new Intent(MainSettingsActivity.this, FoodListActivity.class);
+            showSavedFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_SAVED);
+            startActivity(showSavedFood);
+
+        } else if (id == R.id.menu_dead_food) {
+            Intent showDeadFood = new Intent(MainSettingsActivity.this, FoodListActivity.class);
+            showDeadFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_DEAD);
+            startActivity(showDeadFood);
+
+        } else if (id == R.id.menu_home) {
+            Intent returnHome = new Intent(MainSettingsActivity.this, MainActivity.class);
+            startActivity(returnHome);
+        }
     }
 }

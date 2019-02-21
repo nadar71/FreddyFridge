@@ -4,7 +4,6 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,18 +14,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
-import android.widget.Toast;
 
 
 import com.google.android.gms.ads.AdView;
-// import com.hitomi.cmlibrary.CircleMenu;
-// import com.hitomi.cmlibrary.CircleMenuRectMain;
-import com.hitomi.cmlibrary.CircleMenu;
-import com.hitomi.cmlibrary.OnMenuSelectedListener;
-import com.hitomi.cmlibrary.OnMenuStatusChangeListener;
 import com.hlab.fabrevealmenu.enums.Direction;
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener;
 import com.hlab.fabrevealmenu.view.FABRevealMenu;
@@ -55,13 +48,9 @@ public class MainActivity extends AppCompatActivity
     private FoodDatabase foodDb;
 
     // UI item reference
-    // private CircleMenu circleMenu;
-    // private CircleMenuRectMain circleMenuRect;
-    private Button temporarySettingsBtn;
+    private ImageView settingsBtn;
     private TextView emptyListText;
     private FABRevealMenu fabMenu;
-
-
 
     // recycle View stuff
     private RecyclerView    foodList;
@@ -80,6 +69,15 @@ public class MainActivity extends AppCompatActivity
 
         // empty view for empty list message
         emptyListText = findViewById(R.id.empty_view);
+
+        settingsBtn = findViewById(R.id.settingsIcon_img);
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent settingsIntent = new Intent(getApplicationContext(), MainSettingsActivity.class);
+                startActivity(settingsIntent);
+            }
+        });
 
         // Initialize ConsentSDK
         ConsentSDK consentSDK = new ConsentSDK.Builder(this)
@@ -102,91 +100,13 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        temporarySettingsBtn = findViewById(R.id.settingsBtn);
-        temporarySettingsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent settingsIntent = new Intent(getApplicationContext(), MainSettingsActivity.class);
-                startActivity(settingsIntent);
-            }
-        });
-
-
-
         mAdView = findViewById(R.id.adView);
 
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
         mAdView.loadAd(ConsentSDK.getAdRequest(MainActivity.this));
 
 
-
-        // -----------------------------------------------------------------------------------------
-        // Costum UI : circle menu
-        // -----------------------------------------------------------------------------------------
-        // Log.d("MainActivity", "Before getting circleMenu from R");
-        /*
-        circleMenu = (CircleMenu) findViewById(R.id.circle_menu); //
-
-        // Log.d("MainActivity", "Before circleMenu.setMainMenu");
-
-        //circleMenu.setMainMenu(Color.parseColor("#CDCDCD"), R.mipmap.icon_menu, R.mipmap.icon_cancel)
-        circleMenu.setMainMenu(Color.parseColor("#740001"), R.drawable.ic_main_menu_icon, R.mipmap.icon_cancel)
-                  .addSubMenu(Color.parseColor("#258CFF"), R.mipmap.icon_home)
-                  .addSubMenu(Color.parseColor("#30A400"), R.mipmap.icon_search)
-                  .addSubMenu(Color.parseColor("#FF4B32"), R.mipmap.icon_notify)
-                  .addSubMenu(Color.parseColor("#FF4B32"), R.mipmap.icon_notify)
-                  //.addSubMenu(Color.parseColor("#8A39FF"), R.mipmap.icon_setting)
-                  //.addSubMenu(Color.parseColor("#FF6A00"), R.mipmap.icon_gps)
-                  .setOnMenuSelectedListener(new OnMenuSelectedListener() {
-                    @Override
-                    public void onMenuSelected(int index) { // btn numbered in clockwise direction from top
-                        switch(index){
-                            case 0 :
-                                Log.i("Insert New Food ", String.valueOf(index));
-                                Intent toInsertFood = new Intent(MainActivity.this, InsertFoodActivity.class);
-                                startActivity(toInsertFood);
-                                break;
-
-
-                            case 1 :
-                                Log.i("Show Expiring Food ", String.valueOf(index));
-                                Intent showExpiringFood = new Intent(MainActivity.this, FoodListActivity.class);
-                                showExpiringFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_EXPIRING);
-                                startActivity(showExpiringFood);
-                                break;
-
-                            case 2 :
-                                Log.i("Show SAVED Food", String.valueOf(index));
-                                Intent showSavedFood = new Intent(MainActivity.this, FoodListActivity.class);
-                                showSavedFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_SAVED);
-                                startActivity(showSavedFood);
-                                break;
-
-                            case 3 :
-                                Log.i("Show DEAD Food", String.valueOf(index));
-                                Intent showDeadFood = new Intent(MainActivity.this, FoodListActivity.class);
-                                showDeadFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_DEAD);
-                                startActivity(showDeadFood);
-                                break;
-
-
-                            default:
-                                break;
-                        }
-                    }
-
-                }).setOnMenuStatusChangeListener(new OnMenuStatusChangeListener() {
-
-            @Override
-            public void onMenuOpened() {}
-
-            @Override
-            public void onMenuClosed() {}
-
-        });
-        */
-
-        // add fab revealing menu
+        // add main_fab revealing menu
         addRevealFabBtn();
 
         // Recycle view
@@ -349,18 +269,18 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * ---------------------------------------------------------------------------------------------
-     * Adding revealing fab button
+     * Adding revealing main_fab button
      * ---------------------------------------------------------------------------------------------
      */
     private void addRevealFabBtn(){
-        final FloatingActionButton fab = findViewById(R.id.fab);
-        final FABRevealMenu fabMenu = findViewById(R.id.fabMenu);
+        final FloatingActionButton fab = findViewById(R.id.main_fab);
+        final FABRevealMenu fabMenu = findViewById(R.id.main_fabMenu);
 
         try {
             if (fab != null && fabMenu != null) {
                 setFabMenu(fabMenu);
 
-                //attach menu to fab
+                //attach menu to main_fab
                 fabMenu.bindAnchorView(fab);
 
                 //set menu selection listener
@@ -377,7 +297,7 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * ---------------------------------------------------------------------------------------------
-     * Revealing fab button menu management
+     * Revealing main_fab button menu management
      * ---------------------------------------------------------------------------------------------
      */
     @Override

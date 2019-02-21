@@ -164,13 +164,18 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             if (listType.equals(FoodListActivity.FOOD_EXPIRING)) {
                 foodConsumed_cb.setVisibility(View.VISIBLE);
 
-            } else if (listType.equals(FoodListActivity.FOOD_SAVED)) {
-                foodConsumed_cb.setVisibility(View.INVISIBLE);
-
-            } else if (listType.equals(FoodListActivity.FOOD_DEAD)) {
+            }
+            else if (listType.equals(FoodListActivity.FOOD_DEAD)) {
                 foodConsumed_cb.setVisibility(View.VISIBLE);
 
             }
+            /*
+            else if (listType.equals(FoodListActivity.FOOD_SAVED)) {
+                foodConsumed_cb.setVisibility(View.INVISIBLE);
+
+            }
+             */
+
 
             // row click listener
             itemView.setOnClickListener(this);
@@ -227,27 +232,50 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             // ---------------------------------
             } else if( view.getId() == foodConsumed_cb.getId()){
 
-                // user dialog confirm
-                alertDialog = new AlertDialog.Builder(thisContext)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Food Consumed, are you sure ?")
-                        .setMessage("")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                moveToConsumed();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                foodConsumed_cb.setChecked(false);
-                                // notify changes to recycleview
-                                // swapItems(foodEntries);
-                            }
-                        })
-                        .show();
-
+                // if we are not in the consumed/done food list :
+                if (! listType.equals(FoodListActivity.FOOD_SAVED)) {
+                    // user dialog confirm
+                    alertDialog = new AlertDialog.Builder(thisContext)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Set Food as CONSUMED, are you sure ?")
+                            .setMessage("")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    moveToConsumed();
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    foodConsumed_cb.setChecked(false);
+                                    // notify changes to recycleview
+                                    // swapItems(foodEntries);
+                                }
+                            })
+                            .show();
+                } else { // return food to the not consumed/done ones list
+                    // user dialog confirm
+                    alertDialog = new AlertDialog.Builder(thisContext)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Set Food as NOT CONSUMED, are you sure ?")
+                            .setMessage("")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    moveToNOTConsumed();
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    foodConsumed_cb.setChecked(false);
+                                    // notify changes to recycleview
+                                    // swapItems(foodEntries);
+                                }
+                            })
+                            .show();
+                }
 
 
             //----------------------------
@@ -270,9 +298,10 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
 
         /**
          * ------------------------------------------------------------------------------------
-         * Move food entry to consumed list
+         * Move food entry to consumed/done food list
          * ------------------------------------------------------------------------------------
          */
+        // TODO : make this with livedata
         private void moveToConsumed() {
             // get item at position
             final FoodEntry foodItemConsumed = getFoodItemAtPosition(this.getAdapterPosition());
@@ -300,6 +329,39 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             foodConsumed_cb.setChecked(false);
         }
 
+        /**
+         * ------------------------------------------------------------------------------------
+         * Move food entry to NOT consumed/done food list
+         * ------------------------------------------------------------------------------------
+         */
+        // TODO : make this with livedata
+        private void moveToNOTConsumed() {
+            // get item at position
+            final FoodEntry foodItemConsumed = getFoodItemAtPosition(this.getAdapterPosition());
+
+            // update check boxed food item done field in db to 0 = not consumed:
+            // it's the meaning assumed in the consumed/dine food list when checked
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    foodDb.foodDbDao().updateDoneField(0,foodItemConsumed.getId());
+                }
+            });
+
+            // remove object from recycle view list
+            foodEntries.remove(foodItemConsumed);
+
+            // notify changes to recycleview
+            swapItems(foodEntries);
+
+            Toast.makeText(thisContext,
+                    "Removed " + foodItemConsumed.getName() +
+                            " to Consumed Food list!",
+                    Toast.LENGTH_SHORT).show();
+
+            // uncheck the check box because it will be on the next item after refresh
+            foodConsumed_cb.setChecked(false);
+        }
 
         /**
          * ------------------------------------------------------------------------------------
