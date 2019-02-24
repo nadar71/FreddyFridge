@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context=".ui.MainSettingsActivity">
 
 
@@ -22,24 +23,36 @@
         tools:targetApi="lollipop" />
 
 
+    <ImageView
+        android:id="@+id/settings_bg_img"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/light_grey_very_transparent"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/food_background" />
+
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/settingsFrag"
         android:name="eu.indiewalkabout.fridgemanager.ui.MainSettingsActivity$MainPreferenceFragment"
         android:layout_width="match_parent"
-        android:layout_height="501dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="556dp"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_settings_toolbar"
         tools:context="eu.indiewalkabout.algovision_new.MainSettingsActivity"
-        tools:layout="@layout/activity_main">
+        >
+
     </fragment>
+
+    <!-- tools:layout="@layout/activity_main">
+         tools:layout="@layout/activity_food_list"
+    -->
 
 
     <android.support.design.widget.FloatingActionButton
@@ -49,13 +62,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="16dp"
         app:backgroundTint="@color/colorAccent"
         app:fabSize="normal"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_menu_black_24dp" />
+        app:srcCompat="@drawable/ic_refrigerator_icon" />
 
     <com.hlab.fabrevealmenu.view.FABRevealMenu
         android:id="@+id/settings_fabMenu"
@@ -84,16 +97,12 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         ads:adSize="BANNER"
         ads:adUnitId="@string/admob_key_bottom_banner"
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
-
-
 
 
 </android.support.constraint.ConstraintLayout>

@@ -2,28 +2,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_home"
-        android:icon="@drawable/ic_home_white_24dp"
-        android:title="@string/home_label" />
+        android:icon="@drawable/ic_home_brown_24dp"
+        android:title="@string/home_label"
+        android:textColor="@color/text_color"/>
 
     <item
         android:id="@+id/menu_dead_food"
-        android:icon="@drawable/ic_ghost"
-        android:title="@string/wasted_label" />
+        android:icon="@drawable/ic_ghost_brown"
+        android:title="@string/wasted_label"
+        android:textColor="@color/text_color"/>
 
     <item
         android:id="@+id/menu_consumed_food"
-        android:icon="@drawable/ic_done_all_black_24dp"
-        android:title="@string/consumed_label" />
+        android:icon="@drawable/ic_done_all_brown_24dp"
+        android:title="@string/consumed_label"
+        android:textColor="@color/text_color"/>
 
     <item
         android:id="@+id/menu_expiring_food"
-        android:icon="@drawable/ic_hourglass_empty_black_24dp"
-        android:title="@string/expiring_label" />
+        android:icon="@drawable/ic_hourglass_empty_brown_24dp"
+        android:title="@string/expiring_label"
+        android:textColor="@color/text_color"/>
 
     <item
         android:id="@+id/menu_insert"
-        android:icon="@drawable/ic_add_box_white_24dp"
-        android:title="@string/add_label" />
+        android:icon="@drawable/ic_add_box_brown_24dp"
+        android:title="@string/add_label"
+        android:textColor="@color/text_color"/>
 
 
 

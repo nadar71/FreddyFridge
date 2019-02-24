@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
@@ -54,8 +55,9 @@ public class FoodListActivity extends AppCompatActivity
     private Toolbar         foodsListToolbar;
     private RecyclerView    foodList;
     private FoodListAdapter foodListAdapter;
-    private TextView        emptyListText;
+    private TextView        emptyListText, toolbarTitle;
     private FABRevealMenu   fabMenu;
+    private FloatingActionButton fab ;
 
     // admob banner ref
     private AdView mAdView;
@@ -167,17 +169,23 @@ public class FoodListActivity extends AppCompatActivity
      * ---------------------------------------------------------------------------------------------
      */
     private void setToolBarTitle() {
+
+        toolbarTitle = foodsListToolbar.findViewById(R.id.toolbar_title_tv);
+
         // set correct title
         if (foodlistType.equals(FOOD_EXPIRING)) {
-            foodsListToolbar.setTitle(R.string.foodExpiring_activity_title);
+            // foodsListToolbar.setTitle(R.string.foodExpiring_activity_title);
+            toolbarTitle.setText(R.string.foodExpiring_activity_title);
             Log.d(TAG, "onCreate: FOOD_TYPE : " + R.string.foodExpiring_activity_title);
 
         } else if (foodlistType.equals(FOOD_SAVED)) {
-            foodsListToolbar.setTitle(R.string.foodSaved_activity_title);
+            // foodsListToolbar.setTitle(R.string.R.string.foodSaved_activity_title);
+            toolbarTitle.setText(R.string.foodSaved_activity_title);
             Log.d(TAG, "onCreate: FOOD_TYPE : " + R.string.foodSaved_activity_title);
 
         } else if (foodlistType.equals(FOOD_DEAD)) {
-            foodsListToolbar.setTitle(R.string.foodDead_activity_title);
+            // foodsListToolbar.setTitle(R.string.foodDead_activity_title);
+            toolbarTitle.setText(R.string.foodDead_activity_title);
             Log.d(TAG, "onCreate: FOOD_TYPE : " + R.string.foodDead_activity_title);
 
         }
@@ -212,7 +220,27 @@ public class FoodListActivity extends AppCompatActivity
         // Configure the adpater; it uses LiveData to keep updated on changes
         setupAdapter();
 
+        // make fab button hide when scrolling list
+        foodList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0 || dy < 0 && fab.isShown())
+                    fab.hide();
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE)
+                    fab.show();
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
     }
+
+
+
 
 
 
@@ -312,8 +340,8 @@ public class FoodListActivity extends AppCompatActivity
      * ---------------------------------------------------------------------------------------------
      */
     private void addRevealFabBtn(){
-        final FloatingActionButton fab = findViewById(R.id.food_list_fab);
-        final FABRevealMenu fabMenu    = findViewById(R.id.food_list_fabMenu);
+        fab     = findViewById(R.id.food_list_fab);
+        fabMenu = findViewById(R.id.food_list_fabMenu);
 
         // choose what menu item must be seen based on type of list
         if (foodlistType.equals(FoodListActivity.FOOD_EXPIRING)){

@@ -3,7 +3,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorOverlayDark">#AA000000</color>
     <color name="colorOverlayLight">#40000000</color>
-    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhite">#ffffff</color>
     <declare-styleable name="FABRevealMenu">
         <attr format="color" name="menuBackgroundColor"/>
         <attr format="reference" name="menuCustomView"/>

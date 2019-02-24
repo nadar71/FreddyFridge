@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name">FridgeManager</string>
+    <string name="app_name">Fridge Manager !</string>
+    <string name="app_name_subtitle">Don\'t waste Food !</string>
+
 
     <!-- activity,titles and others labels  -->
     <string name="foodExpiring_activity_title"  >Expiring Food List</string>
-    <string name="foodDead_activity_title"      >Dead Food List</string>
+    <string name="foodDead_activity_title"      >Wasted Food List</string>
     <string name="foodSaved_activity_title"     >Consumed Food List</string>
     <string name="insertFoodActivity_title"     >Insert Food</string>
     <string name="mainSettingsActivity_title"   >Settings</string>
@@ -11,12 +13,14 @@
     <string name="insert_food_name_tv"          >Insert your food description :</string>
     <string name="food_name_hint"               >Food name</string>
     <string name="name_placeholder"             >Name</string>
-    <string name="choose_expiring_date_label"   >Food Expiring Date : </string>
+    <string name="choose_expiring_date_label"   >Insert Food Expiring Date : </string>
     <string name="save_btn_label"               >Save</string>
     <string name="update_btn_label"             >Update</string>
     <string name="delete_food_entry_btn_hint"   >Delete food entry btn</string>
     <string name="no_food_todays"               >No foods expiring for today ! </string>
     <string name="no_food_in_list"              >No foods here... </string>
+    <string name="main_list_title"              >Food expiring for today : </string>
+
 
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->

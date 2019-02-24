@@ -13,7 +13,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity
     private ImageView settingsBtn;
     private TextView emptyListText;
     private FABRevealMenu fabMenu;
+    private FloatingActionButton fab ;
 
     // recycle View stuff
     private RecyclerView    foodList;
@@ -167,6 +170,25 @@ public class MainActivity extends AppCompatActivity
         // Configure the adpater; it uses LiveData to keep updated on changes
         setupAdapter();
 
+        // make fab button hide when scrolling list
+        foodList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0 || dy < 0 && fab.isShown())
+                    fab.hide();
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE)
+                    fab.show();
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
+
+
     }
 
 
@@ -273,8 +295,8 @@ public class MainActivity extends AppCompatActivity
      * ---------------------------------------------------------------------------------------------
      */
     private void addRevealFabBtn(){
-        final FloatingActionButton fab = findViewById(R.id.main_fab);
-        final FABRevealMenu fabMenu = findViewById(R.id.main_fabMenu);
+        fab     = findViewById(R.id.main_fab);
+        fabMenu = findViewById(R.id.main_fabMenu);
 
         try {
             if (fab != null && fabMenu != null) {

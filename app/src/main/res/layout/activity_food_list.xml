@@ -4,8 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context=".ui.FoodListActivity">
 
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/food_background" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/food_list_toolbar"
@@ -19,14 +26,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:targetApi="lollipop" />
+        tools:targetApi="lollipop" >
+
+        <TextView
+            android:id="@+id/toolbar_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/fredoka_one"
+            android:text="title"
+            android:textAlignment="viewStart"
+            android:textColor="@color/text_color"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="18dp" />
+
+    </android.support.v7.widget.Toolbar>
+
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/food_list_recycleView"
-        android:layout_width="368dp"
-        android:layout_height="444dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/rounded_rectangle"
+        android:backgroundTint="@color/light_grey_very_transparent"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -39,6 +64,7 @@
         android:id="@+id/empty_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/light_grey_very_transparent"
         android:fontFamily="@font/quicksand"
         android:text="@string/no_food_in_list"
         android:textAppearance="?android:textAppearanceMedium"
@@ -51,17 +77,18 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/food_list_fab"
-        android:layout_width="wrap_content"
+        android:layout_width="56dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="16dp"
         app:backgroundTint="@color/colorAccent"
         app:fabSize="normal"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="@+id/food_list_recycleView"
-        app:srcCompat="@drawable/ic_menu_black_24dp" />
+        app:srcCompat="@drawable/ic_refrigerator_icon" />
 
     <com.hlab.fabrevealmenu.view.FABRevealMenu
         android:id="@+id/food_list_fabMenu"
@@ -80,7 +107,9 @@
         app:menuTitleFontFamily="@font/quicksand"
         app:menuTitleTextColor="@color/colorWhite"
         app:showOverlay="true"
-        app:showTitle="true"></com.hlab.fabrevealmenu.view.FABRevealMenu>
+        app:showTitle="true">
+
+    </com.hlab.fabrevealmenu.view.FABRevealMenu>
 
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"

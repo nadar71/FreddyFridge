@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <PreferenceCategory android:title="@string/category_settings_title">
 
         <EditTextPreference
+            android:background="@color/light_grey_very_transparent"
             android:defaultValue="@string/days_before_default"
             android:inputType="numberDecimal"
             android:key="@string/days_before_deadline_count"
