@@ -4,23 +4,24 @@
 
 
     <!-- activity,titles and others labels  -->
-    <string name="foodExpiring_activity_title"  >Expiring Food List</string>
-    <string name="foodDead_activity_title"      >Wasted Food List</string>
-    <string name="foodSaved_activity_title"     >Consumed Food List</string>
-    <string name="insertFoodActivity_title"     >Insert Food</string>
-    <string name="mainSettingsActivity_title"   >Settings</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="foodExpiring_activity_title">Expiring Food List</string>
+    <string name="foodDead_activity_title">Wasted Food List</string>
+    <string name="foodSaved_activity_title">Eaten Food List</string>
+    <string name="insertFoodActivity_title">Insert Food</string>
+    <string name="mainSettingsActivity_title">Settings</string>
 
-    <string name="insert_food_name_tv"          >Insert your food description :</string>
-    <string name="food_name_hint"               >Food name</string>
-    <string name="name_placeholder"             >Name</string>
-    <string name="choose_expiring_date_label"   >Insert Food Expiring Date : </string>
-    <string name="save_btn_label"               >Save</string>
-    <string name="update_btn_label"             >Update</string>
-    <string name="delete_food_entry_btn_hint"   >Delete food entry btn</string>
-    <string name="no_food_todays"               >No foods expiring for today ! </string>
-    <string name="no_food_in_list"              >No foods here... </string>
-    <string name="main_list_title"              >Food expiring for today : </string>
-
+    <string name="insert_food_name_tv">Insert your food description :</string>
+    <string name="food_name_hint">Food name</string>
+    <string name="name_placeholder">Name</string>
+    <string name="choose_expiring_date_label">Insert Food Expiring Date : </string>
+    <string name="save_btn_label">Save</string>
+    <string name="update_btn_label">Update</string>
+    <string name="delete_food_entry_btn_hint">Delete food entry btn</string>
+    <string name="no_food_todays">No foods expiring for today ! </string>
+    <string name="no_food_in_list">No foods here... </string>
+    <string name="main_list_title">Food expiring for today : </string>
 
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -53,37 +54,42 @@
     <string name="hours_freq_today_deadline_count" translatable="false">todays_howmany_each_hours</string>
     <string name="today_hours_repeat_default" translatable="false">@string/settings_6_hours_value</string>
 
-        <string name="settings_1_hours_label" >1</string>
-        <string name="settings_2_hours_label" >2</string>
-        <string name="settings_3_hours_label" >3</string>
-        <string name="settings_4_hours_label" >4</string>
-        <string name="settings_5_hours_label" >5</string>
-        <string name="settings_6_hours_label" >6</string>
-        <string name="settings_7_hours_label" >7</string>
-        <string name="settings_8_hours_label" >8</string>
-        <string name="settings_9_hours_label" >9</string>
-        <string name="settings_10_hours_label">10</string>
-        <string name="settings_11_hours_label">11</string>
-        <string name="settings_12_hours_label">12</string>
+    <string name="settings_1_hours_label">1</string>
+    <string name="settings_2_hours_label">2</string>
+    <string name="settings_3_hours_label">3</string>
+    <string name="settings_4_hours_label">4</string>
+    <string name="settings_5_hours_label">5</string>
+    <string name="settings_6_hours_label">6</string>
+    <string name="settings_7_hours_label">7</string>
+    <string name="settings_8_hours_label">8</string>
+    <string name="settings_9_hours_label">9</string>
+    <string name="settings_10_hours_label">10</string>
+    <string name="settings_11_hours_label">11</string>
+    <string name="settings_12_hours_label">12</string>
 
 
-        <string name="settings_1_hours_value"  translatable="false">1</string>
-        <string name="settings_2_hours_value"  translatable="false">2</string>
-        <string name="settings_3_hours_value"  translatable="false">3</string>
-        <string name="settings_4_hours_value"  translatable="false">4</string>
-        <string name="settings_5_hours_value"  translatable="false">5</string>
-        <string name="settings_6_hours_value"  translatable="false">6</string>
-        <string name="settings_7_hours_value"  translatable="false">7</string>
-        <string name="settings_8_hours_value"  translatable="false">8</string>
-        <string name="settings_9_hours_value"  translatable="false">9</string>
-        <string name="settings_10_hours_value" translatable="false">10</string>
-        <string name="settings_11_hours_value" translatable="false">11</string>
-        <string name="settings_12_hours_value" translatable="false">12</string>
+    <string name="settings_1_hours_value" translatable="false">1</string>
+    <string name="settings_2_hours_value" translatable="false">2</string>
+    <string name="settings_3_hours_value" translatable="false">3</string>
+    <string name="settings_4_hours_value" translatable="false">4</string>
+    <string name="settings_5_hours_value" translatable="false">5</string>
+    <string name="settings_6_hours_value" translatable="false">6</string>
+    <string name="settings_7_hours_value" translatable="false">7</string>
+    <string name="settings_8_hours_value" translatable="false">8</string>
+    <string name="settings_9_hours_value" translatable="false">9</string>
+    <string name="settings_10_hours_value" translatable="false">10</string>
+    <string name="settings_11_hours_value" translatable="false">11</string>
+    <string name="settings_12_hours_value" translatable="false">12</string>
 
-    <!-- - - - - - - - - - - - - - - - - - GDPR  - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - -  Help category for preferences  - - - - - - - - - - - - - - - - - -->
     <string name="gdpr_btn_key">gdpr_withdraw</string>
     <string name="gdpr_btn_title">GDPR</string>
     <string name="gdpr_btn_summary">GDPR Consent Withdraw.</string>
+
+
+    <string name="credits_btn_title">Credits</string>
+    <string name="credits_btn_key">credits</string>
+    <string name="credits_btn_summary">See credits and attributions here.</string>
 
 
     <!-- - - - - - - - - - - - - Notifications   - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -103,13 +109,46 @@
     <!-- - - - - - - - - - - - - FAB menu label   - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="home_label">Home</string>
     <string name="wasted_label">Wasted</string>
-    <string name="consumed_label">Done</string>
+    <string name="consumed_label">Eaten</string>
     <string name="expiring_label">Expiring</string>
     <string name="add_label">NEW</string>
 
 
     <!-- - - - - - - - - - - - - Content Descriptions   - - - - - - - - - - - - - - - - - - - - -->
     <string name="speak_btn_description">Press and speak</string>
+
+
+    <!-- - - - - - - - - - - - - Credits text   - - - - - - - - - - - - - - - - - - - - - - - -  -->
+    <string name="credits_text">
+        <b>CREDITS &amp; ATTRIBUTIONS</b>\n
+
+        <b>Idea</b>\n
+        Gigliola Rocca\n\n
+
+        <b>Development and Design</b>\n
+        Simone Mapelli\n
+        <a href='http://www.indie-walkabout.eu/'> www.indie-walkabout.eu </a>\n\n
+
+        <b>Attributions</b>\n\n
+
+        Alarm clock in icons :\n
+        <a href="https://www.freepik.com/free-photos-vectors/office">Office vector created by dooder - www.freepik.com</a>\n\n
+
+        Fridge image :\n
+        <a href="https://www.freepik.com/free-photos-vectors/food">Food vector created by freepik - www.freepik.com</a>\n\n
+
+        Fruits images :\n
+        <a rel="nofollow" href="https://vecteezy.com">Graphics Provided by www.Vecteezy.com</a>\n\n
+
+        Background : \n
+        <a href="https://www.freepik.com/free-photos-vectors/background">Background vector created by freepik - www.freepik.com</a>\n
+    </string>
+
+
+    <!-- - - - - - - - - - - - - Confirm dialog  - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="confirm_if_consumed_text">Set Food as EATEN, are you sure ?</string>
+    <string name="confirm_if_not_consumed_text">Set Food as NOT EATEN, are you sure ?</string>
+    <string name="confirm_if_deleting_text">Are you sure you want to DELETE ?</string>
 
 
 </resources>

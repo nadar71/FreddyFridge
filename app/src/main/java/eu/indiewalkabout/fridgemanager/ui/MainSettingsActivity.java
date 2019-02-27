@@ -87,6 +87,7 @@ public class MainSettingsActivity extends AppCompatActivity
             bindPreferenceSummaryToValue(hoursFreq);
 
             Preference gdprConsentBtn = findPreference(getString(R.string.gdpr_btn_key));
+            Preference creditsBtn         = findPreference(getString(R.string.credits_btn_key));
 
             // Initialize ConsentSDK
             initConsentSDK(getActivity());
@@ -129,6 +130,18 @@ public class MainSettingsActivity extends AppCompatActivity
             } else {
                 preferenceScreen.removePreference(gdprConsentBtn);;
             }
+
+
+
+            // Faq button
+            creditsBtn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent showEqOnMap = new Intent(getActivity(), CreditsActivity.class);
+                    startActivity(showEqOnMap);
+                    return true;
+                }
+            });
 
 
 

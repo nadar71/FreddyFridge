@@ -244,7 +244,8 @@ public class InsertFoodActivity extends AppCompatActivity
         // set tomorro selected in calendar widget
         long dateTodayNormalizedAtMidnight  =
                 DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
-        dateExpir_cv.setDate(dateTodayNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS);
+        // dateExpir_cv.setDate(dateTodayNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS);
+        dateExpir_cv.setDate(dateTodayNormalizedAtMidnight);
 
 
         // saving editing test click

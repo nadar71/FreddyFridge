@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context=".ui.MainSettingsActivity">
-
+    tools:context=".ui.CreditsActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/main_settings_toolbar"
+        android:id="@+id/credits_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -22,40 +21,37 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         tools:targetApi="lollipop" />
 
-
     <ImageView
-        android:id="@+id/settings_bg_img"
+        android:id="@+id/credits_bg_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.1"
-        android:scaleType="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/food_background" />
+        android:src="@drawable/food_background"
+        app:layout_constraintStart_toStartOf="@+id/credits_toolbar"
+        app:layout_constraintTop_toTopOf="@+id/credits_toolbar" />
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/settingsFrag"
-        android:name="eu.indiewalkabout.fridgemanager.ui.MainSettingsActivity$MainPreferenceFragment"
-        android:layout_width="match_parent"
-        android:layout_height="556dp"
+    <TextView
+        android:id="@+id/credits_tv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:autoLink="web"
+        android:linksClickable="true"
+        android:padding="4dp"
+        android:text="@string/credits_text"
+        android:textAlignment="textStart"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_settings_toolbar"
-        tools:context="eu.indiewalkabout.algovision_new.MainSettingsActivity">
-
-    </fragment>
-
-    <!-- tools:layout="@layout/activity_main">
-         tools:layout="@layout/activity_food_list"
-    -->
+        app:layout_constraintTop_toBottomOf="@+id/credits_toolbar" />
 
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/settings_fab"
-        android:layout_width="wrap_content"
+        android:id="@+id/credits_fab"
+        android:layout_width="56dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
@@ -69,15 +65,17 @@
         app:srcCompat="@drawable/ic_refrigerator_icon" />
 
     <com.hlab.fabrevealmenu.view.FABRevealMenu
-        android:id="@+id/settings_fabMenu"
+        android:id="@+id/credits_fabMenu"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_centerInParent="true"
         app:animateItems="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:menuBackgroundColor="@color/colorAccent"
         app:menuDirection="left"
         app:menuRes="@menu/menu_fab_home"
@@ -85,8 +83,9 @@
         app:menuTitleFontFamily="@font/quicksand"
         app:menuTitleTextColor="@color/colorWhite"
         app:showOverlay="true"
-        app:showTitle="true"></com.hlab.fabrevealmenu.view.FABRevealMenu>
+        app:showTitle="true">
 
+    </com.hlab.fabrevealmenu.view.FABRevealMenu>
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
@@ -101,6 +100,5 @@
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
-
 
 </android.support.constraint.ConstraintLayout>

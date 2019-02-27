@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ui.CreditsActivity"></activity>
         <!-- ADMOB -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -20,16 +20,15 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".ui.MainActivity"
+        <activity
+            android:name=".ui.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- InsertFoodActivity -->
+        </activity> <!-- InsertFoodActivity -->
         <activity
             android:name=".ui.InsertFoodActivity"
             android:parentActivityName=".ui.MainActivity"
@@ -37,9 +36,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
-        </activity>
-
-        <!-- FoodListActivity -->
+        </activity> <!-- FoodListActivity -->
         <activity
             android:name=".ui.FoodListActivity"
             android:parentActivityName=".ui.MainActivity"
@@ -47,27 +44,20 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
-        </activity>
-
-        <!-- Used for notifications -->
+        </activity> <!-- Used for notifications -->
         <service
             android:name=".reminder.FoodReminderIntentService"
-            android:exported="false"/>
-
-        <!-- unused, for debug only -->
-        <activity android:name=".ui.MainSettingsActivity"
-            android:screenOrientation="portrait"></activity>
-
-        <!-- JobService declaration used in FirebaseJobDispatcher -->
+            android:exported="false" /> <!-- unused, for debug only -->
+        <activity
+            android:name=".ui.MainSettingsActivity"
+            android:screenOrientation="portrait" /> <!-- JobService declaration used in FirebaseJobDispatcher -->
         <service
             android:name=".reminder.FoodReminder_fbjob"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
-
-
     </application>
 
 </manifest>

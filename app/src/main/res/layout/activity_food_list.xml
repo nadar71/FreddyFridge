@@ -9,9 +9,11 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/food_background_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/food_list_toolbar"
+        app:layout_constraintTop_toTopOf="@+id/food_list_toolbar"
         app:srcCompat="@drawable/food_background" />
 
     <android.support.v7.widget.Toolbar
@@ -26,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:targetApi="lollipop" >
+        tools:targetApi="lollipop">
 
         <TextView
             android:id="@+id/toolbar_title_tv"
@@ -41,7 +43,6 @@
             tools:layout_editor_absoluteY="18dp" />
 
     </android.support.v7.widget.Toolbar>
-
 
 
     <android.support.v7.widget.RecyclerView

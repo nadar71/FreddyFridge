@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -206,24 +207,36 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             if( view.getId() == deleteFoodItem_imgBtn.getId()){
 
                 // user dialog confirm
-                alertDialog = new AlertDialog.Builder(thisContext)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Are you sure you want to DELETE ?")
-                        .setMessage("")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                deleteFoodEntry();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                // do nothing
-                            }
-                        })
-                        .show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(thisContext);
+                View dialogLayout = LayoutInflater.from(thisContext)
+                        .inflate(R.layout.custom_confirm_dialog, null);
 
+                TextView alert = dialogLayout.findViewById(R.id.confirm_dialog_tv);
+                alert.setText(R.string.confirm_if_deleting_text);
+
+                Button yesBtn = dialogLayout.findViewById(R.id.confirm_dialog_yes_btn);
+                Button noBtn = dialogLayout.findViewById(R.id.confirm_dialog_no_btn);
+
+                yesBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                        deleteFoodEntry();
+
+                    }
+                });
+
+                noBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                builder.setView(dialogLayout);
+
+
+                alertDialog = builder.show();
 
 
 
@@ -234,10 +247,11 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
 
                 // if we are not in the consumed/done food list :
                 if (! listType.equals(FoodListActivity.FOOD_SAVED)) {
+                    /*
                     // user dialog confirm
                     alertDialog = new AlertDialog.Builder(thisContext)
                             .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setTitle("Set Food as CONSUMED, are you sure ?")
+                            .setTitle(R.string.confirm_if_not_consumed_text)
                             .setMessage("")
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
@@ -254,11 +268,48 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
                                 }
                             })
                             .show();
+                            */
+
+                            // user dialog confirm
+                            AlertDialog.Builder builder = new AlertDialog.Builder(thisContext);
+                            View dialogLayout = LayoutInflater.from(thisContext)
+                                    .inflate(R.layout.custom_confirm_dialog, null);
+
+                            TextView alert = dialogLayout.findViewById(R.id.confirm_dialog_tv);
+                            alert.setText(R.string.confirm_if_consumed_text);
+
+                            Button yesBtn = dialogLayout.findViewById(R.id.confirm_dialog_yes_btn);
+                            Button noBtn = dialogLayout.findViewById(R.id.confirm_dialog_no_btn);
+
+                            yesBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    alertDialog.dismiss();
+                                    moveToConsumed();
+
+                                }
+                            });
+
+                            noBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    alertDialog.dismiss();
+                                    foodConsumed_cb.setChecked(false);
+                                }
+                            });
+
+                            builder.setView(dialogLayout);
+
+
+                            alertDialog = builder.show();
+
+
                 } else { // return food to the not consumed/done ones list
                     // user dialog confirm
+                /*
                     alertDialog = new AlertDialog.Builder(thisContext)
                             .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setTitle("Set Food as NOT CONSUMED, are you sure ?")
+                            .setTitle(R.string.confirm_if_deleting_text)
                             .setMessage("")
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
@@ -275,6 +326,41 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
                                 }
                             })
                             .show();
+                            */
+
+
+                        // user dialog confirm
+                        AlertDialog.Builder builder = new AlertDialog.Builder(thisContext);
+                        View dialogLayout = LayoutInflater.from(thisContext)
+                                .inflate(R.layout.custom_confirm_dialog, null);
+
+                        TextView alert = dialogLayout.findViewById(R.id.confirm_dialog_tv);
+                        alert.setText(R.string.confirm_if_not_consumed_text);
+
+                        Button yesBtn = dialogLayout.findViewById(R.id.confirm_dialog_yes_btn);
+                        Button noBtn = dialogLayout.findViewById(R.id.confirm_dialog_no_btn);
+
+                        yesBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                                moveToNOTConsumed();
+
+                            }
+                        });
+
+                        noBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                                foodConsumed_cb.setChecked(false);
+                            }
+                        });
+
+                        builder.setView(dialogLayout);
+
+
+                        alertDialog = builder.show();
                 }
 
 

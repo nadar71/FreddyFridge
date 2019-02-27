@@ -8,9 +8,9 @@
 
     <color name="colorPrimary">#7aa44d</color>
     <color name="colorPrimaryDark">#578d18</color>
-    <color name="colorAccent">#ec9039</color>
+    <color name="colorAccent">#EC9039</color>
 
-    <color name="text_color">#734b26</color>
+    <color name="text_color">#734B26</color>
 
     <color name="today_list_record_light_grey">#c8c3dbf6</color>
     <color name="fab_yellow">#fcc742</color>

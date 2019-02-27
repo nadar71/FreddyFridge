@@ -27,11 +27,16 @@
 
 
     <PreferenceCategory android:title="@string/category_help_title">
+
+        <Preference
+            android:key="@string/credits_btn_key"
+            android:summary="@string/credits_btn_summary"
+            android:title="@string/credits_btn_title"/>
+
         <Preference
             android:key="@string/gdpr_btn_key"
             android:summary="@string/gdpr_btn_summary"
             android:title="@string/gdpr_btn_title" />
-
 
     </PreferenceCategory>
 

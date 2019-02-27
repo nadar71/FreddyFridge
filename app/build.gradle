@@ -44,7 +44,6 @@ dependencies {
     // JobService
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
 
-
     // Ads through  Playservices : it gives me problem....
     implementation 'com.google.android.gms:play-services-ads:15.0.1'
 
@@ -65,5 +64,13 @@ dependencies {
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
     implementation 'com.android.support:design:27.1.1'
 
+    // fab reveal menu module integration
     implementation project(':fabrevealmenu')
+
+    // Intro library
+    // AndroidX Capable version
+    // implementation 'com.github.AppIntro:AppIntro:v5.1.0'
+    // *** OR ***
+    // Support Library compatibility version
+    implementation 'com.github.AppIntro:AppIntro:v4.2.3'
 }
