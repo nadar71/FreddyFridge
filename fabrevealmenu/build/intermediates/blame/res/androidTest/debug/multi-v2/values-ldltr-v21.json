@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-ldltr-v21/values-ldltr-v21.xml",
+            "map": [
+                {
+                    "source": "/Users/simone/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/f7784162a9937eed9f1d6cafe69e4d0b/res/values-ldltr-v21/values-ldltr-v21.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "112",
+                        "endOffsets": "163"
+                    }
+                }
+            ]
+        }
+    ]
+}

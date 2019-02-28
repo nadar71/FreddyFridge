@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
 import com.hlab.fabrevealmenu.enums.Direction;
@@ -27,6 +28,7 @@ public class CreditsActivity extends AppCompatActivity
     private FloatingActionButton fab ;
 
     private Toolbar creditsToolbar;
+    private TextView toolbarTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +58,10 @@ public class CreditsActivity extends AppCompatActivity
      */
     private void toolBarInit(){
         // get the toolbar
-        creditsToolbar = (Toolbar) findViewById(R.id.credits_toolbar);
-        creditsToolbar.setTitle(R.string.credits_btn_key);
+        creditsToolbar = findViewById(R.id.credits_toolbar);
+
+        toolbarTitle = creditsToolbar.findViewById(R.id.credits_toolbar_title_tv);
+        toolbarTitle.setText(R.string.credits_btn_title);
 
         // place toolbar in place of action bar
         setSupportActionBar(creditsToolbar);

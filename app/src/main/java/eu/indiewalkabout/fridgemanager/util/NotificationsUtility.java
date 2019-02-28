@@ -78,7 +78,7 @@ public class NotificationsUtility {
                 new NotificationCompat.Builder(context,FOOD_DEADLINE_NOTIFICATION_CHANNEL_ID)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 // .setSmallIcon(R.drawable.ic_warning_green_24dp)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.nextdays_notifications)
 
                 .setLargeIcon(largeIcon(context))
 
@@ -127,7 +127,7 @@ public class NotificationsUtility {
                 new NotificationCompat.Builder(context,FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID)
                         .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                         // .setSmallIcon(R.drawable.ic_warning_green_24dp)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.today_notifications)
 
                         .setLargeIcon(largeIcon(context))
 

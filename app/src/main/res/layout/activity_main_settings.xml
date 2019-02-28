@@ -20,7 +20,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:targetApi="lollipop" />
+        tools:targetApi="lollipop" >
+
+        <TextView
+            android:id="@+id/settings_toolbar_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/fredoka_one"
+            android:textAlignment="viewStart"
+            android:textColor="@color/text_color"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/main_settings_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/mainSettingsActivity_title" />
+
+    </android.support.v7.widget.Toolbar>
 
 
     <ImageView

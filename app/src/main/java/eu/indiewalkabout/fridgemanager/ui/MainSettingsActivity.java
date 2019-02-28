@@ -4,6 +4,7 @@ package eu.indiewalkabout.fridgemanager.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -15,9 +16,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
 import com.hlab.fabrevealmenu.enums.Direction;
@@ -35,7 +40,9 @@ public class MainSettingsActivity extends AppCompatActivity
 
     public static final String TAG = MainSettingsActivity.class.getName();
 
-    private Toolbar foodInsertToolbar;
+    private Toolbar  SettingsToolbar;
+    private TextView toolbarTitle;
+
     private FABRevealMenu  fabMenu;
 
     private static String dayBeforeKey,hoursFreqKey;
@@ -43,8 +50,13 @@ public class MainSettingsActivity extends AppCompatActivity
     // admob banner ref
     private AdView mAdView;
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_settings);
 
@@ -58,16 +70,28 @@ public class MainSettingsActivity extends AppCompatActivity
 
         // navigation fab
         addRevealFabBtn();
+
+
+
+
     }
 
 
-    public static class MainPreferenceFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener{
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Preferences screen manager class
+     * ---------------------------------------------------------------------------------------------
+     */
+    public static class MainPreferenceFragment extends PreferenceFragment
+            implements Preference.OnPreferenceChangeListener{
 
         private ConsentSDK consentSDK = null;
         private Context context;
 
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
+
             super.onCreate(savedInstanceState);
 
             dayBeforeKey = getString(R.string.days_before_deadline_count);
@@ -128,7 +152,7 @@ public class MainSettingsActivity extends AppCompatActivity
                 });
 
             } else {
-                preferenceScreen.removePreference(gdprConsentBtn);;
+                preferenceScreen.removePreference(gdprConsentBtn);
             }
 
 
@@ -176,8 +200,10 @@ public class MainSettingsActivity extends AppCompatActivity
                 if(prefindex >= 0){
                     CharSequence[] labels = listPreference.getEntries();
 
-                    if (preference.getKey() == hoursFreqKey ) {
-                        preference.setSummary("Notify every "+ labels[prefindex] + " hours");
+                    if (preference.getKey().equals(hoursFreqKey )) {
+                        String tmp = "Notify every <b>" +  labels[prefindex]+ "</b> hours";
+                        preference.setSummary(Html.fromHtml(tmp));
+
                     } else {
                         preference.setSummary(labels[prefindex]);
                     }
@@ -191,8 +217,8 @@ public class MainSettingsActivity extends AppCompatActivity
             }
 
             // Relaunch job scheduler in case
-            if ( (preference.getKey() == dayBeforeKey ) || (preference.getKey() == hoursFreqKey )){
-                context = getContext();
+            if ( (preference.getKey().equals(dayBeforeKey )) || (preference.getKey().equals(hoursFreqKey ))){
+                context = preference.getContext();
                 ReminderScheduler.scheduleChargingReminder(context);
             }
 
@@ -226,11 +252,12 @@ public class MainSettingsActivity extends AppCompatActivity
      */
     private void toolBarInit(){
         // get the toolbar
-        foodInsertToolbar = (Toolbar) findViewById(R.id.main_settings_toolbar);
-        foodInsertToolbar.setTitle(R.string.mainSettingsActivity_title);
+        SettingsToolbar = findViewById(R.id.main_settings_toolbar);
+        toolbarTitle = SettingsToolbar.findViewById(R.id.settings_toolbar_title_tv);
+        toolbarTitle.setText(R.string.mainSettingsActivity_title);
 
         // place toolbar in place of action bar
-        setSupportActionBar(foodInsertToolbar);
+        setSupportActionBar(SettingsToolbar);
 
         // get a support action bar
         ActionBar actionBar = getSupportActionBar();
