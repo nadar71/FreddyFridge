@@ -1,5 +1,6 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -73,6 +74,8 @@ public class IntroActivity extends AppIntro2 {
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
+        Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(mainActivityIntent);
         finish();
     }
 }

@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity
     private FoodDatabase foodDb;
 
     // UI item reference
-    private ImageView settingsBtn;
+    private ImageView settingsBtn, helpBtn;
     private TextView emptyListText;
     private FABRevealMenu fabMenu;
     private FloatingActionButton fab ;
@@ -80,6 +80,15 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent settingsIntent = new Intent(getApplicationContext(), MainSettingsActivity.class);
                 startActivity(settingsIntent);
+            }
+        });
+
+        helpBtn = findViewById(R.id.help_img);
+        helpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent introIntent = new Intent(getApplicationContext(), IntroActivity.class);
+                startActivity(introIntent);
             }
         });
 

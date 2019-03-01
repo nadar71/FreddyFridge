@@ -18,6 +18,16 @@
         app:layout_constraintTop_toTopOf="@+id/main_today_food_list_recycleView"
         app:srcCompat="@drawable/food_background" />
 
+    <ImageView
+        android:id="@+id/help_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_help_black_24dp" />
+
     <TextView
         android:id="@+id/app_title_tv"
         android:layout_width="wrap_content"
