@@ -131,7 +131,7 @@ public class NotificationsUtility {
         String listString = "";
         if (todayList.size() > 0 ) {
             for(FoodEntry item: todayList){
-                listString += item.getName() + " \n";
+                listString += item.getName() + ",";
             }
         } else {
             listString = context.getString(R.string.nextdays_expiring_notification_body);
@@ -205,7 +205,7 @@ public class NotificationsUtility {
         String listString = "";
         if (todayList.size() > 0 ) {
             for(FoodEntry item: todayList){
-                listString += item.getName() + "\n";
+                listString += item.getName() + ",";
             }
         } else {
             listString = context.getString(R.string.today_expiring_notification_body);

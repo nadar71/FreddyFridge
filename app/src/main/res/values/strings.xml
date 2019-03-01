@@ -94,11 +94,11 @@
 
     <!-- - - - - - - - - - - - - Notifications   - - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="nextdays_expiring_food_notification_title">NEXT DAYS Expiring Foods found, check. </string>
-    <string name="nextdays_expiring_notification_body">Click for complete list</string>
+    <string name="nextdays_expiring_notification_body">Click below for complete list</string>
     <string name="nextdays_expiring_notification_channel_name">next-days-expiring-food  notifications</string>
 
     <string name="today_expiring_food_notification_title">TODAY Expiring Foods FOUND, check ! </string>
-    <string name="today_expiring_notification_body">Click for complete list</string>
+    <string name="today_expiring_notification_body">Click below for complete list</string>
     <string name="today_expiring_notification_channel_name">today-expiring-food notifications</string>
 
     <string name="show_food_expiring_action_title">Show me expiring food</string>
@@ -157,6 +157,10 @@
     <string name="app_logo">app logo</string>
     <string name="settings_icon">settings icon</string>
     <string name="confirm_dialog_string_settings_icon">confirm dialog @string/settings_icon</string>
+
+
+    <!-- - - - - - - - - - - - - Intro stuff  - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
 
 
 </resources>

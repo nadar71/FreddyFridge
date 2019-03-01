@@ -9,4 +9,5 @@
 .externalNativeBuild
 *.apk
 *.abb
+/release
 
