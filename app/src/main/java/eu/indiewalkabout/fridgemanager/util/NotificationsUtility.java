@@ -4,22 +4,36 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.view.View;
+
+import java.util.List;
 
 import eu.indiewalkabout.fridgemanager.R;
+import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
+import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import eu.indiewalkabout.fridgemanager.reminder.FoodReminderIntentService;
 import eu.indiewalkabout.fridgemanager.reminder.ReminderOps;
 import eu.indiewalkabout.fridgemanager.ui.FoodListActivity;
+import eu.indiewalkabout.fridgemanager.ui.FoodListsViewModel;
+import eu.indiewalkabout.fridgemanager.ui.FoodListsViewModelFactory;
 import eu.indiewalkabout.fridgemanager.ui.MainActivity;
 
 public class NotificationsUtility {
+
+    private static final String TAG = NotificationsUtility.class.getSimpleName();
 
     // Unique Id to Refer to notification when displayed
     private static final int FOOD_DEADLINE_NOTIFICATION_ID         = 1000;
@@ -41,6 +55,9 @@ public class NotificationsUtility {
     private static final int ACTION_SHOW_TODAY_PENDING_INTENT_ID   = 10;
     private static final int ACTION_IGNORE_PENDING_INTENT_ID       = 20;
 
+    // Db reference
+    private static FoodDatabase foodDb;
+
 
     /**
      * ---------------------------------------------------------------------------------------------
@@ -61,7 +78,7 @@ public class NotificationsUtility {
      * @param context
      * ---------------------------------------------------------------------------------------------
      */
-    public static void remindNextDaysExpiringFood(Context context) {
+    public static void remindNextDaysExpiringFood(Context context, List<FoodEntry> foodEntries) {
 
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -74,16 +91,18 @@ public class NotificationsUtility {
             notificationManager.createNotificationChannel(mChannel);
         }
 
+        // create data visualization string
+        String notificationsText = formatForNextdays(context, foodEntries);
+
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(context,FOOD_DEADLINE_NOTIFICATION_CHANNEL_ID)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 // .setSmallIcon(R.drawable.ic_warning_green_24dp)
                 .setSmallIcon(R.drawable.nextdays_notifications)
-
                 .setLargeIcon(largeIcon(context))
-
                 .setContentTitle(context.getString(R.string.nextdays_expiring_food_notification_title))
-                .setContentText(context.getString(R.string.nextdays_expiring_notification_body))
+                // .setContentText(context.getString(R.string.nextdays_expiring_notification_body))
+                .setContentText(notificationsText)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(
                         context.getString(R.string.nextdays_expiring_notification_body)))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
@@ -103,6 +122,23 @@ public class NotificationsUtility {
     }
 
 
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Formata Next days Expiring Food list for notification alert
+     * ---------------------------------------------------------------------------------------------
+     */
+    private static String formatForNextdays(Context context, List<FoodEntry> todayList){
+        String listString = "";
+        if (todayList.size() > 0 ) {
+            for(FoodEntry item: todayList){
+                listString += item.getName() + " \n";
+            }
+        } else {
+            listString = context.getString(R.string.nextdays_expiring_notification_body);
+        }
+        return listString;
+    }
+
 
     /**
      * ---------------------------------------------------------------------------------------------
@@ -110,7 +146,11 @@ public class NotificationsUtility {
      * @param context
      * ---------------------------------------------------------------------------------------------
      */
-    public static void remindTodayExpiringFood(Context context) {
+    public static void remindTodayExpiringFood(Context context, List<FoodEntry> foodEntries) {
+
+        // Db instance
+        // TODO : delete when depository active
+        foodDb = FoodDatabase.getsDbInstance(context);
 
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -123,16 +163,19 @@ public class NotificationsUtility {
             notificationManager.createNotificationChannel(mChannel);
         }
 
+        // create data visualization string
+        String notificationsText = formatForToday(context, foodEntries);
+
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(context,FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID)
                         .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                         // .setSmallIcon(R.drawable.ic_warning_green_24dp)
                         .setSmallIcon(R.drawable.today_notifications)
-
                         .setLargeIcon(largeIcon(context))
 
                         .setContentTitle(context.getString(R.string.today_expiring_food_notification_title))
-                        .setContentText(context.getString(R.string.today_expiring_notification_body))
+                        // .setContentText(context.getString(R.string.today_expiring_notification_body))
+                        .setContentText(notificationsText)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(
                                 context.getString(R.string.today_expiring_notification_body)))
                         .setDefaults(Notification.DEFAULT_VIBRATE)
@@ -150,6 +193,26 @@ public class NotificationsUtility {
 
         notificationManager.notify(FOOD_TODAY_DEADLINE_NOTIFICATION_ID, notificationBuilder.build());
     }
+
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Formata Today Expiring Food list for todays notification alert
+     * ---------------------------------------------------------------------------------------------
+     */
+    private static String formatForToday(Context context, List<FoodEntry> todayList){
+        String listString = "";
+        if (todayList.size() > 0 ) {
+            for(FoodEntry item: todayList){
+                listString += item.getName() + "\n";
+            }
+        } else {
+            listString = context.getString(R.string.today_expiring_notification_body);
+        }
+        return listString;
+    }
+
 
 
     /**

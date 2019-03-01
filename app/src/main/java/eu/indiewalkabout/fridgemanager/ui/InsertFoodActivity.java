@@ -5,7 +5,6 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import java.util.concurrent.TimeUnit;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -38,7 +36,7 @@ import eu.indiewalkabout.fridgemanager.R;
 import eu.indiewalkabout.fridgemanager.data.DateConverter;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
-import eu.indiewalkabout.fridgemanager.sync.AppExecutors;
+import eu.indiewalkabout.fridgemanager.AppExecutors;
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
 import eu.indiewalkabout.fridgemanager.util.KeyboardUtils;
 
@@ -119,6 +117,7 @@ public class InsertFoodActivity extends AppCompatActivity
         showInterstitialAd();
 
         // init db instance
+        // TODO : delete when depository active
         foodDb = FoodDatabase.getsDbInstance(getApplicationContext());
 
         // init views

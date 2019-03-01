@@ -14,6 +14,7 @@ import android.util.Log;
 @TypeConverters(DateConverter.class)
 public abstract class FoodDatabase extends RoomDatabase {
     private static final String TAG = FoodDatabase.class.getSimpleName();
+
     // lock for synchro
     private static final Object LOCK   = new Object();
     private static final String DBNAME = "FoodDB";
@@ -60,6 +61,7 @@ public abstract class FoodDatabase extends RoomDatabase {
         return sDbInstance;
     }
 
+    // getters for the dao
     public abstract FoodDbDao foodDbDao();
 
 }

@@ -108,6 +108,7 @@ public class FoodListActivity extends AppCompatActivity
         emptyListText = findViewById(R.id.empty_view);
 
         // Db instance
+        // TODO : delete when depository active
         foodDb = FoodDatabase.getsDbInstance(getApplicationContext());
 
         // TODO : use this in another way

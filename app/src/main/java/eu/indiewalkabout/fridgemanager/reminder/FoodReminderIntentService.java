@@ -4,6 +4,8 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
+import eu.indiewalkabout.fridgemanager.data.FoodEntry;
+
 
 /**
  * -------------------------------------------------------------------------------------------------
@@ -19,6 +21,6 @@ public class FoodReminderIntentService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         String action = intent.getAction();
-        ReminderOps.executeTask(this, action);
+        ReminderOps.executeTask(this, action,null);
     }
 }

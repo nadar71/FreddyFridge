@@ -1,7 +1,6 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +22,7 @@ import java.util.Locale;
 import eu.indiewalkabout.fridgemanager.R;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
-import eu.indiewalkabout.fridgemanager.sync.AppExecutors;
+import eu.indiewalkabout.fridgemanager.AppExecutors;
 
 public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodViewRowHolder> {
 

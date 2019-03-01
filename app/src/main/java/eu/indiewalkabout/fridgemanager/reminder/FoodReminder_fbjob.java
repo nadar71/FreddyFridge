@@ -51,14 +51,15 @@ public class FoodReminder_fbjob extends JobService {
 
         final Context context = FoodReminder_fbjob.this;
 
-        // TODO : hardcoded for debug, next in preferences key
+        // hardcoded for debug, next in preferences key
         // day before in millisec
         // 2 days = 172800000
         // final int DAYS_BEFORE = (int) (TimeUnit.DAYS.toSeconds(2))*1000;
         int days = PreferenceUtility.getDaysCount(context);
         final int DAYS_BEFORE = (int) (TimeUnit.DAYS.toSeconds(days));
 
-                // Db reference
+        // Db reference
+        // TODO : delete when depository active
         FoodDatabase foodDb;
         foodDb = FoodDatabase.getsDbInstance(getApplicationContext());
 
@@ -76,13 +77,15 @@ public class FoodReminder_fbjob extends JobService {
                 DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
         long dateBefore = dataNormalizedAtMidnight - DAYS_BEFORE;
         // 1549926000000 - 172800000 = 1549753200000
+
+        // TODO : MAKE WITH LIVEDATA/VIEWMODEL
         foodEntriesNextDays = foodDb.foodDbDao().loadAllFoodExpiring(dateBefore);
 
         foodEntriesNextDays.observeForever(new Observer<List<FoodEntry>>() {
             @Override
             public void onChanged(@Nullable List<FoodEntry> foodEntries) {
                 if (foodEntries.size() > 0 ){
-                    ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_NEXT_DAYS_EXPIRING_FOOD);
+                    ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_NEXT_DAYS_EXPIRING_FOOD,foodEntries);
                 }
                 foodEntriesNextDays.removeObserver(this);
             }
@@ -94,13 +97,17 @@ public class FoodReminder_fbjob extends JobService {
         // -----------------------------------------------------------------------------------------
         final LiveData<List<FoodEntry>> foodEntriesToDay;
 
-        foodEntriesToDay = foodDb.foodDbDao().loadAllFoodExpiring(dataNormalizedAtMidnight);
+        long previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS;
+        long nextDayDate     = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS;
+
+        // TODO : MAKE WITH LIVEDATA/VIEWMODEL
+        foodEntriesToDay = foodDb.foodDbDao().loadFoodExpiringToday(previousDayDate,nextDayDate);
 
         foodEntriesToDay.observeForever(new Observer<List<FoodEntry>>() {
             @Override
             public void onChanged(@Nullable List<FoodEntry> foodEntries) {
                 if (foodEntries.size() > 0 ){
-                    ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_TODAY_EXPIRING_FOOD);
+                    ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_TODAY_EXPIRING_FOOD,foodEntries);
                 }
                 foodEntriesToDay.removeObserver(this);
             }

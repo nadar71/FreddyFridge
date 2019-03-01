@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         // Db instance
+        // TODO : delete when depository active
         foodDb = FoodDatabase.getsDbInstance(getApplicationContext());
 
         // empty view for empty list message
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity
      * @param view
      */
     public void testNotification(View view) {
-        NotificationsUtility.remindNextDaysExpiringFood(this);
+        // NotificationsUtility.remindNextDaysExpiringFood(this);
     }
 
 
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity
      * @param view
      */
     public void testTodayNotification(View view) {
-        NotificationsUtility.remindTodayExpiringFood(this);
+        // NotificationsUtility.remindTodayExpiringFood(this);
     }
 
 
@@ -208,7 +209,7 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * ---------------------------------------------------------------------------------------------
-     * Livedata/ViewModel recovering Expiring Food list
+     * Livedata/ViewModel recovering Expiring Today Food list
      * ---------------------------------------------------------------------------------------------
      */
     private void retrieveFoodExpiringToday() {

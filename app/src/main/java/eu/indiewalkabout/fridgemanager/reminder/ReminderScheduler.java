@@ -33,7 +33,7 @@ public class ReminderScheduler {
 
         // get frequency of daily reminder from preferences
         int hoursFrequency  = PreferenceUtility.getHoursCount(context);
-        periodicity         = (int) (TimeUnit.HOURS.toSeconds(hoursFrequency));
+        periodicity         = (int) (TimeUnit.HOURS.toSeconds(hoursFrequency))/60;
         toleranceInterval   = periodicity;
 
         Driver driver = new GooglePlayDriver(context);
