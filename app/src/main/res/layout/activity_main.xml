@@ -26,21 +26,29 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_help_black_24dp" />
-
+        app:srcCompat="@drawable/ic_help_white_24dp" />
+<!--
     <TextView
         android:id="@+id/app_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:fontFamily="@font/fredoka_one"
         android:text="@string/app_name"
         android:textColor="@color/light_white_semitransparent"
         android:textSize="39sp"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="265dp"
+        tools:layout_editor_absoluteY="24dp" />
+-->
+    <ImageView
+        android:id="@+id/app_title_img"
+        android:layout_width="312dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toStartOf="@+id/fridge_logo"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toEndOf="@+id/fridge_logo"
-        app:layout_constraintTop_toTopOf="@+id/main_fabMenu" />
+        app:layout_constraintTop_toTopOf="@+id/main_fabMenu"
+        app:srcCompat="@drawable/title_2048_white" />
 
     <ImageView
         android:id="@+id/main_logo_right"
@@ -75,12 +83,12 @@
         android:layout_width="118dp"
         android:layout_height="101dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/app_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_title_tv"
+        app:layout_constraintTop_toBottomOf="@+id/app_title_img"
         app:srcCompat="@drawable/fridge_background" />
 
     <TextView
@@ -197,7 +205,7 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_filter_vintage_orange_24dp" />
+        app:srcCompat="@drawable/ic_filter_vintage_white_24dp" />
 
 
     <android.support.design.widget.FloatingActionButton

@@ -28,9 +28,10 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ec9039" />
-                            <entry key="outputName" value="ic_help_black_24dp" />
-                            <entry key="sourceFile" value="$PROJECT_DIR$/../FridgeManager_Resources/USED/notific_today_icon.svg" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_help_white_24dp" />
+                            <entry key="overrideSize" value="true" />
+                            <entry key="sourceFile" value="$PROJECT_DIR$/../GameIcon/Title_android.svg" />
                           </map>
                         </option>
                       </PersistentState>
