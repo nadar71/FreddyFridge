@@ -332,15 +332,12 @@ public class InsertFoodActivity extends AppCompatActivity
             if(foodId ==  DEFAULT_ID) {
                 foodId =  intent.getIntExtra(ID_TO_BE_UPDATED, DEFAULT_ID);
 
-                // factory for FoodInsertViewModel, with param foodId
-                FoodInsertViewModelFactory factory = new FoodInsertViewModelFactory(foodId);
-
                 // Create the viewModel for the food entry, based on  foodId
-                final FoodInsertViewModel  viewModel = ViewModelProviders.of(this,factory).get(FoodInsertViewModel.class);
+                final FoodListsViewModel  viewModel = ViewModelProviders.of(this).get(FoodListsViewModel.class);
 
                 // Populate the text edit fields and
                 // observe changes in data through LiveData: getFoodEntry() actually return 1 LiveData<FoodEntry>
-                foodEntryToChange = viewModel.getFoodEntry();
+                foodEntryToChange = viewModel.getFoodEntry(foodId);
                 foodEntryToChange.observe(this, new Observer<FoodEntry>() {
                     @Override
                     public void onChanged(@Nullable FoodEntry foodEntry) {

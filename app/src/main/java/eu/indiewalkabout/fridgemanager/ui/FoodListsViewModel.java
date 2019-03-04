@@ -27,6 +27,9 @@ public class FoodListsViewModel extends ViewModel {
     // Livedata var on foodEntry List to populate through ViewModel
     private LiveData<List<FoodEntry>> foodEntries;
 
+    // Livedata var on foodEntry obj to populate through ViewModel
+    private LiveData<FoodEntry> foodEntry;
+
     // repository ref
     private FridgeManagerRepository repository;
 
@@ -35,8 +38,7 @@ public class FoodListsViewModel extends ViewModel {
      */
 
     public FoodListsViewModel() {
-
-        // get repository instance
+        // init repository
         repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
     }
 
@@ -93,6 +95,18 @@ public class FoodListsViewModel extends ViewModel {
     public LiveData<List<FoodEntry>> getFoodList() {
         return foodEntries;
     }
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Getter for LiveData<FoodEntry>
+     * @return
+     * ---------------------------------------------------------------------------------------------
+     */
+    public LiveData<FoodEntry> getFoodEntry(int foodId) {
+        foodEntry = repository.loadFoodById(foodId);
+        return foodEntry;
+    }
+
 
 
     /*
