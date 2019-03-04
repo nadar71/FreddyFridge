@@ -1,5 +1,6 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
+import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity
     // Db reference
     private FoodDatabase foodDb;
 
+    private Application application;
+
     // UI item reference
     private ImageView settingsBtn, helpBtn;
     private TextView emptyListText;
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity
     // recycle View stuff
     private RecyclerView    foodList;
     private FoodListAdapter foodListAdapter;
+
 
 
 
@@ -168,9 +172,13 @@ public class MainActivity extends AppCompatActivity
         // Set LinearLayout
         foodList.setLayoutManager(new LinearLayoutManager(this));
 
+        // retrieve application context for viewmodel
+        // application = (Application) getApplicationContext();
+        application = getApplication();
+
         // Initialize the adapter and attach it to the RecyclerView
         foodListAdapter = new FoodListAdapter(this, this,
-                FoodListActivity.FOOD_EXPIRING_TODAY);
+                FoodListActivity.FOOD_EXPIRING_TODAY, application);
         foodList.setAdapter(foodListAdapter);
 
         // Divider decorator
@@ -226,9 +234,13 @@ public class MainActivity extends AppCompatActivity
 
         // Log.d(TAG, "Time now : "+System.currentTimeMillis().)
 
+        // retrieve application context for viewmodel
+        // application = (Application) getApplicationContext();
+        application = getApplication();
+
         // Declare my viewModel factory, parametrized with foodlistType
         FoodListsViewModelFactory factory =
-                new FoodListsViewModelFactory(foodDb,FoodListActivity.FOOD_EXPIRING_TODAY);
+                new FoodListsViewModelFactory(foodDb,FoodListActivity.FOOD_EXPIRING_TODAY, application);
 
         // Create the viewModel for the food list, based on  foodlistType
         final FoodListsViewModel  viewModel = ViewModelProviders.of(this,factory).get(FoodListsViewModel.class);

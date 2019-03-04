@@ -8,6 +8,8 @@ import android.util.Log;
 
 import java.util.List;
 
+import eu.indiewalkabout.fridgemanager.FridgeManagerRepository;
+import eu.indiewalkabout.fridgemanager.SingletonsPortal;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
@@ -25,6 +27,9 @@ public class FoodListsViewModel extends ViewModel {
     // Livedata var on foodEntry List to populate through ViewModel
     private LiveData<List<FoodEntry>> foodEntries;
 
+    // repository ref
+    private final FridgeManagerRepository repository;
+
     /**
      * ---------------------------------------------------------------------------------------------
      * Constructor for {@link FoodListsViewModelFactory} : init the attributes with
@@ -33,25 +38,30 @@ public class FoodListsViewModel extends ViewModel {
      * @param foodlistType
      * ---------------------------------------------------------------------------------------------
      */
-    public FoodListsViewModel(FoodDatabase foodDb, String foodlistType) {
-        Log.d(TAG, "Actively retrieving the collections from db");
+    public FoodListsViewModel(FoodDatabase foodDb, String foodlistType, Application application) {
+        Log.d(TAG, "Actively retrieving the collections from repository");
+
+        repository = ((SingletonsPortal) application).getRepository();
 
         // choose the type of food list to load from db
         if (foodlistType.equals(FoodListActivity.FOOD_EXPIRING)) {
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
             long dataNormalizedAtMidnight  =
                     DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
-            foodEntries = foodDb.foodDbDao().loadAllFoodExpiring(dataNormalizedAtMidnight);
+            // foodEntries = foodDb.foodDbDao().loadAllFoodExpiring(dataNormalizedAtMidnight);
+            foodEntries = repository.loadAllFoodExpiring(dataNormalizedAtMidnight);
 
         }else if (foodlistType.equals(FoodListActivity.FOOD_SAVED)){
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
-            foodEntries = foodDb.foodDbDao().loadAllFoodSaved();
+            // foodEntries = foodDb.foodDbDao().loadAllFoodSaved();
+            foodEntries = repository.loadAllFoodSaved();
 
         }else if (foodlistType.equals(FoodListActivity.FOOD_DEAD)){
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
             long dataNormalizedAtMidnight  =
                     DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
-            foodEntries = foodDb.foodDbDao().loadAllFoodDead(dataNormalizedAtMidnight);
+            // foodEntries = foodDb.foodDbDao().loadAllFoodDead(dataNormalizedAtMidnight);
+            foodEntries = repository.loadAllFoodDead(dataNormalizedAtMidnight);
 
         }else if (foodlistType.equals(FoodListActivity.FOOD_EXPIRING_TODAY)){
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
@@ -59,7 +69,8 @@ public class FoodListsViewModel extends ViewModel {
                     DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
             long previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS;
             long nextDayDate     = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS;
-            foodEntries = foodDb.foodDbDao().loadFoodExpiringToday(previousDayDate,nextDayDate);
+            // foodEntries = foodDb.foodDbDao().loadFoodExpiringToday(previousDayDate,nextDayDate);
+            foodEntries = repository.loadFoodExpiringToday(previousDayDate,nextDayDate);
         }
 
     }

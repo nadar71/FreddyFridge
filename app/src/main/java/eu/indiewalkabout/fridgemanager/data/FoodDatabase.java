@@ -20,6 +20,9 @@ public abstract class FoodDatabase extends RoomDatabase {
     private static final String DBNAME = "FoodDB";
     private static FoodDatabase sDbInstance ;
 
+    // get for the dao
+    public abstract FoodDbDao foodDbDao();
+
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
@@ -61,7 +64,5 @@ public abstract class FoodDatabase extends RoomDatabase {
         return sDbInstance;
     }
 
-    // getters for the dao
-    public abstract FoodDbDao foodDbDao();
 
 }

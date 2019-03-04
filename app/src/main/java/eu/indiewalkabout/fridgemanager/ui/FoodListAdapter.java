@@ -1,5 +1,6 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -19,7 +20,9 @@ import java.util.List;
 import java.util.Locale;
 
 
+import eu.indiewalkabout.fridgemanager.FridgeManagerRepository;
 import eu.indiewalkabout.fridgemanager.R;
+import eu.indiewalkabout.fridgemanager.SingletonsPortal;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import eu.indiewalkabout.fridgemanager.AppExecutors;
@@ -43,7 +46,15 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
 
     // TODO : move onClick management to MainActivity
     // Db ref
-    FoodDatabase foodDb;
+    // private final FoodDatabase foodDb;
+
+    // repository ref
+    private final FridgeManagerRepository repository;
+
+
+
+
+
 
 
     /**
@@ -53,13 +64,16 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
      * @param listener the ItemClickListener
      * ----------------------------------------------------------------------------------
      */
-    public FoodListAdapter(Context context, ItemClickListener listener, String listType) {
+    public FoodListAdapter(Context context, ItemClickListener listener, String listType, Application application) {
         thisContext           = context;
         foodItemClickListener = listener;
         this.listType         = listType;
 
+
         // TODO : move onClick management to MainActivity
-        foodDb = FoodDatabase.getsDbInstance(thisContext);
+        // foodDb = FoodDatabase.getsDbInstance(thisContext);
+
+        repository = ((SingletonsPortal) application).getRepository();
 
     }
 
@@ -395,7 +409,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
-                    foodDb.foodDbDao().updateDoneField(1,foodItemConsumed.getId());
+                    // foodDb.foodDbDao().updateDoneField(1,foodItemConsumed.getId());
+                    repository.updateDoneField(1,foodItemConsumed.getId());
                 }
             });
 
@@ -429,7 +444,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
-                    foodDb.foodDbDao().updateDoneField(0,foodItemConsumed.getId());
+                    // foodDb.foodDbDao().updateDoneField(0,foodItemConsumed.getId());
+                    repository.updateDoneField(0,foodItemConsumed.getId());
                 }
             });
 
@@ -461,7 +477,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
-                    foodDb.foodDbDao().deleteFoodEntry(foodItemToDelete);
+                    // foodDb.foodDbDao().deleteFoodEntry(foodItemToDelete);
+                    repository.deleteFoodEntry(foodItemToDelete);
                 }
             });
 

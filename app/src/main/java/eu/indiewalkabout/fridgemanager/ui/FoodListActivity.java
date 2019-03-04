@@ -1,5 +1,6 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
+import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -58,6 +59,8 @@ public class FoodListActivity extends AppCompatActivity
     private TextView        emptyListText, toolbarTitle;
     private FABRevealMenu   fabMenu;
     private FloatingActionButton fab ;
+
+    private Application application;
 
     // admob banner ref
     private AdView mAdView;
@@ -210,8 +213,12 @@ public class FoodListActivity extends AppCompatActivity
         // Set LinearLayout
         foodList.setLayoutManager(new LinearLayoutManager(this));
 
+        // retrieve application context for viewmodel
+        // application = (Application) application.getApplicationContext();
+        application = getApplication();
+
         // Initialize the adapter and attach it to the RecyclerView
-        foodListAdapter = new FoodListAdapter(this, this, foodlistType);
+        foodListAdapter = new FoodListAdapter(this, this, foodlistType, application);
         foodList.setAdapter(foodListAdapter);
 
         // Divider decorator
@@ -269,8 +276,12 @@ public class FoodListActivity extends AppCompatActivity
     private void retrieveAllFood() {
         Log.d(TAG, "Actively retrieving Expiring Food from DB");
 
+        // retrieve application context for viewmodel
+        // application = (Application) getApplicationContext();
+        application = getApplication();
+
         // Declare my viewModel factory, parametrized with foodlistType
-        FoodListsViewModelFactory factory = new FoodListsViewModelFactory(foodDb,foodlistType);
+        FoodListsViewModelFactory factory = new FoodListsViewModelFactory(foodDb, foodlistType, application);
 
         // Create the viewModel for the food list, based on  foodlistType
         final FoodListsViewModel  viewModel = ViewModelProviders.of(this,factory).get(FoodListsViewModel.class);
