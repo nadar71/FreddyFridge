@@ -28,16 +28,18 @@ public class FoodListsViewModel extends ViewModel {
     private LiveData<List<FoodEntry>> foodEntries;
 
     // repository ref
-    private final FridgeManagerRepository repository;
+    private FridgeManagerRepository repository;
 
     /**
      * Standard FoodListsViewModel constructor; init repository
      */
+
     public FoodListsViewModel() {
 
         // get repository instance
         repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
     }
+
 
 
 

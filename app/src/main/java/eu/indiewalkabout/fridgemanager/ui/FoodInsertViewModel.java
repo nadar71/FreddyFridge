@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModel;
 
 import java.util.List;
 
+import eu.indiewalkabout.fridgemanager.ApplicationProvider;
+import eu.indiewalkabout.fridgemanager.FridgeManagerRepository;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 
@@ -16,15 +18,21 @@ public class FoodInsertViewModel extends ViewModel {
     // Livedata var on foodEntry List to populate through ViewModel
     private LiveData<FoodEntry> foodEntry;
 
+    // repository ref
+    private FridgeManagerRepository repository;
+
 
     /**
      * Constructor for {@link FoodListsViewModelFactory}, set attribute LiveData<FoodEntry>
      * based on food id
-     * @param foodDb
      * @param foodId
      */
-    public FoodInsertViewModel(FoodDatabase foodDb, int foodId) {
-        foodEntry = foodDb.foodDbDao().loadFoodById(foodId);
+    public FoodInsertViewModel( int foodId) {
+        // get repository instance
+
+        repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
+
+        foodEntry = repository.loadFoodById(foodId);
     }
 
 

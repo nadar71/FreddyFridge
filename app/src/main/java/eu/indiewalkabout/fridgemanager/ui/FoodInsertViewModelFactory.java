@@ -7,11 +7,9 @@ import android.support.annotation.NonNull;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 
 public class FoodInsertViewModelFactory extends ViewModelProvider.NewInstanceFactory {
-    private final FoodDatabase foodDb;
     private final int          foodId;
 
-    public FoodInsertViewModelFactory(FoodDatabase foodDb, int foodId) {
-        this.foodDb = foodDb;
+    public FoodInsertViewModelFactory( int foodId) {
         this.foodId = foodId;
     }
 
@@ -19,6 +17,6 @@ public class FoodInsertViewModelFactory extends ViewModelProvider.NewInstanceFac
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         //noinspection unchecked
-        return (T) new FoodInsertViewModel(foodDb,foodId);
+        return (T) new FoodInsertViewModel(foodId);
     }
 }

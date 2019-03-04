@@ -32,6 +32,8 @@ import com.hlab.fabrevealmenu.view.FABRevealMenu;
 import java.util.ArrayList;
 import java.util.Date;
 
+import eu.indiewalkabout.fridgemanager.ApplicationProvider;
+import eu.indiewalkabout.fridgemanager.FridgeManagerRepository;
 import eu.indiewalkabout.fridgemanager.R;
 import eu.indiewalkabout.fridgemanager.data.DateConverter;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
@@ -86,9 +88,6 @@ public class InsertFoodActivity extends AppCompatActivity
     // admob banner interstitial ref
     private InterstitialAd mInterstitialAd;
 
-    // Db reference
-    private FoodDatabase foodDb;
-
     // Date picked up reference
     private Calendar datePicked;
 
@@ -116,9 +115,6 @@ public class InsertFoodActivity extends AppCompatActivity
 
         showInterstitialAd();
 
-        // init db instance
-        // TODO : delete when depository active
-        foodDb = FoodDatabase.getsDbInstance(getApplicationContext());
 
         // init views
         initViews();
@@ -337,7 +333,7 @@ public class InsertFoodActivity extends AppCompatActivity
                 foodId =  intent.getIntExtra(ID_TO_BE_UPDATED, DEFAULT_ID);
 
                 // factory for FoodInsertViewModel, with param foodId
-                FoodInsertViewModelFactory factory = new FoodInsertViewModelFactory(foodDb,foodId);
+                FoodInsertViewModelFactory factory = new FoodInsertViewModelFactory(foodId);
 
                 // Create the viewModel for the food entry, based on  foodId
                 final FoodInsertViewModel  viewModel = ViewModelProviders.of(this,factory).get(FoodInsertViewModel.class);
@@ -355,24 +351,6 @@ public class InsertFoodActivity extends AppCompatActivity
                         populateUI(foodEntry);
                     }
                 });
-
-                /*
-                // use  LiveData to retrieve food entry attributes
-                foodEntryToChange = foodDb.foodDbDao().loadFoodById(foodId);
-                // foodEntryToChange = foodDb.foodDbDao().loadFoodById(foodId);
-
-                // observe foodEntryToChange
-                foodEntryToChange.observe(this, new Observer<FoodEntry>() {
-                    @Override
-                    public void onChanged(@Nullable FoodEntry foodEntry) {
-
-                        // dispose observer do not need it no more
-                        foodEntryToChange.removeObserver(this);
-                        // update UI with new data from db
-                        populateUI(foodEntry);
-                    }
-                });
-                */
 
 
             }
@@ -420,8 +398,9 @@ public class InsertFoodActivity extends AppCompatActivity
                     // create a new food obj and init with data inserted by user
                     FoodEntry foodEntry = new FoodEntry(0,foodName,expiringDate);
 
-                    // db insert
-                    foodDb.foodDbDao().insertFoodEntry(foodEntry);
+                    // repo insert
+                    FridgeManagerRepository repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
+                    repository.insertFoodEntry(foodEntry);
 
                     // end activity
                     finish();
@@ -458,7 +437,8 @@ public class InsertFoodActivity extends AppCompatActivity
                     foodEntry.setDone(foodEntryToChange.getValue().getDone());
 
                     // update task on db
-                    foodDb.foodDbDao().updateFoodEntry(foodEntry);
+                    FridgeManagerRepository repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
+                    repository.updateFoodEntry(foodEntry);
 
                     // end activity
                     finish();
