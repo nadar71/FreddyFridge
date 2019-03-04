@@ -1,15 +1,15 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
+import android.content.Context;
 import android.util.Log;
 
 import java.util.List;
 
 import eu.indiewalkabout.fridgemanager.FridgeManagerRepository;
-import eu.indiewalkabout.fridgemanager.SingletonsPortal;
+import eu.indiewalkabout.fridgemanager.ApplicationProvider;
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
@@ -31,17 +31,28 @@ public class FoodListsViewModel extends ViewModel {
     private final FridgeManagerRepository repository;
 
     /**
+     * Standard FoodListsViewModel constructor; init repository
+     */
+    public FoodListsViewModel() {
+
+        // get repository instance
+        repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
+    }
+
+
+
+    /**
      * ---------------------------------------------------------------------------------------------
-     * Constructor for {@link FoodListsViewModelFactory} : init the attributes with
-     * LiveData<List<FoodEntry>>
-     * @param foodDb
+     * Constructor with parameter used by {@link FoodListsViewModelFactory}
+     * : init the attributes with LiveData<List<FoodEntry>>
      * @param foodlistType
      * ---------------------------------------------------------------------------------------------
      */
-    public FoodListsViewModel(FoodDatabase foodDb, String foodlistType, Application application) {
+    public FoodListsViewModel(String foodlistType) {
         Log.d(TAG, "Actively retrieving the collections from repository");
 
-        repository = ((SingletonsPortal) application).getRepository();
+        // get repository instance
+        repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
 
         // choose the type of food list to load from db
         if (foodlistType.equals(FoodListActivity.FOOD_EXPIRING)) {
@@ -85,4 +96,23 @@ public class FoodListsViewModel extends ViewModel {
         return foodEntries;
     }
 
+
+    // ---------------------------------------------------------------------------------------------
+    // Update for db FoodEntry
+    // ---------------------------------------------------------------------------------------------
+    public void updateFoodEntry(FoodEntry foodEntry){
+        repository.updateFoodEntry(foodEntry);
+    }
+
+
+    public void updateDoneField(int done, int id){
+        repository.updateDoneField(done, id);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    // Delete single FoodEntry
+    // ---------------------------------------------------------------------------------------------
+    public void deleteFoodEntry(FoodEntry foodEntry){
+        repository.deleteFoodEntry(foodEntry);
+    }
 }

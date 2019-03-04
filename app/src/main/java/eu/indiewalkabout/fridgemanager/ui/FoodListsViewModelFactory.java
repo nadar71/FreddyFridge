@@ -9,21 +9,17 @@ import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 
 public class FoodListsViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
-    private final FoodDatabase foodDb;
     private final String foodlistType;
-    private final Application application;
 
-    public FoodListsViewModelFactory(FoodDatabase foodDb, String foodlistType, Application application) {
-        this.foodDb       = foodDb;
+    public FoodListsViewModelFactory(String foodlistType) {
         this.foodlistType = foodlistType;
-        this.application  = application;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         //noinspection unchecked
-        return (T) new FoodListsViewModel(foodDb, foodlistType, application);
+        return (T) new FoodListsViewModel(foodlistType);
     }
 }
 

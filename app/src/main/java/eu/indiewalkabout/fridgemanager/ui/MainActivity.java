@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity
 
         // Initialize the adapter and attach it to the RecyclerView
         foodListAdapter = new FoodListAdapter(this, this,
-                FoodListActivity.FOOD_EXPIRING_TODAY, application);
+                FoodListActivity.FOOD_EXPIRING_TODAY);
         foodList.setAdapter(foodListAdapter);
 
         // Divider decorator
@@ -234,13 +234,11 @@ public class MainActivity extends AppCompatActivity
 
         // Log.d(TAG, "Time now : "+System.currentTimeMillis().)
 
-        // retrieve application context for viewmodel
-        // application = (Application) getApplicationContext();
-        application = getApplication();
+
 
         // Declare my viewModel factory, parametrized with foodlistType
         FoodListsViewModelFactory factory =
-                new FoodListsViewModelFactory(foodDb,FoodListActivity.FOOD_EXPIRING_TODAY, application);
+                new FoodListsViewModelFactory(FoodListActivity.FOOD_EXPIRING_TODAY);
 
         // Create the viewModel for the food list, based on  foodlistType
         final FoodListsViewModel  viewModel = ViewModelProviders.of(this,factory).get(FoodListsViewModel.class);

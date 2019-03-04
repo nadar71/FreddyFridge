@@ -1,6 +1,5 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
-import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -60,13 +59,9 @@ public class FoodListActivity extends AppCompatActivity
     private FABRevealMenu   fabMenu;
     private FloatingActionButton fab ;
 
-    private Application application;
 
     // admob banner ref
     private AdView mAdView;
-
-    // Db reference
-    private FoodDatabase foodDb;
 
     // Key constant to use as key for intent extra
     // get the type of list to show from intent content extra
@@ -110,9 +105,6 @@ public class FoodListActivity extends AppCompatActivity
         // empty view for empty list message
         emptyListText = findViewById(R.id.empty_view);
 
-        // Db instance
-        // TODO : delete when depository active
-        foodDb = FoodDatabase.getsDbInstance(getApplicationContext());
 
         // TODO : use this in another way
         // get intent extra for configuring list type
@@ -213,12 +205,9 @@ public class FoodListActivity extends AppCompatActivity
         // Set LinearLayout
         foodList.setLayoutManager(new LinearLayoutManager(this));
 
-        // retrieve application context for viewmodel
-        // application = (Application) application.getApplicationContext();
-        application = getApplication();
 
         // Initialize the adapter and attach it to the RecyclerView
-        foodListAdapter = new FoodListAdapter(this, this, foodlistType, application);
+        foodListAdapter = new FoodListAdapter(this, this, foodlistType);
         foodList.setAdapter(foodListAdapter);
 
         // Divider decorator
@@ -276,14 +265,10 @@ public class FoodListActivity extends AppCompatActivity
     private void retrieveAllFood() {
         Log.d(TAG, "Actively retrieving Expiring Food from DB");
 
-        // retrieve application context for viewmodel
-        // application = (Application) getApplicationContext();
-        application = getApplication();
+        // Instance factory FoodListsViewModelFactory, parametrized with foodlistType
+        FoodListsViewModelFactory factory = new FoodListsViewModelFactory(foodlistType);
 
-        // Declare my viewModel factory, parametrized with foodlistType
-        FoodListsViewModelFactory factory = new FoodListsViewModelFactory(foodDb, foodlistType, application);
-
-        // Create the viewModel for the food list, based on  foodlistType
+        // Create the FoodListsViewModel  for the food list, based on  foodlistType
         final FoodListsViewModel  viewModel = ViewModelProviders.of(this,factory).get(FoodListsViewModel.class);
 
         // Observe changes in data through LiveData: getFoodList() actually return LiveData<List<FoodEntry>>

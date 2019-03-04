@@ -1,6 +1,5 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -20,10 +19,9 @@ import java.util.List;
 import java.util.Locale;
 
 
+import eu.indiewalkabout.fridgemanager.ApplicationProvider;
 import eu.indiewalkabout.fridgemanager.FridgeManagerRepository;
 import eu.indiewalkabout.fridgemanager.R;
-import eu.indiewalkabout.fridgemanager.SingletonsPortal;
-import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import eu.indiewalkabout.fridgemanager.AppExecutors;
 
@@ -45,11 +43,9 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
     private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
     // TODO : move onClick management to MainActivity
-    // Db ref
-    // private final FoodDatabase foodDb;
 
     // repository ref
-    private final FridgeManagerRepository repository;
+    private FridgeManagerRepository repository;
 
 
 
@@ -64,16 +60,16 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
      * @param listener the ItemClickListener
      * ----------------------------------------------------------------------------------
      */
-    public FoodListAdapter(Context context, ItemClickListener listener, String listType, Application application) {
+    public FoodListAdapter(Context context, ItemClickListener listener, String listType) {
         thisContext           = context;
         foodItemClickListener = listener;
         this.listType         = listType;
 
 
         // TODO : move onClick management to MainActivity
-        // foodDb = FoodDatabase.getsDbInstance(thisContext);
+        // repository instance
+        repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
 
-        repository = ((SingletonsPortal) application).getRepository();
 
     }
 
@@ -260,28 +256,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
 
                 // if we are not in the consumed/done food list :
                 if (! listType.equals(FoodListActivity.FOOD_SAVED)) {
-                    /*
-                    // user dialog confirm
-                    alertDialog = new AlertDialog.Builder(thisContext)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setTitle(R.string.confirm_if_not_consumed_text)
-                            .setMessage("")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    moveToConsumed();
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    foodConsumed_cb.setChecked(false);
-                                    // notify changes to recycleview
-                                    // swapItems(foodEntries);
-                                }
-                            })
-                            .show();
-                            */
+
 
                             // user dialog confirm
                             AlertDialog.Builder builder = new AlertDialog.Builder(thisContext);
@@ -319,27 +294,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
 
                 } else { // return food to the not consumed/done ones list
                     // user dialog confirm
-                /*
-                    alertDialog = new AlertDialog.Builder(thisContext)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setTitle(R.string.confirm_if_deleting_text)
-                            .setMessage("")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    moveToNOTConsumed();
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    foodConsumed_cb.setChecked(false);
-                                    // notify changes to recycleview
-                                    // swapItems(foodEntries);
-                                }
-                            })
-                            .show();
-                            */
 
 
                         // user dialog confirm
