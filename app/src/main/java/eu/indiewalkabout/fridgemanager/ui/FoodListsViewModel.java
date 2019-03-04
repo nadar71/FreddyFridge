@@ -59,19 +59,16 @@ public class FoodListsViewModel extends ViewModel {
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
             long dataNormalizedAtMidnight  =
                     DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
-            // foodEntries = foodDb.foodDbDao().loadAllFoodExpiring(dataNormalizedAtMidnight);
             foodEntries = repository.loadAllFoodExpiring(dataNormalizedAtMidnight);
 
         }else if (foodlistType.equals(FoodListActivity.FOOD_SAVED)){
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
-            // foodEntries = foodDb.foodDbDao().loadAllFoodSaved();
             foodEntries = repository.loadAllFoodSaved();
 
         }else if (foodlistType.equals(FoodListActivity.FOOD_DEAD)){
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
             long dataNormalizedAtMidnight  =
                     DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
-            // foodEntries = foodDb.foodDbDao().loadAllFoodDead(dataNormalizedAtMidnight);
             foodEntries = repository.loadAllFoodDead(dataNormalizedAtMidnight);
 
         }else if (foodlistType.equals(FoodListActivity.FOOD_EXPIRING_TODAY)){
@@ -80,7 +77,6 @@ public class FoodListsViewModel extends ViewModel {
                     DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
             long previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS;
             long nextDayDate     = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS;
-            // foodEntries = foodDb.foodDbDao().loadFoodExpiringToday(previousDayDate,nextDayDate);
             foodEntries = repository.loadFoodExpiringToday(previousDayDate,nextDayDate);
         }
 
@@ -97,6 +93,7 @@ public class FoodListsViewModel extends ViewModel {
     }
 
 
+    /*
     // ---------------------------------------------------------------------------------------------
     // Update for db FoodEntry
     // ---------------------------------------------------------------------------------------------
@@ -115,4 +112,5 @@ public class FoodListsViewModel extends ViewModel {
     public void deleteFoodEntry(FoodEntry foodEntry){
         repository.deleteFoodEntry(foodEntry);
     }
+    */
 }

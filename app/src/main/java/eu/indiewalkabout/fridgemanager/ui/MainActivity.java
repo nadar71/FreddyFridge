@@ -47,9 +47,6 @@ public class MainActivity extends AppCompatActivity
     // admob banner ref
     private AdView mAdView;
 
-    // Db reference
-    private FoodDatabase foodDb;
-
     private Application application;
 
     // UI item reference
@@ -70,10 +67,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Db instance
-        // TODO : delete when depository active
-        foodDb = FoodDatabase.getsDbInstance(getApplicationContext());
 
         // empty view for empty list message
         emptyListText = findViewById(R.id.empty_view);

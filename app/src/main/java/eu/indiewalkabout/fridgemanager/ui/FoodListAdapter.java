@@ -43,10 +43,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
     private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
     // TODO : move onClick management to MainActivity
-
     // repository ref
     private FridgeManagerRepository repository;
-
 
 
 
@@ -67,7 +65,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
 
 
         // TODO : move onClick management to MainActivity
-        // repository instance
         repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
 
 
@@ -107,7 +104,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
         //Set values
         holder.foodName_tv.setText(foodName);
         holder.expiringDate_tv.setText(expiringAt);
-
 
     }
 
@@ -363,7 +359,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
-                    // foodDb.foodDbDao().updateDoneField(1,foodItemConsumed.getId());
                     repository.updateDoneField(1,foodItemConsumed.getId());
                 }
             });
@@ -398,7 +393,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
-                    // foodDb.foodDbDao().updateDoneField(0,foodItemConsumed.getId());
                     repository.updateDoneField(0,foodItemConsumed.getId());
                 }
             });
@@ -431,7 +425,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
-                    // foodDb.foodDbDao().deleteFoodEntry(foodItemToDelete);
                     repository.deleteFoodEntry(foodItemToDelete);
                 }
             });
