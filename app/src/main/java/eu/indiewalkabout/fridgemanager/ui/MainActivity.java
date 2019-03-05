@@ -14,9 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
@@ -30,11 +28,9 @@ import com.hlab.fabrevealmenu.view.FABRevealMenu;
 import java.util.List;
 
 import eu.indiewalkabout.fridgemanager.R;
-import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import eu.indiewalkabout.fridgemanager.reminder.ReminderScheduler;
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK;
-import eu.indiewalkabout.fridgemanager.util.NotificationsUtility;
 
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
@@ -230,11 +226,11 @@ public class MainActivity extends AppCompatActivity
 
 
         // Declare my viewModel factory, parametrized with foodlistType
-        FoodListsViewModelFactory factory =
-                new FoodListsViewModelFactory(FoodListActivity.FOOD_EXPIRING_TODAY);
+        FoodsViewModelFactory factory =
+                new FoodsViewModelFactory(FoodListActivity.FOOD_EXPIRING_TODAY);
 
         // Create the viewModel for the food list, based on  foodlistType
-        final FoodListsViewModel  viewModel = ViewModelProviders.of(this,factory).get(FoodListsViewModel.class);
+        final FoodsViewModel viewModel = ViewModelProviders.of(this,factory).get(FoodsViewModel.class);
 
         // Observe changes in data through LiveData: getFoodList() actually return LiveData<List<FoodEntry>>
         LiveData<List<FoodEntry>> foods = viewModel.getFoodList();

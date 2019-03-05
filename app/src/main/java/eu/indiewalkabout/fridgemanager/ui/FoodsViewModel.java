@@ -1,16 +1,13 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
-import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-import android.content.Context;
 import android.util.Log;
 
 import java.util.List;
 
 import eu.indiewalkabout.fridgemanager.FridgeManagerRepository;
 import eu.indiewalkabout.fridgemanager.ApplicationProvider;
-import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
 
@@ -19,10 +16,10 @@ import eu.indiewalkabout.fridgemanager.util.DateUtility;
  * ViewModel Class for retrieving all items in db, based on kind
  * -------------------------------------------------------------------------------------------------
  */
-public class FoodListsViewModel extends ViewModel {
+public class FoodsViewModel extends ViewModel {
 
     // tag for logging
-    private static final String TAG = FoodListsViewModel.class.getSimpleName();
+    private static final String TAG = FoodsViewModel.class.getSimpleName();
 
     // Livedata var on foodEntry List to populate through ViewModel
     private LiveData<List<FoodEntry>> foodEntries;
@@ -34,10 +31,10 @@ public class FoodListsViewModel extends ViewModel {
     private FridgeManagerRepository repository;
 
     /**
-     * Standard FoodListsViewModel constructor; init repository
+     * Standard FoodsViewModel constructor; init repository
      */
 
-    public FoodListsViewModel() {
+    public FoodsViewModel() {
         // init repository
         repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
     }
@@ -47,12 +44,12 @@ public class FoodListsViewModel extends ViewModel {
 
     /**
      * ---------------------------------------------------------------------------------------------
-     * Constructor with parameter used by {@link FoodListsViewModelFactory}
+     * Constructor with parameter used by {@link FoodsViewModelFactory}
      * : init the attributes with LiveData<List<FoodEntry>>
      * @param foodlistType
      * ---------------------------------------------------------------------------------------------
      */
-    public FoodListsViewModel(String foodlistType) {
+    public FoodsViewModel(String foodlistType) {
         Log.d(TAG, "Actively retrieving the collections from repository");
 
         // get repository instance

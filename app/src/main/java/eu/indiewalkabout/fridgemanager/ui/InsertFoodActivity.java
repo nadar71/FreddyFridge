@@ -36,7 +36,6 @@ import eu.indiewalkabout.fridgemanager.ApplicationProvider;
 import eu.indiewalkabout.fridgemanager.FridgeManagerRepository;
 import eu.indiewalkabout.fridgemanager.R;
 import eu.indiewalkabout.fridgemanager.data.DateConverter;
-import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import eu.indiewalkabout.fridgemanager.AppExecutors;
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
@@ -333,7 +332,7 @@ public class InsertFoodActivity extends AppCompatActivity
                 foodId =  intent.getIntExtra(ID_TO_BE_UPDATED, DEFAULT_ID);
 
                 // Create the viewModel for the food entry, based on  foodId
-                final FoodListsViewModel  viewModel = ViewModelProviders.of(this).get(FoodListsViewModel.class);
+                final FoodsViewModel viewModel = ViewModelProviders.of(this).get(FoodsViewModel.class);
 
                 // Populate the text edit fields and
                 // observe changes in data through LiveData: getFoodEntry() actually return 1 LiveData<FoodEntry>

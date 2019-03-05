@@ -16,21 +16,17 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 import com.hlab.fabrevealmenu.enums.Direction;
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener;
-import com.hlab.fabrevealmenu.model.FABMenuItem;
 import com.hlab.fabrevealmenu.view.FABRevealMenu;
 
 
 import java.util.List;
 
 import eu.indiewalkabout.fridgemanager.R;
-import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
@@ -265,11 +261,11 @@ public class FoodListActivity extends AppCompatActivity
     private void retrieveAllFood() {
         Log.d(TAG, "Actively retrieving Expiring Food from DB");
 
-        // Instance factory FoodListsViewModelFactory, parametrized with foodlistType
-        FoodListsViewModelFactory factory = new FoodListsViewModelFactory(foodlistType);
+        // Instance factory FoodsViewModelFactory, parametrized with foodlistType
+        FoodsViewModelFactory factory = new FoodsViewModelFactory(foodlistType);
 
-        // Create the FoodListsViewModel  for the food list, based on  foodlistType
-        final FoodListsViewModel  viewModel = ViewModelProviders.of(this,factory).get(FoodListsViewModel.class);
+        // Create the FoodsViewModel  for the food list, based on  foodlistType
+        final FoodsViewModel viewModel = ViewModelProviders.of(this,factory).get(FoodsViewModel.class);
 
         // Observe changes in data through LiveData: getFoodList() actually return LiveData<List<FoodEntry>>
         LiveData<List<FoodEntry>> foods = viewModel.getFoodList();
