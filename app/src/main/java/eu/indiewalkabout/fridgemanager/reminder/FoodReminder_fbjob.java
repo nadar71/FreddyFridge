@@ -6,48 +6,26 @@ import com.firebase.jobdispatcher.JobService;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.View;
+
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
+import eu.indiewalkabout.fridgemanager.ApplicationProvider;
+import eu.indiewalkabout.fridgemanager.FridgeManagerRepository;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
 import eu.indiewalkabout.fridgemanager.util.PreferenceUtility;
 
 public class FoodReminder_fbjob extends JobService {
-    private AsyncTask bgReminderTask;
+    // private AsyncTask bgReminderTask;
 
     public static final String TAG = FoodReminder_fbjob.class.getSimpleName();
 
 
-
     @Override
     public boolean onStartJob(final JobParameters params) {
-
-        /*
-        // debug
-        bgReminderTask = new AsyncTask() {
-            @Override
-            protected Object doInBackground(Object[] objects) {
-                Context context = FoodReminder_fbjob.this;
-
-                ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_NEXT_DAYS_EXPIRING_FOOD);
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Object o) {
-                jobFinished(params, false);
-            }
-        };
-        bgReminderTask.execute();
-        */
-
 
         final Context context = FoodReminder_fbjob.this;
 
@@ -57,11 +35,6 @@ public class FoodReminder_fbjob extends JobService {
         // final int DAYS_BEFORE = (int) (TimeUnit.DAYS.toSeconds(2))*1000;
         int days = PreferenceUtility.getDaysCount(context);
         final int DAYS_BEFORE = (int) (TimeUnit.DAYS.toSeconds(days));
-
-        // Db reference
-        // TODO : delete when depository active
-        FoodDatabase foodDb;
-        foodDb = FoodDatabase.getsDbInstance(getApplicationContext());
 
         // TODO : inject and use the repository when created, now query directly db, we are in background.
         // follow here https://stackoverflow.com/questions/45932995/observe-livedata-from-jobservice
@@ -78,8 +51,9 @@ public class FoodReminder_fbjob extends JobService {
         long dateBefore = dataNormalizedAtMidnight - DAYS_BEFORE;
         // 1549926000000 - 172800000 = 1549753200000
 
-        // TODO : MAKE WITH LIVEDATA/VIEWMODEL
-        foodEntriesNextDays = foodDb.foodDbDao().loadAllFoodExpiring(dateBefore);
+        // get repository
+        FridgeManagerRepository repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
+        foodEntriesNextDays = repository.loadAllFoodExpiring(dateBefore);
 
         foodEntriesNextDays.observeForever(new Observer<List<FoodEntry>>() {
             @Override
@@ -100,8 +74,8 @@ public class FoodReminder_fbjob extends JobService {
         long previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS;
         long nextDayDate     = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS;
 
-        // TODO : MAKE WITH LIVEDATA/VIEWMODEL
-        foodEntriesToDay = foodDb.foodDbDao().loadFoodExpiringToday(previousDayDate,nextDayDate);
+
+        foodEntriesToDay = repository.loadFoodExpiringToday(previousDayDate,nextDayDate);
 
         foodEntriesToDay.observeForever(new Observer<List<FoodEntry>>() {
             @Override
@@ -122,7 +96,7 @@ public class FoodReminder_fbjob extends JobService {
 
     @Override
     public boolean onStopJob(JobParameters params) {
-        if (bgReminderTask != null) bgReminderTask.cancel(true);
+        // if (bgReminderTask != null) bgReminderTask.cancel(true);
         return true;
     }
 

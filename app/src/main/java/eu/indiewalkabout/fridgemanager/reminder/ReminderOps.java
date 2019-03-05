@@ -26,7 +26,7 @@ public class ReminderOps {
         }
     }
 
-    // TODO : update preferences for notifications  here
+    // update preferences if needed here
     private static void updatePreferences(Context context) {
     }
 

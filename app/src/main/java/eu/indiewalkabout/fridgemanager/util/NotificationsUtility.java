@@ -137,7 +137,7 @@ public class NotificationsUtility {
      * ---------------------------------------------------------------------------------------------
      */
     public static void remindTodayExpiringFood(Context context, List<FoodEntry> foodEntries) {
-        
+
 
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -236,7 +236,7 @@ public class NotificationsUtility {
      */
     private static NotificationCompat.Action showFoodExpiringNextDaysAction(Context context) {
         // Intent foodReminderIntent = new Intent(context, FoodReminderIntentService.class);
-        // foodReminderIntent.setAction(ReminderOps.ACTION_SHOW_EXPIRING_FOOD); //TODO : check if necessary doing some action
+        // foodReminderIntent.setAction(ReminderOps.ACTION_SHOW_EXPIRING_FOOD);
         Intent showExpiringFoodIntent = new Intent(context, FoodListActivity.class);
         showExpiringFoodIntent.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_EXPIRING);
 
@@ -263,7 +263,7 @@ public class NotificationsUtility {
      */
     private static NotificationCompat.Action showFoodExpiringTodayAction(Context context) {
         // Intent foodReminderIntent = new Intent(context, FoodReminderIntentService.class);
-        // foodReminderIntent.setAction(ReminderOps.ACTION_SHOW_EXPIRING_FOOD); //TODO : check if necessary doing some action
+        // foodReminderIntent.setAction(ReminderOps.ACTION_SHOW_EXPIRING_FOOD);
         Intent startActivityIntent = new Intent(context, MainActivity.class);
         startActivityIntent.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_EXPIRING_TODAY);
 
