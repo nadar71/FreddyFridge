@@ -69,7 +69,6 @@ public class DBManager {
         try{
             db.insert(DBAttributes.DEADLINES_TBL,null,contentValues);
         } catch(SQLiteException s){
-            // TODO
 
         }
     }

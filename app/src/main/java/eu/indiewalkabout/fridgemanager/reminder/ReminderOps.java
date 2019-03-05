@@ -28,7 +28,6 @@ public class ReminderOps {
 
     // TODO : update preferences for notifications  here
     private static void updatePreferences(Context context) {
-        // PreferenceUtilities.incrementWaterCount(context);
     }
 
 

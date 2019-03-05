@@ -7,8 +7,10 @@ import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
 
 
 /**
+ * -------------------------------------------------------------------------------------------------
  * Class used for access singletons and application context wherever in the app
  * NB : register in manifest in <Application  android:name=".ApplicationProvider" >... </Application>
+ * -------------------------------------------------------------------------------------------------
  */
 public class ApplicationProvider extends Application {
 
@@ -27,8 +29,10 @@ public class ApplicationProvider extends Application {
     }
 
     /**
+     * ---------------------------------------------------------------------------------------------
      * Return singleton db instance
      * @return
+     * ---------------------------------------------------------------------------------------------
      */
     public FoodDatabase getDatabase() {
         return FoodDatabase.getsDbInstance(this);
@@ -36,16 +40,20 @@ public class ApplicationProvider extends Application {
 
 
     /**
+     * ---------------------------------------------------------------------------------------------
      * Return depository singleton instance
      * @return
+     * ---------------------------------------------------------------------------------------------
      */
     public FridgeManagerRepository getRepository() {
         return FridgeManagerRepository.getInstance(getDatabase());
     }
 
     /**
+     * ---------------------------------------------------------------------------------------------
      * Return application context wherever we are in the app
      * @return
+     * ---------------------------------------------------------------------------------------------
      */
     public static Context getsContext(){
         return sContext;

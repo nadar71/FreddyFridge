@@ -350,7 +350,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
          * Move food entry to consumed/done food list
          * ------------------------------------------------------------------------------------
          */
-        // TODO : make this with livedata
         private void moveToConsumed() {
             // get item at position
             final FoodEntry foodItemConsumed = getFoodItemAtPosition(this.getAdapterPosition());
@@ -383,7 +382,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
          * Move food entry to NOT consumed/done food list
          * ------------------------------------------------------------------------------------
          */
-        // TODO : make this with livedata
         private void moveToNOTConsumed() {
             // get item at position
             final FoodEntry foodItemConsumed = getFoodItemAtPosition(this.getAdapterPosition());

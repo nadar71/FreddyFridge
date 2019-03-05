@@ -41,7 +41,6 @@ public class ReminderScheduler {
 
 
         Job launcheReminderNotificationJob = dispatcher.newJobBuilder()
-                // todo : change service method name
                 .setService(FoodReminder_fbjob.class)
                 .setTag(REMINDER_JOB_TAG)
                 .setLifetime(Lifetime.FOREVER)
