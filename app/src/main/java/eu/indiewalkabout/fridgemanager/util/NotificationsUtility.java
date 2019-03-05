@@ -47,8 +47,6 @@ public class NotificationsUtility {
     private static final int ACTION_SHOW_TODAY_PENDING_INTENT_ID   = 10;
     private static final int ACTION_IGNORE_PENDING_INTENT_ID       = 20;
 
-    // Db reference
-    private static FoodDatabase foodDb;
 
 
     /**
@@ -139,10 +137,7 @@ public class NotificationsUtility {
      * ---------------------------------------------------------------------------------------------
      */
     public static void remindTodayExpiringFood(Context context, List<FoodEntry> foodEntries) {
-
-        // Db instance
-        // TODO : delete when depository active
-        foodDb = FoodDatabase.getsDbInstance(context);
+        
 
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
