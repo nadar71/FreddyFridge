@@ -17,46 +17,53 @@ import com.github.paolorotolo.appintro.model.SliderPage;
 import eu.indiewalkabout.fridgemanager.R;
 
 public class IntroActivity extends AppIntro2 {
+
+    private static final String APP_OPENING_COUNTER ="app-opening-counter";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         SliderPage sliderPage1 = new SliderPage();
-        sliderPage1.setTitle("Welcome!");
-        sliderPage1.setDescription("This is a demo of the AppIntro library, with a custom background on each slide!");
-        sliderPage1.setImageDrawable(R.drawable.ic_ghost);
-        sliderPage1.setBgColor(Color.TRANSPARENT);
+        sliderPage1.setTitle("1 : Make your shopping...");
+        sliderPage1.setDescription(" ..,and open FreddyFridge !");
+        sliderPage1.setImageDrawable(R.drawable.shopping);
+        sliderPage1.setBgColor(getResources().getColor(R.color.background_lightgreen_semitransparent));
         addSlide(AppIntroFragment.newInstance(sliderPage1));
 
         SliderPage sliderPage2 = new SliderPage();
-        sliderPage2.setTitle("Clean App Intros");
-        sliderPage2.setDescription("This library offers developers the ability to add clean app intros at the start of their apps.");
-        sliderPage2.setImageDrawable(R.drawable.ic_ghost_brown);
-        sliderPage2.setBgColor(Color.TRANSPARENT);
+        sliderPage2.setTitle("2 : Store your food and expiring date");
+        sliderPage2.setDescription("with the New button ");
+        sliderPage2.setImageDrawable(R.drawable.instructions_03);
+        sliderPage2.setBgColor(getResources().getColor(R.color.background_lightgreen_semitransparent));
         addSlide(AppIntroFragment.newInstance(sliderPage2));
 
         SliderPage sliderPage3 = new SliderPage();
-        sliderPage3.setTitle("Simple, yet Customizable");
-        sliderPage3.setDescription("The library offers a lot of customization, while keeping it simple for those that like simple.");
-        sliderPage3.setImageDrawable(R.drawable.ic_refrigerator_icon);
-        sliderPage3.setBgColor(Color.TRANSPARENT);
+        sliderPage3.setTitle("3 : Check expiring date");
+        sliderPage3.setDescription("and be alerted before happens : don't waste food!");
+        sliderPage3.setImageDrawable(R.drawable.instructions_end);
+        sliderPage3.setBgColor(getResources().getColor(R.color.background_lightgreen_semitransparent));
         addSlide(AppIntroFragment.newInstance(sliderPage3));
 
+        /*
         SliderPage sliderPage4 = new SliderPage();
         sliderPage4.setTitle("Explore");
         sliderPage4.setDescription("Feel free to explore the rest of the library demo!");
         sliderPage4.setImageDrawable(R.drawable.ic_hourglass_empty_brown_24dp);
-        sliderPage4.setBgColor(Color.TRANSPARENT);
+        sliderPage4.setBgColor(getResources().getColor(R.color.background_lightgreen_semitransparent));
         addSlide(AppIntroFragment.newInstance(sliderPage4));
+        */
 
         // Declare a new image view
         ImageView imageView = new ImageView(this);
 
         // Bind a drawable to the imageview
-        imageView.setImageResource(R.drawable.fridge_background);
+        imageView.setImageResource(R.drawable.food_background);
 
         // Set background color
-        imageView.setBackgroundColor(Color.BLACK);
+        imageView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
         // Set layout params
         imageView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
