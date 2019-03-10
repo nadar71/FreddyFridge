@@ -1,8 +1,11 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.ViewGroup;
@@ -18,12 +21,9 @@ import eu.indiewalkabout.fridgemanager.R;
 
 public class IntroActivity extends AppIntro2 {
 
-    private static final String APP_OPENING_COUNTER ="app-opening-counter";
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
 
         SliderPage sliderPage1 = new SliderPage();
@@ -47,14 +47,6 @@ public class IntroActivity extends AppIntro2 {
         sliderPage3.setBgColor(getResources().getColor(R.color.background_lightgreen_semitransparent));
         addSlide(AppIntroFragment.newInstance(sliderPage3));
 
-        /*
-        SliderPage sliderPage4 = new SliderPage();
-        sliderPage4.setTitle("Explore");
-        sliderPage4.setDescription("Feel free to explore the rest of the library demo!");
-        sliderPage4.setImageDrawable(R.drawable.ic_hourglass_empty_brown_24dp);
-        sliderPage4.setBgColor(getResources().getColor(R.color.background_lightgreen_semitransparent));
-        addSlide(AppIntroFragment.newInstance(sliderPage4));
-        */
 
         // Declare a new image view
         ImageView imageView = new ImageView(this);
@@ -75,8 +67,7 @@ public class IntroActivity extends AppIntro2 {
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
-        Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(mainActivityIntent);
+        goToMain();
         finish();
     }
 
@@ -87,4 +78,19 @@ public class IntroActivity extends AppIntro2 {
         startActivity(mainActivityIntent);
         finish();
     }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Exit intro, go to main activity
+     * ---------------------------------------------------------------------------------------------
+     */
+    public void goToMain(){
+        Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
+        mainActivityIntent.putExtra("ComingFromIntro",true);
+        startActivity(mainActivityIntent);
+    }
+
+
+
 }

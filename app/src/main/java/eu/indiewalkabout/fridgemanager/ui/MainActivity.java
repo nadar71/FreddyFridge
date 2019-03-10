@@ -5,6 +5,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,6 +42,12 @@ public class MainActivity extends AppCompatActivity
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
+
+    private static final String APP_OPENING_COUNTER ="app-opening-counter";
+    private static final int DEFAULT_COUNT          = 0;
+    private static final int NUM_MAX_OPENINGS       = 2;
+
+
     // admob banner ref
     private AdView mAdView;
 
@@ -57,12 +65,24 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // setAppOpenings(0); // debug reset
+
+
+        // open intro only for the first 3 times
+        int numPrevOpenings = getAppOpenings();
+        Intent  callingActivity = getIntent();
+        boolean comingFromIntro = callingActivity.getBooleanExtra("ComingFromIntro", false);
+        if ( (numPrevOpenings < NUM_MAX_OPENINGS) && (!comingFromIntro) ){
+            setAppOpenings(numPrevOpenings+1);
+            goToIntro();
+        }
+
+
 
         // empty view for empty list message
         emptyListText = findViewById(R.id.empty_view);
@@ -122,6 +142,42 @@ public class MainActivity extends AppCompatActivity
         ReminderScheduler.scheduleChargingReminder(this);
 
     }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Go to intro activity
+     * ---------------------------------------------------------------------------------------------
+     */
+    public void goToIntro(){
+        Intent introActivityIntent = new Intent(getApplicationContext(), IntroActivity.class);
+        startActivity(introActivityIntent);
+    }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Get the number of times the app has been opened
+     * ---------------------------------------------------------------------------------------------
+     */
+    private int getAppOpenings() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        return prefs.getInt(APP_OPENING_COUNTER, DEFAULT_COUNT);
+    }
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Set the number of times the app has been opened
+     * ---------------------------------------------------------------------------------------------
+     */
+    private void setAppOpenings( int count) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(APP_OPENING_COUNTER, count);
+        editor.apply();
+    }
+
+
 
 
     /**
