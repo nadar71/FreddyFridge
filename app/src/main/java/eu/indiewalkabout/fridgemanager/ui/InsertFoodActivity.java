@@ -303,17 +303,19 @@ public class InsertFoodActivity extends AppCompatActivity
 
         // validate entry : name
         if ( foodName.isEmpty() ) {
-            Toast.makeText(InsertFoodActivity.this, " Insert your food description...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(InsertFoodActivity.this,
+                    getResources().getString(R.string.food_description_alert), Toast.LENGTH_SHORT).show();
             return;
         }
 
         // validate entry : date
         if(foodId == DEFAULT_ID  && datePicked == null) {
-            Toast.makeText(InsertFoodActivity.this, " Choose a date...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(InsertFoodActivity.this, getResources().getString(R.string.food_expdate_alert), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Toast.makeText(this, foodName + " Inserted ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, foodName + getResources().getString(R.string.food_inserted_alert), Toast.LENGTH_SHORT).show();
+
         // ----------------------------------------
         // Update db using executor
         // ----------------------------------------

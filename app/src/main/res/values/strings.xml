@@ -20,8 +20,14 @@
     <string name="update_btn_label">Update</string>
     <string name="delete_food_entry_btn_hint">Delete food entry btn</string>
     <string name="no_food_todays">No foods expiring for today ! </string>
-    <string name="no_food_in_list">No foods here... </string>
+    <string name="no_food_in_list">No foods here &#8230; </string>
     <string name="main_list_title">Food expiring for today : </string>
+
+    <string name="food_description_alert">Must Insert your food description &#8230;</string>
+    <string name="food_expdate_alert">Must choose a date &#8230;</string>
+    <string name="food_inserted_alert"> Inserted </string>
+
+
 
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -38,14 +44,14 @@
 
 
     <!-- Strings for how many day before deadline notify users  -->
-    <string name="how_many_days_before_title">Days Before food-deadline notifications</string>
+    <string name="how_many_days_before_title">Days Before food-deadline notifications :</string>
     <string name="how_many_days_before_label">How many DAYS \nBEFORE food expiration date want you to be notified ?
         (Default is 2 days before expiring date)</string>
     <string name="days_before_deadline_count" translatable="false">days_before_deadline</string>
     <string name="days_before_default" translatable="false">2</string>
 
     <!-- Strings for how many hours a days for today deadline notify user -->
-    <string name="how_many_hours_title">Notifications Hours frequency</string>
+    <string name="how_many_hours_title">Notifications Hours frequency :</string>
     <string name="how_many_hours_label">With what HOURS FREQUENCY \n in a day want to be notified about food expiring?
         (Default is every 6 hours)</string>
     <string name="hours_freq_today_deadline_count" translatable="false">todays_howmany_each_hours</string>
@@ -101,6 +107,10 @@
     <string name="show_food_expiring_action_title">Show me expiring food</string>
     <string name="show_food_expiring_today_action_title">Show me TODAY expiring food</string>
     <string name="dismiss_notification_action_title">Got it</string>
+
+    <string name="settings_notify_every_01">Notify every </string>
+    <string name="settings_notify_every_02"> hours </string>
+
 
 
     <!-- - - - - - - - - - - - - FAB menu label   - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -158,11 +168,11 @@
 
     <!-- - - - - - - - - - - - - Intro stuff  - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
-    <string name="intro_1_title">1 : Make your shopping...</string>
-    <string name="intro_1_subtitle">..and open FreddyFridge !</string>
+    <string name="intro_1_title">1 : Make your shopping &#8230;</string>
+    <string name="intro_1_subtitle">&#8230; and open FreddyFridge !</string>
 
-    <string name="intro_2_title">2 : Store your food and expiring date...</string>
-    <string name="intro_2_subtitle">...with the New button and Speech Recognition</string>
+    <string name="intro_2_title">2 : Store your food and expiring date &#8230;</string>
+    <string name="intro_2_subtitle">&#8230; with the New button and Speech Recognition</string>
 
     <string name="intro_3_title">3 : Check expiring date</string>
     <string name="intro_3_subtitle">and be alerted before happens : no more food wasted!</string>

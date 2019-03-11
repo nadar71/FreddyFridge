@@ -201,7 +201,9 @@ public class MainSettingsActivity extends AppCompatActivity
                     CharSequence[] labels = listPreference.getEntries();
 
                     if (preference.getKey().equals(hoursFreqKey )) {
-                        String tmp = "Notify every <b>" +  labels[prefindex]+ "</b> hours";
+                        String tmp = getResources().getString(R.string.settings_notify_every_01)
+                                + labels[prefindex]
+                                + getResources().getString(R.string.settings_notify_every_02);
                         preference.setSummary(Html.fromHtml(tmp));
 
                     } else {
