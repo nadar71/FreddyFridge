@@ -17,8 +17,11 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.hlab.fabrevealmenu.enums.Direction;
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener;
 import com.hlab.fabrevealmenu.view.FABRevealMenu;
@@ -33,7 +36,7 @@ import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
 
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK;
-
+import eu.indiewalkabout.fridgemanager.util.GenericUtility;
 
 
 /**
@@ -59,6 +62,9 @@ public class FoodListActivity extends AppCompatActivity
     // admob banner ref
     private AdView mAdView;
 
+    // admob banner interstitial ref
+    private InterstitialAd mInterstitialAd;
+
     // Key constant to use as key for intent extra
     // get the type of list to show from intent content extra
     public static final String FOOD_TYPE           = "food_type";
@@ -82,6 +88,8 @@ public class FoodListActivity extends AppCompatActivity
 
 
 
+
+
     /**
     * ---------------------------------------------------------------------------------------------
     * onCreate
@@ -97,6 +105,7 @@ public class FoodListActivity extends AppCompatActivity
 
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
         mAdView.loadAd(ConsentSDK.getAdRequest(FoodListActivity.this));
+
 
         // empty view for empty list message
         emptyListText = findViewById(R.id.empty_view);
@@ -184,6 +193,68 @@ public class FoodListActivity extends AppCompatActivity
     }
 
 
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Show an interstitial on ui request
+     * ---------------------------------------------------------------------------------------------
+     */
+    private void showInterstitialAd() {
+
+
+        /*
+        // init and load admob interstitial
+        mInterstitialAd = new InterstitialAd(this);
+
+        // Sample AdMob interstitial ID:         ca-app-pub-3940256099942544/1033173712
+        // THIS APP REAL AdMob interstitial ID:  ca-app-pub-8846176967909254/5671183832
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
+        if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
+            // AdRequest adInterstitialRequest = new AdRequest.Builder().build();
+
+            AdRequest adInterstitialRequest = new AdRequest.Builder()
+                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .addTestDevice("7DC1A1E8AEAD7908E42271D4B68FB270")
+                    .build();
+
+
+
+            // load and show admob interstitial
+            mInterstitialAd.loadAd(adInterstitialRequest);
+        }
+
+        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            Toast.makeText(this, "Ad interstitial did not load", Toast.LENGTH_SHORT).show();
+        }
+        */
+
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.admob_key_interstitial));
+
+        // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
+        mInterstitialAd.loadAd(ConsentSDK.getAdRequest(this));
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Toast.makeText(FoodListActivity.this, "Ad Interstitial LOADED", Toast.LENGTH_SHORT).show();
+                // Show interstitial
+                mInterstitialAd.show();
+                super.onAdLoaded();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+                // Toast.makeText(FoodListActivity.this, "Ad Interstitial   FAILED TO LOAD", Toast.LENGTH_SHORT).show();
+                // Log.i(TAG, "onAdFailedToLoad: ConsentSDK.getAdRequest(MainActivity.this) : "
+                //        +ConsentSDK.getAdRequest(MainActivity.this));
+            }
+        });
+
+    }
 
     /**
     * ---------------------------------------------------------------------------------------------
@@ -299,6 +370,13 @@ public class FoodListActivity extends AppCompatActivity
 
         // When the home button is pressed, take the user back to Home
         if (id == android.R.id.home) {
+            // show interstitial ad on back home only 50% of times
+            int guess = GenericUtility.randRange_ApiCheck(1,10);
+            if (guess <=4) {
+                showInterstitialAd();
+            }
+
+            // showInterstitialAd();
             onBackPressed();
         }
 
@@ -383,16 +461,33 @@ public class FoodListActivity extends AppCompatActivity
             startActivity(showExpiringFood);
 
         } else if (id == R.id.menu_consumed_food) {
+            int guess = GenericUtility.randRange_ApiCheck(1,10);
+            if (guess <=3) {
+                showInterstitialAd();
+            }
             Intent showSavedFood = new Intent(FoodListActivity.this, FoodListActivity.class);
             showSavedFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_SAVED);
             startActivity(showSavedFood);
 
         } else if (id == R.id.menu_dead_food) {
+            int guess = GenericUtility.randRange_ApiCheck(1,10);
+            if (guess <=3) {
+                showInterstitialAd();
+            }
             Intent showDeadFood = new Intent(FoodListActivity.this, FoodListActivity.class);
             showDeadFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_DEAD);
             startActivity(showDeadFood);
 
         } else if (id == R.id.menu_home) {
+            // show interstitial ad on back home only 50% of times
+
+            int guess = GenericUtility.randRange_ApiCheck(1,10);
+            if (guess <=4) {
+                showInterstitialAd();
+            }
+
+            // showInterstitialAd();
+
             Intent returnHome = new Intent(FoodListActivity.this, MainActivity.class);
             startActivity(returnHome);
         }

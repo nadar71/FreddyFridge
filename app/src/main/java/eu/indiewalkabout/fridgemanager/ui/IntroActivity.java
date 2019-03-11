@@ -27,22 +27,22 @@ public class IntroActivity extends AppIntro2 {
 
 
         SliderPage sliderPage1 = new SliderPage();
-        sliderPage1.setTitle("1 : Make your shopping...");
-        sliderPage1.setDescription(" ..,and open FreddyFridge !");
+        sliderPage1.setTitle(getResources().getString(R.string.intro_1_title));
+        sliderPage1.setDescription(getResources().getString(R.string.intro_1_subtitle));
         sliderPage1.setImageDrawable(R.drawable.shopping);
         sliderPage1.setBgColor(getResources().getColor(R.color.background_lightgreen_semitransparent));
         addSlide(AppIntroFragment.newInstance(sliderPage1));
 
         SliderPage sliderPage2 = new SliderPage();
-        sliderPage2.setTitle("2 : Store your food and expiring date");
-        sliderPage2.setDescription("with the New button ");
+        sliderPage2.setTitle(getResources().getString(R.string.intro_2_title));
+        sliderPage2.setDescription(getResources().getString(R.string.intro_2_subtitle));
         sliderPage2.setImageDrawable(R.drawable.instructions_03);
         sliderPage2.setBgColor(getResources().getColor(R.color.background_lightgreen_semitransparent));
         addSlide(AppIntroFragment.newInstance(sliderPage2));
 
         SliderPage sliderPage3 = new SliderPage();
-        sliderPage3.setTitle("3 : Check expiring date");
-        sliderPage3.setDescription("and be alerted before happens : don't waste food!");
+        sliderPage3.setTitle(getResources().getString(R.string.intro_3_title));
+        sliderPage3.setDescription(getResources().getString(R.string.intro_3_subtitle));
         sliderPage3.setImageDrawable(R.drawable.instructions_end);
         sliderPage3.setBgColor(getResources().getColor(R.color.background_lightgreen_semitransparent));
         addSlide(AppIntroFragment.newInstance(sliderPage3));

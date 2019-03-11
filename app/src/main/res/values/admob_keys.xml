@@ -20,4 +20,12 @@
         ca-app-pub-3940256099942544/6300978111</string>
 
 
+    <!-- ADMOB INTERSTITIAL ID -->
+    <!-- Sample AdMob banner ID       : ca-app-pub-3940256099942544/1033173712 -->
+    <!-- THIS APP REAL AdMob banner ID:  -->
+
+    <string name="admob_key_interstitial" templateMergeStrategy="preserve" translatable="false">
+        ca-app-pub-3940256099942544/1033173712</string>
+
+
 </resources>

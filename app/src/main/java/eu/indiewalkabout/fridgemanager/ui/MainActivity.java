@@ -20,9 +20,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
+import android.widget.Toast;
 
 
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.hlab.fabrevealmenu.enums.Direction;
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener;
 import com.hlab.fabrevealmenu.view.FABRevealMenu;
@@ -125,7 +128,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
+        // request ad banner
         mAdView = findViewById(R.id.adView);
 
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
@@ -176,6 +179,7 @@ public class MainActivity extends AppCompatActivity
         editor.putInt(APP_OPENING_COUNTER, count);
         editor.apply();
     }
+
 
 
 

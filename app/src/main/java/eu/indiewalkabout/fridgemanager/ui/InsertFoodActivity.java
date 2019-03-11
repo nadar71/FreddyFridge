@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
@@ -38,6 +39,7 @@ import eu.indiewalkabout.fridgemanager.R;
 import eu.indiewalkabout.fridgemanager.data.DateConverter;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import eu.indiewalkabout.fridgemanager.AppExecutors;
+import eu.indiewalkabout.fridgemanager.util.ConsentSDK;
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
 import eu.indiewalkabout.fridgemanager.util.KeyboardUtils;
 
@@ -84,9 +86,6 @@ public class InsertFoodActivity extends AppCompatActivity
     // admob banner ref
     private AdView mAdView;
 
-    // admob banner interstitial ref
-    private InterstitialAd mInterstitialAd;
-
     // Date picked up reference
     private Calendar datePicked;
 
@@ -109,11 +108,11 @@ public class InsertFoodActivity extends AppCompatActivity
         setContentView(R.layout.activity_insert_food);
 
 
-        // init
-        initAds();
+        // load ad banner
+        mAdView = findViewById(R.id.adView);
 
-        showInterstitialAd();
-
+        // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
+        mAdView.loadAd(ConsentSDK.getAdRequest(InsertFoodActivity.this));
 
         // init views
         initViews();
@@ -155,71 +154,9 @@ public class InsertFoodActivity extends AppCompatActivity
         });
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Init and Load admob ads
-     * ---------------------------------------------------------------------------------------------
-     */
-    private void initAds() {
-
-        // load ad banner
-        mAdView = findViewById(R.id.adView);
-
-        // Create an ad request. Check your logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("7DC1A1E8AEAD7908E42271D4B68FB270")
-                .build();
-        // load and show admob banner
-        mAdView.loadAd(adRequest);
 
 
 
-
-        // init and load admob interstitial
-        mInterstitialAd = new InterstitialAd(this);
-
-        // Sample AdMob interstitial ID:         ca-app-pub-3940256099942544/1033173712
-        // THIS APP REAL AdMob interstitial ID:  ca-app-pub-8846176967909254/5671183832
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-
-        if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
-            // AdRequest adInterstitialRequest = new AdRequest.Builder().build();
-
-            AdRequest adInterstitialRequest = new AdRequest.Builder()
-                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                    .addTestDevice("7DC1A1E8AEAD7908E42271D4B68FB270")
-                    .build();
-
-
-
-            // load and show admob interstitial
-            mInterstitialAd.loadAd(adInterstitialRequest);
-        }
-
-
-
-    }
-
-
-
-
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Show an interstitial on ui request
-     * ---------------------------------------------------------------------------------------------
-     */
-    private void showInterstitialAd() {
-        initAds();
-
-        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        } else {
-            Toast.makeText(this, "Ad interstitial did not load", Toast.LENGTH_SHORT).show();
-        }
-    }
 
 
 
@@ -477,7 +414,7 @@ public class InsertFoodActivity extends AppCompatActivity
         // When the home button is pressed, take the user back to Home
         if (id == android.R.id.home) {
             // show interstitial ads
-            showInterstitialAd();
+            // showInterstitialAd();
 
             // go home
             onBackPressed();

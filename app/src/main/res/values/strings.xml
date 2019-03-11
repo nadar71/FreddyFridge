@@ -161,6 +161,14 @@
 
     <!-- - - - - - - - - - - - - Intro stuff  - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
+    <string name="intro_1_title">1 : Make your shopping...</string>
+    <string name="intro_1_subtitle">..and open FreddyFridge !</string>
+
+    <string name="intro_2_title">2 : Store your food and expiring date</string>
+    <string name="intro_2_subtitle">with the New button and Speech Recognition</string>
+
+    <string name="intro_3_title">3 : Check expiring date</string>
+    <string name="intro_3_subtitle">and be alerted before happens : no more food wasted!</string>
 
 
 </resources>
