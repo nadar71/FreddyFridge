@@ -31,7 +31,7 @@ public class GenericUtility {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             return ThreadLocalRandom.current().nextInt(min, max + 1);
         else {
-            Random rand = new Random();
+            Random rand = new Random(System.currentTimeMillis());
             return rand.nextInt((max - min +1 ) + min);
         }
     }

@@ -59,7 +59,6 @@
     <string name="intro_3_title">3 : Controlla la data di scadenza</string>
     <string name="intro_3_subtitle">e verrai avvisato prima : mai più cibo sprecato!</string>
     <string name="today_expiring_notification_body">Usa il link sotto per vedere la lista completa</string>
-    <string name="background_image">background image</string>
     <string name="food_description_alert">Devi inserire una descrizione del cibo &#8230;</string>
     <string name="food_expdate_alert">Devi inserire una data di scadenza &#8230;</string>
     <string name="food_inserted_alert">" Inserito"</string>
