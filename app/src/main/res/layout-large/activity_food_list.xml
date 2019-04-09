@@ -12,8 +12,10 @@
         android:id="@+id/food_background_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/food_list_toolbar"
-        app:layout_constraintTop_toTopOf="@+id/food_list_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/food_background" />
 
     <android.support.v7.widget.Toolbar
@@ -38,7 +40,7 @@
             android:text="title"
             android:textAlignment="viewStart"
             android:textColor="@color/text_color"
-            android:textSize="24sp"
+            android:textSize="30sp"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="18dp" />
 
@@ -50,7 +52,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_rectangle"
         android:backgroundTint="@color/light_grey_very_transparent"
         app:layout_constraintBottom_toTopOf="@+id/adView"
@@ -69,6 +73,7 @@
         android:fontFamily="@font/quicksand"
         android:text="@string/no_food_in_list"
         android:textAppearance="?android:textAppearanceMedium"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

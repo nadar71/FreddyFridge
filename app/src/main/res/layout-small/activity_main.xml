@@ -225,7 +225,7 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/main_fab"
         android:layout_width="42dp"
-        android:layout_height="43dp"
+        android:layout_height="42dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"

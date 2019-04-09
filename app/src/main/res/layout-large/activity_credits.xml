@@ -60,7 +60,7 @@
         android:padding="4dp"
         android:text="@string/credits_text"
         android:textAlignment="textStart"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
