@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_rect_light_grey_today">
+    android:layout_margin="3dp"
+    android:background="@drawable/rounded_rect_light_grey_today"
+    android:padding="1dp">
 
 
     <CheckBox
@@ -43,6 +45,7 @@
             android:layout_marginBottom="2dp"
             android:fontFamily="@font/quicksand"
             android:textColor="@color/text_color"
+            android:textSize="20sp"
             tools:text="Food Name" />
 
         <!-- Expiration date -->
@@ -56,6 +59,7 @@
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/quicksand"
             android:textColor="@color/text_color"
+            android:textSize="18sp"
             tools:text="11/11/1111" />
 
     </LinearLayout>
@@ -65,7 +69,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@color/today_list_record_light_grey"
         android:contentDescription="@string/delete_food_entry_btn_hint"
         android:gravity="center"
