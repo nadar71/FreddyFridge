@@ -1,6 +1,7 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
@@ -47,9 +49,40 @@ public class CreditsActivity extends AppCompatActivity
 
         // navigation fab
         addRevealFabBtn();
+
+        // make bottom navigation bar and status bar hide
+        hideStatusNavBars();
     }
 
 
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Make bottom navigation bar and status bar hide, without resize when reappearing
+     * ---------------------------------------------------------------------------------------------
+     */
+    private void hideStatusNavBars() {
+        // minsdk version is 19, no need code for lower api
+        View decorView = getWindow().getDecorView();
+
+        // hide status bar
+        if (Build.VERSION.SDK_INT < 16) {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else if (Build.VERSION.SDK_INT >= 16){
+            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+        }
+
+        // hide navigation bar
+        if(Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) {
+            View v = this.getWindow().getDecorView();
+            v.setSystemUiVisibility(View.GONE);
+        } else if(Build.VERSION.SDK_INT >= 19) {
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
+    }
 
     /**
      * ---------------------------------------------------------------------------------------------
