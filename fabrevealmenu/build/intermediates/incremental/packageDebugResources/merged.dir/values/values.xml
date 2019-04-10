@@ -34,7 +34,7 @@
     <dimen name="column_size_small">55dp</dimen>
     <dimen name="extra_margin">7dp</dimen>
     <dimen name="extra_margin_small">3dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_margin">2dp</dimen>
     <dimen name="menu_min_width">200dp</dimen>
     <dimen name="menu_min_width_small">150dp</dimen>
     <dimen name="menu_size_horizontal">38dp</dimen>
