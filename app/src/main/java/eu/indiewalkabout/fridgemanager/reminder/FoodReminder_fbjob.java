@@ -12,7 +12,7 @@ import android.support.annotation.Nullable;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import eu.indiewalkabout.fridgemanager.ApplicationProvider;
+import eu.indiewalkabout.fridgemanager.SingletonProvider;
 import eu.indiewalkabout.fridgemanager.FridgeManagerRepository;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
@@ -52,7 +52,7 @@ public class FoodReminder_fbjob extends JobService {
         // 1549926000000 - 172800000 = 1549753200000
 
         // get repository
-        FridgeManagerRepository repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
+        FridgeManagerRepository repository = ((SingletonProvider) SingletonProvider.getsContext()).getRepository();
         foodEntriesNextDays = repository.loadAllFoodExpiring(dateBefore);
 
         foodEntriesNextDays.observeForever(new Observer<List<FoodEntry>>() {

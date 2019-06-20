@@ -7,7 +7,7 @@ import android.util.Log;
 import java.util.List;
 
 import eu.indiewalkabout.fridgemanager.FridgeManagerRepository;
-import eu.indiewalkabout.fridgemanager.ApplicationProvider;
+import eu.indiewalkabout.fridgemanager.SingletonProvider;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
 
@@ -36,7 +36,7 @@ public class FoodsViewModel extends ViewModel {
 
     public FoodsViewModel() {
         // init repository
-        repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
+        repository = ((SingletonProvider) SingletonProvider.getsContext()).getRepository();
     }
 
 
@@ -53,7 +53,7 @@ public class FoodsViewModel extends ViewModel {
         Log.d(TAG, "Actively retrieving the collections from repository");
 
         // get repository instance
-        repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
+        repository = ((SingletonProvider) SingletonProvider.getsContext()).getRepository();
 
         // choose the type of food list to load from db
         if (foodlistType.equals(FoodListActivity.FOOD_EXPIRING)) {

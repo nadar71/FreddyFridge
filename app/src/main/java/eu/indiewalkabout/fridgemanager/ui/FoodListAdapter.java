@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-import eu.indiewalkabout.fridgemanager.ApplicationProvider;
+import eu.indiewalkabout.fridgemanager.SingletonProvider;
 import eu.indiewalkabout.fridgemanager.FridgeManagerRepository;
 import eu.indiewalkabout.fridgemanager.R;
 import eu.indiewalkabout.fridgemanager.data.FoodEntry;
@@ -65,7 +65,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
 
 
         // TODO : move onClick management to MainActivity
-        repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
+        repository = ((SingletonProvider) SingletonProvider.getsContext()).getRepository();
 
 
     }

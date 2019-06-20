@@ -55,7 +55,6 @@ public class MainSettingsActivity extends AppCompatActivity
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -268,7 +267,7 @@ public class MainSettingsActivity extends AppCompatActivity
         private void initConsentSDK(Context context) {
             // Initialize ConsentSDK
             consentSDK = new ConsentSDK.Builder(context)
-                    .addTestDeviceId("7DC1A1E8AEAD7908E42271D4B68FB270") // Add your test device id "Remove addTestDeviceId on production!"
+                    // .addTestDeviceId("7DC1A1E8AEAD7908E42271D4B68FB270") // Add your test device id "Remove addTestDeviceId on production!"
                     .addCustomLogTag("gdpr_TAG") // Add custom tag default: ID_LOG
                     .addPrivacyPolicy("http://www.indie-walkabout.eu/privacy-policy-app") // Add your privacy policy url
                     .addPublisherId("pub-8846176967909254") // Add your admob publisher id

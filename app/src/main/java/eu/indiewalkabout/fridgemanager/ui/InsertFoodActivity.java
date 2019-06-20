@@ -24,10 +24,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 import com.hlab.fabrevealmenu.enums.Direction;
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener;
 import com.hlab.fabrevealmenu.view.FABRevealMenu;
@@ -35,7 +32,7 @@ import com.hlab.fabrevealmenu.view.FABRevealMenu;
 import java.util.ArrayList;
 import java.util.Date;
 
-import eu.indiewalkabout.fridgemanager.ApplicationProvider;
+import eu.indiewalkabout.fridgemanager.SingletonProvider;
 import eu.indiewalkabout.fridgemanager.FridgeManagerRepository;
 import eu.indiewalkabout.fridgemanager.R;
 import eu.indiewalkabout.fridgemanager.data.DateConverter;
@@ -367,7 +364,7 @@ public class InsertFoodActivity extends AppCompatActivity
                     FoodEntry foodEntry = new FoodEntry(0,foodName,expiringDate);
 
                     // repo insert
-                    FridgeManagerRepository repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
+                    FridgeManagerRepository repository = ((SingletonProvider) SingletonProvider.getsContext()).getRepository();
                     repository.insertFoodEntry(foodEntry);
 
                     // end activity
@@ -405,7 +402,7 @@ public class InsertFoodActivity extends AppCompatActivity
                     foodEntry.setDone(foodEntryToChange.getValue().getDone());
 
                     // update task on db
-                    FridgeManagerRepository repository = ((ApplicationProvider) ApplicationProvider.getsContext()).getRepository();
+                    FridgeManagerRepository repository = ((SingletonProvider) SingletonProvider.getsContext()).getRepository();
                     repository.updateFoodEntry(foodEntry);
 
                     // end activity

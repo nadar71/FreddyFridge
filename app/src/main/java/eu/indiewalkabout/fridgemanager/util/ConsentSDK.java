@@ -180,14 +180,14 @@ public class ConsentSDK {
         if(isConsentPersonalized(context)) {
             MobileAds.initialize(context,  context.getString(R.string.admob_key_app_id));
             AdRequest adRequest = new AdRequest.Builder()
-                    .addTestDevice("7DC1A1E8AEAD7908E42271D4B68FB270")
+                    // .addTestDevice("7DC1A1E8AEAD7908E42271D4B68FB270")
                     .build();
             return adRequest;
         } else {
             MobileAds.initialize(context,  context.getString(R.string.admob_key_app_id));
             AdRequest adRequest =  new AdRequest.Builder()
                     .addNetworkExtrasBundle(AdMobAdapter.class, getNonPersonalizedAdsBundle())
-                    .addTestDevice("7DC1A1E8AEAD7908E42271D4B68FB270")
+                    // .addTestDevice("7DC1A1E8AEAD7908E42271D4B68FB270")
                     .build();
             return adRequest;
         }

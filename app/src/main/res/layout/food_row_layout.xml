@@ -9,6 +9,8 @@
     android:padding="1dp">
 
 
+
+
     <CheckBox
         android:id="@+id/consumed_cb"
         style="@android:style/Widget.Material.CompoundButton.CheckBox"

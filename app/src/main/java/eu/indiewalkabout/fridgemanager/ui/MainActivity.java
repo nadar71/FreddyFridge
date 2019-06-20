@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity
 
         // Initialize ConsentSDK
         ConsentSDK consentSDK = new ConsentSDK.Builder(this)
-                .addTestDeviceId("7DC1A1E8AEAD7908E42271D4B68FB270") // redminote 5 // Add your test device id "Remove addTestDeviceId on production!"
+                // .addTestDeviceId("7DC1A1E8AEAD7908E42271D4B68FB270") // redminote 5 // Add your test device id "Remove addTestDeviceId on production!"
                 // .addTestDeviceId("9978A5F791A259430A0156313ED9C6A2")
                 .addCustomLogTag("gdpr_TAG") // Add custom tag default: ID_LOG
                 .addPrivacyPolicy("http://www.indie-walkabout.eu/privacy-policy-app") // Add your privacy policy url
@@ -314,10 +314,6 @@ public class MainActivity extends AppCompatActivity
      */
     private void retrieveFoodExpiringToday() {
         Log.d(TAG, "Actively retrieving Expiring Food from DB");
-
-        // Log.d(TAG, "Time now : "+System.currentTimeMillis().)
-
-
 
         // Declare my viewModel factory, parametrized with foodlistType
         FoodsViewModelFactory factory =
