@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity
         DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
         foodList.addItemDecoration(decoration);
 
-        // Configure the adpater; it uses LiveData to keep updated on changes
+        // Configure the adapter; it uses LiveData to keep updated on changes
         setupAdapter();
 
         // make fab button hide when scrolling list

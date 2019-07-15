@@ -42,7 +42,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
     // Date formatter
     private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
-    // TODO : move onClick management to MainActivity
     // repository ref
     private FridgeManagerRepository repository;
 
@@ -73,7 +72,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
     /**
      * ----------------------------------------------------------------------------------
      * Inflate list's each view/row layout.
-     * @return new FoodViewRowHolder, holds task_layout view for each task
+     * @return new FoodViewRowHolder
      * ----------------------------------------------------------------------------------
      */
     @NonNull
@@ -194,7 +193,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
         }
 
 
-        // TODO : implements onClick in MainActivity  with implements FoodListAdapter.onClick or something similar
+        // TODO : implements onClick in MainActivity  with implementing FoodListAdapter.onClick or something similar
 
         /**
          * ------------------------------------------------------------------------------------
@@ -446,7 +445,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
 
     /**
      * ----------------------------------------------------------------------------------
-     * Return an food item in list at defined position
+     * Return a food item in list at defined position
      * ----------------------------------------------------------------------------------
      */
     public FoodEntry getFoodItemAtPosition(int position){
