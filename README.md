@@ -32,5 +32,5 @@ Check out it on [Google Play](https://play.google.com/store/apps/details?id=eu.i
 
 **Contributions?**
 Yes please! Every help would be really appreciated! Check out here for easy how-to :
-See [CONTRIBUTING.md](https://github.com/nadar71/FreddyFridge/CONTRIBUTING.md)
+See [CONTRIBUTING.md](https://github.com/nadar71/FreddyFridge/blob/master/CONTRIBUTING.md)
 Thank you a lot! :smiley:
