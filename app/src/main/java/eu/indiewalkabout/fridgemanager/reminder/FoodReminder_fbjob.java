@@ -36,11 +36,6 @@ public class FoodReminder_fbjob extends JobService {
         int days = PreferenceUtility.getDaysCount(context);
         final int DAYS_BEFORE = (int) (TimeUnit.DAYS.toSeconds(days));
 
-        // TODO : inject and use the repository when created, now query directly db, we are in background.
-        // follow here https://stackoverflow.com/questions/45932995/observe-livedata-from-jobservice
-        // get the getLiveDataFromSomewhere() from repository injected, instead of
-        // foodEntriesNextDays = foodDb.foodDbDao().loadAllFoodExpiring(dataNormalizedAtMidnight);
-
         // -----------------------------------------------------------------------------------------
         // 1 - check for food expiring in the next days
         // -----------------------------------------------------------------------------------------

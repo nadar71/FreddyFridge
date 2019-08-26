@@ -22,7 +22,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
-import android.widget.Toast;
 
 
 import com.google.android.gms.ads.AdRequest;
@@ -47,10 +46,10 @@ public class MainActivity extends AppCompatActivity
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
-
     private static final String APP_OPENING_COUNTER ="app-opening-counter";
     private static final int DEFAULT_COUNT          = 0;
-    private static final int NUM_MAX_OPENINGS       = 2;
+    private static final int NUM_MAX_OPENINGS        = 2;
+
 
 
     // admob banner ref
@@ -68,7 +67,17 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView    foodList;
     private FoodListAdapter foodListAdapter;
 
+    // vars utils for testing
+    private int numPrevOpenings = 0;
+    private boolean checkConsentActive = true;
 
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +88,7 @@ public class MainActivity extends AppCompatActivity
 
 
         // open intro only for the first 3 times
-        int numPrevOpenings = getAppOpenings();
+        numPrevOpenings = getAppOpenings();
         Intent  callingActivity = getIntent();
         boolean comingFromIntro = callingActivity.getBooleanExtra("ComingFromIntro", false);
         if ( (numPrevOpenings < NUM_MAX_OPENINGS) && (!comingFromIntro) ){
@@ -110,32 +119,33 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        // Initialize ConsentSDK
-        ConsentSDK consentSDK = new ConsentSDK.Builder(this)
-                // .addTestDeviceId("7DC1A1E8AEAD7908E42271D4B68FB270") // redminote 5 // Add your test device id "Remove addTestDeviceId on production!"
-                // .addTestDeviceId("9978A5F791A259430A0156313ED9C6A2")
-                .addCustomLogTag("gdpr_TAG") // Add custom tag default: ID_LOG
-                .addPrivacyPolicy("http://www.indie-walkabout.eu/privacy-policy-app") // Add your privacy policy url
-                .addPublisherId("pub-8846176967909254") // Add your admob publisher id
-                .build();
+        if(checkConsentActive) {
+            // Initialize ConsentSDK
+            ConsentSDK consentSDK = new ConsentSDK.Builder(this)
+                    // .addTestDeviceId("7DC1A1E8AEAD7908E42271D4B68FB270") // redminote 5 // Add your test device id "Remove addTestDeviceId on production!"
+                    // .addTestDeviceId("9978A5F791A259430A0156313ED9C6A2")
+                    .addCustomLogTag("gdpr_TAG") // Add custom tag default: ID_LOG
+                    .addPrivacyPolicy("http://www.indie-walkabout.eu/privacy-policy-app") // Add your privacy policy url
+                    .addPublisherId("pub-8846176967909254") // Add your admob publisher id
+                    .build();
 
 
-        // To check the consent and load ads
-        consentSDK.checkConsent(new ConsentSDK.ConsentCallback() {
-            @Override
-            public void onResult(boolean isRequestLocationInEeaOrUnknown) {
-                Log.i("gdpr_TAG", "onResult: isRequestLocationInEeaOrUnknown : "+isRequestLocationInEeaOrUnknown);
-                // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-                mAdView.loadAd(ConsentSDK.getAdRequest(MainActivity.this));
-            }
-        });
+            // To check the consent and load ads
+            consentSDK.checkConsent(new ConsentSDK.ConsentCallback() {
+                @Override
+                public void onResult(boolean isRequestLocationInEeaOrUnknown) {
+                    Log.i("gdpr_TAG", "onResult: isRequestLocationInEeaOrUnknown : " + isRequestLocationInEeaOrUnknown);
+                    // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
+                    mAdView.loadAd(ConsentSDK.getAdRequest(MainActivity.this));
+                }
+            });
 
-        // request ad banner
-        mAdView = findViewById(R.id.adView);
+            // request ad banner
+            mAdView = findViewById(R.id.adView);
 
-        // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        mAdView.loadAd(ConsentSDK.getAdRequest(MainActivity.this));
-
+            // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
+            mAdView.loadAd(ConsentSDK.getAdRequest(MainActivity.this));
+        }
 
         // add main_fab revealing menu
         addRevealFabBtn();
@@ -207,15 +217,12 @@ public class MainActivity extends AppCompatActivity
      * Set the number of times the app has been opened
      * ---------------------------------------------------------------------------------------------
      */
-    private void setAppOpenings( int count) {
+    public void setAppOpenings( int count) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(APP_OPENING_COUNTER, count);
         editor.apply();
     }
-
-
-
 
 
     /**
@@ -444,5 +451,29 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
+
+    // ---------------------------------------------------------------------------------------------
+    //                                         TESTING STUFF
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Mock the number of times the app has been opened
+     * ---------------------------------------------------------------------------------------------
+     */
+    public void mockAppOpenings(int num) {
+        numPrevOpenings = numPrevOpenings;
+    }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Mock the request consent for admob ads
+     * ---------------------------------------------------------------------------------------------
+     */
+    public void mockCheckConsentActive(boolean flag){
+        checkConsentActive = flag;
+    }
 
 }
