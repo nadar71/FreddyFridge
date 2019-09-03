@@ -161,12 +161,12 @@ public class ConsentSDK {
     }
 
     // Consent is non personalized
-    private void consentIsNonPersonalized() {
+    public void consentIsNonPersonalized() {
         settings.edit().putBoolean(ads_preference, NON_PERSONALIZED).apply();
     }
 
     // Consent is within
-    private void updateUserStatus(boolean status) {
+    public void updateUserStatus(boolean status) {
         settings.edit().putBoolean(user_status, status).apply();
     }
 

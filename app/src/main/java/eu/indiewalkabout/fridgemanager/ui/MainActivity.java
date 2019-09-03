@@ -69,23 +69,17 @@ public class MainActivity extends AppCompatActivity
 
     // vars utils for testing
     private int numPrevOpenings = 0;
-    private boolean checkConsentActive = true;
+    private static boolean checkConsentActive = true;
+    private ConsentSDK consentSDK;
 
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // setAppOpenings(0); // debug reset
-
 
         // open intro only for the first 3 times
         numPrevOpenings = getAppOpenings();
@@ -119,16 +113,36 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        if(checkConsentActive) {
+
+        // add main_fab revealing menu
+        addRevealFabBtn();
+
+        // Recycle view
+        initRecycleView();
+
+        // start scheduler for notifications reminder
+        ReminderScheduler.scheduleChargingReminder(this);
+
+        // make bottom navigation bar and status bar hide
+        hideStatusNavBars();
+
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        if(checkConsentActive == true) {
             // Initialize ConsentSDK
-            ConsentSDK consentSDK = new ConsentSDK.Builder(this)
+            consentSDK = new ConsentSDK.Builder(this)
                     // .addTestDeviceId("7DC1A1E8AEAD7908E42271D4B68FB270") // redminote 5 // Add your test device id "Remove addTestDeviceId on production!"
                     // .addTestDeviceId("9978A5F791A259430A0156313ED9C6A2")
                     .addCustomLogTag("gdpr_TAG") // Add custom tag default: ID_LOG
                     .addPrivacyPolicy("http://www.indie-walkabout.eu/privacy-policy-app") // Add your privacy policy url
                     .addPublisherId("pub-8846176967909254") // Add your admob publisher id
                     .build();
-
 
             // To check the consent and load ads
             consentSDK.checkConsent(new ConsentSDK.ConsentCallback() {
@@ -147,21 +161,7 @@ public class MainActivity extends AppCompatActivity
             mAdView.loadAd(ConsentSDK.getAdRequest(MainActivity.this));
         }
 
-        // add main_fab revealing menu
-        addRevealFabBtn();
-
-        // Recycle view
-        initRecycleView();
-
-        // start scheduler for notifications reminder
-        ReminderScheduler.scheduleChargingReminder(this);
-
-        // make bottom navigation bar and status bar hide
-        hideStatusNavBars();
-
     }
-
-
 
     /**
      * ---------------------------------------------------------------------------------------------
@@ -474,6 +474,16 @@ public class MainActivity extends AppCompatActivity
      */
     public void mockCheckConsentActive(boolean flag){
         checkConsentActive = flag;
+    }
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Return the reference to ConsentSDK instance to beused by test classes
+     * ---------------------------------------------------------------------------------------------
+     * @return
+     */
+    public ConsentSDK getConsentObjReference(){
+        return  consentSDK;
     }
 
 }
