@@ -459,16 +459,6 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * ---------------------------------------------------------------------------------------------
-     * Mock the number of times the app has been opened
-     * ---------------------------------------------------------------------------------------------
-     */
-    public void mockAppOpenings(int num) {
-        numPrevOpenings = numPrevOpenings;
-    }
-
-
-    /**
-     * ---------------------------------------------------------------------------------------------
      * Mock the request consent for admob ads
      * ---------------------------------------------------------------------------------------------
      */
@@ -476,14 +466,6 @@ public class MainActivity extends AppCompatActivity
         checkConsentActive = flag;
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Return the reference to ConsentSDK instance to beused by test classes
-     * ---------------------------------------------------------------------------------------------
-     * @return
-     */
-    public ConsentSDK getConsentObjReference(){
-        return  consentSDK;
-    }
+
 
 }

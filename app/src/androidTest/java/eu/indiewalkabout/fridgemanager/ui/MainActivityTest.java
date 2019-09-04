@@ -29,37 +29,11 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.allOf;
 
-import eu.indiewalkabout.fridgemanager.util.ConsentSDK;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
     MainActivity activity;
-    ConsentSDK consentSDK;
-
-    /*
-    @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class,
-            true ,   // Initial touch mode
-            false ); // Lazily launch activity
-    */
-
-    /*
-    @Before
-    public void setUp() {
-        activity = mActivityTestRule.getActivity();
-        activity.mockAppOpenings(0);
-        activity.mockCheckConsentActive(false);
-
-        // lazily activity launch
-        Intent startMainActivity = new Intent();
-        startMainActivity.putExtra(activity.MOCK_VAR,"go");
-        mActivityTestRule.launchActivity(startMainActivity);
-
-        System.out.println();
-    }
-    */
-
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
@@ -67,93 +41,21 @@ public class MainActivityTest {
     @Before
     public void setUp() {
         activity   = mActivityTestRule.getActivity();
-        // consentSDK = activity.getConsentObjReference();
 
+        // mock consentSDK avoid showing consent banner
         activity.mockCheckConsentActive(false);
-        activity.setAppOpenings(0);
-
-
-        // consentSDK.updateUserStatus(false);
-        // consentSDK.consentIsNonPersonalized();
-
-        // monitorCurrentActivity();
-    }
-
-    private final Activity[] currentActivity = new Activity[1];
-
-    private void monitorCurrentActivity() {
-        mActivityTestRule.getActivity().getApplication()
-                .registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
-
-                    // setup config to avoid showing consensdk banner
-                    @Override
-                    public void onActivityCreated(final Activity activity, final Bundle savedInstanceState) {
-                        /*
-                        MainActivity mActivity = (MainActivity)activity;
-                        // setting preferences to be sure to show every time the splash helper presentation
-                        mActivity.setAppOpenings(0);
-                        // set the need to gdpr consent to false
-                        mActivity.mockCheckConsentActive(false);
-                        System.out.println("DONE check");
-                        */
-                    }
-
-                    @Override
-                    public void onActivityStarted(final Activity activity) {
-                        MainActivity mActivity = (MainActivity)activity;
-
-                        // setting preferences to be sure to show every time the splash helper presentation
-                        mActivity.setAppOpenings(0);
-
-                        // set the need to gdpr consent to false
-                        mActivity.mockCheckConsentActive(false);
-
-                        System.out.println("DONE check");
-                    }
-
-                    @Override
-                    public void onActivityResumed(final Activity activity) {
-                        currentActivity[0] = activity;
-                    }
-
-                    @Override
-                    public void onActivityPaused(final Activity activity) { }
-
-                    @Override
-                    public void onActivityStopped(final Activity activity) { }
-
-                    @Override
-                    public void onActivitySaveInstanceState(final Activity activity, final Bundle outState) { }
-
-                    @Override
-                    public void onActivityDestroyed(final Activity activity) { }
-                });
-    }
-
-
-    private Activity getCurrentActivity() {
-        return currentActivity[0];
-    }
-
-    //----------------------------------------------------------------------------------------------
-    // *** TEMPORARILY WORKAROUND : arguing how to mock, current mock doesn't work ***
-    // BEFORE LAUNCHING THIS TEST :
-    // - delete preferences on device app
-    // - launch one time and give admob consent
-    // Best solution could be recreate the activity after starting :
-    // https://stackoverflow.com/questions/1397361/how-do-i-restart-an-android-activity
-    // https://developer.android.com/guide/components/activities/testing
-    //----------------------------------------------------------------------------------------------
-    @Test
-    public void mainActivityTest() {
-        // restart activity to get changes in setup
-        // activity.recreate();
 
         // setting preferences to be sure to show every time the splash helper presentation
-        // activity.setAppOpenings(0);
+        activity.setAppOpenings(0);
 
-        // set the need to gdpr consent to false
-        // activity.mockCheckConsentActive(false);
+        // Otherwise the workaround would be :
+        // - delete preferences on device app
+        // - launch one time and give admob consent
+    }
+
+
+    @Test
+    public void mainActivityTest() {
 
         // press go to main activity from splash tutorial
         ViewInteraction appCompatImageButton = onView(
