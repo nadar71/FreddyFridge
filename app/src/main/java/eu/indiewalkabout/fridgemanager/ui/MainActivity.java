@@ -46,9 +46,11 @@ public class MainActivity extends AppCompatActivity
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    private static final String APP_OPENING_COUNTER ="app-opening-counter";
-    private static final int DEFAULT_COUNT          = 0;
-    private static final int NUM_MAX_OPENINGS        = 2;
+    private static final String APP_OPENING_COUNTER     = "app-opening-counter";
+    private static final int DEFAULT_COUNT              = 0;
+    private static final String APP_CONSENT_NEED        = "consent_requested";
+    private static final boolean DEFAULT_CONSENT_NEED   = true;
+    private static final int NUM_MAX_OPENINGS           = 2;
 
 
 
@@ -83,6 +85,10 @@ public class MainActivity extends AppCompatActivity
 
         // open intro only for the first 3 times
         numPrevOpenings = getAppOpenings();
+
+        // set consent sdk for gdpr true by default
+        // setConsentSDKNeed(true);
+
         Intent  callingActivity = getIntent();
         boolean comingFromIntro = callingActivity.getBooleanExtra("ComingFromIntro", false);
         if ( (numPrevOpenings < NUM_MAX_OPENINGS) && (!comingFromIntro) ){
@@ -133,6 +139,7 @@ public class MainActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 
+        checkConsentActive = getConsentSDKNeed();
 
         if(checkConsentActive == true) {
             // Initialize ConsentSDK
@@ -207,7 +214,7 @@ public class MainActivity extends AppCompatActivity
      * Get the number of times the app has been opened
      * ---------------------------------------------------------------------------------------------
      */
-    private int getAppOpenings() {
+    public int getAppOpenings() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         return prefs.getInt(APP_OPENING_COUNTER, DEFAULT_COUNT);
     }
@@ -221,6 +228,29 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(APP_OPENING_COUNTER, count);
+        editor.apply();
+    }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Get if consent gdpr must be asked or not
+     * ---------------------------------------------------------------------------------------------
+     */
+    public boolean getConsentSDKNeed() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        return prefs.getBoolean(APP_CONSENT_NEED, DEFAULT_CONSENT_NEED);
+    }
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Set if consent gdpr must be asked or not
+     * ---------------------------------------------------------------------------------------------
+     */
+    public void setConsentSDKNeed( boolean isNeeded) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(APP_CONSENT_NEED, isNeeded);
         editor.apply();
     }
 
@@ -351,6 +381,27 @@ public class MainActivity extends AppCompatActivity
 
 
 
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Set directly in flag the need for consent for admob ads
+     * ---------------------------------------------------------------------------------------------
+     */
+    public void setConsentSdkFlag(boolean flag){
+        checkConsentActive = flag;
+    }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Return the reference to ConsentSDK instance to beused by test classes
+     * ---------------------------------------------------------------------------------------------
+     * @return
+     */
+    public ConsentSDK getConsentObjReference(){
+        return  consentSDK;
+    }
+
+
 
 
     // ---------------------------------------------------------------------------------------------
@@ -449,21 +500,6 @@ public class MainActivity extends AppCompatActivity
             showDeadFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_DEAD);
             startActivity(showDeadFood);
         }
-    }
-
-
-
-    // ---------------------------------------------------------------------------------------------
-    //                                         TESTING STUFF
-    // ---------------------------------------------------------------------------------------------
-
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Mock the request consent for admob ads
-     * ---------------------------------------------------------------------------------------------
-     */
-    public void mockCheckConsentActive(boolean flag){
-        checkConsentActive = flag;
     }
 
 

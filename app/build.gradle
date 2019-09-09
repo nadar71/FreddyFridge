@@ -55,10 +55,15 @@ dependencies {
     // implementation 'com.hlab.fabrevealmenu:main_fab-reveal-menu:1.0.3'
     implementation project(':fabrevealmenu')
 
-    // test stuff
+    // test support
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.19.0'
+
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
+    androidTestImplementation 'org.mockito:mockito-android:2.19.0'
+
 
 
     // debug stuff
@@ -76,4 +81,10 @@ dependencies {
     implementation 'com.github.AppIntro:AppIntro:v4.2.3'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
 }

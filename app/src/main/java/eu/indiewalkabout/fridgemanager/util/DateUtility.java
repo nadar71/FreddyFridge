@@ -3,6 +3,10 @@ package eu.indiewalkabout.fridgemanager.util;
 
 import android.content.Context;
 import android.text.format.DateUtils;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -10,7 +14,9 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * Class for handling date conversions.
+ * ---------------------------------------------------------------------------------------------
+ * Class for handling a bunch of date conversions.
+ * ---------------------------------------------------------------------------------------------
  */
 public final class DateUtility {
 
@@ -18,6 +24,7 @@ public final class DateUtility {
     public static final long DAY_IN_MILLIS = TimeUnit.DAYS.toMillis(1);
 
     /**
+     * ---------------------------------------------------------------------------------------------
      * This method returns the number of milliseconds (UTC time) for today's date at midnight in
      * the local time zone. For example, if you live in California and the day is September 20th,
      * 2016 and it is 6:30 PM, it will return 1474329600000. Now, if you plug this number into an
@@ -39,6 +46,7 @@ public final class DateUtility {
      *
      * @return The number of milliseconds (UTC / GMT) for today's date at midnight in the local
      * time zone
+     * ---------------------------------------------------------------------------------------------
      */
     public static long getNormalizedUtcMsForToday() {
 
@@ -90,11 +98,13 @@ public final class DateUtility {
 
 
     /**
+     * ---------------------------------------------------------------------------------------------
      * This method returns the number of days since the epoch (January 01, 1970, 12:00 Midnight UTC)
      * in UTC time from the current date.
      *
      * @param utcDate A date in milliseconds in UTC time.
      * @return The number of days from the epoch to the date argument.
+     * ---------------------------------------------------------------------------------------------
      */
     private static long elapsedDaysSinceEpoch(long utcDate) {
         return TimeUnit.MILLISECONDS.toDays(utcDate);
@@ -103,11 +113,13 @@ public final class DateUtility {
 
 
     /**
+     * ---------------------------------------------------------------------------------------------
      * This method will return the local time midnight for the provided normalized UTC date.
      *
      * @param normalizedUtcDate UTC time at midnight for a given date. This number comes from the
      *                          database
      * @return The local date corresponding to the given normalized UTC date
+     * ---------------------------------------------------------------------------------------------
      */
     public static long getLocalMidnightFromNormalizedUtcDate(long normalizedUtcDate) {
         /* The timeZone object will provide us the current user's time zone offset */
@@ -124,12 +136,14 @@ public final class DateUtility {
 
 
     /**
+     * ---------------------------------------------------------------------------------------------
      * Returns a date string in the format specified, which shows an abbreviated date without a
      * year.
      *
      * @param context      Used by DateUtils to format the date in the current locale
      * @param timeInMillis Time in milliseconds since the epoch (local time)
      * @return The formatted date string
+     * ---------------------------------------------------------------------------------------------
      */
     private static String getReadableDateString(Context context, long timeInMillis) {
         int flags = DateUtils.FORMAT_SHOW_DATE
@@ -137,6 +151,38 @@ public final class DateUtility {
                 | DateUtils.FORMAT_SHOW_WEEKDAY;
 
         return DateUtils.formatDateTime(context, timeInMillis, flags);
+    }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Convert from LocalDate to epoch (long)
+     * NB : require minsdk 26
+     * @param date
+     * @return
+     * ---------------------------------------------------------------------------------------------
+     */
+    /*
+    public static long fromLocalDate_to_Epoch(LocalDate date){
+        ZoneId zoneId = ZoneId.systemDefault(); // or: ZoneId.of("Europe/Oslo");
+        long epoch = date.atStartOfDay(zoneId).toEpochSecond();
+        return epoch;
+    }
+     */
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Add a day in ol Date format
+     * @param date
+     * @return
+     * ---------------------------------------------------------------------------------------------
+     */
+    public static Date addDays(Date date, int numDays){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE,numDays);
+        return cal.getTime();
     }
 
 
