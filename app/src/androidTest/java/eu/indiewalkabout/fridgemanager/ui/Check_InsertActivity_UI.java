@@ -386,25 +386,8 @@ public class Check_InsertActivity_UI {
 
         // init intent for check intent
         Intents.init();
-        ViewInteraction editTextWithClear = onView(
-                allOf(withId(R.id.foodName_et),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                5),
-                        isDisplayed()));
-        editTextWithClear.perform(replaceText(targetText), closeSoftKeyboard());
-
-        ViewInteraction editTextWithClear2 = onView(
-                allOf(withId(R.id.foodName_et), withText(targetText),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                5),
-                        isDisplayed()));
-        editTextWithClear2.perform(pressImeActionButton());
+        onView(allOf(withId(R.id.foodName_et))).perform(replaceText(targetText), closeSoftKeyboard());
+        onView(allOf(withId(R.id.foodName_et), withText(targetText))).perform(pressImeActionButton());
 
         // set test date
         insertActivity.runOnUiThread(new Runnable() {
@@ -426,16 +409,8 @@ public class Check_InsertActivity_UI {
         });
 
         onView(withId(R.id.save_btn)).perform(click());
+        onView(withId(R.id.insert_food_fab)).perform(click());
 
-        ViewInteraction floatingActionButton2 = onView(
-                allOf(withId(R.id.insert_food_fab),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                8),
-                        isDisplayed()));
-        floatingActionButton2.perform(click());
 
         ViewInteraction textView3 = onView(
                 allOf(withId(R.id.txt_title_menu_item), withText(R.string.wasted_label),
@@ -448,42 +423,12 @@ public class Check_InsertActivity_UI {
                         isDisplayed()));
         textView3.perform(click());
 
-
-
         intended(hasComponent(FoodListActivity.class.getName()));
         Intents.release();
         onView(withId(R.id.toolbar_title_tv)).check(matches(withText(R.string.foodDead_activity_title)));
 
-        /* debug :
         onView(ViewMatchers.withId(R.id.food_list_recycleView))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        */
-
-        onView(ViewMatchers.withId(R.id.food_list_recycleView))
-                // .check(matches(atPositionOnView(0, withText("food_expiring_today"), R.id.foodName_tv)));
-                // .check(matches(atPositionOnView(0, withId(R.id.foodName_tv), R.id.foodName_tv)))
                 .check(matches(atPositionOnView(0, withText(targetText), R.id.foodName_tv)));
-        
-        /*// check presence of food inserted with expiring date today
-        RecyclerView recyclerView = foodListActivity.findViewById(R.id.food_list_recycleView);
-        int itemCount             = recyclerView.getChildCount();
-
-        for(int i = 0; i<itemCount; i++) {
-            ViewHolder holder = recyclerView.getChildViewHolder(recyclerView.getChildAt(i));
-            TextView v        = holder.itemView.findViewById(R.id.foodName_tv);
-
-            if (targetText.equals(v.getText())) {
-                // Log.d(TAG, "testInsertExpiringToday: find the target text : "+targetText);
-                System.out.println("testInsertWastedFood: find the target text : "+targetText);
-
-                onView(ViewMatchers.withId(R.id.food_list_recycleView))
-                        // .check(matches(atPositionOnView(0, withText("food_expiring_today"), R.id.foodName_tv)));
-                        // .check(matches(atPositionOnView(0, withId(R.id.foodName_tv), R.id.foodName_tv)))
-                        .check(matches(atPositionOnView(i, withText(targetText), R.id.foodName_tv)));
-                break;
-            }
-
-        }*/
     }
 
 
