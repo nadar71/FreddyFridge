@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.contrib.PickerActions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.matcher.BoundedMatcher;
@@ -19,10 +20,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.CalendarView;
+import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
@@ -30,7 +34,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.time.LocalDate;
 
 import eu.indiewalkabout.fridgemanager.R;
 import eu.indiewalkabout.fridgemanager.SingletonProvider;
@@ -46,17 +49,20 @@ import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard
 import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
 
 import java.util.Date;
+import java.util.Calendar;
+import java.time.LocalDate;
+import java.util.Locale;
+
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
@@ -344,7 +350,7 @@ public class Check_InsertActivity_UI {
         if (TestUtility.doesViewExist(R.id.skip)){
             onView(withId(R.id.skip)).perform(click());
         }
-        /*
+        /* debug :
         onView(ViewMatchers.withId(R.id.main_today_food_list_recycleView))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         */
@@ -354,7 +360,7 @@ public class Check_InsertActivity_UI {
         int itemCount             = recyclerView.getChildCount();
         for(int i = 0; i<itemCount; i++) {
             ViewHolder holder = recyclerView.getChildViewHolder(recyclerView.getChildAt(i));
-            TextView v = holder.itemView.findViewById(R.id.foodName_tv);
+            TextView v        = holder.itemView.findViewById(R.id.foodName_tv);
             if (targetText.equals(v.getText())) {
                 // Log.d(TAG, "testInsertExpiringToday: find the target text : "+targetText);
                 System.out.println("testInsertExpiringToday: find the target text : "+targetText);
@@ -378,8 +384,6 @@ public class Check_InsertActivity_UI {
         foodDbDao.dropTable();
         targetText = "wasted_food";
 
-        CalendarView cv = insertActivity.findViewById(R.id.calendar_cv);
-
         // init intent for check intent
         Intents.init();
         ViewInteraction editTextWithClear = onView(
@@ -402,19 +406,26 @@ public class Check_InsertActivity_UI {
                         isDisplayed()));
         editTextWithClear2.perform(pressImeActionButton());
 
-        // put an expiring date before today
-        // TODO : fix this
-        cv.setDate(DateConverter.fromDate(DateUtility.addDays(new Date(),-1)));
+        // set test date
+        insertActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // put an expiring date before today
+                Calendar calendar = Calendar.getInstance();
+                Date pastDate     = DateUtility.addDays(new Date(),-1);
+                calendar.setTime(pastDate);
+                insertActivity.setDatePicked(calendar);
+                insertActivity.setDateExpir_cv(pastDate);
 
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.save_btn), withText("Salva"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                6),
-                        isDisplayed()));
-        appCompatButton.perform(click());
+                // set in the view too
+                CalendarView view = (CalendarView) insertActivity.findViewById(R.id.calendar_cv);
+                view.setDate(DateConverter.fromDate(pastDate));
+                System.out.println("**** DATA CHANGED *****");
+            }
+
+        });
+
+        onView(withId(R.id.save_btn)).perform(click());
 
         ViewInteraction floatingActionButton2 = onView(
                 allOf(withId(R.id.insert_food_fab),
@@ -438,24 +449,29 @@ public class Check_InsertActivity_UI {
         textView3.perform(click());
 
 
-        // onView(withId(R.id.txt_title_menu_item)).check(matches(withText(R.string.wasted_label))).perform(click());
 
         intended(hasComponent(FoodListActivity.class.getName()));
         Intents.release();
         onView(withId(R.id.toolbar_title_tv)).check(matches(withText(R.string.foodDead_activity_title)));
 
-        /*
-        onView(ViewMatchers.withId(R.id.main_today_food_list_recycleView))
+        /* debug :
+        onView(ViewMatchers.withId(R.id.food_list_recycleView))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         */
 
-        // check presence of food inserted with expiring date today
+        onView(ViewMatchers.withId(R.id.food_list_recycleView))
+                // .check(matches(atPositionOnView(0, withText("food_expiring_today"), R.id.foodName_tv)));
+                // .check(matches(atPositionOnView(0, withId(R.id.foodName_tv), R.id.foodName_tv)))
+                .check(matches(atPositionOnView(0, withText(targetText), R.id.foodName_tv)));
+        
+        /*// check presence of food inserted with expiring date today
         RecyclerView recyclerView = foodListActivity.findViewById(R.id.food_list_recycleView);
         int itemCount             = recyclerView.getChildCount();
 
         for(int i = 0; i<itemCount; i++) {
             ViewHolder holder = recyclerView.getChildViewHolder(recyclerView.getChildAt(i));
-            TextView v = holder.itemView.findViewById(R.id.foodName_tv);
+            TextView v        = holder.itemView.findViewById(R.id.foodName_tv);
+
             if (targetText.equals(v.getText())) {
                 // Log.d(TAG, "testInsertExpiringToday: find the target text : "+targetText);
                 System.out.println("testInsertWastedFood: find the target text : "+targetText);
@@ -466,9 +482,8 @@ public class Check_InsertActivity_UI {
                         .check(matches(atPositionOnView(i, withText(targetText), R.id.foodName_tv)));
                 break;
             }
-            onView(ViewMatchers.withId(R.id.food_list_recycleView))
-                    .perform(RecyclerViewActions.scrollToPosition(i+1));
-        }
+
+        }*/
     }
 
 
