@@ -207,7 +207,6 @@ public class InsertFoodActivity extends AppCompatActivity
                 DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
         // dateExpir_cv.setDate(dateTodayNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS);
         dateExpir_cv.setDate(dateTodayNormalizedAtMidnight);
-        Log.d(TAG, "initViews: CalendarView Date initialized");
 
         // saving editing test click
         save_btn.setOnClickListener(new View.OnClickListener() {

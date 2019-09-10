@@ -92,15 +92,7 @@ public class Check_InsertActivity_UI {
     @Test
     public void checkButtonExists() {
 
-        ViewInteraction floatingActionButton2 = onView(
-                allOf(withId(R.id.insert_food_fab),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                8),
-                        isDisplayed()));
-        floatingActionButton2.perform(click());
+        onView(withId(R.id.insert_food_fab)).perform(click());
 
         ViewInteraction textView = onView(
                 allOf(withId(R.id.txt_title_menu_item), withText(R.string.expiring_label),
@@ -155,15 +147,7 @@ public class Check_InsertActivity_UI {
     public void openExpiringList() {
 
         Intents.init();
-        ViewInteraction floatingActionButton2 = onView(
-                allOf(withId(R.id.insert_food_fab),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                8),
-                        isDisplayed()));
-        floatingActionButton2.perform(click());
+        onView(withId(R.id.insert_food_fab)).perform(click());
 
         ViewInteraction textView = onView(
                 allOf(withId(R.id.txt_title_menu_item), withText(R.string.expiring_label),
@@ -187,15 +171,7 @@ public class Check_InsertActivity_UI {
     public void openConsumedList() {
 
         Intents.init();
-        ViewInteraction floatingActionButton2 = onView(
-                allOf(withId(R.id.insert_food_fab),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                8),
-                        isDisplayed()));
-        floatingActionButton2.perform(click());
+        onView(withId(R.id.insert_food_fab)).perform(click());
 
         ViewInteraction textView2 = onView(
                 allOf(withId(R.id.txt_title_menu_item), withText(R.string.consumed_label),
@@ -214,21 +190,12 @@ public class Check_InsertActivity_UI {
     }
 
 
-
     @Test
     // Press button wasted food and open wasted food list activity
     public void openWastedList() {
 
         Intents.init();
-        ViewInteraction floatingActionButton2 = onView(
-                allOf(withId(R.id.insert_food_fab),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                8),
-                        isDisplayed()));
-        floatingActionButton2.perform(click());
+        onView(withId(R.id.insert_food_fab)).perform(click());
 
         ViewInteraction textView3 = onView(
                 allOf(withId(R.id.txt_title_menu_item), withText(R.string.wasted_label),
@@ -247,21 +214,12 @@ public class Check_InsertActivity_UI {
     }
 
 
-
     @Test
     // Press button home  and open home activity
     public void openHome() {
 
         Intents.init();
-        ViewInteraction floatingActionButton2 = onView(
-                allOf(withId(R.id.insert_food_fab),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                8),
-                        isDisplayed()));
-        floatingActionButton2.perform(click());
+        onView(withId(R.id.insert_food_fab)).perform(click());
 
         ViewInteraction textView4 = onView(
                 allOf(withId(R.id.txt_title_menu_item), withText(R.string.home_label),
@@ -280,9 +238,6 @@ public class Check_InsertActivity_UI {
 
 
 
-
-
-
     @Test
     // Insert a a food expiring today and come back to main activity
     public void testInsertExpiringToday() {
@@ -292,46 +247,11 @@ public class Check_InsertActivity_UI {
 
         // init intent for check intent
         Intents.init();
-        ViewInteraction editTextWithClear = onView(
-                allOf(withId(R.id.foodName_et),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                5),
-                        isDisplayed()));
-        editTextWithClear.perform(replaceText(targetText), closeSoftKeyboard());
+        onView(allOf(withId(R.id.foodName_et))).perform(replaceText(targetText), closeSoftKeyboard());
+        onView(allOf(withId(R.id.foodName_et), withText(targetText))).perform(pressImeActionButton());
 
-        ViewInteraction editTextWithClear2 = onView(
-                allOf(withId(R.id.foodName_et), withText(targetText),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                5),
-                        isDisplayed()));
-        editTextWithClear2.perform(pressImeActionButton());
-
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.save_btn), withText("Salva"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                6),
-                        isDisplayed()));
-        appCompatButton.perform(click());
-
-        ViewInteraction floatingActionButton2 = onView(
-                allOf(withId(R.id.insert_food_fab),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                8),
-                        isDisplayed()));
-        floatingActionButton2.perform(click());
-
+        onView(withId(R.id.save_btn)).perform(click());
+        onView(withId(R.id.insert_food_fab)).perform(click());
 
         ViewInteraction textView4 = onView(
                 allOf(withId(R.id.txt_title_menu_item), withText(R.string.home_label),
@@ -378,7 +298,7 @@ public class Check_InsertActivity_UI {
 
 
     @Test
-    // Insert a a food expiring today and come back to main activity
+    // Insert a a food already wasted and check
     public void testInsertWastedFood() {
         // reset db
         foodDbDao.dropTable();
@@ -431,6 +351,145 @@ public class Check_InsertActivity_UI {
                 .check(matches(atPositionOnView(0, withText(targetText), R.id.foodName_tv)));
     }
 
+
+
+    @Test
+    // Insert a a food not expired and not expiring today, int he future
+    public void testInsertExpiringInTheFutureFood() {
+        // reset db
+        foodDbDao.dropTable();
+        targetText = "future_expiring_food";
+
+        // init intent for check intent
+        Intents.init();
+        onView(allOf(withId(R.id.foodName_et))).perform(replaceText(targetText), closeSoftKeyboard());
+        onView(allOf(withId(R.id.foodName_et), withText(targetText))).perform(pressImeActionButton());
+
+        // set test date
+        insertActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // put an expiring date before today
+                Calendar calendar = Calendar.getInstance();
+                Date pastDate     = DateUtility.addDays(new Date(),3);
+                calendar.setTime(pastDate);
+                insertActivity.setDatePicked(calendar);
+                insertActivity.setDateExpir_cv(pastDate);
+
+                // set in the view too
+                CalendarView view = (CalendarView) insertActivity.findViewById(R.id.calendar_cv);
+                view.setDate(DateConverter.fromDate(pastDate));
+            }
+
+        });
+
+        onView(withId(R.id.save_btn)).perform(click());
+        onView(withId(R.id.insert_food_fab)).perform(click());
+
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.txt_title_menu_item), withText(R.string.expiring_label),
+                        childAtPosition(
+                                allOf(withId(R.id.view_parent),
+                                        childAtPosition(
+                                                IsInstanceOf.<View>instanceOf(android.support.v7.widget.RecyclerView.class),
+                                                3)),
+                                1),
+                        isDisplayed()));
+        textView.perform(click());
+
+        intended(hasComponent(FoodListActivity.class.getName()));
+        Intents.release();
+        onView(withId(R.id.toolbar_title_tv)).check(matches(withText(R.string.foodExpiring_activity_title)));
+
+        onView(ViewMatchers.withId(R.id.food_list_recycleView))
+                .check(matches(atPositionOnView(0, withText(targetText), R.id.foodName_tv)));
+    }
+
+
+
+    @Test
+    // Move food from expiring list to consumed food list
+    public void testMakeFoodConsumed() {
+        // reset db
+        foodDbDao.dropTable();
+        targetText = "future_expiring_food";
+
+        // init intent for check intent
+        Intents.init();
+        onView(allOf(withId(R.id.foodName_et))).perform(replaceText(targetText), closeSoftKeyboard());
+        onView(allOf(withId(R.id.foodName_et), withText(targetText))).perform(pressImeActionButton());
+
+        // set test date
+        insertActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // put an expiring date before today
+                Calendar calendar = Calendar.getInstance();
+                Date pastDate     = DateUtility.addDays(new Date(),3);
+                calendar.setTime(pastDate);
+                insertActivity.setDatePicked(calendar);
+                insertActivity.setDateExpir_cv(pastDate);
+
+                // set in the view too
+                CalendarView view = (CalendarView) insertActivity.findViewById(R.id.calendar_cv);
+                view.setDate(DateConverter.fromDate(pastDate));
+            }
+
+        });
+
+        onView(withId(R.id.save_btn)).perform(click());
+        onView(withId(R.id.insert_food_fab)).perform(click());
+
+
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.txt_title_menu_item), withText(R.string.expiring_label),
+                        childAtPosition(
+                                allOf(withId(R.id.view_parent),
+                                        childAtPosition(
+                                                IsInstanceOf.<View>instanceOf(android.support.v7.widget.RecyclerView.class),
+                                                3)),
+                                1),
+                        isDisplayed()));
+        textView.perform(click());
+
+        // check if it is in expiring food list
+        intended(hasComponent(FoodListActivity.class.getName()));
+        Intents.release();
+        onView(withId(R.id.toolbar_title_tv)).check(matches(withText(R.string.foodExpiring_activity_title)));
+        onView(ViewMatchers.withId(R.id.food_list_recycleView))
+                .check(matches(atPositionOnView(0, withText(targetText), R.id.foodName_tv)));
+
+        // set food as consumed
+        onView(ViewMatchers.withId(R.id.consumed_cb)).perform(click());
+        onView(ViewMatchers.withId(R.id.confirm_dialog_yes_btn)).perform(click());
+
+        SystemClock.sleep(1000);
+
+        // check if it is moved in consumed food list
+        Intents.init();
+        onView(withId(R.id.food_list_fab)).perform(click());
+
+        ViewInteraction textView1 = onView(
+                allOf(withId(R.id.txt_title_menu_item), withText(R.string.consumed_label),
+                        childAtPosition(
+                                allOf(withId(R.id.view_parent),
+                                        childAtPosition(
+                                                IsInstanceOf.<View>instanceOf(android.support.v7.widget.RecyclerView.class),
+                                                2)),
+                                1),
+                        isDisplayed()));
+        textView1.perform(click());
+
+
+
+        intended(hasComponent(FoodListActivity.class.getName()));
+        Intents.release();
+        onView(withId(R.id.toolbar_title_tv)).check(matches(withText(R.string.foodSaved_activity_title)));
+        onView(ViewMatchers.withId(R.id.food_list_recycleView))
+                .check(matches(atPositionOnView(0, withText(targetText), R.id.foodName_tv)));
+
+
+    }
 
 
     private static Matcher<View> childAtPosition(
