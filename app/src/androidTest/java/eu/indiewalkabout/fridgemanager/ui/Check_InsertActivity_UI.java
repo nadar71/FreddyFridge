@@ -85,7 +85,7 @@ public class Check_InsertActivity_UI {
     public void init(){
         mainActivity   = mainActivityRule.getActivity();
         insertActivity = insertFoodActivityTestRule.getActivity();
-        foodDatabase   = ((SingletonProvider) SingletonProvider.getsContext()).getDatabase();
+        foodDatabase   = ((SingletonProvider) SingletonProvider.Companion.getsContext()).getDatabase();
         foodDbDao      = foodDatabase.foodDbDao();
     }
 
@@ -315,7 +315,7 @@ public class Check_InsertActivity_UI {
             public void run() {
                 // put an expiring date before today
                 Calendar calendar = Calendar.getInstance();
-                Date pastDate     = DateUtility.addDays(new Date(),-1);
+                Date pastDate     = DateUtility.INSTANCE.addDays(new Date(),-1);
                 calendar.setTime(pastDate);
                 insertActivity.setDatePicked(calendar);
                 insertActivity.setDateExpir_cv(pastDate);
@@ -371,7 +371,7 @@ public class Check_InsertActivity_UI {
             public void run() {
                 // put an expiring date before today
                 Calendar calendar = Calendar.getInstance();
-                Date pastDate     = DateUtility.addDays(new Date(),3);
+                Date pastDate     = DateUtility.INSTANCE.addDays(new Date(),3);
                 calendar.setTime(pastDate);
                 insertActivity.setDatePicked(calendar);
                 insertActivity.setDateExpir_cv(pastDate);
@@ -425,7 +425,7 @@ public class Check_InsertActivity_UI {
             public void run() {
                 // put an expiring date before today
                 Calendar calendar = Calendar.getInstance();
-                Date pastDate     = DateUtility.addDays(new Date(),3);
+                Date pastDate     = DateUtility.INSTANCE.addDays(new Date(),3);
                 calendar.setTime(pastDate);
                 insertActivity.setDatePicked(calendar);
                 insertActivity.setDateExpir_cv(pastDate);

@@ -64,7 +64,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
 
 
         // TODO : move onClick management to MainActivity
-        repository = ((SingletonProvider) SingletonProvider.getsContext()).getRepository();
+        repository = ((SingletonProvider) SingletonProvider.Companion.getsContext()).getRepository();
 
 
     }
@@ -354,7 +354,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             final FoodEntry foodItemConsumed = getFoodItemAtPosition(this.getAdapterPosition());
 
             // update check boxed food item done field in db to 1 = consumed
-            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            AppExecutors.Companion.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
                     repository.updateDoneField(1,foodItemConsumed.getId());
@@ -387,7 +387,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
 
             // update check boxed food item done field in db to 0 = not consumed:
             // it's the meaning assumed in the consumed/dine food list when checked
-            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            AppExecutors.Companion.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
                     repository.updateDoneField(0,foodItemConsumed.getId());
@@ -419,7 +419,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
             final FoodEntry foodItemToDelete = getFoodItemAtPosition(this.getAdapterPosition());
 
             // delete food item in db
-            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            AppExecutors.Companion.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
                     repository.deleteFoodEntry(foodItemToDelete);

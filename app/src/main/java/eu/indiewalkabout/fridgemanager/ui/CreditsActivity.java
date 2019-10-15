@@ -41,7 +41,7 @@ public class CreditsActivity extends AppCompatActivity
         mAdView = findViewById(R.id.adView);
 
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        mAdView.loadAd(ConsentSDK.getAdRequest(CreditsActivity.this));
+        mAdView.loadAd(ConsentSDK.Companion.getAdRequest(CreditsActivity.this));
 
 
         // get a support action bar

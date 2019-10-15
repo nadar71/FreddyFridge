@@ -33,7 +33,7 @@ public class FoodReminder_fbjob extends JobService {
         // day before in millisec
         // 2 days = 172800000
         // final int DAYS_BEFORE = (int) (TimeUnit.DAYS.toSeconds(2))*1000;
-        int days = PreferenceUtility.getDaysCount(context);
+        int days = PreferenceUtility.INSTANCE.getDaysCount(context);
         final int DAYS_BEFORE = (int) (TimeUnit.DAYS.toSeconds(days));
 
         // -----------------------------------------------------------------------------------------
@@ -42,12 +42,12 @@ public class FoodReminder_fbjob extends JobService {
         final LiveData<List<FoodEntry>> foodEntriesNextDays;
 
         long dataNormalizedAtMidnight  =
-                DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
+                DateUtility.INSTANCE.getLocalMidnightFromNormalizedUtcDate(DateUtility.INSTANCE.getNormalizedUtcMsForToday());
         long dateBefore = dataNormalizedAtMidnight - DAYS_BEFORE;
         // 1549926000000 - 172800000 = 1549753200000
 
         // get repository
-        FridgeManagerRepository repository = ((SingletonProvider) SingletonProvider.getsContext()).getRepository();
+        FridgeManagerRepository repository = ((SingletonProvider) SingletonProvider.Companion.getsContext()).getRepository();
         foodEntriesNextDays = repository.loadAllFoodExpiring(dateBefore);
 
         foodEntriesNextDays.observeForever(new Observer<List<FoodEntry>>() {
@@ -66,8 +66,8 @@ public class FoodReminder_fbjob extends JobService {
         // -----------------------------------------------------------------------------------------
         final LiveData<List<FoodEntry>> foodEntriesToDay;
 
-        long previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS;
-        long nextDayDate     = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS;
+        long previousDayDate = dataNormalizedAtMidnight - DateUtility.INSTANCE.getDAY_IN_MILLIS();
+        long nextDayDate     = dataNormalizedAtMidnight + DateUtility.INSTANCE.getDAY_IN_MILLIS();
 
 
         foodEntriesToDay = repository.loadFoodExpiringToday(previousDayDate,nextDayDate);

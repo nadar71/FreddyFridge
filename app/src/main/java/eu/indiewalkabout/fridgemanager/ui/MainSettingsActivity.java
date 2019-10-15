@@ -63,7 +63,7 @@ public class MainSettingsActivity extends AppCompatActivity
         mAdView = findViewById(R.id.adView);
 
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        mAdView.loadAd(ConsentSDK.getAdRequest(MainSettingsActivity.this));
+        mAdView.loadAd(ConsentSDK.Companion.getAdRequest(MainSettingsActivity.this));
 
         // init toolbar
         toolBarInit();
@@ -146,8 +146,8 @@ public class MainSettingsActivity extends AppCompatActivity
             initConsentSDK(getActivity());
 
             // Checking the status of the user
-            if(ConsentSDK.isUserLocationWithinEea(getActivity())) {
-                String choice = ConsentSDK.isConsentPersonalized(getActivity())? "Personalize": "Non-Personalize";
+            if(ConsentSDK.Companion.isUserLocationWithinEea(getActivity())) {
+                String choice = ConsentSDK.Companion.isConsentPersonalized(getActivity())? "Personalize": "Non-Personalize";
                 Log.i(TAG, "onCreate: consent choice : "+choice);
 
                 gdprConsentBtn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -318,7 +318,7 @@ public class MainSettingsActivity extends AppCompatActivity
     @Override
     protected void onPause() {
         super.onPause();
-        int hoursFrequency  = PreferenceUtility.getHoursCount(MainSettingsActivity.this);
+        int hoursFrequency  = PreferenceUtility.INSTANCE.getHoursCount(MainSettingsActivity.this);
     }
 
 

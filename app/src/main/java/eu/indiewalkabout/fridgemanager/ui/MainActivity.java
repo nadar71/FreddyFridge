@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity
                 public void onResult(boolean isRequestLocationInEeaOrUnknown) {
                     Log.i("gdpr_TAG", "onResult: isRequestLocationInEeaOrUnknown : " + isRequestLocationInEeaOrUnknown);
                     // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-                    mAdView.loadAd(ConsentSDK.getAdRequest(MainActivity.this));
+                    mAdView.loadAd(ConsentSDK.Companion.getAdRequest(MainActivity.this));
                 }
             });
 
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity
             mAdView = findViewById(R.id.adView);
 
             // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-            mAdView.loadAd(ConsentSDK.getAdRequest(MainActivity.this));
+            mAdView.loadAd(ConsentSDK.Companion.getAdRequest(MainActivity.this));
         }
 
     }

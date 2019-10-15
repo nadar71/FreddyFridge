@@ -16,13 +16,13 @@ public class ReminderOps {
 
     public static void executeTask(Context context, String action, List<FoodEntry> foodEntries) {
         if (ACTION_DISMISS_NOTIFICATION.equals(action)) {
-            NotificationsUtility.clearAllNotifications(context);
+            NotificationsUtility.INSTANCE.clearAllNotifications(context);
 
         } else if (ACTION_REMIND_NEXT_DAYS_EXPIRING_FOOD.equals(action)){
-            NotificationsUtility.remindNextDaysExpiringFood(context, foodEntries);
+            NotificationsUtility.INSTANCE.remindNextDaysExpiringFood(context, foodEntries);
 
         } else if (ACTION_REMIND_TODAY_EXPIRING_FOOD.equals(action)){
-            NotificationsUtility.remindTodayExpiringFood(context, foodEntries);
+            NotificationsUtility.INSTANCE.remindTodayExpiringFood(context, foodEntries);
         }
     }
 

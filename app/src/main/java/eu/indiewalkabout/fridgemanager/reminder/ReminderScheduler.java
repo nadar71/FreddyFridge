@@ -32,7 +32,7 @@ public class ReminderScheduler {
         if (sInitialized) return;
 
         // get frequency of daily reminder from preferences
-        int hoursFrequency  = PreferenceUtility.getHoursCount(context);
+        int hoursFrequency  = PreferenceUtility.INSTANCE.getHoursCount(context);
         periodicity         = (int) (TimeUnit.HOURS.toSeconds(hoursFrequency));
         toleranceInterval   = periodicity;
 

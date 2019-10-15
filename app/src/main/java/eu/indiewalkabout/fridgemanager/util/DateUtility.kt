@@ -1,16 +1,15 @@
-package eu.indiewalkabout.fridgemanager.util;
+package eu.indiewalkabout.fridgemanager.util
 
 
-import android.content.Context;
-import android.text.format.DateUtils;
+import android.content.Context
+import android.text.format.DateUtils
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
-
+import java.time.LocalDate
+import java.time.ZoneId
+import java.util.Calendar
+import java.util.Date
+import java.util.TimeZone
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -18,10 +17,10 @@ import java.util.concurrent.TimeUnit;
  * Class for handling a bunch of date conversions.
  * ---------------------------------------------------------------------------------------------
  */
-public final class DateUtility {
+object DateUtility {
 
     /* Milliseconds in a day */
-    public static final long DAY_IN_MILLIS = TimeUnit.DAYS.toMillis(1);
+    val DAY_IN_MILLIS = TimeUnit.DAYS.toMillis(1)
 
     /**
      * ---------------------------------------------------------------------------------------------
@@ -31,15 +30,18 @@ public final class DateUtility {
      * Epoch time converter, you may be confused that it tells you this time stamp represents 8:00
      * PM on September 19th local time, rather than September 20th. We're concerned with the GMT
      * date here though, which is correct, stating September 20th, 2016 at midnight.
-     * <p>
+     *
+     *
      * As another example, if you are in Hong Kong and the day is September 20th, 2016 and it is
      * 6:30 PM, this method will return 1474329600000. Again, if you plug this number into an Epoch
      * time converter, you won't get midnight for your local time zone. Just keep in mind that we
      * are just looking at the GMT date here.
-     * <p>
+     *
+     *
      * This method will ALWAYS return the date at midnight (in GMT time) for the time zone you
      * are currently in. In other words, the GMT date will always represent your date.
-     * <p>
+     *
+     *
      * Since UTC / GMT time are the standard for all time zones in the world, we use it to
      * normalize our dates that are stored in the database. When we extract values from the
      * database, we adjust for the current time zone using time zone offsets.
@@ -48,53 +50,42 @@ public final class DateUtility {
      * time zone
      * ---------------------------------------------------------------------------------------------
      */
-    public static long getNormalizedUtcMsForToday() {
-
-        /*
+    /*
          * This number represents the number of milliseconds that have elapsed since January
          * 1st, 1970 at midnight in the GMT time zone.
-         */
-        long utcNowMillis = System.currentTimeMillis();
-
-        /*
+         *//*
          * This TimeZone represents the device's current time zone. It provides us with a means
          * of acquiring the offset for local time from a UTC time stamp.
-         */
-        TimeZone currentTimeZone = TimeZone.getDefault();
-
-        /*
+         *//*
          * The getOffset method returns the number of milliseconds to add to UTC time to get the
          * elapsed time since the epoch for our current time zone. We pass the current UTC time
          * into this method so it can determine changes to account for daylight savings time.
-         */
-        long gmtOffsetMillis = currentTimeZone.getOffset(utcNowMillis);
-
-        /*
+         *//*
          * UTC time is measured in milliseconds from January 1, 1970 at midnight from the GMT
          * time zone. Depending on your time zone, the time since January 1, 1970 at midnight (GMT)
          * will be greater or smaller. This variable represents the number of milliseconds since
          * January 1, 1970 (GMT) time.
-         */
-        long timeSinceEpochLocalTimeMillis = utcNowMillis + gmtOffsetMillis;
-
-        /* This method simply converts milliseconds to days, disregarding any fractional days */
-        long daysSinceEpochLocal = TimeUnit.MILLISECONDS.toDays(timeSinceEpochLocalTimeMillis);
-
-        /*
+         *//* This method simply converts milliseconds to days, disregarding any fractional days *//*
          * Finally, we convert back to milliseconds. This time stamp represents today's date at
          * midnight in GMT time. We will need to account for local time zone offsets when
          * extracting this information from the database.
-         */
+         */ val normalizedUtcMsForToday: Long
+        get() {
+            val utcNowMillis = System.currentTimeMillis()
+            val currentTimeZone = TimeZone.getDefault()
+            val gmtOffsetMillis = currentTimeZone.getOffset(utcNowMillis).toLong()
+            val timeSinceEpochLocalTimeMillis = utcNowMillis + gmtOffsetMillis
+            val daysSinceEpochLocal = TimeUnit.MILLISECONDS.toDays(timeSinceEpochLocalTimeMillis)
 
-        return TimeUnit.DAYS.toMillis(daysSinceEpochLocal);
-    }
+            return TimeUnit.DAYS.toMillis(daysSinceEpochLocal)
+        }
 
 
-    public static Date getNormalizedUtcDateForToday() {
-        long normalizedMilli = getNormalizedUtcMsForToday();
-        return new Date(normalizedMilli);
-    }
-
+    val normalizedUtcDateForToday: Date
+        get() {
+            val normalizedMilli = normalizedUtcMsForToday
+            return Date(normalizedMilli)
+        }
 
 
     /**
@@ -106,10 +97,9 @@ public final class DateUtility {
      * @return The number of days from the epoch to the date argument.
      * ---------------------------------------------------------------------------------------------
      */
-    private static long elapsedDaysSinceEpoch(long utcDate) {
-        return TimeUnit.MILLISECONDS.toDays(utcDate);
+    private fun elapsedDaysSinceEpoch(utcDate: Long): Long {
+        return TimeUnit.MILLISECONDS.toDays(utcDate)
     }
-
 
 
     /**
@@ -117,22 +107,20 @@ public final class DateUtility {
      * This method will return the local time midnight for the provided normalized UTC date.
      *
      * @param normalizedUtcDate UTC time at midnight for a given date. This number comes from the
-     *                          database
+     * database
      * @return The local date corresponding to the given normalized UTC date
      * ---------------------------------------------------------------------------------------------
      */
-    public static long getLocalMidnightFromNormalizedUtcDate(long normalizedUtcDate) {
+    fun getLocalMidnightFromNormalizedUtcDate(normalizedUtcDate: Long): Long {
         /* The timeZone object will provide us the current user's time zone offset */
-        TimeZone timeZone = TimeZone.getDefault();
+        val timeZone = TimeZone.getDefault()
         /*
          * This offset, in milliseconds, when added to a UTC date time, will produce the local
          * time.
          */
-        long gmtOffset = timeZone.getOffset(normalizedUtcDate);
-        return normalizedUtcDate - gmtOffset;
+        val gmtOffset = timeZone.getOffset(normalizedUtcDate).toLong()
+        return normalizedUtcDate - gmtOffset
     }
-
-
 
 
     /**
@@ -145,12 +133,12 @@ public final class DateUtility {
      * @return The formatted date string
      * ---------------------------------------------------------------------------------------------
      */
-    private static String getReadableDateString(Context context, long timeInMillis) {
-        int flags = DateUtils.FORMAT_SHOW_DATE
-                | DateUtils.FORMAT_NO_YEAR
-                | DateUtils.FORMAT_SHOW_WEEKDAY;
+    private fun getReadableDateString(context: Context, timeInMillis: Long): String {
+        val flags = (DateUtils.FORMAT_SHOW_DATE
+                or DateUtils.FORMAT_NO_YEAR
+                or DateUtils.FORMAT_SHOW_WEEKDAY)
 
-        return DateUtils.formatDateTime(context, timeInMillis, flags);
+        return DateUtils.formatDateTime(context, timeInMillis, flags)
     }
 
 
@@ -178,11 +166,11 @@ public final class DateUtility {
      * @return
      * ---------------------------------------------------------------------------------------------
      */
-    public static Date addDays(Date date, int numDays){
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.add(Calendar.DATE,numDays);
-        return cal.getTime();
+    fun addDays(date: Date, numDays: Int): Date {
+        val cal = Calendar.getInstance()
+        cal.time = date
+        cal.add(Calendar.DATE, numDays)
+        return cal.time
     }
 
 

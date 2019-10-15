@@ -106,7 +106,7 @@ public class FoodListActivity extends AppCompatActivity
         mAdView = findViewById(R.id.adView);
 
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        mAdView.loadAd(ConsentSDK.getAdRequest(FoodListActivity.this));
+        mAdView.loadAd(ConsentSDK.Companion.getAdRequest(FoodListActivity.this));
 
 
         // empty view for empty list message
@@ -270,7 +270,7 @@ public class FoodListActivity extends AppCompatActivity
         mInterstitialAd.setAdUnitId(getResources().getString(R.string.admob_key_interstitial));
 
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        mInterstitialAd.loadAd(ConsentSDK.getAdRequest(this));
+        mInterstitialAd.loadAd(ConsentSDK.Companion.getAdRequest(this));
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
@@ -406,7 +406,7 @@ public class FoodListActivity extends AppCompatActivity
         // When the home button is pressed, take the user back to Home
         if (id == android.R.id.home) {
             // show interstitial ad on back home only 50% of times
-            int guess = GenericUtility.randRange_ApiCheck(1,10);
+            int guess = GenericUtility.INSTANCE.randRange_ApiCheck(1,10);
             if (guess <=4) {
                 showInterstitialAd();
             }
@@ -496,7 +496,7 @@ public class FoodListActivity extends AppCompatActivity
             startActivity(showExpiringFood);
 
         } else if (id == R.id.menu_consumed_food) {
-            int guess = GenericUtility.randRange_ApiCheck(1,10);
+            int guess = GenericUtility.INSTANCE.randRange_ApiCheck(1,10);
             if (guess <=3) {
                 showInterstitialAd();
             }
@@ -505,7 +505,7 @@ public class FoodListActivity extends AppCompatActivity
             startActivity(showSavedFood);
 
         } else if (id == R.id.menu_dead_food) {
-            int guess = GenericUtility.randRange_ApiCheck(1,10);
+            int guess = GenericUtility.INSTANCE.randRange_ApiCheck(1,10);
             if (guess <=3) {
                 showInterstitialAd();
             }
@@ -516,7 +516,7 @@ public class FoodListActivity extends AppCompatActivity
         } else if (id == R.id.menu_home) {
             // show interstitial ad on back home only 50% of times
 
-            int guess = GenericUtility.randRange_ApiCheck(1,10);
+            int guess = GenericUtility.INSTANCE.randRange_ApiCheck(1,10);
             if (guess <=4) {
                 showInterstitialAd();
             }

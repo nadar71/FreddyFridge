@@ -111,7 +111,7 @@ public class InsertFoodActivity extends AppCompatActivity
         mAdView = findViewById(R.id.adView);
 
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        mAdView.loadAd(ConsentSDK.getAdRequest(InsertFoodActivity.this));
+        mAdView.loadAd(ConsentSDK.Companion.getAdRequest(InsertFoodActivity.this));
 
         // init views
         initViews();
@@ -169,7 +169,7 @@ public class InsertFoodActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        KeyboardUtils.addKeyboardToggleListener(this, new KeyboardUtils.SoftKeyboardToggleListener()
+        KeyboardUtils.Companion.addKeyboardToggleListener(this, new KeyboardUtils.SoftKeyboardToggleListener()
         {
             @Override
             public void onToggleSoftKeyboard(boolean isVisible)
@@ -204,7 +204,7 @@ public class InsertFoodActivity extends AppCompatActivity
 
         // set tomorro selected in calendar widget
         long dateTodayNormalizedAtMidnight  =
-                DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
+                DateUtility.INSTANCE.getLocalMidnightFromNormalizedUtcDate(DateUtility.INSTANCE.getNormalizedUtcMsForToday());
         // dateExpir_cv.setDate(dateTodayNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS);
         dateExpir_cv.setDate(dateTodayNormalizedAtMidnight);
 
@@ -343,7 +343,7 @@ public class InsertFoodActivity extends AppCompatActivity
         // ----------------------------------------
         // Update db using executor
         // ----------------------------------------
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+        AppExecutors.Companion.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
                 if(foodId == DEFAULT_ID) {     // save a new task
@@ -358,7 +358,7 @@ public class InsertFoodActivity extends AppCompatActivity
                     FoodEntry foodEntry = new FoodEntry(0,foodName,expiringDate);
 
                     // repo insert
-                    FridgeManagerRepository repository = ((SingletonProvider) SingletonProvider.getsContext()).getRepository();
+                    FridgeManagerRepository repository = ((SingletonProvider) SingletonProvider.Companion.getsContext()).getRepository();
                     repository.insertFoodEntry(foodEntry);
 
                     // end activity
@@ -396,7 +396,7 @@ public class InsertFoodActivity extends AppCompatActivity
                     foodEntry.setDone(foodEntryToChange.getValue().getDone());
 
                     // update task on db
-                    FridgeManagerRepository repository = ((SingletonProvider) SingletonProvider.getsContext()).getRepository();
+                    FridgeManagerRepository repository = ((SingletonProvider) SingletonProvider.Companion.getsContext()).getRepository();
                     repository.updateFoodEntry(foodEntry);
 
                     // end activity

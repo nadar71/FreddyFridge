@@ -1,0 +1,42 @@
+package eu.indiewalkabout.fridgemanager.util
+
+import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
+import android.util.Log
+
+import eu.indiewalkabout.fridgemanager.R
+
+object PreferenceUtility {
+
+    private val TAG = PreferenceUtility::class.java.simpleName
+
+    fun getDaysCount(context: Context): Int {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val key = context.getString(R.string.days_before_deadline_count)
+        val default_value = context.getString(R.string.days_before_default)
+        val daysBefore_s = prefs.getString(key, default_value)
+        return Integer.parseInt(daysBefore_s!!)
+    }
+
+
+    fun getHoursCount(context: Context): Int {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        /*
+        // DON'T KNOW WHY THIS NOT WORKING....the type seems correct
+        // here : https://stackoverflow.com/questions/7257232/sharedpreferences-getint-results-in-classcastexception-why
+        String key   = context.getString(R.string.hours_freq_today_deadline_count);
+        Log.d(TAG, "getHoursCount: key : "+key+" key type : "+key.getClass().getSimpleName());
+        int  default_value = Integer.parseInt(context.getString(R.string.today_hours_repeat_default));
+        Log.d(TAG, "getHoursCount: default_value : "+default_value+" default_value type : "+GenericUtility.getPrimitiveType(default_value));
+        Log.d(TAG, "getHoursCount: context.getString(R.string.today_hours_repeat_default) : "+context.getString(R.string.today_hours_repeat_default));
+        int hoursFreq = prefs.getInt(key, default_value);
+        */
+        val key = context.getString(R.string.hours_freq_today_deadline_count)
+        val default_value = context.getString(R.string.today_hours_repeat_default)
+        val hoursFreq_s = prefs.getString(key, default_value)
+        return Integer.parseInt(hoursFreq_s!!)
+    }
+
+
+}

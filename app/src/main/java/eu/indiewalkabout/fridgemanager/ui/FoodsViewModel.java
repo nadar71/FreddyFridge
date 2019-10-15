@@ -36,7 +36,7 @@ public class FoodsViewModel extends ViewModel {
 
     public FoodsViewModel() {
         // init repository
-        repository = ((SingletonProvider) SingletonProvider.getsContext()).getRepository();
+        repository = ((SingletonProvider) SingletonProvider.Companion.getsContext()).getRepository();
     }
 
 
@@ -53,13 +53,13 @@ public class FoodsViewModel extends ViewModel {
         Log.d(TAG, "Actively retrieving the collections from repository");
 
         // get repository instance
-        repository = ((SingletonProvider) SingletonProvider.getsContext()).getRepository();
+        repository = ((SingletonProvider) SingletonProvider.Companion.getsContext()).getRepository();
 
         // choose the type of food list to load from db
         if (foodlistType.equals(FoodListActivity.FOOD_EXPIRING)) {
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
             long dataNormalizedAtMidnight  =
-                    DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
+                    DateUtility.INSTANCE.getLocalMidnightFromNormalizedUtcDate(DateUtility.INSTANCE.getNormalizedUtcMsForToday());
             foodEntries = repository.loadAllFoodExpiring(dataNormalizedAtMidnight);
 
         }else if (foodlistType.equals(FoodListActivity.FOOD_SAVED)){
@@ -69,15 +69,15 @@ public class FoodsViewModel extends ViewModel {
         }else if (foodlistType.equals(FoodListActivity.FOOD_DEAD)){
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
             long dataNormalizedAtMidnight  =
-                    DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
+                    DateUtility.INSTANCE.getLocalMidnightFromNormalizedUtcDate(DateUtility.INSTANCE.getNormalizedUtcMsForToday());
             foodEntries = repository.loadAllFoodDead(dataNormalizedAtMidnight);
 
         }else if (foodlistType.equals(FoodListActivity.FOOD_EXPIRING_TODAY)){
             Log.d(TAG, "setupAdapter: FOOD_TYPE : " + foodlistType);
             long dataNormalizedAtMidnight  =
-                    DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.getNormalizedUtcMsForToday());
-            long previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS;
-            long nextDayDate     = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS;
+                    DateUtility.INSTANCE.getLocalMidnightFromNormalizedUtcDate(DateUtility.INSTANCE.getNormalizedUtcMsForToday());
+            long previousDayDate = dataNormalizedAtMidnight - DateUtility.INSTANCE.getDAY_IN_MILLIS();
+            long nextDayDate     = dataNormalizedAtMidnight + DateUtility.INSTANCE.getDAY_IN_MILLIS();
             foodEntries = repository.loadFoodExpiringToday(previousDayDate,nextDayDate);
         }
 
