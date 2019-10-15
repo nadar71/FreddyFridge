@@ -180,13 +180,12 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_rectangle"
         android:backgroundTint="@color/light_grey_very_transparent"
+        android:contentDescription="food_expiring_today_main"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/today_expiring_list_title">
-
-    </android.support.v7.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/today_expiring_list_title"></android.support.v7.widget.RecyclerView>
 
     <!-- Empty view is only visible when the list has no items. -->
     <TextView
@@ -259,7 +258,6 @@
         app:menuTitleTextColor="@color/colorWhite"
         app:showOverlay="true"
         app:showTitle="true">
-
     </com.hlab.fabrevealmenu.view.FABRevealMenu>
 
 

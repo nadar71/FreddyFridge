@@ -58,7 +58,8 @@ public class IntroActivity extends AppIntro2 {
         imageView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
         // Set layout params
-        imageView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        imageView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
 
         // Bind the background to the intro
         setBackgroundView(imageView);
@@ -75,6 +76,7 @@ public class IntroActivity extends AppIntro2 {
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
         Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
+        mainActivityIntent.putExtra("ComingFromIntro", true);
         startActivity(mainActivityIntent);
         finish();
     }

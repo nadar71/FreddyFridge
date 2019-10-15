@@ -22,7 +22,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
-import android.widget.Toast;
 
 
 import com.google.android.gms.ads.AdRequest;
@@ -47,10 +46,12 @@ public class MainActivity extends AppCompatActivity
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
+    private static final String APP_OPENING_COUNTER     = "app-opening-counter";
+    private static final int DEFAULT_COUNT              = 0;
+    private static final String APP_CONSENT_NEED        = "consent_requested";
+    private static final boolean DEFAULT_CONSENT_NEED   = true;
+    private static final int NUM_MAX_OPENINGS           = 2;
 
-    private static final String APP_OPENING_COUNTER ="app-opening-counter";
-    private static final int DEFAULT_COUNT          = 0;
-    private static final int NUM_MAX_OPENINGS       = 2;
 
 
     // admob banner ref
@@ -68,6 +69,13 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView    foodList;
     private FoodListAdapter foodListAdapter;
 
+    // vars utils for testing
+    private int numPrevOpenings = 0;
+    private static boolean checkConsentActive = true;
+    private ConsentSDK consentSDK;
+
+
+
 
 
     @Override
@@ -75,11 +83,12 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // setAppOpenings(0); // debug reset
-
-
         // open intro only for the first 3 times
-        int numPrevOpenings = getAppOpenings();
+        numPrevOpenings = getAppOpenings();
+
+        // set consent sdk for gdpr true by default
+        // setConsentSDKNeed(true);
+
         Intent  callingActivity = getIntent();
         boolean comingFromIntro = callingActivity.getBooleanExtra("ComingFromIntro", false);
         if ( (numPrevOpenings < NUM_MAX_OPENINGS) && (!comingFromIntro) ){
@@ -110,32 +119,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        // Initialize ConsentSDK
-        ConsentSDK consentSDK = new ConsentSDK.Builder(this)
-                // .addTestDeviceId("7DC1A1E8AEAD7908E42271D4B68FB270") // redminote 5 // Add your test device id "Remove addTestDeviceId on production!"
-                // .addTestDeviceId("9978A5F791A259430A0156313ED9C6A2")
-                .addCustomLogTag("gdpr_TAG") // Add custom tag default: ID_LOG
-                .addPrivacyPolicy("http://www.indie-walkabout.eu/privacy-policy-app") // Add your privacy policy url
-                .addPublisherId("pub-8846176967909254") // Add your admob publisher id
-                .build();
-
-
-        // To check the consent and load ads
-        consentSDK.checkConsent(new ConsentSDK.ConsentCallback() {
-            @Override
-            public void onResult(boolean isRequestLocationInEeaOrUnknown) {
-                Log.i("gdpr_TAG", "onResult: isRequestLocationInEeaOrUnknown : "+isRequestLocationInEeaOrUnknown);
-                // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-                mAdView.loadAd(ConsentSDK.getAdRequest(MainActivity.this));
-            }
-        });
-
-        // request ad banner
-        mAdView = findViewById(R.id.adView);
-
-        // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        mAdView.loadAd(ConsentSDK.getAdRequest(MainActivity.this));
-
 
         // add main_fab revealing menu
         addRevealFabBtn();
@@ -152,6 +135,40 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        checkConsentActive = getConsentSDKNeed();
+
+        if(checkConsentActive == true) {
+            // Initialize ConsentSDK
+            consentSDK = new ConsentSDK.Builder(this)
+                    // .addTestDeviceId("7DC1A1E8AEAD7908E42271D4B68FB270") // redminote 5 // Add your test device id "Remove addTestDeviceId on production!"
+                    // .addTestDeviceId("9978A5F791A259430A0156313ED9C6A2")
+                    .addCustomLogTag("gdpr_TAG") // Add custom tag default: ID_LOG
+                    .addPrivacyPolicy("http://www.indie-walkabout.eu/privacy-policy-app") // Add your privacy policy url
+                    .addPublisherId("pub-8846176967909254") // Add your admob publisher id
+                    .build();
+
+            // To check the consent and load ads
+            consentSDK.checkConsent(new ConsentSDK.ConsentCallback() {
+                @Override
+                public void onResult(boolean isRequestLocationInEeaOrUnknown) {
+                    Log.i("gdpr_TAG", "onResult: isRequestLocationInEeaOrUnknown : " + isRequestLocationInEeaOrUnknown);
+                    // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
+                    mAdView.loadAd(ConsentSDK.getAdRequest(MainActivity.this));
+                }
+            });
+
+            // request ad banner
+            mAdView = findViewById(R.id.adView);
+
+            // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
+            mAdView.loadAd(ConsentSDK.getAdRequest(MainActivity.this));
+        }
+
+    }
 
     /**
      * ---------------------------------------------------------------------------------------------
@@ -197,7 +214,7 @@ public class MainActivity extends AppCompatActivity
      * Get the number of times the app has been opened
      * ---------------------------------------------------------------------------------------------
      */
-    private int getAppOpenings() {
+    public int getAppOpenings() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         return prefs.getInt(APP_OPENING_COUNTER, DEFAULT_COUNT);
     }
@@ -207,7 +224,7 @@ public class MainActivity extends AppCompatActivity
      * Set the number of times the app has been opened
      * ---------------------------------------------------------------------------------------------
      */
-    private void setAppOpenings( int count) {
+    public void setAppOpenings( int count) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(APP_OPENING_COUNTER, count);
@@ -215,7 +232,27 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Get if consent gdpr must be asked or not
+     * ---------------------------------------------------------------------------------------------
+     */
+    public boolean getConsentSDKNeed() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        return prefs.getBoolean(APP_CONSENT_NEED, DEFAULT_CONSENT_NEED);
+    }
 
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Set if consent gdpr must be asked or not
+     * ---------------------------------------------------------------------------------------------
+     */
+    public void setConsentSDKNeed( boolean isNeeded) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(APP_CONSENT_NEED, isNeeded);
+        editor.apply();
+    }
 
 
     /**
@@ -344,6 +381,27 @@ public class MainActivity extends AppCompatActivity
 
 
 
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Set directly in flag the need for consent for admob ads
+     * ---------------------------------------------------------------------------------------------
+     */
+    public void setConsentSdkFlag(boolean flag){
+        checkConsentActive = flag;
+    }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Return the reference to ConsentSDK instance to beused by test classes
+     * ---------------------------------------------------------------------------------------------
+     * @return
+     */
+    public ConsentSDK getConsentObjReference(){
+        return  consentSDK;
+    }
+
+
 
 
     // ---------------------------------------------------------------------------------------------
@@ -443,6 +501,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(showDeadFood);
         }
     }
+
 
 
 }

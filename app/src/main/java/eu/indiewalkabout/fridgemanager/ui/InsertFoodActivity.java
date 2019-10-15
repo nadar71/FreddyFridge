@@ -208,7 +208,6 @@ public class InsertFoodActivity extends AppCompatActivity
         // dateExpir_cv.setDate(dateTodayNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS);
         dateExpir_cv.setDate(dateTodayNormalizedAtMidnight);
 
-
         // saving editing test click
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,13 +235,6 @@ public class InsertFoodActivity extends AppCompatActivity
     * ---------------------------------------------------------------------------------------------
     */
     private void toolBarInit(){
-        // get the toolbar
-        // foodInsertToolbar = (Toolbar) findViewById(R.id.insert_food_toolbar);
-        // foodInsertToolbar.setTitle(R.string.insertFoodActivity_title);
-
-        // place toolbar in place of action bar
-        // setSupportActionBar(foodInsertToolbar);
-
         // get a support action bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -322,6 +314,8 @@ public class InsertFoodActivity extends AppCompatActivity
 
     }
 
+    
+    
     /**
     * ---------------------------------------------------------------------------------------------
     * Save/Update Button
@@ -433,30 +427,11 @@ public class InsertFoodActivity extends AppCompatActivity
     }
 
 
-
     /**
-    * ---------------------------------------------------------------------------------------------
-    *                                          MENU STUFF
-    * ---------------------------------------------------------------------------------------------
-    */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        // When the home button is pressed, take the user back to Home
-        if (id == android.R.id.home) {
-            // show interstitial ads
-            // showInterstitialAd();
-
-            // go home
-            onBackPressed();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
-
+     * ---------------------------------------------------------------------------------------------
+     * Voice input
+     * ---------------------------------------------------------------------------------------------
+     */
     private void startVoiceInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -485,6 +460,49 @@ public class InsertFoodActivity extends AppCompatActivity
         }
     }
 
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Set datePicked from outside
+     * @param calendar
+     * ---------------------------------------------------------------------------------------------
+     */
+    public void setDatePicked(Calendar calendar){
+        datePicked = calendar;
+    }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * Set dateExpir_cv from outside
+     * @param date
+     * ---------------------------------------------------------------------------------------------
+     */
+    public void setDateExpir_cv(Date date){
+        dateExpir_cv.setDate(DateConverter.fromDate(date));
+    }
+
+
+    /**
+    * ---------------------------------------------------------------------------------------------
+    *                                          MENU STUFF
+    * ---------------------------------------------------------------------------------------------
+    */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        // When the home button is pressed, take the user back to Home
+        if (id == android.R.id.home) {
+            // show interstitial ads
+            // showInterstitialAd();
+
+            // go home
+            onBackPressed();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 
 
