@@ -13,10 +13,10 @@ import static org.junit.Assert.*;
 public class DateConverterTests {
     @Test
     public void toDate_test_custom() {
-        assertNull(DateConverter.toDate(null));
+        assertNull(DateConverter.INSTANCE.toDate(null));
 
         Long date_01_long = 1537868854000L; // Tuesday, 25 Sep 2018 11:47:34 GMT
-        Date date_01      = DateConverter.toDate(date_01_long);
+        Date date_01      = DateConverter.INSTANCE.toDate(date_01_long);
 
         System.out.println("Date : "+date_01);
         Calendar cal      = Calendar.getInstance();
@@ -49,7 +49,7 @@ public class DateConverterTests {
 
     @Test
     public void toDate_test_today() {
-        assertNull(DateConverter.fromDate(null));
+        assertNull(DateConverter.INSTANCE.fromDate(null));
 
         Date today = new Date();
         Calendar today_cal = Calendar.getInstance();
@@ -57,7 +57,7 @@ public class DateConverterTests {
         System.out.println("today_cal : "+today_cal.getTimeInMillis());
 
         // cinvert from long to date
-        Date test_date = DateConverter.toDate(today_cal.getTimeInMillis());
+        Date test_date = DateConverter.INSTANCE.toDate(today_cal.getTimeInMillis());
 
         Calendar test_cal = Calendar.getInstance();
         test_cal.setTime(test_date);
@@ -78,14 +78,14 @@ public class DateConverterTests {
 
     @Test
     public void fromDate_test() {
-        assertNull(DateConverter.fromDate(null));
+        assertNull(DateConverter.INSTANCE.fromDate(null));
 
         Date today = new Date();
         Calendar today_cal = Calendar.getInstance();
         today_cal.setTime(today);
 
         // convert current to long
-        Long date_long =  DateConverter.fromDate(today);
+        Long date_long =  DateConverter.INSTANCE.fromDate(today);
 
         Date test_date = new Date();
         test_date.setTime(date_long);

@@ -22,7 +22,7 @@ class SingletonProvider : Application() {
      * @return
      * ---------------------------------------------------------------------------------------------
      */
-    val database: FoodDatabase
+    val database: FoodDatabase?
         get() = FoodDatabase.getsDbInstance(this)
 
 
@@ -32,8 +32,8 @@ class SingletonProvider : Application() {
      * @return
      * ---------------------------------------------------------------------------------------------
      */
-    val repository: FridgeManagerRepository
-        get() = FridgeManagerRepository.getInstance(database)
+    val repository: FridgeManagerRepository?
+        get() = database?.let { FridgeManagerRepository.getInstance(it) }
 
     override fun onCreate() {
         super.onCreate()

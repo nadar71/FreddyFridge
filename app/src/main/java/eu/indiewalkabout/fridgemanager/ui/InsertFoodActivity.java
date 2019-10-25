@@ -386,7 +386,7 @@ public class InsertFoodActivity extends AppCompatActivity
                         foodEntry = new FoodEntry(0,foodName,expiringDate);
                     } else {
                         expiringDate_l = dateExpir_cv.getDate();
-                        foodEntry = new FoodEntry(0,foodName,DateConverter.toDate(expiringDate_l));
+                        foodEntry = new FoodEntry(0,foodName, DateConverter.INSTANCE.toDate(expiringDate_l));
                     }
 
                     // set id to the task to update
@@ -423,7 +423,7 @@ public class InsertFoodActivity extends AppCompatActivity
         }
 
         foodName_et.setText(foodEntry.getName());
-        dateExpir_cv.setDate(DateConverter.fromDate(foodEntry.getExpiringAt()));
+        dateExpir_cv.setDate(DateConverter.INSTANCE.fromDate(foodEntry.getExpiringAt()));
     }
 
 
@@ -479,7 +479,7 @@ public class InsertFoodActivity extends AppCompatActivity
      * ---------------------------------------------------------------------------------------------
      */
     public void setDateExpir_cv(Date date){
-        dateExpir_cv.setDate(DateConverter.fromDate(date));
+        dateExpir_cv.setDate(DateConverter.INSTANCE.fromDate(date));
     }
 
 

@@ -322,7 +322,7 @@ public class Check_InsertActivity_UI {
 
                 // set in the view too
                 CalendarView view = (CalendarView) insertActivity.findViewById(R.id.calendar_cv);
-                view.setDate(DateConverter.fromDate(pastDate));
+                view.setDate(DateConverter.INSTANCE.fromDate(pastDate));
                 System.out.println("**** DATA CHANGED *****");
             }
 
@@ -378,7 +378,7 @@ public class Check_InsertActivity_UI {
 
                 // set in the view too
                 CalendarView view = (CalendarView) insertActivity.findViewById(R.id.calendar_cv);
-                view.setDate(DateConverter.fromDate(pastDate));
+                view.setDate(DateConverter.INSTANCE.fromDate(pastDate));
             }
 
         });
@@ -432,7 +432,7 @@ public class Check_InsertActivity_UI {
 
                 // set in the view too
                 CalendarView view = (CalendarView) insertActivity.findViewById(R.id.calendar_cv);
-                view.setDate(DateConverter.fromDate(pastDate));
+                view.setDate(DateConverter.INSTANCE.fromDate(pastDate));
             }
 
         });
