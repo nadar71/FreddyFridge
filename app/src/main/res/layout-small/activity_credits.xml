@@ -61,7 +61,7 @@
         android:text="@string/credits_text"
         android:textAlignment="textStart"
         android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintBottom_toTopOf="@+id/mAdView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/credits_toolbar" />
@@ -78,7 +78,7 @@
         android:layout_marginBottom="16dp"
         app:backgroundTint="@color/colorAccent"
         app:fabSize="normal"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintBottom_toTopOf="@+id/mAdView"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_refrigerator_icon" />
 
@@ -88,7 +88,7 @@
         android:layout_height="0dp"
         android:layout_centerInParent="true"
         app:animateItems="true"
-        app:layout_constraintBottom_toBottomOf="@+id/adView"
+        app:layout_constraintBottom_toBottomOf="@+id/mAdView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +106,7 @@
     </com.hlab.fabrevealmenu.view.FABRevealMenu>
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
+        android:id="@+id/mAdView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

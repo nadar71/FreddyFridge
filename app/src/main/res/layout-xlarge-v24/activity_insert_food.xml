@@ -22,7 +22,7 @@
         app:srcCompat="@drawable/food_background" />
 
     <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
+        android:id="@+id/mAdView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

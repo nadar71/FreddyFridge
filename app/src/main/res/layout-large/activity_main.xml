@@ -182,7 +182,7 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/rounded_rectangle"
         android:backgroundTint="@color/light_grey_very_transparent"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintBottom_toTopOf="@+id/mAdView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -207,7 +207,7 @@
         android:textColor="@color/text_color"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintBottom_toTopOf="@+id/mAdView"
         app:layout_constraintEnd_toEndOf="@+id/main_today_food_list_recycleView"
         app:layout_constraintStart_toStartOf="@+id/main_today_food_list_recycleView"
         app:layout_constraintTop_toTopOf="@+id/main_today_food_list_recycleView" />
@@ -268,7 +268,7 @@
 
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
+        android:id="@+id/mAdView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

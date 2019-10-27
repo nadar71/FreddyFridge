@@ -354,7 +354,7 @@ public class Check_InsertActivity_UI {
 
 
     @Test
-    // Insert a a food not expired and not expiring today, int he future
+    // Insert a a food not expired and not expiring today, in the future
     public void testInsertExpiringInTheFutureFood() {
         // reset db
         foodDbDao.dropTable();

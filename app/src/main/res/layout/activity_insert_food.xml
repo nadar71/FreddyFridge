@@ -161,7 +161,7 @@
         app:backgroundTint="@color/colorAccent"
         app:fabSize="normal"
         app:layout_behavior="eu.indiewalkabout.fridgemanager.util.FAB_Hide_on_Scroll"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintBottom_toTopOf="@+id/mAdView"
         app:layout_constraintEnd_toStartOf="@+id/speak_btn"
         app:layout_constraintHorizontal_bias="0.712"
         app:layout_constraintStart_toEndOf="@+id/speak_btn"
@@ -197,7 +197,7 @@
     </com.hlab.fabrevealmenu.view.FABRevealMenu>
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
+        android:id="@+id/mAdView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
