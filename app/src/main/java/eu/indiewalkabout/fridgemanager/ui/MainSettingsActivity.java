@@ -250,7 +250,7 @@ public class MainSettingsActivity extends AppCompatActivity
             // Relaunch job scheduler in case
             if ( (preference.getKey().equals(dayBeforeKey )) || (preference.getKey().equals(hoursFreqKey ))){
                 context = preference.getContext();
-                ReminderScheduler.scheduleChargingReminder(context);
+                ReminderScheduler.INSTANCE.scheduleChargingReminder(context);
             }
 
             return true;

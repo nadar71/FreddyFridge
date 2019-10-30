@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity
         initRecycleView();
 
         // start scheduler for notifications reminder
-        ReminderScheduler.scheduleChargingReminder(this);
+        ReminderScheduler.INSTANCE.scheduleChargingReminder(this);
 
         // make bottom navigation bar and status bar hide
         hideStatusNavBars();
