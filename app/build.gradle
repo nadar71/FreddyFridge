@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
 
 
 android {
@@ -23,6 +24,8 @@ android {
         }
     }
 
+
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -35,7 +38,13 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation "com.android.support:support-core-utils:28.0.0"
 
+    // Recyclerview
     implementation 'com.android.support:recyclerview-v7:28.0.0'
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0"
+
 
     // Room dependencies
     implementation "android.arch.persistence.room:runtime:1.1.1"
@@ -60,23 +69,12 @@ dependencies {
     // implementation 'com.hlab.fabrevealmenu:main_fab-reveal-menu:1.0.3'
     implementation project(':fabrevealmenu')
 
-    // test support
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.19.0'
-
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
-    androidTestImplementation 'org.mockito:mockito-android:2.19.0'
-
 
 
     // debug stuff
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
     implementation 'com.android.support:design:28.0.0'
 
-    // fab reveal menu module integration
-    implementation project(':fabrevealmenu')
 
     // Intro library
     // AndroidX Capable version
@@ -84,16 +82,28 @@ dependencies {
     // *** OR ***
     // Support Library compatibility version
     implementation 'com.github.AppIntro:AppIntro:v4.2.3'
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
+
+
+
+    // unit test
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.19.0'
+
+    // instrumentation testing
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'org.mockito:mockito-android:2.19.0'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
-    implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+
 }
 repositories {
     mavenCentral()
