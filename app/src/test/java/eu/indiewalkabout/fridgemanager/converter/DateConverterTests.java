@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager;
+package eu.indiewalkabout.fridgemanager.converter;
 
 import org.junit.Test;
 

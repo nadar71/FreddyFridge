@@ -24,7 +24,12 @@ android {
         }
     }
 
-
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            unitTests.returnDefaultValues = true
+        }
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -85,7 +90,7 @@ dependencies {
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
 
 
-
+/*
     // unit test
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.19.0'
@@ -102,6 +107,49 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
+
+ */
+
+    // Testing code should not be included in the main code.
+    // Once https://issuetracker.google.com/128612536 is fixed this can be fixed.
+    implementation "androidx.test:core:1.2.0"
+
+    //  AndroidX Test - local unit tests - JVM testing
+    testImplementation "junit:junit: 4.12"
+    testImplementation "org.hamcrest:hamcrest-all:1.3"
+    testImplementation "androidx.arch.core:core-testing:2.0.0"
+    testImplementation 'androidx.test:runner:1.2.0'
+    testImplementation "androidx.test:core-ktx:1.2.0"
+    testImplementation "androidx.test.ext:junit:1.1.1"
+    testImplementation "org.robolectric:robolectric:4.3.1"
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+    testImplementation "io.mockk:mockk:1.9.3"
+
+
+    // AndroidX Test - Instrumented testing
+    androidTestImplementation "junit:junit:4.12"
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation "androidx.test.ext:junit:1.1.1"
+    androidTestImplementation "androidx.arch.core:core-testing:2.0.0"
+    androidTestImplementation "com.android.support.test:rules:1.0.2"
+    /*
+    androidTestImplementation "androidx.test:rules:1.0.2"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0-beta01"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:3.2.0-beta01"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.2.0-beta01"
+    */
+
+
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
+
 
 
 }
