@@ -16,7 +16,7 @@ interface FoodDbDao {
     //----------------------------------------------------------------------------------------------
     //  QUERY
     //----------------------------------------------------------------------------------------------
-    // retrieve ALL KIND OF FOOD  without regarding exipring date
+    // retrieve ALL KIND OF FOOD  without regarding expiring date
     @Query("SELECT * FROM FOODLIST ORDER BY EXPIRING_AT")
     fun loadAllFood(): LiveData<List<FoodEntry>>
 
