@@ -43,7 +43,7 @@ import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class CheckMainActivity_UI {
+public class Check_MainActivity_UI {
     private MainActivity activity;
 
     @Rule
