@@ -12,9 +12,11 @@ import android.view.View;
 import eu.indiewalkabout.fridgemanager.R;
 
 /**
+ * -------------------------------------------------------------------------------------------------
  * Custom view that is an extension of EditText.
  * It provides a Clear ("x") button within the text field
  * that, when tapped, clears the text from the field.
+ * -------------------------------------------------------------------------------------------------
  */
 
 public class EditTextWithClear

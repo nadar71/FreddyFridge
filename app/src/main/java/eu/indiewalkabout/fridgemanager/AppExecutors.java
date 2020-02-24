@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 /**
  * --------------------------------------------------------------------------------
  * Global executor for all the app request; all tasks are grouped here.
- * Used to run threads outside main thread.
+ * Used to run tasks outside main thread.
  * --------------------------------------------------------------------------------
  */
 public class AppExecutors {

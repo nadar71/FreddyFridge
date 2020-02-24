@@ -19,8 +19,6 @@ import eu.indiewalkabout.fridgemanager.util.DateUtility;
 import eu.indiewalkabout.fridgemanager.util.PreferenceUtility;
 
 public class FoodReminder_fbjob extends JobService {
-    // private AsyncTask bgReminderTask;
-
     public static final String TAG = FoodReminder_fbjob.class.getSimpleName();
 
 
@@ -91,7 +89,6 @@ public class FoodReminder_fbjob extends JobService {
 
     @Override
     public boolean onStopJob(JobParameters params) {
-        // if (bgReminderTask != null) bgReminderTask.cancel(true);
         return true;
     }
 

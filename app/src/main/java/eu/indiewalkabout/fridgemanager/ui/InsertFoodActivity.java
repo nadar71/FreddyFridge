@@ -72,8 +72,6 @@ public class InsertFoodActivity extends AppCompatActivity
     // unique code for system service request
     private static final int REQ_CODE_SPEECH_INPUT = 100;
 
-
-    // Views ref
     private Button         save_btn;
     private ImageView      speakerBtn;
     private EditText       foodName_et;
@@ -82,10 +80,8 @@ public class InsertFoodActivity extends AppCompatActivity
     private FABRevealMenu  fabMenu;
 
 
-    // admob banner ref
     private AdView mAdView;
 
-    // Date picked up reference
     private Calendar datePicked;
 
     // set the food id as default: will be changed in case of update
@@ -106,11 +102,8 @@ public class InsertFoodActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert_food);
 
-
-        // load ad banner
         mAdView = findViewById(R.id.adView);
 
-        // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
         mAdView.loadAd(ConsentSDK.getAdRequest(InsertFoodActivity.this));
 
         // init views

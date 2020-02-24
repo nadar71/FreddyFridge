@@ -27,7 +27,6 @@ import eu.indiewalkabout.fridgemanager.AppExecutors;
 
 public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodViewRowHolder> {
 
-    // Date format
     private static final String DATE_FORMAT = "dd/MM/yyy";
 
     // Handle item clicks
@@ -42,10 +41,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
     // Date formatter
     private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
-    // repository ref
     private FridgeManagerRepository repository;
-
-
 
 
 

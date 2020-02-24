@@ -11,8 +11,10 @@ import android.view.inputmethod.InputMethodManager;
 import java.util.HashMap;
 
 /**
+ * -------------------------------------------------------------------------------------------------
  * Based on the following Stackoverflow answer:
  * http://stackoverflow.com/questions/2150078/how-to-check-visibility-of-software-keyboard-in-android
+ * -------------------------------------------------------------------------------------------------
  */
 @SuppressWarnings("WeakerAccess")
 public class KeyboardUtils implements ViewTreeObserver.OnGlobalLayoutListener

@@ -53,8 +53,6 @@ public class MainActivity extends AppCompatActivity
     private static final int NUM_MAX_OPENINGS           = 2;
 
 
-
-    // admob banner ref
     private AdView mAdView;
 
     private Application application;

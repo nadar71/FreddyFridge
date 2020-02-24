@@ -52,7 +52,6 @@ public class FoodListActivity extends AppCompatActivity
 
     public static final String TAG = FoodListActivity.class.getSimpleName();
 
-    // Views ref
     private Toolbar         foodsListToolbar;
     private RecyclerView    foodList;
     private FoodListAdapter foodListAdapter;
@@ -61,10 +60,7 @@ public class FoodListActivity extends AppCompatActivity
     private FloatingActionButton fab ;
 
 
-    // admob banner ref
     private AdView mAdView;
-
-    // admob banner interstitial ref
     private InterstitialAd mInterstitialAd;
 
     // Key constant to use as key for intent extra
@@ -78,10 +74,10 @@ public class FoodListActivity extends AppCompatActivity
     // expiring food Today flag
     public static final String FOOD_EXPIRING_TODAY = "ExpiringFoodToday";
 
-    // saved food flag
+    // consumed food flag
     public static final String FOOD_SAVED          = "SavedFood";
 
-    // dead food flag
+    // expired food flag
     public static final String FOOD_DEAD           = "DeadFood";
 
     // Hold the type of food to show in list, use here and by adapter
@@ -105,9 +101,7 @@ public class FoodListActivity extends AppCompatActivity
 
         mAdView = findViewById(R.id.adView);
 
-        // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
         mAdView.loadAd(ConsentSDK.getAdRequest(FoodListActivity.this));
-
 
         // empty view for empty list message
         emptyListText = findViewById(R.id.empty_view);
@@ -181,7 +175,6 @@ public class FoodListActivity extends AppCompatActivity
     * ---------------------------------------------------------------------------------------------
     */
     private void toolBarInit() {
-
         // get the toolbar
         foodsListToolbar = (Toolbar) findViewById(R.id.food_list_toolbar);
 
@@ -205,7 +198,6 @@ public class FoodListActivity extends AppCompatActivity
      * ---------------------------------------------------------------------------------------------
      */
     private void setToolBarTitle() {
-
         toolbarTitle = foodsListToolbar.findViewById(R.id.toolbar_title_tv);
 
         // set correct title
@@ -235,45 +227,14 @@ public class FoodListActivity extends AppCompatActivity
      */
     private void showInterstitialAd() {
 
-
-        /*
-        // init and load admob interstitial
-        mInterstitialAd = new InterstitialAd(this);
-
-        // Sample AdMob interstitial ID:         ca-app-pub-3940256099942544/1033173712
-        // THIS APP REAL AdMob interstitial ID:  ca-app-pub-8846176967909254/5671183832
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-
-        if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
-            // AdRequest adInterstitialRequest = new AdRequest.Builder().build();
-
-            AdRequest adInterstitialRequest = new AdRequest.Builder()
-                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                    .addTestDevice("7DC1A1E8AEAD7908E42271D4B68FB270")
-                    .build();
-
-
-
-            // load and show admob interstitial
-            mInterstitialAd.loadAd(adInterstitialRequest);
-        }
-
-        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        } else {
-            Toast.makeText(this, "Ad interstitial did not load", Toast.LENGTH_SHORT).show();
-        }
-        */
-
-
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(getResources().getString(R.string.admob_key_interstitial));
 
-        // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
         mInterstitialAd.loadAd(ConsentSDK.getAdRequest(this));
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
+                // for debug :
                 // Toast.makeText(FoodListActivity.this, "Ad Interstitial LOADED", Toast.LENGTH_SHORT).show();
                 // Show interstitial
                 mInterstitialAd.show();
@@ -282,7 +243,7 @@ public class FoodListActivity extends AppCompatActivity
 
             @Override
             public void onAdFailedToLoad(int errorCode) {
-                // Code to be executed when an ad request fails.
+                // for debug :
                 // Toast.makeText(FoodListActivity.this, "Ad Interstitial   FAILED TO LOAD", Toast.LENGTH_SHORT).show();
                 // Log.i(TAG, "onAdFailedToLoad: ConsentSDK.getAdRequest(MainActivity.this) : "
                 //        +ConsentSDK.getAdRequest(MainActivity.this));
@@ -297,22 +258,20 @@ public class FoodListActivity extends AppCompatActivity
     * ---------------------------------------------------------------------------------------------
     */
     private void initRecycleView(){
-        // Set the RecyclerView's view
         foodList = findViewById(R.id.food_list_recycleView);
 
         if (foodList == null) {
             Log.d(TAG, "onCreate: foodList == null ");
         }
 
-        // Set LinearLayout
         foodList.setLayoutManager(new LinearLayoutManager(this));
 
 
-        // Initialize the adapter and attach it to the RecyclerView
+        // Init adapter
         foodListAdapter = new FoodListAdapter(this, this, foodlistType);
         foodList.setAdapter(foodListAdapter);
 
-        // Divider decorator
+        // Divider
         DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
         foodList.addItemDecoration(decoration);
 
@@ -395,9 +354,9 @@ public class FoodListActivity extends AppCompatActivity
 
 
     /**
-    * ---------------------------------------------------------------------------------------------
+    * ----------------------------------------------------------------------------------------------
     *                                          MENU STUFF
-    * ---------------------------------------------------------------------------------------------
+    * ----------------------------------------------------------------------------------------------
     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

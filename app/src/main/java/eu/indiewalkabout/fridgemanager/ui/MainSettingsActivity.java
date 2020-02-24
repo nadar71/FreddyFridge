@@ -49,7 +49,6 @@ public class MainSettingsActivity extends AppCompatActivity
 
     private static String dayBeforeKey,hoursFreqKey;
 
-    // admob banner ref
     private AdView mAdView;
 
 
@@ -62,7 +61,6 @@ public class MainSettingsActivity extends AppCompatActivity
 
         mAdView = findViewById(R.id.adView);
 
-        // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
         mAdView.loadAd(ConsentSDK.getAdRequest(MainSettingsActivity.this));
 
         // init toolbar
@@ -153,10 +151,8 @@ public class MainSettingsActivity extends AppCompatActivity
                 gdprConsentBtn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        // Check Consent SDK
-                        // Request the consent without callback
-                        // consentSDK.requestConsent(null);
-                        //To get the result of the consent
+                        // Check Consent SDK Request the consent without callback
+                        // consentSDK.requestConsent(null); To get the result of the consent
                         consentSDK.requestConsent(new ConsentSDK.ConsentStatusCallback() {
                             @Override
                             public void onResult(boolean isRequestLocationInEeaOrUnknown, int isConsentPersonalized) {

@@ -3,34 +3,34 @@
 3    package="com.hlab.fabrevealmenu.test" >
 4
 5    <uses-sdk
-5-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger2109792868325426837.xml:5:5-74
+5-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger506290679079574358.xml:5:5-74
 6        android:minSdkVersion="21"
-6-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger2109792868325426837.xml:5:15-41
+6-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger506290679079574358.xml:5:15-41
 7        android:targetSdkVersion="26" />
-7-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger2109792868325426837.xml:5:42-71
+7-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger506290679079574358.xml:5:42-71
 8
 9    <instrumentation
-9-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger2109792868325426837.xml:11:5-15:77
+9-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger506290679079574358.xml:11:5-15:77
 10        android:name="android.test.InstrumentationTestRunner"
-10-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger2109792868325426837.xml:11:22-75
+10-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger506290679079574358.xml:11:22-75
 11        android:functionalTest="false"
-11-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger2109792868325426837.xml:14:22-52
+11-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger506290679079574358.xml:14:22-52
 12        android:handleProfiling="false"
-12-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger2109792868325426837.xml:13:22-53
+12-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger506290679079574358.xml:13:22-53
 13        android:label="Tests for com.hlab.fabrevealmenu.test"
-13-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger2109792868325426837.xml:15:22-75
+13-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger506290679079574358.xml:15:22-75
 14        android:targetPackage="com.hlab.fabrevealmenu.test" />
-14-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger2109792868325426837.xml:12:22-73
+14-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger506290679079574358.xml:12:22-73
 15
 16    <application
-16-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger2109792868325426837.xml:7:5-9:19
+16-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger506290679079574358.xml:7:5-9:19
 17        android:allowBackup="true"
 17-->[com.github.asyl.animation:arcanimator:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/aee2956e2681c4464e873f33c8c993ee/arcanimator-1.0.0/AndroidManifest.xml:11:18-44
 18        android:debuggable="true" >
-18-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger2109792868325426837.xml:7:18-43
+18-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger506290679079574358.xml:7:18-43
 19        <uses-library android:name="android.test.runner" />
-19-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger2109792868325426837.xml:8:9-60
-19-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger2109792868325426837.xml:8:23-57
+19-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger506290679079574358.xml:8:9-60
+19-->/Users/simone/Downloads/0-MYDOC/ANDROIDPRJ/PROJECT/FridgeMemo/FridgeManager/fabrevealmenu/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger506290679079574358.xml:8:23-57
 20    </application>
 21
 22</manifest>

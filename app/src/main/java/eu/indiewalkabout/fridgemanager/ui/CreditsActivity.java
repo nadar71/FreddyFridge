@@ -23,7 +23,6 @@ import eu.indiewalkabout.fridgemanager.util.ConsentSDK;
 public class CreditsActivity extends AppCompatActivity
         implements OnFABMenuSelectedListener {
 
-    // admob banner ref
     private AdView mAdView;
 
     private FABRevealMenu   fabMenu;
@@ -37,12 +36,9 @@ public class CreditsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credits);
 
-        // load ads banner
         mAdView = findViewById(R.id.adView);
 
-        // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
         mAdView.loadAd(ConsentSDK.getAdRequest(CreditsActivity.this));
-
 
         // get a support action bar
         toolBarInit();
@@ -62,7 +58,8 @@ public class CreditsActivity extends AppCompatActivity
      * ---------------------------------------------------------------------------------------------
      */
     private void hideStatusNavBars() {
-        // minsdk version is 19, no need code for lower api
+        // * TODO :  minsdk version now is 19, no need code for lower api
+
         View decorView = getWindow().getDecorView();
 
         // hide status bar

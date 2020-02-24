@@ -18,27 +18,23 @@ import eu.indiewalkabout.fridgemanager.util.DateUtility;
  */
 public class FoodsViewModel extends ViewModel {
 
-    // tag for logging
     private static final String TAG = FoodsViewModel.class.getSimpleName();
 
-    // Livedata var on foodEntry List to populate through ViewModel
+    // Livedata on foodEntry List to populate through ViewModel
     private LiveData<List<FoodEntry>> foodEntries;
 
     // Livedata var on foodEntry obj to populate through ViewModel
     private LiveData<FoodEntry> foodEntry;
 
-    // repository ref
     private FridgeManagerRepository repository;
 
     /**
      * Standard FoodsViewModel constructor; init repository
      */
-
     public FoodsViewModel() {
         // init repository
         repository = ((SingletonProvider) SingletonProvider.getsContext()).getRepository();
     }
-
 
 
 

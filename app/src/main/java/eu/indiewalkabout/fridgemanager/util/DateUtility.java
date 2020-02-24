@@ -154,7 +154,7 @@ public final class DateUtility {
     }
 
 
-    /**
+    /*
      * ---------------------------------------------------------------------------------------------
      * Convert from LocalDate to epoch (long)
      * NB : require minsdk 26

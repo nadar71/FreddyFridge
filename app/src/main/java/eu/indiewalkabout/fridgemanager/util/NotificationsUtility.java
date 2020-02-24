@@ -40,8 +40,10 @@ public class NotificationsUtility {
     private static final int FOOD_TODAY_DEADLINE_PENDING_INTENT_ID = 2100;
 
     // This notification channel and its action
-    private static final String FOOD_DEADLINE_NOTIFICATION_CHANNEL_ID = "food_deadline_notification_channel";
-    private static final String FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID = "food_today_deadline_notification_channel";
+    private static final String FOOD_DEADLINE_NOTIFICATION_CHANNEL_ID =
+            "food_deadline_notification_channel";
+    private static final String FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID =
+            "food_today_deadline_notification_channel";
 
     private static final int ACTION_SHOW_PENDING_INTENT_ID         = 10;
     private static final int ACTION_SHOW_TODAY_PENDING_INTENT_ID   = 10;

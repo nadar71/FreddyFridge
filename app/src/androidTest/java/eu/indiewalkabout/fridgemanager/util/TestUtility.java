@@ -27,8 +27,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.Espresso.onView;
 
 public class TestUtility {
-
-
     /**
      * ---------------------------------------------------------------------------------------------
      * Perform action of waiting for a specific view id.
