@@ -2,9 +2,7 @@ package eu.indiewalkabout.fridgemanager.reminder;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-
-import eu.indiewalkabout.fridgemanager.data.FoodEntry;
+import androidx.annotation.Nullable;
 
 
 /**

@@ -2,7 +2,7 @@ package eu.indiewalkabout.fridgemanager.util;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.res.ResourcesCompat;
+import androidx.core.content.res.ResourcesCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -20,7 +20,7 @@ import eu.indiewalkabout.fridgemanager.R;
  */
 
 public class EditTextWithClear
-        extends android.support.v7.widget.AppCompatEditText {
+        extends androidx.appcompat.widget.AppCompatEditText {
 
     Drawable mClearButtonImage;
 
