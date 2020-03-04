@@ -34,13 +34,13 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
     // Room dependencies
-    implementation 'androidx.room:room-runtime:2.0.0'
-    annotationProcessor 'androidx.room:room-compiler:2.0.0'
+    implementation 'androidx.room:room-runtime:2.2.4'
+    annotationProcessor 'androidx.room:room-compiler:2.2.4'
 
     // LiveData dependencies
-    implementation 'androidx.lifecycle:lifecycle-runtime:2.0.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata:2.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     // JobService
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
@@ -58,17 +58,20 @@ dependencies {
     // test support
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.19.0'
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
 
     androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation "androidx.test.ext:junit:1.1.1"
+    androidTestImplementation 'androidx.test:rules:1.1.0'
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
     androidTestImplementation 'org.mockito:mockito-android:2.19.0'
 
 
 
-    // debug stuff
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
-    implementation 'com.google.android.material:material:1.0.0'
+
 
     // fab reveal menu module integration
     implementation project(':fabrevealmenu')
@@ -79,7 +82,7 @@ dependencies {
     // *** OR ***
     // Support Library compatibility version
     implementation 'com.github.AppIntro:AppIntro:v4.2.3'
-    androidTestImplementation 'androidx.test:rules:1.1.0'
+
     implementation 'androidx.navigation:navigation-fragment:2.0.0-rc02'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -87,4 +90,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
+
+    // debug stuff
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
+    implementation 'com.google.android.material:material:1.0.0'
+
 }

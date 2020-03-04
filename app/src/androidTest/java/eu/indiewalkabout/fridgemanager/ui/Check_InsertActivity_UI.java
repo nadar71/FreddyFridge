@@ -2,19 +2,6 @@ package eu.indiewalkabout.fridgemanager.ui;
 
 
 import android.os.SystemClock;
-import androidx.annotation.NonNull;
-import androidx.test.espresso.ViewInteraction;
-import androidx.test.espresso.contrib.PickerActions;
-import androidx.test.espresso.contrib.RecyclerViewActions;
-import androidx.test.espresso.intent.Intents;
-import androidx.test.espresso.matcher.BoundedMatcher;
-import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.ViewHolder;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -30,7 +17,23 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
+import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.intent.Intents;
+import androidx.test.espresso.matcher.BoundedMatcher;
+import androidx.test.espresso.matcher.ViewMatchers;
+import androidx.test.filters.LargeTest;
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
+import androidx.arch.core.executor.testing.CountingTaskExecutorRule;
+import androidx.test.rule.ActivityTestRule;
 import eu.indiewalkabout.fridgemanager.R;
 import eu.indiewalkabout.fridgemanager.SingletonProvider;
 import eu.indiewalkabout.fridgemanager.data.DateConverter;
@@ -49,21 +52,16 @@ import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static org.hamcrest.Matchers.allOf;
-
-import java.util.Date;
-import java.util.Calendar;
 
 
 @LargeTest
-@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4ClassRunner.class)
 public class Check_InsertActivity_UI {
     MainActivity mainActivity;
     InsertFoodActivity insertActivity;
-    FoodListActivity   foodListActivity;
+    FoodListActivity foodListActivity;
     private final String TAG = Check_InsertActivity_UI.class.getName();
     private String targetText = "";
     FoodDatabase foodDatabase;
@@ -75,17 +73,20 @@ public class Check_InsertActivity_UI {
     @Rule
     public ActivityTestRule<MainActivity> mainActivityRule = new ActivityTestRule(MainActivity.class);
 
+    @Rule
+    public CountingTaskExecutorRule mCountingTaskExecutorRule = new CountingTaskExecutorRule();
+
     @Before
-    public void init(){
-        mainActivity   = mainActivityRule.getActivity();
+    public void init() {
+        mainActivity = mainActivityRule.getActivity();
         insertActivity = insertFoodActivityTestRule.getActivity();
-        foodDatabase   = ((SingletonProvider) SingletonProvider.getsContext()).getDatabase();
-        foodDbDao      = foodDatabase.foodDbDao();
+        foodDatabase = ((SingletonProvider) SingletonProvider.getsContext()).getDatabase();
+        foodDbDao = foodDatabase.foodDbDao();
     }
 
     @Test
-    public void checkButtonExists() {
-
+    public void checkButtonExists()  throws Throwable{
+        draintasks();
         onView(withId(R.id.insert_food_fab)).perform(click());
 
         ViewInteraction textView = onView(
@@ -134,12 +135,10 @@ public class Check_InsertActivity_UI {
     }
 
 
-
-
     @Test
     // Press button expiring food and open expiring food list activity
-    public void openExpiringList() {
-
+    public void openExpiringList()  throws Throwable{
+        draintasks();
         Intents.init();
         onView(withId(R.id.insert_food_fab)).perform(click());
 
@@ -162,8 +161,8 @@ public class Check_InsertActivity_UI {
 
     @Test
     // Press button consumed food and open consumed food list activity
-    public void openConsumedList() {
-
+    public void openConsumedList()  throws Throwable{
+        draintasks();
         Intents.init();
         onView(withId(R.id.insert_food_fab)).perform(click());
 
@@ -186,8 +185,8 @@ public class Check_InsertActivity_UI {
 
     @Test
     // Press button wasted food and open wasted food list activity
-    public void openWastedList() {
-
+    public void openWastedList()  throws Throwable{
+        draintasks();
         Intents.init();
         onView(withId(R.id.insert_food_fab)).perform(click());
 
@@ -210,8 +209,8 @@ public class Check_InsertActivity_UI {
 
     @Test
     // Press button home  and open home activity
-    public void openHome() {
-
+    public void openHome()  throws Throwable{
+        draintasks();
         Intents.init();
         onView(withId(R.id.insert_food_fab)).perform(click());
 
@@ -231,10 +230,10 @@ public class Check_InsertActivity_UI {
     }
 
 
-
     @Test
     // Insert a a food expiring today and come back to main activity
-    public void testInsertExpiringToday() {
+    public void testInsertExpiringToday()  throws Throwable{
+        draintasks();
         // reset db
         foodDbDao.dropTable();
         targetText = "food_expiring_today";
@@ -261,7 +260,7 @@ public class Check_InsertActivity_UI {
         intended(hasComponent(MainActivity.class.getName()));
         Intents.release();
 
-        if (TestUtility.doesViewExist(R.id.skip)){
+        if (TestUtility.doesViewExist(R.id.skip)) {
             onView(withId(R.id.skip)).perform(click());
         }
         /* debug :
@@ -271,13 +270,13 @@ public class Check_InsertActivity_UI {
 
         // check presence of food inserted with expiring date today
         RecyclerView recyclerView = mainActivity.findViewById(R.id.main_today_food_list_recycleView);
-        int itemCount             = recyclerView.getChildCount();
-        for(int i = 0; i<itemCount; i++) {
+        int itemCount = recyclerView.getChildCount();
+        for (int i = 0; i < itemCount; i++) {
             ViewHolder holder = recyclerView.getChildViewHolder(recyclerView.getChildAt(i));
-            TextView v        = holder.itemView.findViewById(R.id.foodName_tv);
+            TextView v = holder.itemView.findViewById(R.id.foodName_tv);
             if (targetText.equals(v.getText())) {
                 // Log.d(TAG, "testInsertExpiringToday: find the target text : "+targetText);
-                System.out.println("testInsertExpiringToday: find the target text : "+targetText);
+                System.out.println("testInsertExpiringToday: find the target text : " + targetText);
 
                 onView(ViewMatchers.withId(R.id.main_today_food_list_recycleView))
                         // .check(matches(atPositionOnView(0, withText("food_expiring_today"), R.id.foodName_tv)));
@@ -286,14 +285,15 @@ public class Check_InsertActivity_UI {
                 break;
             }
             onView(ViewMatchers.withId(R.id.main_today_food_list_recycleView))
-                    .perform(RecyclerViewActions.scrollToPosition(i+1));
+                    .perform(RecyclerViewActions.scrollToPosition(i + 1));
         }
     }
 
 
     @Test
     // Insert a a food already wasted and check
-    public void testInsertWastedFood() {
+    public void testInsertWastedFood()  throws Throwable{
+        draintasks();
         // reset db
         foodDbDao.dropTable();
         targetText = "wasted_food";
@@ -309,7 +309,7 @@ public class Check_InsertActivity_UI {
             public void run() {
                 // put an expiring date before today
                 Calendar calendar = Calendar.getInstance();
-                Date pastDate     = DateUtility.addDays(new Date(),-1);
+                Date pastDate = DateUtility.addDays(new Date(), -1);
                 calendar.setTime(pastDate);
                 insertActivity.setDatePicked(calendar);
                 insertActivity.setDateExpir_cv(pastDate);
@@ -346,10 +346,10 @@ public class Check_InsertActivity_UI {
     }
 
 
-
     @Test
     // Insert a a food not expired and not expiring today, int he future
-    public void testInsertExpiringInTheFutureFood() {
+    public void testInsertExpiringInTheFutureFood()  throws Throwable{
+        draintasks();
         // reset db
         foodDbDao.dropTable();
         targetText = "future_expiring_food";
@@ -365,7 +365,7 @@ public class Check_InsertActivity_UI {
             public void run() {
                 // put an expiring date before today
                 Calendar calendar = Calendar.getInstance();
-                Date pastDate     = DateUtility.addDays(new Date(),3);
+                Date pastDate = DateUtility.addDays(new Date(), 3);
                 calendar.setTime(pastDate);
                 insertActivity.setDatePicked(calendar);
                 insertActivity.setDateExpir_cv(pastDate);
@@ -400,10 +400,10 @@ public class Check_InsertActivity_UI {
     }
 
 
-
     @Test
     // Move food from expiring list to consumed food list
-    public void testMakeFoodConsumed() {
+    public void testMakeFoodConsumed()  throws Throwable{
+        draintasks();
         // reset db
         foodDbDao.dropTable();
         targetText = "future_expiring_food";
@@ -419,7 +419,7 @@ public class Check_InsertActivity_UI {
             public void run() {
                 // put an expiring date before today
                 Calendar calendar = Calendar.getInstance();
-                Date pastDate     = DateUtility.addDays(new Date(),3);
+                Date pastDate = DateUtility.addDays(new Date(), 3);
                 calendar.setTime(pastDate);
                 insertActivity.setDatePicked(calendar);
                 insertActivity.setDateExpir_cv(pastDate);
@@ -475,7 +475,6 @@ public class Check_InsertActivity_UI {
         textView1.perform(click());
 
 
-
         intended(hasComponent(FoodListActivity.class.getName()));
         Intents.release();
         onView(withId(R.id.toolbar_title_tv)).check(matches(withText(R.string.foodSaved_activity_title)));
@@ -522,5 +521,9 @@ public class Check_InsertActivity_UI {
                 return itemMatcher.matches(targetView);
             }
         };
+    }
+
+    private void draintasks() throws TimeoutException, InterruptedException {
+        mCountingTaskExecutorRule.drainTasks(2, TimeUnit.MINUTES);
     }
 }
