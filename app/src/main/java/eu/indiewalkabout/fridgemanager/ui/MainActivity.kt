@@ -302,16 +302,18 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
         // Observe changes in data through LiveData: getFoodList() actually return LiveData<List<FoodEntry>>
         val foods = viewModel.foodList
-        foods.observe(this, Observer { foodEntries ->
-            Log.d(TAG, "Receiving database " + FoodListActivity.FOOD_EXPIRING_TODAY + " LiveData")
-            // foodList.setVisibility(View.VISIBLE);
-            foodListAdapter!!.foodEntries = foodEntries
-            if (foodEntries!!.size > 0) {
-                emptyListText!!.visibility = View.INVISIBLE
-            } else {
-                emptyListText!!.visibility = View.VISIBLE
-            }
-        })
+        if (foods != null) {
+            foods.observe(this, Observer { foodEntries ->
+                Log.d(TAG, "Receiving database " + FoodListActivity.FOOD_EXPIRING_TODAY + " LiveData")
+                // foodList.setVisibility(View.VISIBLE);
+                foodListAdapter.foodEntries = foodEntries
+                if (foodEntries!!.size > 0) {
+                    emptyListText.visibility = View.INVISIBLE
+                } else {
+                    emptyListText.visibility = View.VISIBLE
+                }
+            })
+        }
     }
 
     /**

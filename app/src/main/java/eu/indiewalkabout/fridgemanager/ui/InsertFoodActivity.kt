@@ -24,11 +24,10 @@ import eu.indiewalkabout.fridgemanager.AppExecutors.Companion.instance
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.SingletonProvider
 import eu.indiewalkabout.fridgemanager.SingletonProvider.Companion.getsContext
+import eu.indiewalkabout.fridgemanager.data.DateConverter
 import eu.indiewalkabout.fridgemanager.data.DateConverter.fromDate
 import eu.indiewalkabout.fridgemanager.data.DateConverter.toDate
 import eu.indiewalkabout.fridgemanager.data.FoodEntry
-import eu.indiewalkabout.fridgemanager.ui.InsertFoodActivity
-import eu.indiewalkabout.fridgemanager.ui.MainActivity
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.util.DateUtility.getLocalMidnightFromNormalizedUtcDate
 import eu.indiewalkabout.fridgemanager.util.DateUtility.normalizedUtcMsForToday
@@ -44,25 +43,25 @@ import java.util.*
  */
 class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListener, OnFABMenuSelectedListener {
     // Views ref
-    private var save_btn: Button? = null
-    private var speakerBtn: ImageView? = null
-    private var foodName_et: EditText? = null
-    private var dateExpir_cv: CalendarView? = null
+    lateinit var save_btn: Button
+    lateinit var speakerBtn: ImageView
+    lateinit var foodName_et: EditText
+    lateinit var dateExpir_cv: CalendarView
 
     // private Toolbar        foodInsertToolbar;
     var fabMenu: FABRevealMenu? = null
 
     // admob banner ref
-    private var mAdView: AdView? = null
+    lateinit var mAdView: AdView
 
     // Date picked up reference
-    private var datePicked: Calendar? = null
+    var myDatePicked: Calendar? = null
 
     // set the food id as default: will be changed in case of update
     private var foodId = DEFAULT_ID
 
     // Object foodEntry to change in case of update
-    var foodEntryToChange: LiveData<FoodEntry>? = null
+    lateinit var foodEntryToChange: LiveData<FoodEntry>
 
     /**
      * ---------------------------------------------------------------------------------------------
@@ -137,9 +136,9 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
             override fun onToggleSoftKeyboard(isVisible: Boolean) {
                 Log.d("keyboard", "keyboard visible: $isVisible")
                 if (isVisible == true) {
-                    mAdView!!.visibility = View.INVISIBLE
+                    mAdView.visibility = View.INVISIBLE
                 } else {
-                    mAdView!!.visibility = View.VISIBLE
+                    mAdView.visibility = View.VISIBLE
                 }
             }
         })
@@ -191,7 +190,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
      */
     override fun onSelectedDayChange(view: CalendarView, year: Int, month: Int, dayOfMonth: Int) {
         Log.d(TAG, "onSelectedDayChange: done")
-        datePicked = GregorianCalendar(year, month, dayOfMonth)
+        myDatePicked = GregorianCalendar(year, month, dayOfMonth)
     }
 
     /**
@@ -215,7 +214,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
         val intent = intent
         if (intent != null && intent.hasExtra(ID_TO_BE_UPDATED)) {
             Log.d(TAG, "onCreate: Update mode ACTIVE")
-            save_btn!!.setText(R.string.update_btn_label)
+            save_btn.setText(R.string.update_btn_label)
 
             // if id is the default one insert the new to be updated
             if (foodId == DEFAULT_ID) {
@@ -247,7 +246,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
      */
     fun onSaveBtnClicked() {
         Log.d(TAG, "onSaveBtnClicked")
-        val foodName = foodName_et!!.text.toString()
+        val foodName = foodName_et.text.toString()
 
         // validate entry : name
         if (foodName.isEmpty()) {
@@ -257,7 +256,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
         }
 
         // validate entry : date
-        if (foodId == DEFAULT_ID && datePicked == null) {
+        if (foodId == DEFAULT_ID && myDatePicked == null) {
             Toast.makeText(this@InsertFoodActivity, resources.getString(R.string.food_expdate_alert), Toast.LENGTH_SHORT).show()
             return
         }
@@ -269,12 +268,12 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
         instance!!.diskIO().execute {
             if (foodId == DEFAULT_ID) {     // save a new task
                 Log.d(TAG, "run: Save new food entry")
-                val expiringDate = datePicked!!.time
+                val expiringDate = myDatePicked?.time
                 Log.d(TAG, "foodName : $foodName")
                 Log.d(TAG, "expiringDate : $expiringDate")
 
                 // create a new food obj and init with data inserted by user
-                val foodEntry = FoodEntry(0, foodName, expiringDate)
+                val foodEntry = FoodEntry(0, foodName, expiringDate!!)
 
                 // repo insert
                 val repository = (getsContext() as SingletonProvider?)!!.repository
@@ -299,11 +298,11 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
 
                 // get date from user selection if new
                 // or the previous date unchanged
-                if (datePicked != null) {
-                    expiringDate = datePicked!!.time
+                if (myDatePicked != null) {
+                    expiringDate = myDatePicked!!.time
                     foodEntry = FoodEntry(0, foodName, expiringDate)
                 } else {
-                    expiringDate_l = dateExpir_cv!!.date
+                    expiringDate_l = dateExpir_cv.date
                     foodEntry = FoodEntry(0, foodName, toDate(expiringDate_l)!!)
                 }
 
@@ -311,7 +310,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
                 foodEntry.id = foodId
 
                 // keep if the has been already consumed
-                foodEntry.done = foodEntryToChange!!.value!!.done
+                foodEntry.done = foodEntryToChange.value!!.done
 
                 // update task on db
                 val repository = (getsContext() as SingletonProvider?)!!.repository
@@ -333,8 +332,8 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
         if (foodEntry == null) {
             return
         }
-        foodName_et!!.setText(foodEntry.name)
-        dateExpir_cv!!.date = fromDate(foodEntry.expiringAt)!!
+        foodName_et.setText(foodEntry.name)
+        dateExpir_cv.date = fromDate(foodEntry.expiringAt)!!
     }
 
     /**
@@ -359,7 +358,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
             REQ_CODE_SPEECH_INPUT -> {
                 if (resultCode == Activity.RESULT_OK && null != data) {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                    foodName_et!!.setText(result[0])
+                    foodName_et.setText(result[0])
                 }
             }
         }
@@ -372,7 +371,9 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
      * ---------------------------------------------------------------------------------------------
      */
     fun setDatePicked(calendar: Calendar?) {
-        datePicked = calendar
+        if (calendar != null) {
+            myDatePicked = calendar
+        }
     }
 
     /**
@@ -382,7 +383,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
      * ---------------------------------------------------------------------------------------------
      */
     fun setDateExpir_cv(date: Date?) {
-        dateExpir_cv!!.date = fromDate(date)!!
+        dateExpir_cv.date = fromDate(date)!!
     }
 
     /**
