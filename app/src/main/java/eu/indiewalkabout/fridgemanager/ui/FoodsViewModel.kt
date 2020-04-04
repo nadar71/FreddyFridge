@@ -24,7 +24,7 @@ class FoodsViewModel : ViewModel {
      * ---------------------------------------------------------------------------------------------
     </FoodEntry> */
     // Livedata var on foodEntry List to populate through ViewModel
-    var foodList: LiveData<List<FoodEntry>>? = null
+    var foodList: LiveData<MutableList<FoodEntry>>? = null
         private set
 
     // Livedata var on foodEntry obj to populate through ViewModel
@@ -59,13 +59,16 @@ class FoodsViewModel : ViewModel {
             Log.d(TAG, "setupAdapter: FOOD_TYPE : $foodlistType")
             val dataNormalizedAtMidnight = getLocalMidnightFromNormalizedUtcDate(normalizedUtcMsForToday)
             foodList = repository!!.loadAllFoodExpiring(dataNormalizedAtMidnight)
+
         } else if (foodlistType == FoodListActivity.FOOD_SAVED) {
             Log.d(TAG, "setupAdapter: FOOD_TYPE : $foodlistType")
             foodList = repository!!.loadAllFoodSaved()
+
         } else if (foodlistType == FoodListActivity.FOOD_DEAD) {
             Log.d(TAG, "setupAdapter: FOOD_TYPE : $foodlistType")
             val dataNormalizedAtMidnight = getLocalMidnightFromNormalizedUtcDate(normalizedUtcMsForToday)
             foodList = repository!!.loadAllFoodDead(dataNormalizedAtMidnight)
+
         } else if (foodlistType == FoodListActivity.FOOD_EXPIRING_TODAY) {
             Log.d(TAG, "setupAdapter: FOOD_TYPE : $foodlistType")
             val dataNormalizedAtMidnight = getLocalMidnightFromNormalizedUtcDate(normalizedUtcMsForToday)

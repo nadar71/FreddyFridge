@@ -29,7 +29,7 @@ class FoodReminder_fbjob : JobService() {
         // -----------------------------------------------------------------------------------------
         // 1 - check for food expiring in the next days
         // -----------------------------------------------------------------------------------------
-        val foodEntriesNextDays: LiveData<List<FoodEntry>>
+        val foodEntriesNextDays: LiveData<MutableList<FoodEntry>>
 
         val dataNormalizedAtMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.normalizedUtcMsForToday)
         val dateBefore = dataNormalizedAtMidnight - DAYS_BEFORE
@@ -39,8 +39,8 @@ class FoodReminder_fbjob : JobService() {
         val repository = (SingletonProvider.getsContext() as SingletonProvider).repository
         foodEntriesNextDays = repository!!.loadAllFoodExpiring(dateBefore)
 
-        foodEntriesNextDays.observeForever(object : Observer<List<FoodEntry>> {
-            override fun onChanged(foodEntries: List<FoodEntry>?) {
+        foodEntriesNextDays.observeForever(object : Observer<MutableList<FoodEntry>> {
+            override fun onChanged(foodEntries: MutableList<FoodEntry>?) {
                 if (foodEntries!!.size > 0) {
                     ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_NEXT_DAYS_EXPIRING_FOOD, foodEntries)
                 }
@@ -52,7 +52,7 @@ class FoodReminder_fbjob : JobService() {
         // -----------------------------------------------------------------------------------------
         // 2 - check for food expiring today
         // -----------------------------------------------------------------------------------------
-        val foodEntriesToDay: LiveData<List<FoodEntry>>
+        val foodEntriesToDay: LiveData<MutableList<FoodEntry>>
 
         val previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS
         val nextDayDate = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS
@@ -60,8 +60,8 @@ class FoodReminder_fbjob : JobService() {
 
         foodEntriesToDay = repository.loadFoodExpiringToday(previousDayDate, nextDayDate)
 
-        foodEntriesToDay.observeForever(object : Observer<List<FoodEntry>> {
-            override fun onChanged(foodEntries: List<FoodEntry>?) {
+        foodEntriesToDay.observeForever(object : Observer<MutableList<FoodEntry>> {
+            override fun onChanged(foodEntries: MutableList<FoodEntry>?) {
                 if (foodEntries!!.size > 0) {
                     ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_TODAY_EXPIRING_FOOD, foodEntries)
                 }

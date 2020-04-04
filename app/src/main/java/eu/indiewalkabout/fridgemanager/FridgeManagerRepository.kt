@@ -18,27 +18,27 @@ class FridgeManagerRepository private constructor(private val foodDb: FoodDataba
     //  QUERY
     //----------------------------------------------------------------------------------------------
     // retrieve ALL KIND OF FOOD  without regarding expiring date
-    fun loadAllFood(): LiveData<List<FoodEntry>> {
+    fun loadAllFood(): LiveData<MutableList<FoodEntry>> {
         return foodDb.foodDbDao().loadAllFood()
     }
 
     // retrieve EXPIRING FOOD
-    fun loadAllFoodExpiring(date: Long?): LiveData<List<FoodEntry>> {
+    fun loadAllFoodExpiring(date: Long?): LiveData<MutableList<FoodEntry>> {
         return foodDb.foodDbDao().loadAllFoodExpiring(date)
     }
 
     // retrieve EXPIRING FOOD TODAY with LiveData
-    fun loadFoodExpiringToday(daybefore: Long?, dayafter: Long?): LiveData<List<FoodEntry>> {
+    fun loadFoodExpiringToday(daybefore: Long?, dayafter: Long?): LiveData<MutableList<FoodEntry>> {
         return foodDb.foodDbDao().loadFoodExpiringToday(daybefore, dayafter)
     }
 
     // retrieve DEAD/EXPIRED FOOD
-    fun loadAllFoodDead(date: Long?): LiveData<List<FoodEntry>> {
+    fun loadAllFoodDead(date: Long?): LiveData<MutableList<FoodEntry>> {
         return foodDb.foodDbDao().loadAllFoodDead(date)
     }
 
     // retrieve DONE/CONSUMED FOOD
-    fun loadAllFoodSaved(): LiveData<List<FoodEntry>> {
+    fun loadAllFoodSaved(): LiveData<MutableList<FoodEntry>> {
         return foodDb.foodDbDao().loadAllFoodSaved()
     }
 

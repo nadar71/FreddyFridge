@@ -18,16 +18,16 @@ interface FoodDbDao {
     //----------------------------------------------------------------------------------------------
     // retrieve ALL KIND OF FOOD  without regarding expiring date
     @Query("SELECT * FROM FOODLIST ORDER BY EXPIRING_AT")
-    fun loadAllFood(): LiveData<List<FoodEntry>>
+    fun loadAllFood(): LiveData<MutableList<FoodEntry>>
 
     // retrieve EXPIRING FOOD
     @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT >= :date and done == 0 ORDER BY EXPIRING_AT")
-    fun loadAllFoodExpiring(date: Long?): LiveData<List<FoodEntry>>
+    fun loadAllFoodExpiring(date: Long?): LiveData<MutableList<FoodEntry>>
 
     // retrieve EXPIRING FOOD TODAY with LiveData
     @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT > :daybefore AND " +
             "EXPIRING_AT < :dayafter " + " and done == 0 ORDER BY EXPIRING_AT")
-    fun loadFoodExpiringToday(daybefore: Long?, dayafter: Long?): LiveData<List<FoodEntry>>
+    fun loadFoodExpiringToday(daybefore: Long?, dayafter: Long?): LiveData<MutableList<FoodEntry>>
 
     // retrieve EXPIRING FOOD TODAY NO LiveData
     /*
@@ -38,11 +38,11 @@ interface FoodDbDao {
 
     // retrieve DEAD/EXPIRED FOOD
     @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT < :date and done == 0 ORDER BY EXPIRING_AT")
-    fun loadAllFoodDead(date: Long?): LiveData<List<FoodEntry>>
+    fun loadAllFoodDead(date: Long?): LiveData<MutableList<FoodEntry>>
 
     // retrieve DONE/CONSUMED FOOD
     @Query("SELECT * FROM FOODLIST WHERE done == 1 ORDER BY EXPIRING_AT")
-    fun loadAllFoodSaved(): LiveData<List<FoodEntry>>
+    fun loadAllFoodSaved(): LiveData<MutableList<FoodEntry>>
 
     @Query("SELECT * FROM FOODLIST WHERE id = :id")
     fun loadFoodById(id: Int): LiveData<FoodEntry>
