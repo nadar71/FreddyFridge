@@ -1,7 +1,7 @@
 package eu.indiewalkabout.fridgemanager
 
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 
 import eu.indiewalkabout.fridgemanager.data.FoodDatabase
 import eu.indiewalkabout.fridgemanager.data.FoodEntry

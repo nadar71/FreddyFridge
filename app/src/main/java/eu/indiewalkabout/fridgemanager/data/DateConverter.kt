@@ -1,6 +1,6 @@
 package eu.indiewalkabout.fridgemanager.data
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import android.util.Log
 
 import java.util.Date

@@ -2,7 +2,7 @@ package eu.indiewalkabout.fridgemanager.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -51,13 +51,13 @@ class IntroActivity : AppIntro2() {
         setBackgroundView(imageView)
     }
 
-    override fun onSkipPressed(currentFragment: Fragment) {
+    override fun onSkipPressed(currentFragment: androidx.fragment.app.Fragment) {
         super.onSkipPressed(currentFragment)
         goToMain()
         finish()
     }
 
-    override fun onDonePressed(currentFragment: Fragment) {
+    override fun onDonePressed(currentFragment: androidx.fragment.app.Fragment) {
         super.onDonePressed(currentFragment)
         val mainActivityIntent = Intent(applicationContext, MainActivity::class.java)
         mainActivityIntent.putExtra("ComingFromIntro", true)

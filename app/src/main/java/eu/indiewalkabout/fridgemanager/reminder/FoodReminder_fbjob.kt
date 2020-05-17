@@ -3,8 +3,8 @@ package eu.indiewalkabout.fridgemanager.reminder
 import com.firebase.jobdispatcher.JobParameters
 import com.firebase.jobdispatcher.JobService
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import java.util.concurrent.TimeUnit
 
 import eu.indiewalkabout.fridgemanager.SingletonProvider

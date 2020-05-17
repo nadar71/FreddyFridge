@@ -1,17 +1,17 @@
 package eu.indiewalkabout.fridgemanager.ui
 
 import android.app.Application
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.design.widget.FloatingActionButton
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
     private var fab: FloatingActionButton? = null
 
     // recycle View stuff
-    lateinit var foodList: RecyclerView
+    lateinit var foodList: androidx.recyclerview.widget.RecyclerView
     lateinit var foodListAdapter: FoodListAdapter
 
     // vars utils for testing
@@ -258,20 +258,20 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         foodList.setAdapter(foodListAdapter)
 
         // Divider decorator
-        val decoration = DividerItemDecoration(applicationContext, DividerItemDecoration.VERTICAL)
+        val decoration = DividerItemDecoration(applicationContext, androidx.recyclerview.widget.DividerItemDecoration.VERTICAL)
         foodList.addItemDecoration(decoration)
 
         // Configure the adapter; it uses LiveData to keep updated on changes
         setupAdapter()
 
         // make fab button hide when scrolling list
-        foodList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+        foodList.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
                 if (dy > 0 || dy < 0 && fab!!.isShown) fab!!.hide()
             }
 
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) fab!!.show()
+            override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView, newState: Int) {
+                if (newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE) fab!!.show()
                 super.onScrollStateChanged(recyclerView, newState)
             }
         })

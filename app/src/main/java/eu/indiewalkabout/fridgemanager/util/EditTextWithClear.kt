@@ -2,7 +2,7 @@ package eu.indiewalkabout.fridgemanager.util
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.support.v4.content.res.ResourcesCompat
+import androidx.core.content.res.ResourcesCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
@@ -17,7 +17,7 @@ import eu.indiewalkabout.fridgemanager.R
  * that, when tapped, clears the text from the field.
  */
 
-class EditTextWithClear : android.support.v7.widget.AppCompatEditText {
+class EditTextWithClear : androidx.appcompat.widget.AppCompatEditText {
 
     internal var mClearButtonImage: Drawable? = null
 

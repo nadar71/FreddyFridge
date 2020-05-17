@@ -1,32 +1,28 @@
 package eu.indiewalkabout.fridgemanager.ui;
 
 
-import android.content.Intent;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
-import android.support.test.espresso.ViewInteraction;
-import android.support.test.espresso.contrib.PickerActions;
-import android.support.test.espresso.contrib.RecyclerViewActions;
-import android.support.test.espresso.intent.Intents;
-import android.support.test.espresso.matcher.BoundedMatcher;
-import android.support.test.espresso.matcher.ViewMatchers;
-import android.support.test.filters.LargeTest;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.ViewHolder;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.contrib.PickerActions;
+import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.intent.Intents;
+import androidx.test.espresso.matcher.BoundedMatcher;
+import androidx.test.espresso.matcher.ViewMatchers;
+import androidx.test.filters.LargeTest;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
@@ -43,25 +39,23 @@ import eu.indiewalkabout.fridgemanager.data.FoodDbDao;
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
 import eu.indiewalkabout.fridgemanager.util.TestUtility;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
-import static android.support.test.espresso.action.ViewActions.replaceText;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.intent.Intents.intended;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withParent;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
+import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static org.hamcrest.Matchers.allOf;
 
 import java.util.Date;
 import java.util.Calendar;
-import java.time.LocalDate;
-import java.util.Locale;
 
 
 @LargeTest
@@ -99,7 +93,7 @@ public class Check_InsertActivity_UI {
                         childAtPosition(
                                 allOf(withId(R.id.view_parent),
                                         childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.support.v7.widget.RecyclerView.class),
+                                                IsInstanceOf.<View>instanceOf(RecyclerView.class),
                                                 3)),
                                 1),
                         isDisplayed()));
@@ -110,7 +104,7 @@ public class Check_InsertActivity_UI {
                         childAtPosition(
                                 allOf(withId(R.id.view_parent),
                                         childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.support.v7.widget.RecyclerView.class),
+                                                IsInstanceOf.<View>instanceOf(RecyclerView.class),
                                                 2)),
                                 1),
                         isDisplayed()));
@@ -121,7 +115,7 @@ public class Check_InsertActivity_UI {
                         childAtPosition(
                                 allOf(withId(R.id.view_parent),
                                         childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.support.v7.widget.RecyclerView.class),
+                                                IsInstanceOf.<View>instanceOf(RecyclerView.class),
                                                 1)),
                                 1),
                         isDisplayed()));
@@ -132,7 +126,7 @@ public class Check_InsertActivity_UI {
                         childAtPosition(
                                 allOf(withId(R.id.view_parent),
                                         childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.support.v7.widget.RecyclerView.class),
+                                                IsInstanceOf.<View>instanceOf(RecyclerView.class),
                                                 0)),
                                 1),
                         isDisplayed()));
@@ -154,7 +148,7 @@ public class Check_InsertActivity_UI {
                         childAtPosition(
                                 allOf(withId(R.id.view_parent),
                                         childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.support.v7.widget.RecyclerView.class),
+                                                IsInstanceOf.<View>instanceOf(RecyclerView.class),
                                                 3)),
                                 1),
                         isDisplayed()));
@@ -178,7 +172,7 @@ public class Check_InsertActivity_UI {
                         childAtPosition(
                                 allOf(withId(R.id.view_parent),
                                         childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.support.v7.widget.RecyclerView.class),
+                                                IsInstanceOf.<View>instanceOf(RecyclerView.class),
                                                 2)),
                                 1),
                         isDisplayed()));
@@ -202,7 +196,7 @@ public class Check_InsertActivity_UI {
                         childAtPosition(
                                 allOf(withId(R.id.view_parent),
                                         childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.support.v7.widget.RecyclerView.class),
+                                                IsInstanceOf.<View>instanceOf(RecyclerView.class),
                                                 1)),
                                 1),
                         isDisplayed()));
@@ -226,7 +220,7 @@ public class Check_InsertActivity_UI {
                         childAtPosition(
                                 allOf(withId(R.id.view_parent),
                                         childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.support.v7.widget.RecyclerView.class),
+                                                IsInstanceOf.<View>instanceOf(RecyclerView.class),
                                                 0)),
                                 1),
                         isDisplayed()));
@@ -258,7 +252,7 @@ public class Check_InsertActivity_UI {
                         childAtPosition(
                                 allOf(withId(R.id.view_parent),
                                         childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.support.v7.widget.RecyclerView.class),
+                                                IsInstanceOf.<View>instanceOf(RecyclerView.class),
                                                 0)),
                                 1),
                         isDisplayed()));
@@ -337,7 +331,7 @@ public class Check_InsertActivity_UI {
                         childAtPosition(
                                 allOf(withId(R.id.view_parent),
                                         childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.support.v7.widget.RecyclerView.class),
+                                                IsInstanceOf.<View>instanceOf(RecyclerView.class),
                                                 1)),
                                 1),
                         isDisplayed()));
@@ -391,7 +385,7 @@ public class Check_InsertActivity_UI {
                         childAtPosition(
                                 allOf(withId(R.id.view_parent),
                                         childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.support.v7.widget.RecyclerView.class),
+                                                IsInstanceOf.<View>instanceOf(RecyclerView.class),
                                                 3)),
                                 1),
                         isDisplayed()));
@@ -446,7 +440,7 @@ public class Check_InsertActivity_UI {
                         childAtPosition(
                                 allOf(withId(R.id.view_parent),
                                         childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.support.v7.widget.RecyclerView.class),
+                                                IsInstanceOf.<View>instanceOf(RecyclerView.class),
                                                 3)),
                                 1),
                         isDisplayed()));
@@ -474,7 +468,7 @@ public class Check_InsertActivity_UI {
                         childAtPosition(
                                 allOf(withId(R.id.view_parent),
                                         childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.support.v7.widget.RecyclerView.class),
+                                                IsInstanceOf.<View>instanceOf(RecyclerView.class),
                                                 2)),
                                 1),
                         isDisplayed()));

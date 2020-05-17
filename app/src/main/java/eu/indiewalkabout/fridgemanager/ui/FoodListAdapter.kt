@@ -3,7 +3,7 @@ package eu.indiewalkabout.fridgemanager.ui
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class FoodListAdapter(private val thisContext: Context, // Handle item clicks
-                      private val foodItemClickListener: ItemClickListener, private val listType: String) : RecyclerView.Adapter<FoodViewRowHolder>() {
+                      private val foodItemClickListener: ItemClickListener, private val listType: String) : androidx.recyclerview.widget.RecyclerView.Adapter<FoodViewRowHolder>() {
 
     // Holds food entries data
     internal var adapterFoodEntries: MutableList<FoodEntry>? = null
@@ -91,7 +91,7 @@ class FoodListAdapter(private val thisContext: Context, // Handle item clicks
     // ----------------------------------------------------------------------------------
     // Inner class for creating ViewHolders
     // ----------------------------------------------------------------------------------
-    inner class FoodViewRowHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class FoodViewRowHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
         // Class variables for the task description and priority TextViews
         var foodName_tv: TextView
         var expiringDate_tv: TextView
