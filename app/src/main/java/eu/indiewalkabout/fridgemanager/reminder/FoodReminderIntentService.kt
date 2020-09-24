@@ -13,6 +13,6 @@ class FoodReminderIntentService : IntentService("FoodReminderIntentService") {
 
     override fun onHandleIntent(intent: Intent?) {
         val action = intent!!.action
-        ReminderOps.executeTask(this, action, null)
+        ReminderOps.executeTask(this, action!!, null)
     }
 }

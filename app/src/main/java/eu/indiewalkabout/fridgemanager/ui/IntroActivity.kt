@@ -6,9 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import com.github.paolorotolo.appintro.AppIntro2
-import com.github.paolorotolo.appintro.AppIntroFragment
-import com.github.paolorotolo.appintro.model.SliderPage
+import com.github.appintro.AppIntro2
+import com.github.appintro.AppIntroFragment
+import com.github.appintro.model.SliderPage
 import eu.indiewalkabout.fridgemanager.R
 
 class IntroActivity : AppIntro2() {
@@ -18,19 +18,19 @@ class IntroActivity : AppIntro2() {
         sliderPage1.title = resources.getString(R.string.intro_1_title)
         sliderPage1.description = resources.getString(R.string.intro_1_subtitle)
         sliderPage1.imageDrawable = R.drawable.shopping
-        sliderPage1.bgColor = resources.getColor(R.color.background_lightgreen_semitransparent)
+        sliderPage1.backgroundColor = resources.getColor(R.color.background_lightgreen_semitransparent)
         addSlide(AppIntroFragment.newInstance(sliderPage1))
         val sliderPage2 = SliderPage()
         sliderPage2.title = resources.getString(R.string.intro_2_title)
         sliderPage2.description = resources.getString(R.string.intro_2_subtitle)
         sliderPage2.imageDrawable = R.drawable.instructions_03
-        sliderPage2.bgColor = resources.getColor(R.color.background_lightgreen_semitransparent)
+        sliderPage2.backgroundColor = resources.getColor(R.color.background_lightgreen_semitransparent)
         addSlide(AppIntroFragment.newInstance(sliderPage2))
         val sliderPage3 = SliderPage()
         sliderPage3.title = resources.getString(R.string.intro_3_title)
         sliderPage3.description = resources.getString(R.string.intro_3_subtitle)
         sliderPage3.imageDrawable = R.drawable.instructions_end
-        sliderPage3.bgColor = resources.getColor(R.color.background_lightgreen_semitransparent)
+        sliderPage3.backgroundColor = resources.getColor(R.color.background_lightgreen_semitransparent)
         addSlide(AppIntroFragment.newInstance(sliderPage3))
 
 
@@ -51,13 +51,13 @@ class IntroActivity : AppIntro2() {
         setBackgroundView(imageView)
     }
 
-    override fun onSkipPressed(currentFragment: androidx.fragment.app.Fragment) {
+    override fun onSkipPressed(currentFragment: androidx.fragment.app.Fragment?) {
         super.onSkipPressed(currentFragment)
         goToMain()
         finish()
     }
 
-    override fun onDonePressed(currentFragment: androidx.fragment.app.Fragment) {
+    override fun onDonePressed(currentFragment: androidx.fragment.app.Fragment?) {
         super.onDonePressed(currentFragment)
         val mainActivityIntent = Intent(applicationContext, MainActivity::class.java)
         mainActivityIntent.putExtra("ComingFromIntro", true)
