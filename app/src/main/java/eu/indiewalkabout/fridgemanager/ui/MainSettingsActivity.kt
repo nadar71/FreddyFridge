@@ -32,6 +32,13 @@ import eu.indiewalkabout.fridgemanager.util.ConsentSDK.ConsentStatusCallback
 import eu.indiewalkabout.fridgemanager.util.PreferenceUtility.getHoursCount
 
 class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
+
+    companion object {
+        val TAG = MainSettingsActivity::class.java.name
+        private var dayBeforeKey: String? = null
+        private var hoursFreqKey: String? = null
+    }
+
     lateinit var SettingsToolbar: Toolbar
     lateinit var toolbarTitle: TextView
     var fabMenu: FABRevealMenu? = null
@@ -39,11 +46,10 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
     // admob banner ref
     lateinit var mAdView: AdView
 
-    /**
-     *  --------------------------------------------------------------------------------------------
-     *  onCreate
-     *  --------------------------------------------------------------------------------------------
-     */
+
+    // ---------------------------------------------------------------------------------------------
+    // onCreate
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_settings)
@@ -60,17 +66,14 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
 
         // make bottom navigation bar and status bar hide
         hideStatusNavBars()
-
-
     }
 
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Make bottom navigation bar and status bar hide, without resize when reappearing
-     * ---------------------------------------------------------------------------------------------
-     */
+
+    // ---------------------------------------------------------------------------------------------
+    // Make bottom navigation bar and status bar hide, without resize when reappearing
+
     private fun hideStatusNavBars() {
         // minsdk version is 19, no need code for lower api
         val decorView = window.decorView
@@ -94,11 +97,9 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
         }
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Preferences screen manager class
-     * ---------------------------------------------------------------------------------------------
-     */
+     // ---------------------------------------------------------------------------------------------
+     // Preferences screen manager class
+
     class MainPreferenceFragment : PreferenceFragment(), Preference.OnPreferenceChangeListener {
         lateinit var consentSDK: ConsentSDK
 
@@ -199,12 +200,10 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
             return true
         }
 
-        /**
-         * -----------------------------------------------------------------------------------------
-         * Initialize consent
-         * @param context
-         * -----------------------------------------------------------------------------------------
-         */
+        // -----------------------------------------------------------------------------------------
+        // Initialize consent
+        // @param context
+
         private fun initConsentSDK(context: Context) {
             // Initialize ConsentSDK
             consentSDK = ConsentSDK.Builder(context) // .addTestDeviceId("7DC1A1E8AEAD7908E42271D4B68FB270") // Add your test device id "Remove addTestDeviceId on production!"
@@ -215,11 +214,9 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
         }
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Toolbar init
-     * ---------------------------------------------------------------------------------------------
-     */
+    // ---------------------------------------------------------------------------------------------
+    // Toolbar init
+
     private fun toolBarInit() {
         // get the toolbar
         SettingsToolbar = findViewById(R.id.main_settings_toolbar)
@@ -234,11 +231,10 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
         actionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * MENU STUFF
-     * ---------------------------------------------------------------------------------------------
-     */
+
+    // ---------------------------------------------------------------------------------------------
+    // MENU STUFF
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
 
@@ -268,11 +264,10 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
         }
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Adding revealing main_fab button
-     * ---------------------------------------------------------------------------------------------
-     */
+
+    // ---------------------------------------------------------------------------------------------
+    // Adding revealing main_fab button
+
     private fun addRevealFabBtn() {
         val fab = findViewById<FloatingActionButton>(R.id.settings_fab)
         var fabMenu = findViewById<FABRevealMenu>(R.id.settings_fabMenu)
@@ -295,11 +290,10 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
         fabMenu!!.menuDirection = Direction.LEFT
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Revealing main_fab button menu management
-     * ---------------------------------------------------------------------------------------------
-     */
+
+     // ---------------------------------------------------------------------------------------------
+     // Revealing main_fab button menu management
+
     override fun onMenuItemSelected(view: View, id: Int) {
         if (id == R.id.menu_insert) {
             val toInsertFood = Intent(this@MainSettingsActivity, InsertFoodActivity::class.java)
@@ -322,9 +316,5 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
         }
     }
 
-    companion object {
-        val TAG = MainSettingsActivity::class.java.name
-        private var dayBeforeKey: String? = null
-        private var hoursFreqKey: String? = null
-    }
+
 }
