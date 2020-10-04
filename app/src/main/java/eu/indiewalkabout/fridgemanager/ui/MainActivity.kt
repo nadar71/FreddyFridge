@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
      * ---------------------------------------------------------------------------------------------
      */
     fun goToIntro() {
-        val introActivityIntent = Intent(applicationContext, IntroActivity::class.java)
+        val introActivityIntent = Intent(baseContext, IntroActivity::class.java)
         startActivity(introActivityIntent)
     }
 

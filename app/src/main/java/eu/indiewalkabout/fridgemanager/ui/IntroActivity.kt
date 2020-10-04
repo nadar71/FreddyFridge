@@ -4,12 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import com.github.appintro.AppIntro2
 import com.github.appintro.AppIntroFragment
+import com.github.appintro.AppIntroPageTransformerType
 import com.github.appintro.model.SliderPage
 import eu.indiewalkabout.fridgemanager.R
 
 class IntroActivity : AppIntro2() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         val sliderPage1 = SliderPage()
         sliderPage1.title = resources.getString(R.string.intro_1_title)
@@ -18,6 +20,17 @@ class IntroActivity : AppIntro2() {
         sliderPage1.backgroundDrawable = R.drawable.food_background
         sliderPage1.backgroundColor = R.color.background_lightgreen_semitransparent
         addSlide(AppIntroFragment.newInstance(sliderPage1))
+
+
+        /*
+        addSlide(AppIntroFragment.newInstance(
+                title = resources.getString(R.string.intro_1_title),
+                description = resources.getString(R.string.intro_1_subtitle),
+                imageDrawable = R.drawable.shopping,
+                backgroundDrawable = R.drawable.food_background,
+                backgroundColor = R.color.background_lightgreen_semitransparent
+        ))
+         */
 
         val sliderPage2 = SliderPage()
         sliderPage2.title = resources.getString(R.string.intro_2_title)
@@ -35,7 +48,10 @@ class IntroActivity : AppIntro2() {
         sliderPage3.backgroundColor = R.color.background_lightgreen_semitransparent
         sliderPage3.backgroundDrawable = R.drawable.food_background
         addSlide(AppIntroFragment.newInstance(sliderPage3))
-        
+
+        setTransformer(AppIntroPageTransformerType.Fade)
+        isWizardMode = true
+
     }
 
     override fun onSkipPressed(currentFragment: androidx.fragment.app.Fragment?) {
