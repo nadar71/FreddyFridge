@@ -17,8 +17,8 @@ class IntroActivity : AppIntro2() {
         sliderPage1.title = resources.getString(R.string.intro_1_title)
         sliderPage1.description = resources.getString(R.string.intro_1_subtitle)
         sliderPage1.imageDrawable = R.drawable.shopping
-        sliderPage1.backgroundDrawable = R.drawable.food_background
-        sliderPage1.backgroundColor = R.color.background_lightgreen_semitransparent
+        sliderPage1.backgroundDrawable = R.drawable.intro_background
+        // sliderPage1.backgroundColor = R.color.background_lightgreen_semitransparent
         addSlide(AppIntroFragment.newInstance(sliderPage1))
 
 
@@ -36,8 +36,8 @@ class IntroActivity : AppIntro2() {
         sliderPage2.title = resources.getString(R.string.intro_2_title)
         sliderPage2.description = resources.getString(R.string.intro_2_subtitle)
         sliderPage2.imageDrawable = R.drawable.instructions_03
-        sliderPage2.backgroundColor = R.color.background_lightgreen_semitransparent
-        sliderPage2.backgroundDrawable = R.drawable.food_background
+        // sliderPage2.backgroundColor = R.color.background_lightgreen_semitransparent
+        sliderPage2.backgroundDrawable = R.drawable.intro_background
         addSlide(AppIntroFragment.newInstance(sliderPage2))
 
 
@@ -45,8 +45,8 @@ class IntroActivity : AppIntro2() {
         sliderPage3.title = resources.getString(R.string.intro_3_title)
         sliderPage3.description = resources.getString(R.string.intro_3_subtitle)
         sliderPage3.imageDrawable = R.drawable.instructions_end
-        sliderPage3.backgroundColor = R.color.background_lightgreen_semitransparent
-        sliderPage3.backgroundDrawable = R.drawable.food_background
+        // sliderPage3.backgroundColor = R.color.background_lightgreen_semitransparent
+        sliderPage3.backgroundDrawable = R.drawable.intro_background
         addSlide(AppIntroFragment.newInstance(sliderPage3))
 
         setTransformer(AppIntroPageTransformerType.Fade)

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
