@@ -29,7 +29,7 @@
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/fredoka_one"
             android:textAlignment="viewStart"
-            android:textColor="@color/text_color"
+            android:textColor="@color/brown"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/main_settings_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,20 +41,21 @@
 
     <ImageView
         android:id="@+id/settings_bg_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:alpha="0.1"
         android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/food_background" />
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <fragment
         android:id="@+id/settingsFrag"
         android:name="eu.indiewalkabout.fridgemanager.ui.MainSettingsActivity$MainPreferenceFragment"
         android:layout_width="match_parent"
-        android:layout_height="556dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

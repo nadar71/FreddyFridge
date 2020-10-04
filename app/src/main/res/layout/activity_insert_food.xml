@@ -9,10 +9,11 @@
 
     <ImageView
         android:id="@+id/insert_bg_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/colorPrimaryDark"
         android:contentDescription="@string/background_image"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +96,7 @@
         android:paddingRight="8dp"
         android:paddingBottom="4dp"
         android:text=""
-        android:textColor="@color/text_color"
+        android:textColor="@color/brown"
         app:layout_constraintBottom_toTopOf="@+id/save_btn"
         app:layout_constraintEnd_toEndOf="@+id/name_tv"
         app:layout_constraintHorizontal_bias="0.617"

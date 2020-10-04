@@ -28,7 +28,7 @@
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/fredoka_one"
             android:textAlignment="viewStart"
-            android:textColor="@color/text_color"
+            android:textColor="@color/brown"
             android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="@+id/main_settings_toolbar"
             app:layout_constraintEnd_toEndOf="parent"

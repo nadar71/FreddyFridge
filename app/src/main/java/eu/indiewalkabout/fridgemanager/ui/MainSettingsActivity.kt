@@ -4,10 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.preference.ListPreference
-import android.preference.Preference
-import android.preference.PreferenceFragment
-import android.preference.PreferenceManager
+import androidx.preference.ListPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragment
+import androidx.preference.PreferenceManager
+import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -100,40 +101,47 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
      // ---------------------------------------------------------------------------------------------
      // Preferences screen manager class
 
-    class MainPreferenceFragment : PreferenceFragment(), Preference.OnPreferenceChangeListener {
+    class MainPreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
         lateinit var consentSDK: ConsentSDK
+
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.main_settings, rootKey)
+        }
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             dayBeforeKey = getString(R.string.days_before_deadline_count)
             hoursFreqKey = getString(R.string.hours_freq_today_deadline_count)
 
-            // show and keep update the preferences
-            addPreferencesFromResource(R.xml.main_settings)
-
             // get preference Screen reference
             val preferenceScreen = preferenceManager.createPreferenceScreen(activity)
 
             // bind prefs on changes
-            val dayBeforePref = findPreference(dayBeforeKey)
-            bindPreferenceSummaryToValue(dayBeforePref)
-            val hoursFreq = findPreference(hoursFreqKey)
-            bindPreferenceSummaryToValue(hoursFreq)
-            val gdprConsentBtn = findPreference(getString(R.string.gdpr_btn_key))
-            val creditsBtn = findPreference(getString(R.string.credits_btn_key))
+            val dayBeforePref: Preference? = findPreference(dayBeforeKey!!)
+            if (dayBeforePref != null) {
+                bindPreferenceSummaryToValue(dayBeforePref)
+            }
+
+            val hoursFreq: Preference? = findPreference(hoursFreqKey!!)
+            if (hoursFreq != null) {
+                bindPreferenceSummaryToValue(hoursFreq)
+            }
+
+            val gdprConsentBtn: Preference? = findPreference(getString(R.string.gdpr_btn_key))
+            val creditsBtn: Preference? = findPreference(getString(R.string.credits_btn_key))
 
             // Initialize ConsentSDK
-            initConsentSDK(activity)
+            initConsentSDK(requireActivity())
 
             // Checking the status of the user
-            if (isUserLocationWithinEea(activity)) {
-                val choice = if (isConsentPersonalized(activity)) "Personalize" else "Non-Personalize"
+            if (isUserLocationWithinEea(requireActivity())) {
+                val choice = if (isConsentPersonalized(requireActivity())) "Personalize" else "Non-Personalize"
                 Log.i(TAG, "onCreate: consent choice : $choice")
-                gdprConsentBtn.onPreferenceClickListener = Preference.OnPreferenceClickListener { // Check Consent SDK
+                gdprConsentBtn?.onPreferenceClickListener = Preference.OnPreferenceClickListener { // Check Consent SDK
                     // Request the consent without callback
                     // consentSDK.requestConsent(null);
                     //To get the result of the consent
-                    consentSDK!!.requestConsent(object : ConsentStatusCallback() {
+                    consentSDK.requestConsent(object : ConsentStatusCallback() {
                         override fun onResult(isRequestLocationInEeaOrUnknown: Boolean, isConsentPersonalized: Int) {
                             var choice = ""
                             when (isConsentPersonalized) {
@@ -152,7 +160,7 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
 
 
             // Faq button
-            creditsBtn.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            creditsBtn?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 val showEqOnMap = Intent(activity, CreditsActivity::class.java)
                 startActivity(showEqOnMap)
                 true
@@ -171,7 +179,7 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
             val sPreference = sharedPreferences.getString(preference.key, "")
 
             // callback invokation on preference param
-            onPreferenceChange(preference, sPreference)
+            onPreferenceChange(preference, sPreference as Any)
         }
 
         override fun onPreferenceChange(preference: Preference, newValue: Any): Boolean {

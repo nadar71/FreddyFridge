@@ -7,10 +7,10 @@
     -->
 
     <color name="colorPrimary">#7aa44d</color>
-    <color name="colorPrimaryDark">#C3578D18</color>
+    <color name="colorPrimaryDark">#578d18</color>
     <color name="colorAccent">#EC9039</color>
 
-    <color name="text_color">#734B26</color>
+    <color name="brown">#734B26</color>
 
     <color name="today_list_record_light_grey">#c8c3dbf6</color>
     <color name="fab_yellow">#fcc742</color>
@@ -21,6 +21,7 @@
     <color name="background_lightgreen_semitransparent">#c8007e00</color>
     <color name="fab_light_green">#2cfd03</color>
     <color name="light_white_semitransparent">#dcffffff</color>
+    <color name="light_white_transparent">#00FFFFFF</color>
     <color name="colorPrimary_semitransparent">#c87aa44d</color>
     <color name="light_grey_very_transparent">#6ec3dbf6</color>
 

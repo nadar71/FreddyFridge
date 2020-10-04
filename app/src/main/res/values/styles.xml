@@ -7,10 +7,20 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textViewStyle">@style/quicksand_font_style</item>
+        <item name="preferenceTheme">@style/PreferencesThemeOverlay</item>
     </style>
 
     <style name="quicksand_font_style">
         <item name="android:fontFamily">@font/quicksand</item>
+    </style>
+
+    <style name="PreferencesThemeOverlay" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="colorAccent">@color/brown</item>
+    </style>
+
+    <!-- AppIntro Activity & Slides -->
+    <style name="AppIntro" parent="AppTheme">
+        <item name="android:background">@color/light_white_semitransparent</item>
     </style>
 
 </resources>

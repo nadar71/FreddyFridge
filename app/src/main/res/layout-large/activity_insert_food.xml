@@ -27,21 +27,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
         app:adSize="BANNER"
         app:adUnitId="@string/admob_key_bottom_banner"
-        app:layout_constraintBottom_toTopOf="@+id/date_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/date_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="9dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/rounded_rectangle"
         android:backgroundTint="@color/light_grey_very_transparent"
@@ -56,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adView"
         app:layout_constraintVertical_bias="0.52" />
 
     <CalendarView
@@ -112,7 +110,7 @@
         android:paddingRight="8dp"
         android:paddingBottom="4dp"
         android:text=""
-        android:textColor="@color/text_color"
+        android:textColor="@color/brown"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/save_btn"
         app:layout_constraintEnd_toStartOf="@+id/speak_btn"
