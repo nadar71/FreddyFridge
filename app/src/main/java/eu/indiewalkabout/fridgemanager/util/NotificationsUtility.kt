@@ -131,7 +131,6 @@ object NotificationsUtility {
      */
     fun remindTodayExpiringFood(context: Context, foodEntries: List<FoodEntry>) {
 
-
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

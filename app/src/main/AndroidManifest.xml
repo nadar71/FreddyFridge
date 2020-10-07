@@ -74,7 +74,7 @@
 
         <!-- JobService declaration used in FirebaseJobDispatcher -->
         <service
-            android:name=".reminder.FoodReminder_fbjob"
+            android:name=".reminder.FoodReminderWorker"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />

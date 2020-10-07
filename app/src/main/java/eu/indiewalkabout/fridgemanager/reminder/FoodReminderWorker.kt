@@ -1,23 +1,29 @@
 package eu.indiewalkabout.fridgemanager.reminder
 
-import com.firebase.jobdispatcher.JobParameters
-import com.firebase.jobdispatcher.JobService
-
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import java.util.concurrent.TimeUnit
-
+import androidx.work.ListenableWorker
+import androidx.work.ListenableWorker.Result.success
+import androidx.work.Worker
+import androidx.work.WorkerParameters
 import eu.indiewalkabout.fridgemanager.SingletonProvider
 import eu.indiewalkabout.fridgemanager.data.FoodEntry
 import eu.indiewalkabout.fridgemanager.util.DateUtility
 import eu.indiewalkabout.fridgemanager.util.PreferenceUtility
+import java.util.concurrent.TimeUnit
 
-class FoodReminder_fbjob : JobService() {
+class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
+        Worker(appContext, params) {
 
+    companion object {
+        val TAG = FoodReminderWorker::class.java.simpleName
+    }
 
-    override fun onStartJob(params: JobParameters): Boolean {
+    // Check the food entries in db and in case activate the specific reminder
+    override fun doWork(): ListenableWorker.Result {
 
-        val context = this@FoodReminder_fbjob
+        val context = applicationContext
 
         // hardcoded for debug, next in preferences key
         // day before in millisec
@@ -28,7 +34,7 @@ class FoodReminder_fbjob : JobService() {
 
         // -----------------------------------------------------------------------------------------
         // 1 - check for food expiring in the next days
-        // -----------------------------------------------------------------------------------------
+
         val foodEntriesNextDays: LiveData<MutableList<FoodEntry>>
 
         val dataNormalizedAtMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.normalizedUtcMsForToday)
@@ -51,12 +57,11 @@ class FoodReminder_fbjob : JobService() {
 
         // -----------------------------------------------------------------------------------------
         // 2 - check for food expiring today
-        // -----------------------------------------------------------------------------------------
+
         val foodEntriesToDay: LiveData<MutableList<FoodEntry>>
 
         val previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS
         val nextDayDate = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS
-
 
         foodEntriesToDay = repository.loadFoodExpiringToday(previousDayDate, nextDayDate)
 
@@ -69,22 +74,8 @@ class FoodReminder_fbjob : JobService() {
             }
         })
 
-
-
-        return true
+        return success()
     }
-
-
-    override fun onStopJob(params: JobParameters): Boolean {
-        // if (bgReminderTask != null) bgReminderTask.cancel(true);
-        return true
-    }
-
-    companion object {
-        // private AsyncTask bgReminderTask;
-
-        val TAG = FoodReminder_fbjob::class.java.simpleName
-    }
-
 
 }
+
