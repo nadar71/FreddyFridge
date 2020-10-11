@@ -1,25 +1,22 @@
 package eu.indiewalkabout.fridgemanager.ui
 
 import android.app.Application
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import androidx.preference.PreferenceManager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import android.util.Log
+import android.view.*
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.WindowManager
-import android.widget.ImageView
-import android.widget.TextView
 import com.google.android.gms.ads.AdView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import com.hlab.fabrevealmenu.view.FABRevealMenu
@@ -29,6 +26,8 @@ import eu.indiewalkabout.fridgemanager.ui.FoodListAdapter.ItemClickListener
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.ConsentCallback
+import eu.indiewalkabout.fridgemanager.util.OnSwipeTouchListener
+
 
 class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedListener {
     // admob banner ref
@@ -46,21 +45,22 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
     lateinit var foodList: androidx.recyclerview.widget.RecyclerView
     lateinit var foodListAdapter: FoodListAdapter
 
+    // gestures
+    var onSwipeTouchListener: OnSwipeTouchListener? = null
+
     // vars utils for testing
     private var numPrevOpenings = 0
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Return the reference to ConsentSDK instance to beused by test classes
-     * ---------------------------------------------------------------------------------------------
-     * @return
-     */
+    // ---------------------------------------------------------------------------------------------
+    // Return the reference to ConsentSDK instance to beused by test classes
+
     var consentObjReference: ConsentSDK? = null
         private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        onSwipeTouchListener = OnSwipeTouchListener(this, findViewById<View>(R.id.home_activity_layout))
 
         // open intro only for the first 3 times
         numPrevOpenings = appOpenings
@@ -100,6 +100,9 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
         // make bottom navigation bar and status bar hide
         hideStatusNavBars()
+
+        // TODO : do thing on swipe
+
     }
 
 
@@ -132,6 +135,9 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
             mAdView.loadAd(getAdRequest(this@MainActivity))
         }
     }
+
+
+
 
     /**
      * ---------------------------------------------------------------------------------------------

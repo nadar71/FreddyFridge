@@ -24,11 +24,13 @@ object ReminderScheduler {
 
     @Synchronized
     fun scheduleChargingReminder(context: Context) {
-        if (sInitialized) return
+        // if (sInitialized) return
 
         // get frequency of daily reminder from preferences
         val hoursFrequency = PreferenceUtility.getHoursCount(context)
         periodicity = TimeUnit.HOURS.toSeconds(hoursFrequency.toLong())
+        // debug
+        // periodicity = 60
 
         val request :PeriodicWorkRequest = PeriodicWorkRequestBuilder<FoodReminderWorker>(periodicity, TimeUnit.SECONDS)
                         .build()
@@ -37,6 +39,6 @@ object ReminderScheduler {
                 .enqueueUniquePeriodicWork(REMINDER_JOB_TAG, ExistingPeriodicWorkPolicy.KEEP, request)
 
         // request initialized
-        sInitialized = true
+        // sInitialized = true
     }
 }

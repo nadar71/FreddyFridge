@@ -1,5 +1,7 @@
 package eu.indiewalkabout.fridgemanager.util
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.os.Build
 
 import java.util.Random
@@ -34,6 +36,21 @@ object GenericUtility {
             val rand = Random(System.currentTimeMillis())
             return rand.nextInt(max - min + 1 + min)
         }
+    }
+
+
+    // generic alert
+    fun showGenericBlockingAlert(title: String, msg: String, activity: Activity) {
+        val dialogBuilder = AlertDialog.Builder(activity)
+        dialogBuilder.setMessage(msg)
+                .setCancelable(false)
+                .setPositiveButton("OK") { dialog, id ->
+                }
+
+        val alert = dialogBuilder.create()
+        alert.setCancelable(false)
+        alert.setTitle(title)
+        alert.show()
     }
 
 }

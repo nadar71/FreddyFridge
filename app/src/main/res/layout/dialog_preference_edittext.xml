@@ -14,7 +14,6 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/rounded_rect_white"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
         android:text="2"

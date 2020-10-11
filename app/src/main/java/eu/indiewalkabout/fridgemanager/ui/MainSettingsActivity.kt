@@ -2,6 +2,7 @@ package eu.indiewalkabout.fridgemanager.ui
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
@@ -13,12 +14,7 @@ import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.preference.EditTextPreference
-import androidx.preference.ListPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
-import com.google.android.gms.ads.AdView
+import androidx.preference.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
@@ -31,7 +27,9 @@ import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.isConsentPersonalized
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.isUserLocationWithinEea
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.ConsentStatusCallback
+import eu.indiewalkabout.fridgemanager.util.GenericUtility
 import eu.indiewalkabout.fridgemanager.util.PreferenceUtility.getHoursCount
+import kotlinx.android.synthetic.main.activity_main_settings.*
 
 class MainSettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
         OnFABMenuSelectedListener {
@@ -45,9 +43,6 @@ class MainSettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPre
     lateinit var SettingsToolbar: Toolbar
     lateinit var toolbarTitle: TextView
     var fabMenu: FABRevealMenu? = null
-
-    // admob banner ref
-    lateinit var mAdView: AdView
 
 
     override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
@@ -72,10 +67,10 @@ class MainSettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPre
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_settings)
-        mAdView = findViewById(R.id.adView)
 
+        // admob banner ref
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        mAdView.loadAd(getAdRequest(this@MainSettingsActivity))
+        adView.loadAd(getAdRequest(this@MainSettingsActivity))
 
         // init toolbar
         toolBarInit()
@@ -119,7 +114,9 @@ class MainSettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPre
      // ---------------------------------------------------------------------------------------------
      // Preferences screen manager class
 
-    class MainPreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
+    class MainPreferenceFragment : PreferenceFragmentCompat(),
+            Preference.OnPreferenceChangeListener,
+            SharedPreferences.OnSharedPreferenceChangeListener{
         lateinit var consentSDK: ConsentSDK
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -133,6 +130,9 @@ class MainSettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPre
 
             // get preference Screen reference
             val preferenceScreen = preferenceManager.createPreferenceScreen(activity)
+
+            preferenceScreen.sharedPreferences
+                    .registerOnSharedPreferenceChangeListener(this)
 
             // bind prefs on changes
             val dayBeforePref: EditTextPreference? = findPreference(dayBeforeKey!!)
@@ -207,8 +207,11 @@ class MainSettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPre
             onPreferenceChange(preference, sPreference as Any)
         }
 
+        // Update summary before writing on shared preferences
         override fun onPreferenceChange(preference: Preference, newValue: Any): Boolean {
             val sValue = newValue.toString()
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(preference.context)
+
             if (preference is ListPreference) {
                 val prefindex = preference.findIndexOfValue(sValue)
                 if (prefindex >= 0) {
@@ -226,11 +229,36 @@ class MainSettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPre
                 preference.summary = sValue
             }
 
-            // Relaunch job scheduler in case
-            if (preference.key == dayBeforeKey || preference.key == hoursFreqKey) {
-                scheduleChargingReminder(preference.context)
-            }
             return true
+        }
+
+
+        // Update summary after writing on shared preferences
+        override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
+            val preference: Preference? = findPreference(key!!)
+            if (preference != null) {
+                if (preference.key == dayBeforeKey) {
+                    val value = sharedPreferences.getString(preference.key, "")
+                    // days before timeline can't be null
+                    if (value.equals("")){
+                        preference.summary = "1"
+                        with (sharedPreferences.edit()) {
+                            putString(dayBeforeKey, "1")
+                            apply()
+                        }
+
+                        GenericUtility.showGenericBlockingAlert(
+                                getString(R.string.days_alert_dialog_title),
+                                getString(R.string.days_alert_dialog_msg),
+                                requireActivity())
+                    }
+                }
+
+                // Relaunch job scheduler in case
+                if (preference.key == dayBeforeKey || preference.key == hoursFreqKey) {
+                    scheduleChargingReminder(preference.context)
+                }
+            }
         }
 
         // -----------------------------------------------------------------------------------------

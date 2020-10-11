@@ -2,11 +2,52 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_activity_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
     tools:context="eu.indiewalkabout.fridgemanager.ui.MainActivity">
 
+    <Button
+        android:id="@+id/testNotifications_btn"
+        android:layout_width="117dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="16dp"
+        android:onClick="testNotification"
+        android:text="All_notif"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.072"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/testTodayNotification_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="276dp"
+        android:onClick="testTodayNotification"
+        android:text="today_notif"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.222"
+        app:layout_constraintStart_toStartOf="@+id/testNotifications_btn"
+        app:layout_constraintTop_toBottomOf="@+id/testNotifications_btn" />
+    <!--
+        <TextView
+            android:id="@+id/app_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/fredoka_one"
+            android:text="@string/app_name"
+            android:textColor="@color/light_white_semitransparent"
+            android:textSize="39sp"
+            android:visibility="invisible"
+            tools:layout_editor_absoluteX="265dp"
+            tools:layout_editor_absoluteY="24dp" />
+    -->
     <ImageView
         android:id="@+id/food_background"
         android:layout_width="0dp"
@@ -30,19 +71,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_help_white_24dp" />
-    <!--
-        <TextView
-            android:id="@+id/app_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/fredoka_one"
-            android:text="@string/app_name"
-            android:textColor="@color/light_white_semitransparent"
-            android:textSize="39sp"
-            android:visibility="invisible"
-            tools:layout_editor_absoluteX="265dp"
-            tools:layout_editor_absoluteY="24dp" />
-    -->
+
     <ImageView
         android:id="@+id/app_title_img"
         android:layout_width="0dp"
@@ -84,6 +113,7 @@
         app:layout_constraintTop_toBottomOf="@+id/fridge_logo"
         app:srcCompat="@drawable/main_logo_left" />
 
+
     <ImageView
         android:id="@+id/fridge_logo"
         android:layout_width="118dp"
@@ -97,6 +127,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_title_img"
         app:srcCompat="@drawable/fridge_background" />
+
+    <ImageView
+        android:id="@+id/settingsIcon_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/settings_icon"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/app_title_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_filter_vintage_white_24dp" />
+
 
     <TextView
         android:id="@+id/newFoodLabel"
@@ -118,7 +163,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/fridge_logo"
         app:layout_constraintTop_toBottomOf="@+id/fridge_logo" />
-
 
     <TextView
         android:id="@+id/today_expiring_list_title"
@@ -142,51 +186,6 @@
         app:layout_constraintStart_toEndOf="@+id/newFoodLabel"
         app:layout_constraintTop_toBottomOf="@+id/newFoodLabel" />
 
-    <Button
-        android:id="@+id/testNotifications_btn"
-        android:layout_width="117dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="16dp"
-        android:onClick="testNotification"
-        android:text="All_notif"
-        android:textSize="12sp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.072"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <Button
-        android:id="@+id/testTodayNotification_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="37dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="276dp"
-        android:onClick="testTodayNotification"
-        android:text="today_notif"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.222"
-        app:layout_constraintStart_toStartOf="@+id/testNotifications_btn"
-        app:layout_constraintTop_toBottomOf="@+id/testNotifications_btn" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_today_food_list_recycleView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/rounded_rect"
-        android:backgroundTint="@color/light_grey_very_transparent"
-        android:contentDescription="food_expiring_today_main"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/today_expiring_list_title" />
-
     <!-- Empty view is only visible when the list has no items. -->
     <TextView
         android:id="@+id/empty_view"
@@ -208,20 +207,36 @@
         app:layout_constraintTop_toTopOf="@+id/main_today_food_list_recycleView" />
 
 
-    <ImageView
-        android:id="@+id/settingsIcon_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_today_food_list_recycleView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
-        android:contentDescription="@string/settings_icon"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/app_title_img"
+        android:background="@drawable/rounded_rect"
+        android:backgroundTint="@color/light_grey_very_transparent"
+        android:contentDescription="food_expiring_today_main"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_filter_vintage_white_24dp" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/today_expiring_list_title" />
 
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/admob_key_bottom_banner"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/main_fab"
@@ -237,6 +252,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/main_today_food_list_recycleView"
         app:layout_constraintEnd_toEndOf="@+id/main_today_food_list_recycleView"
         app:srcCompat="@drawable/ic_refrigerator_icon" />
+
 
     <com.hlab.fabrevealmenu.view.FABRevealMenu
         android:id="@+id/main_fabMenu"
@@ -257,23 +273,7 @@
         app:menuTitleFontFamily="@font/quicksand"
         app:menuTitleTextColor="@color/colorWhite"
         app:showOverlay="true"
-        app:showTitle="true">
-    </com.hlab.fabrevealmenu.view.FABRevealMenu>
-
-
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/admob_key_bottom_banner"
-        ads:layout_constraintBottom_toBottomOf="parent"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="parent"/>
+        app:showTitle="true"></com.hlab.fabrevealmenu.view.FABRevealMenu>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

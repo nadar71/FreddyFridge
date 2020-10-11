@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <PreferenceCategory
+        android:textColor="@color/brown"
+        android:textStyle="bold"
         android:title="@string/category_settings_title"
         app:iconSpaceReserved="false">
 
@@ -13,6 +14,7 @@
             android:layout_width="wrap_content"
             android:background="@drawable/rounded_rect_light_grey_today"
             android:key="@string/days_before_deadline_count"
+            app:defaultValue="2"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:summary="@string/how_many_days_before_label"
@@ -20,14 +22,14 @@
             app:iconSpaceReserved="false" />
 
         <ListPreference
-            android:defaultValue="@string/today_hours_repeat_default"
             android:background="@drawable/rounded_rect_light_grey_today"
+            android:defaultValue="@string/today_hours_repeat_default"
             android:entries="@array/hours_freq_labels"
             android:entryValues="@array/hours_freq_values"
             android:key="@string/hours_freq_today_deadline_count"
             android:summary="@string/how_many_hours_label"
             android:title="@string/how_many_hours_title"
-            app:iconSpaceReserved="false"/>
+            app:iconSpaceReserved="false" />
 
     </PreferenceCategory>
 
@@ -40,13 +42,13 @@
             android:key="@string/credits_btn_key"
             android:summary="@string/credits_btn_summary"
             android:title="@string/credits_btn_title"
-            app:iconSpaceReserved="false"/>
+            app:iconSpaceReserved="false" />
 
         <Preference
             android:key="@string/gdpr_btn_key"
             android:summary="@string/gdpr_btn_summary"
             android:title="@string/gdpr_btn_title"
-            app:iconSpaceReserved="false"/>
+            app:iconSpaceReserved="false" />
 
     </PreferenceCategory>
 
