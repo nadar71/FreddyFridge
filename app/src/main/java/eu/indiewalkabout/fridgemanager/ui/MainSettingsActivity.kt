@@ -4,21 +4,22 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import androidx.preference.ListPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragment
-import androidx.preference.PreferenceManager
-import androidx.preference.PreferenceFragmentCompat
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.text.Html
+import android.text.InputType
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.preference.EditTextPreference
+import androidx.preference.ListPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import com.google.android.gms.ads.AdView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import com.hlab.fabrevealmenu.view.FABRevealMenu
@@ -32,7 +33,8 @@ import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.isUserLocationW
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.ConsentStatusCallback
 import eu.indiewalkabout.fridgemanager.util.PreferenceUtility.getHoursCount
 
-class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
+class MainSettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
+        OnFABMenuSelectedListener {
 
     companion object {
         val TAG = MainSettingsActivity::class.java.name
@@ -47,6 +49,22 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
     // admob banner ref
     lateinit var mAdView: AdView
 
+
+    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
+        // Instantiate the new Fragment
+        val args = pref.extras
+        val fragment = supportFragmentManager.fragmentFactory.instantiate(
+                classLoader,
+                pref.fragment)
+        fragment.arguments = args
+        fragment.setTargetFragment(caller, 0)
+        // Replace the existing Fragment with the new Fragment
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.settingsFrag, fragment)
+                .addToBackStack(null)
+                .commit()
+        return true
+    }
 
     // ---------------------------------------------------------------------------------------------
     // onCreate
@@ -117,7 +135,14 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
             val preferenceScreen = preferenceManager.createPreferenceScreen(activity)
 
             // bind prefs on changes
-            val dayBeforePref: Preference? = findPreference(dayBeforeKey!!)
+            val dayBeforePref: EditTextPreference? = findPreference(dayBeforeKey!!)
+            // NB : forced to avoid error :
+            // https://stackoverflow.com/questions/41123715/dialog-view-must-contain-an-edittext-with-id-androidid-edit
+            dayBeforePref?.dialogLayoutResource = R.layout.dialog_preference_edittext
+            dayBeforePref?.setOnBindEditTextListener { editText ->
+                        editText.inputType = InputType.TYPE_CLASS_NUMBER
+            }
+
             if (dayBeforePref != null) {
                 bindPreferenceSummaryToValue(dayBeforePref)
             }
