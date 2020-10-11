@@ -10,18 +10,18 @@
 
 
         <EditTextPreference
-            android:layout_width="match_parent"
-            android:background="@color/light_grey_very_transparent"
-            android:defaultValue="@string/days_before_default"
+            android:layout_width="wrap_content"
+            android:background="@drawable/rounded_rect_light_grey_today"
             android:key="@string/days_before_deadline_count"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:summary="@string/how_many_days_before_label"
             android:title="@string/how_many_days_before_title"
-            app:iconSpaceReserved="false"/>
+            app:iconSpaceReserved="false" />
 
         <ListPreference
             android:defaultValue="@string/today_hours_repeat_default"
+            android:background="@drawable/rounded_rect_light_grey_today"
             android:entries="@array/hours_freq_labels"
             android:entryValues="@array/hours_freq_values"
             android:key="@string/hours_freq_today_deadline_count"
