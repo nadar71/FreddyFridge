@@ -33,7 +33,8 @@ object ReminderScheduler {
         // get frequency of daily reminder from preferences
         val hoursFrequency = PreferenceUtility.getHoursCount(context)
         // periodicity = TimeUnit.HOURS.toSeconds(hoursFrequency.toLong())
-        // debug 11:46 -> 12:02
+
+        // debug frequency
         periodicity = 60*16
 
         val request :PeriodicWorkRequest = PeriodicWorkRequestBuilder<FoodReminderWorker>(periodicity, TimeUnit.SECONDS)

@@ -1,6 +1,7 @@
 package eu.indiewalkabout.fridgemanager.reminder
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.work.Worker
@@ -30,7 +31,7 @@ class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
         val context = applicationContext
 
         // time scheduling
-
+        Log.i(TAG, "doWork: FoodReminderWorker activated by scheduler!")
         // * hardcoded for debug, next in preferences key :
         // day before in millisec
         // 2 days = 172800000
