@@ -1,6 +1,7 @@
 package eu.indiewalkabout.fridgemanager.reminder
 
 import android.content.Context
+import android.util.Log
 import androidx.work.*
 
 import com.firebase.jobdispatcher.FirebaseJobDispatcher
@@ -21,6 +22,9 @@ object ReminderScheduler {
     private val REMINDER_JOB_TAG = "food_reminder_tag"
     private var sInitialized: Boolean = false
 
+    val TAG = ReminderScheduler::class.java.simpleName
+
+
 
     @Synchronized
     fun scheduleChargingReminder(context: Context) {
@@ -28,15 +32,17 @@ object ReminderScheduler {
 
         // get frequency of daily reminder from preferences
         val hoursFrequency = PreferenceUtility.getHoursCount(context)
-        periodicity = TimeUnit.HOURS.toSeconds(hoursFrequency.toLong())
-        // debug
-        // periodicity = 60
+        // periodicity = TimeUnit.HOURS.toSeconds(hoursFrequency.toLong())
+        // debug 11:46 -> 12:02
+        periodicity = 60*16
 
         val request :PeriodicWorkRequest = PeriodicWorkRequestBuilder<FoodReminderWorker>(periodicity, TimeUnit.SECONDS)
                         .build()
 
         WorkManager.getInstance(context)
                 .enqueueUniquePeriodicWork(REMINDER_JOB_TAG, ExistingPeriodicWorkPolicy.KEEP, request)
+
+        Log.i(TAG, "Scheduling every seconds : ${periodicity}")
 
         // request initialized
         // sInitialized = true

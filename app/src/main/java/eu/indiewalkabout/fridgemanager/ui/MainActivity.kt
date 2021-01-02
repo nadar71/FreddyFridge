@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
     private var numPrevOpenings = 0
 
     // ---------------------------------------------------------------------------------------------
-    // Return the reference to ConsentSDK instance to beused by test classes
+    // Return the reference to ConsentSDK instance to be used by test classes
 
     var consentObjReference: ConsentSDK? = null
         private set
@@ -60,7 +60,9 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        onSwipeTouchListener = OnSwipeTouchListener(this, findViewById<View>(R.id.home_activity_layout))
+
+        // TODO : fix problem for home_activity_layout in onSwipeTouchListener
+        // onSwipeTouchListener = OnSwipeTouchListener(this, findViewById<View>(R.id.home_activity_layout))
 
         // open intro only for the first 3 times
         numPrevOpenings = appOpenings
@@ -101,7 +103,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         // make bottom navigation bar and status bar hide
         hideStatusNavBars()
 
-        // TODO : do thing on swipe
+        // TODO : do thing on swipe, check OnSwipeTouchListener
 
     }
 
@@ -148,6 +150,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         // minsdk version is 19, no need code for lower api
         val decorView = window.decorView
 
+        /* old code
         // hide status bar
         if (Build.VERSION.SDK_INT < 16) {
             window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -165,6 +168,14 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
                     View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
             decorView.systemUiVisibility = uiOptions
         }
+        */
+
+        // hide status bar
+        decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+
+        // hide navigation bar
+        val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        decorView.systemUiVisibility = uiOptions
     }
 
     /**
@@ -179,12 +190,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
     /**
      * ---------------------------------------------------------------------------------------------
-     * Get the number of times the app has been opened
-     * ---------------------------------------------------------------------------------------------
-     */
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Set the number of times the app has been opened
+     * Get/Set the number of times the app has been opened
      * ---------------------------------------------------------------------------------------------
      */
     var appOpenings: Int
@@ -201,12 +207,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
     /**
      * ---------------------------------------------------------------------------------------------
-     * Get if consent gdpr must be asked or not
-     * ---------------------------------------------------------------------------------------------
-     */
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Set if consent gdpr must be asked or not
+     * Get/Set if consent gdpr must be asked or not
      * ---------------------------------------------------------------------------------------------
      */
     var consentSDKNeed: Boolean

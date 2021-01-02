@@ -31,7 +31,10 @@ import eu.indiewalkabout.fridgemanager.util.GenericUtility
 import eu.indiewalkabout.fridgemanager.util.PreferenceUtility.getHoursCount
 import kotlinx.android.synthetic.main.activity_main_settings.*
 
-class MainSettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
+
+// Settings configuration class; uses activity_main_settings layout and include settingsFrag
+class MainSettingsActivity : AppCompatActivity(),
+        PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
         OnFABMenuSelectedListener {
 
     companion object {
@@ -92,6 +95,7 @@ class MainSettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPre
         // minsdk version is 19, no need code for lower api
         val decorView = window.decorView
 
+        /* old code
         // hide status bar
         if (Build.VERSION.SDK_INT < 16) {
             window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -109,10 +113,19 @@ class MainSettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPre
                     View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
             decorView.systemUiVisibility = uiOptions
         }
+        */
+
+        // hide status bar
+        decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+
+        // hide navigation bar
+        val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        decorView.systemUiVisibility = uiOptions
+
     }
 
      // ---------------------------------------------------------------------------------------------
-     // Preferences screen manager class
+     // Preferences screen manager class which is used by  activity_main_settings.xml
 
     class MainPreferenceFragment : PreferenceFragmentCompat(),
             Preference.OnPreferenceChangeListener,
@@ -359,18 +372,22 @@ class MainSettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPre
         if (id == R.id.menu_insert) {
             val toInsertFood = Intent(this@MainSettingsActivity, InsertFoodActivity::class.java)
             startActivity(toInsertFood)
+
         } else if (id == R.id.menu_expiring_food) {
             val showExpiringFood = Intent(this@MainSettingsActivity, FoodListActivity::class.java)
             showExpiringFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_EXPIRING)
             startActivity(showExpiringFood)
+
         } else if (id == R.id.menu_consumed_food) {
             val showSavedFood = Intent(this@MainSettingsActivity, FoodListActivity::class.java)
             showSavedFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_SAVED)
             startActivity(showSavedFood)
+
         } else if (id == R.id.menu_dead_food) {
             val showDeadFood = Intent(this@MainSettingsActivity, FoodListActivity::class.java)
             showDeadFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_DEAD)
             startActivity(showDeadFood)
+
         } else if (id == R.id.menu_home) {
             val returnHome = Intent(this@MainSettingsActivity, MainActivity::class.java)
             startActivity(returnHome)
