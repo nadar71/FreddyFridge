@@ -31,7 +31,7 @@ class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
         val context = applicationContext
 
         // time scheduling
-        Log.i(TAG, "doWork: FoodReminderWorker activated by scheduler!")
+        Log.i(TAG, "Workmanager, doWork: FoodReminderWorker activated by scheduler!")
         // * hardcoded for debug, next in preferences key :
         // day before in millisec
         // 2 days = 172800000

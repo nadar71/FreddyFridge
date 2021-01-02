@@ -32,20 +32,18 @@ object ReminderScheduler {
 
         // get frequency of daily reminder from preferences
         val hoursFrequency = PreferenceUtility.getHoursCount(context)
-        // periodicity = TimeUnit.HOURS.toSeconds(hoursFrequency.toLong())
+        periodicity = TimeUnit.HOURS.toSeconds(hoursFrequency.toLong())
 
         // debug frequency
-        periodicity = 60*16
+        // periodicity = 60*16
 
-        val request :PeriodicWorkRequest = PeriodicWorkRequestBuilder<FoodReminderWorker>(periodicity, TimeUnit.SECONDS)
-                        .build()
+        val request = PeriodicWorkRequest
+                .Builder(FoodReminderWorker::class.java,periodicity,TimeUnit.SECONDS)
+                .build()
 
-        WorkManager.getInstance(context)
-                .enqueueUniquePeriodicWork(REMINDER_JOB_TAG, ExistingPeriodicWorkPolicy.KEEP, request)
+        WorkManager.getInstance(context).enqueue(request)
 
-        Log.i(TAG, "Scheduling every seconds : ${periodicity}")
+        Log.i(TAG, "Workmanager, scheduling every seconds : ${periodicity}")
 
-        // request initialized
-        // sInitialized = true
     }
 }
