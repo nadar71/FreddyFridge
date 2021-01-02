@@ -53,7 +53,7 @@ class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
         val expiringDateToBeNotified = dataNormalizedAtMidnight + DAYS_BEFORE
         // 1549926000000 - 172800000 = 1549753200000
 
-        // TODO : make this retrieving data from db in a different way
+        // TODO : make this retrieving data from db with coroutine
         // get repository
         val repository = (SingletonProvider.getsContext() as SingletonProvider).repository
         foodEntriesNextDays = repository!!.loadAllFoodExpiring(expiringDateToBeNotified)
