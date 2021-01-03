@@ -10,6 +10,9 @@ import eu.indiewalkabout.fridgemanager.SingletonProvider
 import eu.indiewalkabout.fridgemanager.data.FoodEntry
 import eu.indiewalkabout.fridgemanager.util.DateUtility
 import eu.indiewalkabout.fridgemanager.util.PreferenceUtility
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 
@@ -47,7 +50,7 @@ class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
         //        so the val dateBefore = dataNormalizedAtMidnight - DAYS_BEFORE couldn't be :
         //        val dateBefore = dataNormalizedAtMidnight + DAYS_BEFORE ? now fixed, must check
 
-        val foodEntriesNextDays: LiveData<MutableList<FoodEntry>>
+        // var foodEntriesNextDays: MutableList<FoodEntry>
 
         val dataNormalizedAtMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.normalizedUtcMsForToday)
         val expiringDateToBeNotified = dataNormalizedAtMidnight + DAYS_BEFORE
@@ -56,8 +59,16 @@ class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
         // TODO : make this retrieving data from db with coroutine
         // get repository
         val repository = (SingletonProvider.getsContext() as SingletonProvider).repository
-        foodEntriesNextDays = repository!!.loadAllFoodExpiring(expiringDateToBeNotified)
 
+        CoroutineScope(IO).launch {
+            Log.i(TAG, "Workmanager, doWork: check food expiring in the next days")
+            val foodEntriesNextDays = repository!!.loadAllFoodExpiring_no_livedata(expiringDateToBeNotified)
+            if (foodEntriesNextDays.size > 0) {
+                ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_NEXT_DAYS_EXPIRING_FOOD, foodEntriesNextDays)
+            }
+        }
+
+        /*
         foodEntriesNextDays.observeForever(object : Observer<MutableList<FoodEntry>> {
             override fun onChanged(foodEntries: MutableList<FoodEntry>?) {
                 if (foodEntries!!.size > 0) {
@@ -66,17 +77,20 @@ class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
                 foodEntriesNextDays.removeObserver(this)
             }
         })
+         */
 
 
         // -----------------------------------------------------------------------------------------
         // 2 - check for food expiring today, and show notification in case
 
-        val foodEntriesToDay: LiveData<MutableList<FoodEntry>>
+        // val foodEntriesToDay: LiveData<MutableList<FoodEntry>>
 
         val previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS
         val nextDayDate = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS
 
         // TODO : make this retrieving data from db in a different way
+
+        /*
         foodEntriesToDay = repository.loadFoodExpiringToday(previousDayDate, nextDayDate)
 
         foodEntriesToDay.observeForever(object : Observer<MutableList<FoodEntry>> {
@@ -87,6 +101,15 @@ class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
                 foodEntriesToDay.removeObserver(this)
             }
         })
+        */
+
+        CoroutineScope(IO).launch {
+            Log.i(TAG, "Workmanager, doWork: check food expiring in today")
+            val foodEntriesToDay = repository!!.loadFoodExpiringToday_no_livedata(previousDayDate, nextDayDate)
+            if (foodEntriesToDay.size > 0) {
+                ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_TODAY_EXPIRING_FOOD, foodEntriesToDay)
+            }
+        }
 
         return Result.success()
     }
