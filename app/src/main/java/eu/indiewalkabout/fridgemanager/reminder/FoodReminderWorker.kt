@@ -9,6 +9,7 @@ import androidx.work.WorkerParameters
 import eu.indiewalkabout.fridgemanager.SingletonProvider
 import eu.indiewalkabout.fridgemanager.data.FoodEntry
 import eu.indiewalkabout.fridgemanager.util.DateUtility
+import eu.indiewalkabout.fridgemanager.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.util.PreferenceUtility
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -56,32 +57,24 @@ class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
         val expiringDateToBeNotified = dataNormalizedAtMidnight + DAYS_BEFORE
         // 1549926000000 - 172800000 = 1549753200000
 
-        // TODO : make this retrieving data from db with coroutine
         // get repository
         val repository = (SingletonProvider.getsContext() as SingletonProvider).repository
 
-        /*
+
         CoroutineScope(IO).launch {
             Log.i(TAG, "Workmanager, doWork: check food expiring in the next days")
             val foodEntriesNextDays = repository!!.loadAllFoodExpiring_no_livedata(expiringDateToBeNotified)
-            if (foodEntriesNextDays.size > 0) {
-                ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_NEXT_DAYS_EXPIRING_FOOD, foodEntriesNextDays)
-                Log.i(TAG, "Workmanager, doWork: food expiring in the NEXT DAYS, notification sent")
+            foodEntriesNextDays.let {
+                if (foodEntriesNextDays.size > 0) {
+                    // ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_NEXT_DAYS_EXPIRING_FOOD, foodEntriesNextDays)
+                    NotificationsUtility.remindNextDaysExpiringFood(context, it)
+                    Log.i(TAG, "Workmanager, doWork: food expiring in the NEXT DAYS, notification sent")
+                }
+
             }
         }
 
-         */
 
-        /*
-        foodEntriesNextDays.observeForever(object : Observer<MutableList<FoodEntry>> {
-            override fun onChanged(foodEntries: MutableList<FoodEntry>?) {
-                if (foodEntries!!.size > 0) {
-                    ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_NEXT_DAYS_EXPIRING_FOOD, foodEntries)
-                }
-                foodEntriesNextDays.removeObserver(this)
-            }
-        })
-         */
 
 
         // -----------------------------------------------------------------------------------------
@@ -92,32 +85,20 @@ class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
         val previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS
         val nextDayDate = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS
 
-        // TODO : make this retrieving data from db in a different way
 
-        /*
-        foodEntriesToDay = repository.loadFoodExpiringToday(previousDayDate, nextDayDate)
-
-        foodEntriesToDay.observeForever(object : Observer<MutableList<FoodEntry>> {
-            override fun onChanged(foodEntries: MutableList<FoodEntry>?) {
-                if (foodEntries!!.size > 0) {
-                    ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_TODAY_EXPIRING_FOOD, foodEntries)
-                }
-                foodEntriesToDay.removeObserver(this)
-            }
-        })
-        */
-
-        /*
         CoroutineScope(IO).launch {
             Log.i(TAG, "Workmanager, doWork: check food expiring in today")
             val foodEntriesToDay = repository!!.loadFoodExpiringToday_no_livedata(previousDayDate, nextDayDate)
-            if (foodEntriesToDay.size > 0) {
-                ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_TODAY_EXPIRING_FOOD, foodEntriesToDay)
-                Log.i(TAG, "Workmanager, doWork: check food expiring  TODAY, notification sent")
+
+            foodEntriesToDay.let {
+                if (foodEntriesToDay.size > 0) {
+                    // ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_TODAY_EXPIRING_FOOD, foodEntriesToDay)
+                    NotificationsUtility.remindTodayExpiringFood(context, it)
+                    Log.i(TAG, "Workmanager, doWork: check food expiring  TODAY, notification sent")
+                }
             }
         }
 
-         */
 
         return Result.success()
     }
