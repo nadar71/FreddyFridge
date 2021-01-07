@@ -12,6 +12,7 @@
         android:id="@+id/food_background_img"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleType="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/food_list_toolbar"
@@ -53,9 +54,10 @@
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_rect"
         android:backgroundTint="@color/light_grey_very_transparent"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintBottom_toTopOf="@id/food_list_fab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,12 +87,11 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         app:backgroundTint="@color/colorAccent"
         app:fabSize="normal"
         app:layout_constraintBottom_toTopOf="@+id/adView"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/food_list_recycleView"
         app:srcCompat="@drawable/ic_refrigerator_icon" />
 
     <com.hlab.fabrevealmenu.view.FABRevealMenu

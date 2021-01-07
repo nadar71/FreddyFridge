@@ -13,6 +13,7 @@
         android:layout_height="0dp"
         android:background="@color/colorPrimaryDark"
         android:contentDescription="@string/background_image"
+        android:scaleType="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -24,7 +25,7 @@
         android:id="@+id/date_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:background="@drawable/rounded_rect"
         android:backgroundTint="@color/light_grey_very_transparent"
         android:elevation="2dp"
@@ -37,8 +38,6 @@
         android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/calendar_cv"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="@+id/calendar_cv"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,7 +50,6 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/rounded_rect_light_grey_very_trasparent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.729"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_tv" />
 
@@ -60,7 +58,6 @@
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginTop="32dp"
-        android:layout_marginBottom="9dp"
         android:background="@drawable/rounded_rect_light_grey_today"
         android:backgroundTint="@color/light_grey_very_transparent"
         android:contentDescription="@string/insert_food_name_tv"
@@ -73,17 +70,14 @@
         android:text="@string/insert_food_name_tv"
         android:textColor="@color/colorWhite"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/foodName_et"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/calendar_cv"
         app:layout_constraintTop_toBottomOf="@+id/calendar_cv" />
 
     <eu.indiewalkabout.fridgemanager.util.EditTextWithClear
         android:id="@+id/foodName_et"
         android:layout_width="245dp"
         android:layout_height="35dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="4dp"
         android:background="@drawable/rounded_rect_light_grey_today"
         android:elevation="2dp"
@@ -98,8 +92,6 @@
         android:text=""
         android:textColor="@color/brown"
         app:layout_constraintBottom_toTopOf="@+id/save_btn"
-        app:layout_constraintEnd_toEndOf="@+id/name_tv"
-        app:layout_constraintHorizontal_bias="0.617"
         app:layout_constraintStart_toStartOf="@+id/name_tv"
         app:layout_constraintTop_toBottomOf="@+id/name_tv"
         tools:targetApi="o" />
@@ -115,8 +107,7 @@
         android:id="@+id/save_btn"
         android:layout_width="128dp"
         android:layout_height="44dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="64dp"
         android:background="@drawable/rounded_rect_light_grey_today"
         android:backgroundTint="@color/colorPrimary"
         android:elevation="2dp"
@@ -126,12 +117,9 @@
         android:textColor="@color/colorWhite"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="@+id/foodName_et"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="@+id/foodName_et"
-        app:layout_constraintTop_toBottomOf="@+id/foodName_et"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/foodName_et" />
 
 
     <ImageView
@@ -159,38 +147,14 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+
         app:backgroundTint="@color/colorAccent"
         app:fabSize="normal"
-
         app:layout_behavior="eu.indiewalkabout.fridgemanager.util.FAB_Hide_on_Scroll"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_refrigerator_icon" />
 
-
-    <com.hlab.fabrevealmenu.view.FABRevealMenu
-        android:id="@+id/insert_food_fabMenu"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_centerInParent="true"
-        android:elevation="2dp"
-        app:animateItems="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:menuBackgroundColor="@color/colorAccent"
-        app:menuDirection="left"
-        app:menuRes="@menu/menu_fab_home"
-        app:menuSize="small"
-        app:menuTitleFontFamily="@font/quicksand"
-        app:menuTitleTextColor="@color/colorWhite"
-        app:showOverlay="true"
-        app:showTitle="true">
-
-    </com.hlab.fabrevealmenu.view.FABRevealMenu>
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
@@ -216,6 +180,30 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="516dp" />
+
+    <com.hlab.fabrevealmenu.view.FABRevealMenu
+        android:id="@+id/insert_food_fabMenu"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        android:elevation="2dp"
+        app:animateItems="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:menuBackgroundColor="@color/colorAccent"
+        app:menuDirection="left"
+        app:menuRes="@menu/menu_fab_home"
+        app:menuSize="small"
+        app:menuTitleFontFamily="@font/quicksand"
+        app:menuTitleTextColor="@color/colorWhite"
+        app:showOverlay="true"
+        app:showTitle="true">
+
+    </com.hlab.fabrevealmenu.view.FABRevealMenu>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
