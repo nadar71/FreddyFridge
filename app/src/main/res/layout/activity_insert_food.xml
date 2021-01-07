@@ -157,19 +157,14 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         app:backgroundTint="@color/colorAccent"
         app:fabSize="normal"
+
         app:layout_behavior="eu.indiewalkabout.fridgemanager.util.FAB_Hide_on_Scroll"
         app:layout_constraintBottom_toTopOf="@+id/adView"
-        app:layout_constraintEnd_toStartOf="@+id/speak_btn"
-        app:layout_constraintHorizontal_bias="0.712"
-        app:layout_constraintStart_toEndOf="@+id/speak_btn"
-        app:layout_constraintTop_toBottomOf="@+id/save_btn"
-
-        app:layout_constraintVertical_bias="0.416"
-
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_refrigerator_icon" />
 
 

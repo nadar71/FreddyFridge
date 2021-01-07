@@ -60,13 +60,17 @@ class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
         // get repository
         val repository = (SingletonProvider.getsContext() as SingletonProvider).repository
 
+        /*
         CoroutineScope(IO).launch {
             Log.i(TAG, "Workmanager, doWork: check food expiring in the next days")
             val foodEntriesNextDays = repository!!.loadAllFoodExpiring_no_livedata(expiringDateToBeNotified)
             if (foodEntriesNextDays.size > 0) {
                 ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_NEXT_DAYS_EXPIRING_FOOD, foodEntriesNextDays)
+                Log.i(TAG, "Workmanager, doWork: food expiring in the NEXT DAYS, notification sent")
             }
         }
+
+         */
 
         /*
         foodEntriesNextDays.observeForever(object : Observer<MutableList<FoodEntry>> {
@@ -103,13 +107,17 @@ class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
         })
         */
 
+        /*
         CoroutineScope(IO).launch {
             Log.i(TAG, "Workmanager, doWork: check food expiring in today")
             val foodEntriesToDay = repository!!.loadFoodExpiringToday_no_livedata(previousDayDate, nextDayDate)
             if (foodEntriesToDay.size > 0) {
                 ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_TODAY_EXPIRING_FOOD, foodEntriesToDay)
+                Log.i(TAG, "Workmanager, doWork: check food expiring  TODAY, notification sent")
             }
         }
+
+         */
 
         return Result.success()
     }

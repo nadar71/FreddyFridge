@@ -28,6 +28,7 @@ import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.isConsentPerson
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.isUserLocationWithinEea
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.ConsentStatusCallback
 import eu.indiewalkabout.fridgemanager.util.GenericUtility
+import eu.indiewalkabout.fridgemanager.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.util.PreferenceUtility.getHoursCount
 import kotlinx.android.synthetic.main.activity_main_settings.*
 
@@ -81,48 +82,9 @@ class MainSettingsActivity : AppCompatActivity(),
         // navigation fab
         addRevealFabBtn()
 
-        // make bottom navigation bar and status bar hide
-        hideStatusNavBars()
+        hideStatusNavBars(this)
     }
 
-
-
-
-    // ---------------------------------------------------------------------------------------------
-    // Make bottom navigation bar and status bar hide, without resize when reappearing
-
-    private fun hideStatusNavBars() {
-        // minsdk version is 19, no need code for lower api
-        val decorView = window.decorView
-
-        /* old code
-        // hide status bar
-        if (Build.VERSION.SDK_INT < 16) {
-            window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        } else if (Build.VERSION.SDK_INT >= 16) {
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        }
-
-        // hide navigation bar
-        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) {
-            val v = this.window.decorView
-            v.systemUiVisibility = View.GONE
-        } else if (Build.VERSION.SDK_INT >= 19) {
-            val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            decorView.systemUiVisibility = uiOptions
-        }
-        */
-
-        // hide status bar
-        decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-
-        // hide navigation bar
-        val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        decorView.systemUiVisibility = uiOptions
-
-    }
 
      // ---------------------------------------------------------------------------------------------
      // Preferences screen manager class which is used by  activity_main_settings.xml

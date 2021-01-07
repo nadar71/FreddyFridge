@@ -31,14 +31,12 @@ import eu.indiewalkabout.fridgemanager.ui.FoodsViewModel
 import eu.indiewalkabout.fridgemanager.ui.InsertFoodActivity
 import eu.indiewalkabout.fridgemanager.ui.MainActivity
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
+import eu.indiewalkabout.fridgemanager.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.util.GenericUtility.randRange_ApiCheck
 
-/**
- * ---------------------------------------------------------------------------------------------
- * FoodListActivity
- * Show list of food depending on FOOD_TYPE
- * ---------------------------------------------------------------------------------------------
- */
+// ---------------------------------------------------------------------------------------------
+// Show list of food depending on FOOD_TYPE
+
 class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedListener {
     // Views ref
     var foodsListToolbar: Toolbar? = null
@@ -95,48 +93,18 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
         // init recycle view list
         initRecycleView()
 
-        // make bottom navigation bar and status bar hide
-        hideStatusNavBars()
+        hideStatusNavBars(this)
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Make bottom navigation bar and status bar hide, without resize when reappearing
-     * ---------------------------------------------------------------------------------------------
-     */
-    private fun hideStatusNavBars() {
-        // minsdk version is 19, no need code for lower api
-        val decorView = window.decorView
-
-        // hide status bar
-        if (Build.VERSION.SDK_INT < 16) {
-            window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        } else if (Build.VERSION.SDK_INT >= 16) {
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        }
-
-        // hide navigation bar
-        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) {
-            val v = this.window.decorView
-            v.systemUiVisibility = View.GONE
-        } else if (Build.VERSION.SDK_INT >= 19) {
-            val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            decorView.systemUiVisibility = uiOptions
-        }
-    }
 
     // Recycle touch an item callback to update/modify task
     override fun onItemClickListener(itemId: Int) {
-        Log.d(TAG, "onItemClickListener: Item" + itemId + "touched.")
+        Log.d(FoodListActivity.TAG, "onItemClickListener: Item" + itemId + "touched.")
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Toolbar init
-     * ---------------------------------------------------------------------------------------------
-     */
+    // ---------------------------------------------------------------------------------------------
+    // Toolbar init
+
     private fun toolBarInit() {
 
         // get the toolbar

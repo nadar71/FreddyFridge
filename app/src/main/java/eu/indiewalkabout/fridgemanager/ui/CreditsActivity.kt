@@ -16,6 +16,7 @@ import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import com.hlab.fabrevealmenu.view.FABRevealMenu
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
+import eu.indiewalkabout.fridgemanager.util.GenericUtility.hideStatusNavBars
 
 class CreditsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
     // admob banner ref
@@ -41,43 +42,14 @@ class CreditsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
         // navigation fab
         addRevealFabBtn()
 
-        // make bottom navigation bar and status bar hide
-        hideStatusNavBars()
+        hideStatusNavBars(this)
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Make bottom navigation bar and status bar hide, without resize when reappearing
-     * ---------------------------------------------------------------------------------------------
-     */
-    private fun hideStatusNavBars() {
-        // minsdk version is 19, no need code for lower api
-        val decorView = window.decorView
 
-        // hide status bar
-        if (Build.VERSION.SDK_INT < 16) {
-            window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        } else if (Build.VERSION.SDK_INT >= 16) {
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        }
 
-        // hide navigation bar
-        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) {
-            val v = this.window.decorView
-            v.systemUiVisibility = View.GONE
-        } else if (Build.VERSION.SDK_INT >= 19) {
-            val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            decorView.systemUiVisibility = uiOptions
-        }
-    }
+    // ---------------------------------------------------------------------------------------------
+    // Toolbar init
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Toolbar init
-     * ---------------------------------------------------------------------------------------------
-     */
     private fun toolBarInit() {
         // get the toolbar
         creditsToolbar = findViewById(R.id.credits_toolbar)
@@ -92,11 +64,9 @@ class CreditsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
         actionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * MENU STUFF
-     * ---------------------------------------------------------------------------------------------
-     */
+    // ---------------------------------------------------------------------------------------------
+    // MENU STUFF
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         when (id) {
@@ -122,11 +92,9 @@ class CreditsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
         }
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Adding revealing main_fab button
-     * ---------------------------------------------------------------------------------------------
-     */
+    // ---------------------------------------------------------------------------------------------
+    //  Adding revealing main_fab button
+
     private fun addRevealFabBtn() {
         fab     = findViewById(R.id.credits_fab)
         fabMenu = findViewById(R.id.credits_fabMenu)
@@ -146,11 +114,9 @@ class CreditsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
         fabMenu.setMenuDirection(Direction.LEFT)
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Revealing main_fab button menu management
-     * ---------------------------------------------------------------------------------------------
-     */
+    // ---------------------------------------------------------------------------------------------
+    // Revealing main_fab button menu management
+
     override fun onMenuItemSelected(view: View, id: Int) {
         if (id == R.id.menu_insert) {
             val toInsertFood = Intent(this@CreditsActivity, InsertFoodActivity::class.java)
