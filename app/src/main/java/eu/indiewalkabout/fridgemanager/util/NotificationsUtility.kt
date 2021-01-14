@@ -39,7 +39,7 @@ object NotificationsUtility {
     // Reference to notification pendingitent
     private val FOOD_TODAY_DEADLINE_PENDING_INTENT_ID = 2100
 
-    // This notification channel and its action
+    // This notification channel and its action for sdk >= 26 (Oreo)
     private val FOOD_DEADLINE_NOTIFICATION_CHANNEL_ID = "food_deadline_notification_channel"
     private val FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID = "food_today_deadline_notification_channel"
 
@@ -72,6 +72,7 @@ object NotificationsUtility {
         val notificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+        /*
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val mChannel = NotificationChannel(
                     FOOD_DEADLINE_NOTIFICATION_CHANNEL_ID,
@@ -79,6 +80,12 @@ object NotificationsUtility {
                     NotificationManager.IMPORTANCE_HIGH)
             notificationManager.createNotificationChannel(mChannel)
         }
+        */
+
+        createNotificationsChannel(FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID,
+                context.getString(R.string.nextdays_expiring_notification_channel_name),
+                context.getString(R.string.nextdays_expiring_notification_channel_name),
+                notificationManager)
 
         // create data visualization string
         val notificationsText = formatForNextdays(context, foodEntries)
@@ -94,16 +101,17 @@ object NotificationsUtility {
                 .setStyle(NotificationCompat.BigTextStyle().bigText(
                         context.getString(R.string.nextdays_expiring_notification_body)))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
-                .setContentIntent(contentIntent(context))
-
+                .setContentIntent(contentIntent(context)) // link a pending intent to notification
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .addAction(showFoodExpiringNextDaysAction(context))
                 .addAction(ignoreNotificationAction(context))
-
                 .setAutoCancel(true)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+
+        // TODO : check this could be an error
+/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             notificationBuilder.priority = NotificationCompat.PRIORITY_HIGH
-        }
+        }*/
 
         // Show notification
         Log.i(ReminderScheduler.TAG, "Create notification for remindNextDaysExpiringFood")
@@ -113,7 +121,7 @@ object NotificationsUtility {
 
     /**
      * ---------------------------------------------------------------------------------------------
-     * Formata Next days Expiring Food list for notification alert
+     * Format Next days Expiring Food list for notification alert
      * ---------------------------------------------------------------------------------------------
      */
     private fun formatForNextdays(context: Context, todayList: List<FoodEntry>): String {
@@ -139,6 +147,7 @@ object NotificationsUtility {
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+        /*
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val mChannel = NotificationChannel(
                     FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID,
@@ -146,6 +155,12 @@ object NotificationsUtility {
                     NotificationManager.IMPORTANCE_HIGH)
             notificationManager.createNotificationChannel(mChannel)
         }
+        */
+
+        createNotificationsChannel(FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID,
+                context.getString(R.string.today_expiring_notification_channel_name),
+                context.getString(R.string.today_expiring_notification_channel_name),
+                notificationManager)
 
         // create data visualization string
         val notificationsText = formatForToday(context, foodEntries)
@@ -162,16 +177,17 @@ object NotificationsUtility {
                 .setStyle(NotificationCompat.BigTextStyle().bigText(
                         context.getString(R.string.today_expiring_notification_body)))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
-                .setContentIntent(contentIntent(context))
-
+                .setContentIntent(contentIntent(context))  // link a pending intent to notification
                 .addAction(showFoodExpiringTodayAction(context))
                 .addAction(ignoreNotificationAction(context))
-
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+
+        // TODO : check this could be an error
+/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             notificationBuilder.priority = NotificationCompat.PRIORITY_HIGH
-        }
+        }*/
 
         // Show notification
         Log.i(ReminderScheduler.TAG, "Create notification for remindTodayExpiringFood")
@@ -179,9 +195,23 @@ object NotificationsUtility {
     }
 
 
+    /**  -------------------------------------------------------------------------------------------
+     * Create Notification channel */
+    private fun createNotificationsChannel(id: String, name: String, channelDescription: String,
+                                           notificationManager: NotificationManager) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val importance: Int = NotificationManager.IMPORTANCE_HIGH
+            val channel: NotificationChannel = NotificationChannel(id, name, importance).apply {
+                description = channelDescription
+            }
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+
     /**
      * ---------------------------------------------------------------------------------------------
-     * Formata Today Expiring Food list for todays notification alert
+     * Format Today Expiring Food list for todays notification alert
      * ---------------------------------------------------------------------------------------------
      */
     private fun formatForToday(context: Context, todayList: List<FoodEntry>): String {
