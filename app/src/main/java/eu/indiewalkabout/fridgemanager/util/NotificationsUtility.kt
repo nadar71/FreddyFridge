@@ -24,6 +24,7 @@ import eu.indiewalkabout.fridgemanager.ui.FoodListActivity
 import eu.indiewalkabout.fridgemanager.ui.MainActivity
 
 object NotificationsUtility {
+    
 
     private val TAG = NotificationsUtility::class.java.simpleName
 
