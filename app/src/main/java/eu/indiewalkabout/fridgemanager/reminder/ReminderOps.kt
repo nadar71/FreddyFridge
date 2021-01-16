@@ -5,7 +5,11 @@ import android.content.Context
 import eu.indiewalkabout.fridgemanager.data.FoodEntry
 import eu.indiewalkabout.fridgemanager.util.NotificationsUtility
 
+/*
+Static class for executing different type of actions about notifications
+*/
 
+// TODO : can be removed calling directly the notifications method
 object ReminderOps {
 
     val ACTION_REMIND_NEXT_DAYS_EXPIRING_FOOD = "notify-next-days-expiring-food"

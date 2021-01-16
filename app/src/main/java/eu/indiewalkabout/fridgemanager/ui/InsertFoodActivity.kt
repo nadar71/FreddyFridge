@@ -31,6 +31,8 @@ import eu.indiewalkabout.fridgemanager.data.FoodEntry
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.util.DateUtility.getLocalMidnightFromNormalizedUtcDate
 import eu.indiewalkabout.fridgemanager.util.DateUtility.normalizedUtcMsForToday
+import eu.indiewalkabout.fridgemanager.util.GenericUtility
+import eu.indiewalkabout.fridgemanager.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.util.KeyboardUtils.Companion.addKeyboardToggleListener
 import eu.indiewalkabout.fridgemanager.util.KeyboardUtils.SoftKeyboardToggleListener
 import java.util.*
@@ -98,37 +100,10 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
         // check if activity requested in update mode
         checkUpdateModeOn()
 
-        // make bottom navigation bar and status bar hide
-        hideStatusNavBars()
+        hideStatusNavBars(this)
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Make bottom navigation bar and status bar hide, without resize when reappearing
-     * ---------------------------------------------------------------------------------------------
-     */
-    private fun hideStatusNavBars() {
-        // minsdk version is 19, no need code for lower api
-        val decorView = window.decorView
 
-        // hide status bar
-        if (Build.VERSION.SDK_INT < 16) {
-            window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        } else if (Build.VERSION.SDK_INT >= 16) {
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        }
-
-        // hide navigation bar
-        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) {
-            val v = this.window.decorView
-            v.systemUiVisibility = View.GONE
-        } else if (Build.VERSION.SDK_INT >= 19) {
-            val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            decorView.systemUiVisibility = uiOptions
-        }
-    }
 
     override fun onResume() {
         super.onResume()

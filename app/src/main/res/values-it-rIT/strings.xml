@@ -64,4 +64,6 @@
     <string name="food_inserted_alert">" Inserito"</string>
     <string name="settings_notify_every_01">"Notifica ogni "</string>
     <string name="settings_notify_every_02">" ore"</string>
+    <string name="days_alert_dialog_title">Avviso giorni</string>
+    <string name="days_alert_dialog_msg">I giorni prima del valore di avviso non possono essere vuoti</string>
 </resources>

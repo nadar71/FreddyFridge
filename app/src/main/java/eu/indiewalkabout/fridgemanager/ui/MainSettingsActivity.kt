@@ -2,23 +2,20 @@ package eu.indiewalkabout.fridgemanager.ui
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
-import androidx.preference.ListPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragment
-import androidx.preference.PreferenceManager
-import androidx.preference.PreferenceFragmentCompat
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.text.Html
+import android.text.InputType
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
-import com.google.android.gms.ads.AdView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.preference.*
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import com.hlab.fabrevealmenu.view.FABRevealMenu
@@ -30,9 +27,16 @@ import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.isConsentPersonalized
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.isUserLocationWithinEea
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.ConsentStatusCallback
+import eu.indiewalkabout.fridgemanager.util.GenericUtility
+import eu.indiewalkabout.fridgemanager.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.util.PreferenceUtility.getHoursCount
+import kotlinx.android.synthetic.main.activity_main_settings.*
 
-class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
+
+// Settings configuration class; uses activity_main_settings layout and include settingsFrag
+class MainSettingsActivity : AppCompatActivity(),
+        PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
+        OnFABMenuSelectedListener {
 
     companion object {
         val TAG = MainSettingsActivity::class.java.name
@@ -44,9 +48,22 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
     lateinit var toolbarTitle: TextView
     var fabMenu: FABRevealMenu? = null
 
-    // admob banner ref
-    lateinit var mAdView: AdView
 
+    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
+        // Instantiate the new Fragment
+        val args = pref.extras
+        val fragment = supportFragmentManager.fragmentFactory.instantiate(
+                classLoader,
+                pref.fragment)
+        fragment.arguments = args
+        fragment.setTargetFragment(caller, 0)
+        // Replace the existing Fragment with the new Fragment
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.settingsFrag, fragment)
+                .addToBackStack(null)
+                .commit()
+        return true
+    }
 
     // ---------------------------------------------------------------------------------------------
     // onCreate
@@ -54,10 +71,10 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_settings)
-        mAdView = findViewById(R.id.adView)
 
+        // admob banner ref
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        mAdView.loadAd(getAdRequest(this@MainSettingsActivity))
+        adView.loadAd(getAdRequest(this@MainSettingsActivity))
 
         // init toolbar
         toolBarInit()
@@ -65,43 +82,16 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
         // navigation fab
         addRevealFabBtn()
 
-        // make bottom navigation bar and status bar hide
-        hideStatusNavBars()
+        hideStatusNavBars(this)
     }
 
-
-
-
-    // ---------------------------------------------------------------------------------------------
-    // Make bottom navigation bar and status bar hide, without resize when reappearing
-
-    private fun hideStatusNavBars() {
-        // minsdk version is 19, no need code for lower api
-        val decorView = window.decorView
-
-        // hide status bar
-        if (Build.VERSION.SDK_INT < 16) {
-            window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        } else if (Build.VERSION.SDK_INT >= 16) {
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        }
-
-        // hide navigation bar
-        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) {
-            val v = this.window.decorView
-            v.systemUiVisibility = View.GONE
-        } else if (Build.VERSION.SDK_INT >= 19) {
-            val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            decorView.systemUiVisibility = uiOptions
-        }
-    }
 
      // ---------------------------------------------------------------------------------------------
-     // Preferences screen manager class
+     // Preferences screen manager class which is used by  activity_main_settings.xml
 
-    class MainPreferenceFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
+    class MainPreferenceFragment : PreferenceFragmentCompat(),
+            Preference.OnPreferenceChangeListener,
+            SharedPreferences.OnSharedPreferenceChangeListener{
         lateinit var consentSDK: ConsentSDK
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -116,8 +106,18 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
             // get preference Screen reference
             val preferenceScreen = preferenceManager.createPreferenceScreen(activity)
 
+            preferenceScreen.sharedPreferences
+                    .registerOnSharedPreferenceChangeListener(this)
+
             // bind prefs on changes
-            val dayBeforePref: Preference? = findPreference(dayBeforeKey!!)
+            val dayBeforePref: EditTextPreference? = findPreference(dayBeforeKey!!)
+            // NB : forced to avoid error :
+            // https://stackoverflow.com/questions/41123715/dialog-view-must-contain-an-edittext-with-id-androidid-edit
+            dayBeforePref?.dialogLayoutResource = R.layout.dialog_preference_edittext
+            dayBeforePref?.setOnBindEditTextListener { editText ->
+                        editText.inputType = InputType.TYPE_CLASS_NUMBER
+            }
+
             if (dayBeforePref != null) {
                 bindPreferenceSummaryToValue(dayBeforePref)
             }
@@ -182,8 +182,11 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
             onPreferenceChange(preference, sPreference as Any)
         }
 
+        // Update summary before writing on shared preferences
         override fun onPreferenceChange(preference: Preference, newValue: Any): Boolean {
             val sValue = newValue.toString()
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(preference.context)
+
             if (preference is ListPreference) {
                 val prefindex = preference.findIndexOfValue(sValue)
                 if (prefindex >= 0) {
@@ -201,11 +204,36 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
                 preference.summary = sValue
             }
 
-            // Relaunch job scheduler in case
-            if (preference.key == dayBeforeKey || preference.key == hoursFreqKey) {
-                scheduleChargingReminder(preference.context)
-            }
             return true
+        }
+
+
+        // Update summary after writing on shared preferences
+        override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
+            val preference: Preference? = findPreference(key!!)
+            if (preference != null) {
+                if (preference.key == dayBeforeKey) {
+                    val value = sharedPreferences.getString(preference.key, "")
+                    // days before timeline can't be null
+                    if (value.equals("")){
+                        preference.summary = "1"
+                        with (sharedPreferences.edit()) {
+                            putString(dayBeforeKey, "1")
+                            apply()
+                        }
+
+                        GenericUtility.showGenericBlockingAlert(
+                                getString(R.string.days_alert_dialog_title),
+                                getString(R.string.days_alert_dialog_msg),
+                                requireActivity())
+                    }
+                }
+
+                // Relaunch job scheduler in case
+                if (preference.key == dayBeforeKey || preference.key == hoursFreqKey) {
+                    scheduleChargingReminder(preference.context)
+                }
+            }
         }
 
         // -----------------------------------------------------------------------------------------
@@ -306,18 +334,22 @@ class MainSettingsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
         if (id == R.id.menu_insert) {
             val toInsertFood = Intent(this@MainSettingsActivity, InsertFoodActivity::class.java)
             startActivity(toInsertFood)
+
         } else if (id == R.id.menu_expiring_food) {
             val showExpiringFood = Intent(this@MainSettingsActivity, FoodListActivity::class.java)
             showExpiringFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_EXPIRING)
             startActivity(showExpiringFood)
+
         } else if (id == R.id.menu_consumed_food) {
             val showSavedFood = Intent(this@MainSettingsActivity, FoodListActivity::class.java)
             showSavedFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_SAVED)
             startActivity(showSavedFood)
+
         } else if (id == R.id.menu_dead_food) {
             val showDeadFood = Intent(this@MainSettingsActivity, FoodListActivity::class.java)
             showDeadFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_DEAD)
             startActivity(showDeadFood)
+
         } else if (id == R.id.menu_home) {
             val returnHome = Intent(this@MainSettingsActivity, MainActivity::class.java)
             startActivity(returnHome)
