@@ -72,15 +72,6 @@ object NotificationsUtility {
         val notificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        /*
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val mChannel = NotificationChannel(
-                    FOOD_DEADLINE_NOTIFICATION_CHANNEL_ID,
-                    context.getString(R.string.nextdays_expiring_notification_channel_name),
-                    NotificationManager.IMPORTANCE_HIGH)
-            notificationManager.createNotificationChannel(mChannel)
-        }
-        */
 
         createNotificationsChannel(FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_CHANNEL_ID,
                 context.getString(R.string.nextdays_expiring_notification_channel_name),
@@ -109,7 +100,8 @@ object NotificationsUtility {
 
 
         // TODO : check this could be an error
-/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        /*
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             notificationBuilder.priority = NotificationCompat.PRIORITY_HIGH
         }*/
 
@@ -180,12 +172,13 @@ object NotificationsUtility {
                 .setContentIntent(contentIntent(context))  // link a pending intent to notification
                 .addAction(showFoodExpiringTodayAction(context))
                 .addAction(ignoreNotificationAction(context))
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                // .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true)
 
 
         // TODO : check this could be an error
-/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        /*
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             notificationBuilder.priority = NotificationCompat.PRIORITY_HIGH
         }*/
 

@@ -217,7 +217,6 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
             foodEntriesToDay.let {
                 if (foodEntriesToDay.size > 0) {
-                    // ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_TODAY_EXPIRING_FOOD, foodEntriesToDay)
                     NotificationsUtility.remindTodayExpiringFood(applicationContext, it)
                     Log.i(FoodReminderWorker.TAG, "Workmanager, doWork: check food expiring  TODAY, notification sent")
                 }
