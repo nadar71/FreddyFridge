@@ -1,34 +1,40 @@
 package eu.indiewalkabout.fridgemanager.ui
 
 import android.app.Application
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import android.view.*
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import android.content.Intent
-import android.os.Build
-import android.os.Bundle
 import androidx.preference.PreferenceManager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.WindowManager
-import android.widget.ImageView
-import android.widget.TextView
 import com.google.android.gms.ads.AdView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.internal.ContextUtils.getActivity
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import com.hlab.fabrevealmenu.view.FABRevealMenu
 import eu.indiewalkabout.fridgemanager.R
+import eu.indiewalkabout.fridgemanager.SingletonProvider
+import eu.indiewalkabout.fridgemanager.data.FoodEntry
+import eu.indiewalkabout.fridgemanager.reminder.FoodReminderWorker
 import eu.indiewalkabout.fridgemanager.reminder.ReminderScheduler.scheduleChargingReminder
 import eu.indiewalkabout.fridgemanager.ui.FoodListAdapter.ItemClickListener
-import eu.indiewalkabout.fridgemanager.util.ConsentSDK
+import eu.indiewalkabout.fridgemanager.util.*
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.ConsentCallback
+import eu.indiewalkabout.fridgemanager.util.GenericUtility.hideStatusNavBars
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
+
 
 class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedListener {
     // admob banner ref
@@ -46,21 +52,24 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
     lateinit var foodList: androidx.recyclerview.widget.RecyclerView
     lateinit var foodListAdapter: FoodListAdapter
 
+    // gestures
+    var onSwipeTouchListener: OnSwipeTouchListener? = null
+
     // vars utils for testing
     private var numPrevOpenings = 0
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Return the reference to ConsentSDK instance to beused by test classes
-     * ---------------------------------------------------------------------------------------------
-     * @return
-     */
+    // ---------------------------------------------------------------------------------------------
+    // Return the reference to ConsentSDK instance to be used by test classes
+
     var consentObjReference: ConsentSDK? = null
         private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // TODO : fix problem for home_activity_layout in onSwipeTouchListener
+        // onSwipeTouchListener = OnSwipeTouchListener(this, findViewById<View>(R.id.home_activity_layout))
 
         // open intro only for the first 3 times
         numPrevOpenings = appOpenings
@@ -98,8 +107,10 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         // start scheduler for notifications reminder
         scheduleChargingReminder(this)
 
-        // make bottom navigation bar and status bar hide
-        hideStatusNavBars()
+        hideStatusNavBars(this)
+
+        // TODO : do thing on swipe, check OnSwipeTouchListener
+
     }
 
 
@@ -133,54 +144,16 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         }
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Make bottom navigation bar and status bar hide, without resize when reappearing
-     * ---------------------------------------------------------------------------------------------
-     */
-    private fun hideStatusNavBars() {
-        // minsdk version is 19, no need code for lower api
-        val decorView = window.decorView
 
-        // hide status bar
-        if (Build.VERSION.SDK_INT < 16) {
-            window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        } else if (Build.VERSION.SDK_INT >= 16) {
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        }
-
-        // hide navigation bar
-        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) {
-            val v = this.window.decorView
-            v.systemUiVisibility = View.GONE
-        } else if (Build.VERSION.SDK_INT >= 19) {
-            val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            decorView.systemUiVisibility = uiOptions
-        }
-    }
-
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Go to intro activity
-     * ---------------------------------------------------------------------------------------------
-     */
+    // Go to intro activity
     fun goToIntro() {
         val introActivityIntent = Intent(baseContext, IntroActivity::class.java)
         startActivity(introActivityIntent)
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Get the number of times the app has been opened
-     * ---------------------------------------------------------------------------------------------
-     */
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Set the number of times the app has been opened
-     * ---------------------------------------------------------------------------------------------
-     */
+
+
+    // Get/Set the number of times the app has been opened
     var appOpenings: Int
         get() {
             val prefs = PreferenceManager.getDefaultSharedPreferences(this)
@@ -193,16 +166,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
             editor.apply()
         }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Get if consent gdpr must be asked or not
-     * ---------------------------------------------------------------------------------------------
-     */
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Set if consent gdpr must be asked or not
-     * ---------------------------------------------------------------------------------------------
-     */
+    // Get/Set if consent gdpr must be asked or not
     var consentSDKNeed: Boolean
         get() {
             val prefs = PreferenceManager.getDefaultSharedPreferences(this)
@@ -220,7 +184,21 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
      * @param view
      */
     fun testNotification(view: View?) {
-        // NotificationsUtility.remindNextDaysExpiringFood(this);
+        lateinit var foodEntriesNextDays: List<FoodEntry>
+        CoroutineScope(Dispatchers.Main).launch {
+            val repository = (SingletonProvider.getsContext() as SingletonProvider).repository
+            val dataNormalizedAtMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.normalizedUtcMsForToday)
+            val expiringDateToBeNotified = dataNormalizedAtMidnight + TimeUnit.DAYS.toSeconds(1.toLong()).toInt()
+            val foodEntriesNextDays = repository!!.loadAllFoodExpiring_no_livedata(expiringDateToBeNotified)
+
+            foodEntriesNextDays.let {
+                if (foodEntriesNextDays.size > 0) {
+                    NotificationsUtility.remindNextDaysExpiringFood(applicationContext, it)
+                }
+            }
+
+        }
+
     }
 
     /**
@@ -228,7 +206,24 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
      * @param view
      */
     fun testTodayNotification(view: View?) {
-        // NotificationsUtility.remindTodayExpiringFood(this);
+        lateinit var foodEntriesToDay: List<FoodEntry>
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val dataNormalizedAtMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.normalizedUtcMsForToday)
+            val previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS
+            val nextDayDate = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS
+            val repository = (SingletonProvider.getsContext() as SingletonProvider).repository
+            foodEntriesToDay = repository!!.loadFoodExpiringToday_no_livedata(previousDayDate, nextDayDate)
+
+            foodEntriesToDay.let {
+                if (foodEntriesToDay.size > 0) {
+                    NotificationsUtility.remindTodayExpiringFood(applicationContext, it)
+                    Log.i(FoodReminderWorker.TAG, "Workmanager, doWork: check food expiring  TODAY, notification sent")
+                }
+            }
+        }
+
+
     }
 
     // Recycle touch an item callback to update/modify task
@@ -236,11 +231,9 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         Log.d(TAG, "onItemClickListener: Item" + itemId + "touched.")
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Recycle view list init
-     * ---------------------------------------------------------------------------------------------
-     */
+
+
+    // Recycle view list init
     private fun initRecycleView() {
         // Set the RecyclerView's view
         foodList = findViewById(R.id.main_today_food_list_recycleView)
@@ -277,22 +270,19 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         })
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Used to reload from db the tasks list and update the list view in screen
-     * ---------------------------------------------------------------------------------------------
-     */
+
+
+    // Used to reload from db the tasks list and update the list view in screen
     private fun setupAdapter() {
         Log.d(TAG, "setupAdapter: LOAD FOOD ENTRIES IN LIST ")
         retrieveFoodExpiringToday()
         Log.d(TAG, "setupAdapter: FOOD_TYPE : " + FoodListActivity.FOOD_EXPIRING_TODAY)
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Livedata/ViewModel recovering Expiring Today Food list
-     * ---------------------------------------------------------------------------------------------
-     */
+
+
+    // Livedata/ViewModel recovering Expiring Today Food list
+
     private fun retrieveFoodExpiringToday() {
         Log.d(TAG, "Actively retrieving Expiring Food from DB")
 
@@ -316,11 +306,9 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
             })
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Set directly in flag the need for consent for admob ads
-     * ---------------------------------------------------------------------------------------------
-     */
+
+
+    // Set directly in flag the need for consent for admob ads
     fun setConsentSdkFlag(flag: Boolean) {
         checkConsentActive = flag
     }
@@ -354,11 +342,9 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         }
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Adding revealing main_fab button
-     * ---------------------------------------------------------------------------------------------
-     */
+
+
+    // Adding revealing main_fab button
     private fun addRevealFabBtn() {
         fab = findViewById(R.id.main_fab)
         fabMenu = findViewById(R.id.main_fabMenu)
@@ -378,11 +364,8 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         fabMenu!!.setMenuDirection(Direction.LEFT)
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Revealing main_fab button menu management
-     * ---------------------------------------------------------------------------------------------
-     */
+
+    // Revealing main_fab button menu management
     override fun onMenuItemSelected(view: View, id: Int) {
         if (id == R.id.menu_insert) {
             val toInsertFood = Intent(this@MainActivity, InsertFoodActivity::class.java)

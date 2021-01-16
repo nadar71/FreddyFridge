@@ -177,5 +177,9 @@
     <string name="intro_3_title">3 : Check expiring date</string>
     <string name="intro_3_subtitle">and be alerted before happens : no more food wasted!</string>
 
+    <!-- - - - - - - - - - - - - Preferences - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+    <string name="days_alert_dialog_title">Days Alert</string>
+    <string name="days_alert_dialog_msg">Days before alert value can\'t be empty</string>
+
 
 </resources>

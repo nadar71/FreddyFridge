@@ -2,7 +2,7 @@ package eu.indiewalkabout.fridgemanager.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import android.util.Log
 
 import eu.indiewalkabout.fridgemanager.R

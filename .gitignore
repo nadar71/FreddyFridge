@@ -11,3 +11,19 @@
 *.abb
 /release
 
+
+.idea/caches/
+
+.idea/
+
+fabrevealmenu/build/intermediates/compiled_local_resources/debug/out/
+
+fabrevealmenu/build/intermediates/incremental/mergeDebugShaders/
+
+fabrevealmenu/build/intermediates/incremental/packageDebugAssets/
+
+fabrevealmenu/build/intermediates/incremental/packageDebugResources/
+
+fabrevealmenu/build/intermediates/manifest_merge_blame_file/debug/
+
+fabrevealmenu/build/outputs/logs/
