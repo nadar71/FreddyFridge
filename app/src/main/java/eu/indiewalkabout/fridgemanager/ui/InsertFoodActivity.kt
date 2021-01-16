@@ -49,6 +49,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
     lateinit var speakerBtn: ImageView
     lateinit var foodName_et: EditText
     lateinit var dateExpir_cv: CalendarView
+    lateinit var itemsNumber: EditText
 
     // private Toolbar        foodInsertToolbar;
     var fabMenu: FABRevealMenu? = null
@@ -127,6 +128,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
     private fun initViews() {
         save_btn = findViewById(R.id.save_btn)
         foodName_et = findViewById(R.id.foodName_et)
+        itemsNumber = findViewById(R.id.howmany_et)
         dateExpir_cv = findViewById(R.id.calendar_cv)
         speakerBtn = findViewById(R.id.speak_btn)
         dateExpir_cv.setOnDateChangeListener(this)
@@ -222,6 +224,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
     fun onSaveBtnClicked() {
         Log.d(TAG, "onSaveBtnClicked")
         val foodName = foodName_et.text.toString()
+        var itemsNum = itemsNumber.text.toString().toInt()
 
         // validate entry : name
         if (foodName.isEmpty()) {
@@ -229,6 +232,12 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
                     resources.getString(R.string.food_description_alert), Toast.LENGTH_SHORT).show()
             return
         }
+
+        // validate item number
+        if (itemsNum <=0 || itemsNum == null) {
+            itemsNum = 1
+        }
+        
 
         // validate entry : date
         if (foodId == DEFAULT_ID && myDatePicked == null) {
@@ -247,6 +256,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
                 Log.d(TAG, "foodName : $foodName")
                 Log.d(TAG, "expiringDate : $expiringDate")
 
+                // TODO : save n item number
                 // create a new food obj and init with data inserted by user
                 val foodEntry = FoodEntry(0, foodName, expiringDate!!)
 

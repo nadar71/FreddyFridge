@@ -31,7 +31,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/today_list_record_light_grey"
+        android:background="@color/light_white_transparent"
         android:contentDescription="@string/delete_food_entry_btn_hint"
         android:gravity="center"
         android:padding="4dp"

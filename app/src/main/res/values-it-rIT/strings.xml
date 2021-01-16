@@ -9,7 +9,7 @@
     <string name="foodSaved_activity_title">Cibo Consumato</string>
     <string name="insertFoodActivity_title">Inserisci nuovo cibo</string>
     <string name="mainSettingsActivity_title">Impostazioni</string>
-    <string name="insert_food_name_tv">"Inserisci una descrizione : "</string>
+    <string name="insert_food_name_tv">Inserisci una descrizione : </string>
     <string name="food_name_hint">Descrizione del cibo</string>
     <string name="name_placeholder">Nome</string>
     <string name="choose_expiring_date_label">"Inserisci la data di scadenza : "</string>
