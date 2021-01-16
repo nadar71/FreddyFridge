@@ -3,17 +3,19 @@ package eu.indiewalkabout.fridgemanager.ui
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Build
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
+import android.service.notification.Condition.SCHEME
 import android.text.Html
 import android.text.InputType
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.browser.customtabs.CustomTabsClient.getPackageName
 import androidx.preference.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hlab.fabrevealmenu.enums.Direction
@@ -21,7 +23,6 @@ import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import com.hlab.fabrevealmenu.view.FABRevealMenu
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.reminder.ReminderScheduler.scheduleChargingReminder
-import eu.indiewalkabout.fridgemanager.ui.MainSettingsActivity
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.isConsentPersonalized
@@ -129,6 +130,7 @@ class MainSettingsActivity : AppCompatActivity(),
 
             val gdprConsentBtn: Preference? = findPreference(getString(R.string.gdpr_btn_key))
             val creditsBtn: Preference? = findPreference(getString(R.string.credits_btn_key))
+            val notificationBtn: Preference? = findPreference(getString(R.string.app_settings_btn_key))
 
             // Initialize ConsentSDK
             initConsentSDK(requireActivity())
@@ -163,6 +165,14 @@ class MainSettingsActivity : AppCompatActivity(),
             creditsBtn?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 val showEqOnMap = Intent(activity, CreditsActivity::class.java)
                 startActivity(showEqOnMap)
+                true
+            }
+
+            // Go to notifications settings button
+            notificationBtn?.onPreferenceClickListener = Preference.OnPreferenceClickListener{
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                intent.setData(Uri.parse("package:" + getString(R.string.app_package)));
+                startActivity(intent);
                 true
             }
         }
@@ -217,7 +227,7 @@ class MainSettingsActivity : AppCompatActivity(),
                     // days before timeline can't be null
                     if (value.equals("")){
                         preference.summary = "1"
-                        with (sharedPreferences.edit()) {
+                        with(sharedPreferences.edit()) {
                             putString(dayBeforeKey, "1")
                             apply()
                         }
