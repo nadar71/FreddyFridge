@@ -21,14 +21,19 @@ import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import com.hlab.fabrevealmenu.view.FABRevealMenu
 import eu.indiewalkabout.fridgemanager.R
+import eu.indiewalkabout.fridgemanager.SingletonProvider
+import eu.indiewalkabout.fridgemanager.data.FoodEntry
+import eu.indiewalkabout.fridgemanager.reminder.FoodReminderWorker
 import eu.indiewalkabout.fridgemanager.reminder.ReminderScheduler.scheduleChargingReminder
 import eu.indiewalkabout.fridgemanager.ui.FoodListAdapter.ItemClickListener
-import eu.indiewalkabout.fridgemanager.util.ConsentSDK
+import eu.indiewalkabout.fridgemanager.util.*
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.ConsentCallback
-import eu.indiewalkabout.fridgemanager.util.GenericUtility
 import eu.indiewalkabout.fridgemanager.util.GenericUtility.hideStatusNavBars
-import eu.indiewalkabout.fridgemanager.util.OnSwipeTouchListener
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedListener {
@@ -179,7 +184,21 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
      * @param view
      */
     fun testNotification(view: View?) {
-        // NotificationsUtility.remindNextDaysExpiringFood(this);
+        lateinit var foodEntriesNextDays: List<FoodEntry>
+        CoroutineScope(Dispatchers.Main).launch {
+            val repository = (SingletonProvider.getsContext() as SingletonProvider).repository
+            val dataNormalizedAtMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.normalizedUtcMsForToday)
+            val expiringDateToBeNotified = dataNormalizedAtMidnight + TimeUnit.DAYS.toSeconds(1.toLong()).toInt()
+            val foodEntriesNextDays = repository!!.loadAllFoodExpiring_no_livedata(expiringDateToBeNotified)
+
+            foodEntriesNextDays.let {
+                if (foodEntriesNextDays.size > 0) {
+                    NotificationsUtility.remindNextDaysExpiringFood(applicationContext, it)
+                }
+            }
+
+        }
+
     }
 
     /**
@@ -187,7 +206,25 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
      * @param view
      */
     fun testTodayNotification(view: View?) {
-        // NotificationsUtility.remindTodayExpiringFood(this);
+        lateinit var foodEntriesToDay: List<FoodEntry>
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val dataNormalizedAtMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.normalizedUtcMsForToday)
+            val previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS
+            val nextDayDate = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS
+            val repository = (SingletonProvider.getsContext() as SingletonProvider).repository
+            foodEntriesToDay = repository!!.loadFoodExpiringToday_no_livedata(previousDayDate, nextDayDate)
+
+            foodEntriesToDay.let {
+                if (foodEntriesToDay.size > 0) {
+                    // ReminderOps.executeTask(context, ReminderOps.ACTION_REMIND_TODAY_EXPIRING_FOOD, foodEntriesToDay)
+                    NotificationsUtility.remindTodayExpiringFood(applicationContext, it)
+                    Log.i(FoodReminderWorker.TAG, "Workmanager, doWork: check food expiring  TODAY, notification sent")
+                }
+            }
+        }
+
+
     }
 
     // Recycle touch an item callback to update/modify task

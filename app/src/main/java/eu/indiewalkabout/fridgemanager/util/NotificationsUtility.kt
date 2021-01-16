@@ -6,16 +6,16 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.graphics.drawable.VectorDrawable
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
 
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.data.FoodDatabase
 import eu.indiewalkabout.fridgemanager.data.FoodEntry
 import eu.indiewalkabout.fridgemanager.reminder.FoodReminderIntentService
 import eu.indiewalkabout.fridgemanager.reminder.ReminderOps
@@ -28,10 +28,10 @@ object NotificationsUtility {
     private val TAG = NotificationsUtility::class.java.simpleName
 
     // Unique Id to Refer to notification when displayed
-    private val FOOD_DEADLINE_NOTIFICATION_ID = 1000
+    private val FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_ID = 1000
 
     // Reference to notification pendingitent
-    private val FOOD_DEADLINE_PENDING_INTENT_ID = 1100
+    private val FOOD_NEXTDAYS_DEADLINE_PENDING_INTENT_ID = 1100
 
     // Unique Id to Refer to notification when displayed
     private val FOOD_TODAY_DEADLINE_NOTIFICATION_ID = 2000
@@ -40,10 +40,10 @@ object NotificationsUtility {
     private val FOOD_TODAY_DEADLINE_PENDING_INTENT_ID = 2100
 
     // This notification channel and its action for sdk >= 26 (Oreo)
-    private val FOOD_DEADLINE_NOTIFICATION_CHANNEL_ID = "food_deadline_notification_channel"
+    private val FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_CHANNEL_ID = "food_deadline_notification_channel"
     private val FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID = "food_today_deadline_notification_channel"
 
-    private val ACTION_SHOW_PENDING_INTENT_ID = 10
+    private val ACTION_SHOW_NEXTDAYS_PENDING_INTENT_ID = 10
     private val ACTION_SHOW_TODAY_PENDING_INTENT_ID = 10
     private val ACTION_IGNORE_PENDING_INTENT_ID = 20
 
@@ -82,7 +82,7 @@ object NotificationsUtility {
         }
         */
 
-        createNotificationsChannel(FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID,
+        createNotificationsChannel(FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_CHANNEL_ID,
                 context.getString(R.string.nextdays_expiring_notification_channel_name),
                 context.getString(R.string.nextdays_expiring_notification_channel_name),
                 notificationManager)
@@ -90,7 +90,7 @@ object NotificationsUtility {
         // create data visualization string
         val notificationsText = formatForNextdays(context, foodEntries)
 
-        val notificationBuilder = NotificationCompat.Builder(context, FOOD_DEADLINE_NOTIFICATION_CHANNEL_ID)
+        val notificationBuilder = NotificationCompat.Builder(context, FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_CHANNEL_ID)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 // .setSmallIcon(R.drawable.ic_warning_green_24dp)
                 .setSmallIcon(R.drawable.nextdays_notifications)
@@ -115,7 +115,7 @@ object NotificationsUtility {
 
         // Show notification
         Log.i(ReminderScheduler.TAG, "Create notification for remindNextDaysExpiringFood")
-        notificationManager.notify(FOOD_DEADLINE_NOTIFICATION_ID, notificationBuilder.build())
+        notificationManager.notify(FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_ID, notificationBuilder.build())
     }
 
 
@@ -265,7 +265,7 @@ object NotificationsUtility {
 
         val foodReminderPendingIntent = PendingIntent.getActivity(
                 context,
-                ACTION_SHOW_PENDING_INTENT_ID,
+                ACTION_SHOW_NEXTDAYS_PENDING_INTENT_ID,
                 showExpiringFoodIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT)
 
@@ -313,14 +313,16 @@ object NotificationsUtility {
         val startActivityIntent = Intent(context, MainActivity::class.java)
         return PendingIntent.getActivity(
                 context,
-                FOOD_DEADLINE_PENDING_INTENT_ID,
+                FOOD_NEXTDAYS_DEADLINE_PENDING_INTENT_ID,
                 startActivityIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
     private fun largeIcon(context: Context): Bitmap {
         val res = context.resources
-        return BitmapFactory.decodeResource(res, R.drawable.ic_warning_green_24dp)
+        // return BitmapFactory.decodeResource(res, R.drawable.ic_warning_green_24dp)
+        return (ResourcesCompat.getDrawable(res, R.drawable.ic_warning_green_24dp, null)
+                as VectorDrawable).toBitmap()
     }
 
 
