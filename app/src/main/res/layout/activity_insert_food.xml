@@ -155,6 +155,8 @@
             android:backgroundTint="@color/colorPrimary"
             android:elevation="2dp"
             android:fontFamily="@font/fredoka_one"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="@string/save_btn_label"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
