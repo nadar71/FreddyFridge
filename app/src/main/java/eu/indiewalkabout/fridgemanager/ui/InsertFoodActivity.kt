@@ -224,7 +224,15 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
     fun onSaveBtnClicked() {
         Log.d(TAG, "onSaveBtnClicked")
         val foodName = foodName_et.text.toString()
-        var itemsNum = itemsNumber.text.toString().toInt()
+
+        // validate item number
+        var itemsNumStr = itemsNumber.text.toString()
+        var itemsNum: Int
+        if (itemsNumStr.equals("")) {
+            itemsNum = 1
+        } else {
+            itemsNum = itemsNumStr.toInt()
+        }
 
         // validate entry : name
         if (foodName.isEmpty()) {
@@ -233,11 +241,6 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
             return
         }
 
-        // validate item number
-        if (itemsNum <=0 || itemsNum == null) {
-            itemsNum = 1
-        }
-        
 
         // validate entry : date
         if (foodId == DEFAULT_ID && myDatePicked == null) {
@@ -256,13 +259,16 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
                 Log.d(TAG, "foodName : $foodName")
                 Log.d(TAG, "expiringDate : $expiringDate")
 
-                // TODO : save n item number
-                // create a new food obj and init with data inserted by user
-                val foodEntry = FoodEntry(0, foodName, expiringDate!!)
 
-                // repo insert
+
+                // repo insert, n time as item's number
                 val repository = (getsContext() as SingletonProvider?)!!.repository
-                repository!!.insertFoodEntry(foodEntry)
+                for (num in 1..itemsNum) {
+                    // create a new food obj and init with data inserted by user
+                    val foodEntry = FoodEntry(0, "${foodName}  n. ${num}", expiringDate!!)
+                    repository!!.insertFoodEntry(foodEntry)
+                }
+
 
                 // end activity
                 finish()
