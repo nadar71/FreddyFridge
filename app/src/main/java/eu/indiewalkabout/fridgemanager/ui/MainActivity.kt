@@ -36,9 +36,6 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
     lateinit var foodListAdapter: FoodListAdapter
     var foodListForShare: String = ""
 
-    // gestures
-    var onSwipeTouchListener: OnSwipeTouchListener? = null
-
     // vars utils for testing
     private var numPrevOpenings = 0
 
@@ -52,8 +49,6 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // TODO : fix problem for home_activity_layout in onSwipeTouchListener
-        // onSwipeTouchListener = OnSwipeTouchListener(this, findViewById<View>(R.id.home_activity_layout))
 
         // open intro only for the first 3 times
         numPrevOpenings = appOpenings
@@ -97,7 +92,24 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
         hideStatusNavBars(this)
 
-        // TODO : do thing on swipe, check OnSwipeTouchListener
+        // goto to insert on swipe left/right
+        home_activity_layout.setOnTouchListener(object: OnSwipeTouchListener(this@MainActivity) {
+            override fun onSwipeLeft() {
+                toInsertFood()
+            }
+            override fun onSwipeRight() {
+                toInsertFood()
+            }
+        })
+
+        today_food_list_recycleView.setOnTouchListener(object: OnSwipeTouchListener(this@MainActivity) {
+            override fun onSwipeLeft() {
+                toInsertFood()
+            }
+            override fun onSwipeRight() {
+                toInsertFood()
+            }
+        })
 
     }
 
@@ -346,24 +358,40 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
     // Revealing main_fab button menu management
     override fun onMenuItemSelected(view: View, id: Int) {
         if (id == R.id.menu_insert) {
-            val toInsertFood = Intent(this@MainActivity, InsertFoodActivity::class.java)
-            startActivity(toInsertFood)
+            toInsertFood()
 
         } else if (id == R.id.menu_expiring_food) {
-            val showExpiringFood = Intent(this@MainActivity, FoodListActivity::class.java)
-            showExpiringFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_EXPIRING)
-            startActivity(showExpiringFood)
+            showExpiringFood()
 
         } else if (id == R.id.menu_consumed_food) {
-            val showSavedFood = Intent(this@MainActivity, FoodListActivity::class.java)
-            showSavedFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_SAVED)
-            startActivity(showSavedFood)
+            showSavedFood()
 
         } else if (id == R.id.menu_dead_food) {
-            val showDeadFood = Intent(this@MainActivity, FoodListActivity::class.java)
-            showDeadFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_DEAD)
-            startActivity(showDeadFood)
+            showDeadFood()
         }
+    }
+
+    private fun showDeadFood() {
+        val showDeadFood = Intent(this@MainActivity, FoodListActivity::class.java)
+        showDeadFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_DEAD)
+        startActivity(showDeadFood)
+    }
+
+    private fun showSavedFood() {
+        val showSavedFood = Intent(this@MainActivity, FoodListActivity::class.java)
+        showSavedFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_SAVED)
+        startActivity(showSavedFood)
+    }
+
+    private fun showExpiringFood() {
+        val showExpiringFood = Intent(this@MainActivity, FoodListActivity::class.java)
+        showExpiringFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_EXPIRING)
+        startActivity(showExpiringFood)
+    }
+
+    private fun toInsertFood() {
+        val toInsertFood = Intent(this@MainActivity, InsertFoodActivity::class.java)
+        startActivity(toInsertFood)
     }
 
     companion object {

@@ -8,6 +8,7 @@
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/insert_food_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".ui.InsertFoodActivity">

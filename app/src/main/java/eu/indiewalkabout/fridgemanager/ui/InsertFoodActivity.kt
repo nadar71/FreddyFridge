@@ -35,6 +35,10 @@ import eu.indiewalkabout.fridgemanager.util.GenericUtility
 import eu.indiewalkabout.fridgemanager.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.util.KeyboardUtils.Companion.addKeyboardToggleListener
 import eu.indiewalkabout.fridgemanager.util.KeyboardUtils.SoftKeyboardToggleListener
+import eu.indiewalkabout.fridgemanager.util.OnSwipeTouchListener
+import kotlinx.android.synthetic.main.activity_insert_food.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.home_activity_layout
 import java.util.*
 
 /**
@@ -102,6 +106,26 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
         checkUpdateModeOn()
 
         hideStatusNavBars(this)
+
+        // goto to home on swipe left/right
+        insert_food_layout.setOnTouchListener(object: OnSwipeTouchListener(this@InsertFoodActivity) {
+            override fun onSwipeLeft() {
+                returnHome()
+            }
+            override fun onSwipeRight() {
+                returnHome()
+            }
+        })
+
+
+        calendar_cv.setOnTouchListener(object: OnSwipeTouchListener(this@InsertFoodActivity) {
+            override fun onSwipeLeft() {
+                returnHome()
+            }
+            override fun onSwipeRight() {
+                returnHome()
+            }
+        })
     }
 
 
@@ -442,21 +466,37 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
      */
     override fun onMenuItemSelected(view: View, id: Int) {
         if (id == R.id.menu_expiring_food) {
-            val showExpiringFood = Intent(this@InsertFoodActivity, FoodListActivity::class.java)
-            showExpiringFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_EXPIRING)
-            startActivity(showExpiringFood)
+            showExpiringFood()
         } else if (id == R.id.menu_consumed_food) {
-            val showSavedFood = Intent(this@InsertFoodActivity, FoodListActivity::class.java)
-            showSavedFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_SAVED)
-            startActivity(showSavedFood)
+            showSavedFood()
         } else if (id == R.id.menu_dead_food) {
-            val showDeadFood = Intent(this@InsertFoodActivity, FoodListActivity::class.java)
-            showDeadFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_DEAD)
-            startActivity(showDeadFood)
+            showDeadFood()
         } else if (id == R.id.menu_home) {
-            val returnHome = Intent(this@InsertFoodActivity, MainActivity::class.java)
-            startActivity(returnHome)
+            returnHome()
         }
+    }
+
+    private fun showExpiringFood() {
+        val showExpiringFood = Intent(this@InsertFoodActivity, FoodListActivity::class.java)
+        showExpiringFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_EXPIRING)
+        startActivity(showExpiringFood)
+    }
+
+    private fun showSavedFood() {
+        val showSavedFood = Intent(this@InsertFoodActivity, FoodListActivity::class.java)
+        showSavedFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_SAVED)
+        startActivity(showSavedFood)
+    }
+
+    private fun showDeadFood() {
+        val showDeadFood = Intent(this@InsertFoodActivity, FoodListActivity::class.java)
+        showDeadFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_DEAD)
+        startActivity(showDeadFood)
+    }
+
+    private fun returnHome() {
+        val returnHome = Intent(this@InsertFoodActivity, MainActivity::class.java)
+        startActivity(returnHome)
     }
 
     companion object {
