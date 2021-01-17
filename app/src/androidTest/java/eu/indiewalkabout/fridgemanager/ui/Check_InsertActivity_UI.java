@@ -4,7 +4,6 @@ package eu.indiewalkabout.fridgemanager.ui;
 import android.os.SystemClock;
 import androidx.annotation.NonNull;
 import androidx.test.espresso.ViewInteraction;
-import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.matcher.BoundedMatcher;
@@ -49,9 +48,7 @@ import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static org.hamcrest.Matchers.allOf;
 
 import java.util.Date;
@@ -270,7 +267,7 @@ public class Check_InsertActivity_UI {
         */
 
         // check presence of food inserted with expiring date today
-        RecyclerView recyclerView = mainActivity.findViewById(R.id.main_today_food_list_recycleView);
+        RecyclerView recyclerView = mainActivity.findViewById(R.id.today_food_list_recycleView);
         int itemCount             = recyclerView.getChildCount();
         for(int i = 0; i<itemCount; i++) {
             ViewHolder holder = recyclerView.getChildViewHolder(recyclerView.getChildAt(i));
@@ -279,13 +276,13 @@ public class Check_InsertActivity_UI {
                 // Log.d(TAG, "testInsertExpiringToday: find the target text : "+targetText);
                 System.out.println("testInsertExpiringToday: find the target text : "+targetText);
 
-                onView(ViewMatchers.withId(R.id.main_today_food_list_recycleView))
+                onView(ViewMatchers.withId(R.id.today_food_list_recycleView))
                         // .check(matches(atPositionOnView(0, withText("food_expiring_today"), R.id.foodName_tv)));
                         // .check(matches(atPositionOnView(0, withId(R.id.foodName_tv), R.id.foodName_tv)))
                         .check(matches(atPositionOnView(i, withText(targetText), R.id.foodName_tv)));
                 break;
             }
-            onView(ViewMatchers.withId(R.id.main_today_food_list_recycleView))
+            onView(ViewMatchers.withId(R.id.today_food_list_recycleView))
                     .perform(RecyclerViewActions.scrollToPosition(i+1));
         }
     }
