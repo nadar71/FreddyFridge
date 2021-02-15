@@ -9,7 +9,7 @@
     <string name="foodSaved_activity_title">Cibo Consumato</string>
     <string name="insertFoodActivity_title">Inserisci nuovo cibo</string>
     <string name="mainSettingsActivity_title">Impostazioni</string>
-    <string name="insert_food_name_tv">"Inserisci una descrizione : "</string>
+    <string name="insert_food_name_tv">Inserisci una descrizione : </string>
     <string name="food_name_hint">Descrizione del cibo</string>
     <string name="name_placeholder">Nome</string>
     <string name="choose_expiring_date_label">"Inserisci la data di scadenza : "</string>
@@ -26,11 +26,9 @@
     <string name="how_many_days_before_label">Quanti GIORNI prima</string>
     <string name="how_many_hours_title">Frequenza notifiche orarie :</string>
     <string name="how_many_hours_label">Con frequenza oraria giornaliera vuoi essere notificato? (di default è ogni 6 ore)</string>
-    <string name="gdpr_btn_key">GDPR</string>
     <string name="gdpr_btn_title">GDPR</string>
     <string name="gdpr_btn_summary">"Consenso GDPR "</string>
     <string name="credits_btn_title">Attribuzioni</string>
-    <string name="credits_btn_key">attribuzioni</string>
     <string name="credits_btn_summary">Guarda le attribuzioni qua</string>
     <string name="nextdays_expiring_food_notification_title">Hai cibo in scadenza nei PROSSIMI GIORNI</string>
     <string name="nextdays_expiring_notification_body">Usa il link sotto per vedere la lista completa</string>
@@ -66,4 +64,10 @@
     <string name="settings_notify_every_02">" ore"</string>
     <string name="days_alert_dialog_title">Avviso giorni</string>
     <string name="days_alert_dialog_msg">I giorni prima del valore di avviso non possono essere vuoti</string>
+    <string name="goto_app_settings_description">Vai alle impostazioni di sistema dell\'app</string>
+    <string name="goto_app_settings_title">Impostazioni dell\'App</string>
+    <string name="share_today_title">Cibo in scadenza OGGI : </string>
+    <string name="expiring_food_list_subject">"Tutto il Cibo in scadenza : "</string>
+    <string name="saved_food_list_subject">Cibo consumato finora :</string>
+    <string name="wasted_food_list_subject">"Cibo sprecato finora : "</string>
 </resources>

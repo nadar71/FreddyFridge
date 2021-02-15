@@ -3,16 +3,18 @@ package eu.indiewalkabout.fridgemanager
 import android.app.Application
 import android.content.Context
 
-import eu.indiewalkabout.fridgemanager.data.FoodDatabase
+import eu.indiewalkabout.fridgemanager.data.db.FoodDatabase
+import eu.indiewalkabout.fridgemanager.repository.FridgeManagerRepository
+import eu.indiewalkabout.fridgemanager.util.AppExecutors
 
 
 /**
  * -------------------------------------------------------------------------------------------------
  * Class used for access singletons and application context wherever in the app
- * NB : register in manifest in <Application android:name=".SingletonProvider">... </Application>
+ * NB : register in manifest in <Application android:name=".App">... </Application>
  * -------------------------------------------------------------------------------------------------
  */
-class SingletonProvider : Application() {
+class App : Application() {
 
     private val mAppExecutors: AppExecutors? = null
 

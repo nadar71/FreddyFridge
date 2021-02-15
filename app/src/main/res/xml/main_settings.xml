@@ -50,6 +50,12 @@
             android:title="@string/gdpr_btn_title"
             app:iconSpaceReserved="false" />
 
+        <Preference
+            android:key="@string/app_settings_btn_key"
+            android:summary="@string/goto_app_settings_description"
+            android:title="@string/goto_app_settings_title"
+            app:iconSpaceReserved="false" />
+
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

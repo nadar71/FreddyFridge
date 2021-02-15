@@ -2,12 +2,9 @@ package eu.indiewalkabout.fridgemanager.reminder
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import eu.indiewalkabout.fridgemanager.SingletonProvider
-import eu.indiewalkabout.fridgemanager.data.FoodEntry
+import eu.indiewalkabout.fridgemanager.App
 import eu.indiewalkabout.fridgemanager.util.DateUtility
 import eu.indiewalkabout.fridgemanager.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.util.PreferenceUtility
@@ -57,7 +54,7 @@ class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
         // 1549926000000 - 172800000 = 1549753200000
 
         // get repository
-        val repository = (SingletonProvider.getsContext() as SingletonProvider).repository
+        val repository = (App.getsContext() as App).repository
 
 
         CoroutineScope(IO).launch {

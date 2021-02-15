@@ -53,6 +53,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_rect"
@@ -66,7 +67,7 @@
 
     <!-- Empty view is only visible when the list has no items. -->
     <TextView
-        android:id="@+id/empty_view"
+        android:id="@+id/emptyListText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/light_grey_very_transparent"
@@ -79,6 +80,16 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <ImageView
+        android:id="@+id/share_food_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/food_list_fab"
+        app:layout_constraintEnd_toStartOf="@+id/food_list_fab"
+        app:layout_constraintTop_toBottomOf="@+id/food_list_fab"
+        app:srcCompat="@drawable/ic_baseline_share_48" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/food_list_fab"
@@ -93,6 +104,21 @@
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="@+id/food_list_recycleView"
         app:srcCompat="@drawable/ic_refrigerator_icon" />
+
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/admob_key_bottom_banner"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"/>
 
     <com.hlab.fabrevealmenu.view.FABRevealMenu
         android:id="@+id/food_list_fabMenu"
@@ -114,21 +140,6 @@
         app:showTitle="true">
 
     </com.hlab.fabrevealmenu.view.FABRevealMenu>
-
-
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/admob_key_bottom_banner"
-        ads:layout_constraintBottom_toBottomOf="parent"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

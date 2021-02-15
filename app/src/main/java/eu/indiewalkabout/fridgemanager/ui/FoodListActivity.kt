@@ -2,55 +2,41 @@ package eu.indiewalkabout.fridgemanager.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.appcompat.widget.Toolbar
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
-import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.InterstitialAd
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
-import com.hlab.fabrevealmenu.view.FABRevealMenu
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.data.FoodEntry
-import eu.indiewalkabout.fridgemanager.ui.FoodListActivity
+import eu.indiewalkabout.fridgemanager.data.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.ui.FoodListAdapter.ItemClickListener
-import eu.indiewalkabout.fridgemanager.ui.FoodsViewModel
-import eu.indiewalkabout.fridgemanager.ui.InsertFoodActivity
-import eu.indiewalkabout.fridgemanager.ui.MainActivity
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.util.GenericUtility.randRange_ApiCheck
+import kotlinx.android.synthetic.main.activity_food_list.*
+import kotlinx.android.synthetic.main.activity_food_list.adView
+import kotlinx.android.synthetic.main.activity_food_list.emptyListText
+import kotlinx.android.synthetic.main.activity_main.*
+import java.text.DateFormat.getDateInstance
+import java.util.*
 
 // ---------------------------------------------------------------------------------------------
 // Show list of food depending on FOOD_TYPE
 
 class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedListener {
-    // Views ref
-    var foodsListToolbar: Toolbar? = null
-    lateinit var foodList: androidx.recyclerview.widget.RecyclerView
     var foodListAdapter: FoodListAdapter? = null
-    lateinit var emptyListText: TextView
-    lateinit var toolbarTitle: TextView
-    var fabMenu: FABRevealMenu? = null
-    var fab: FloatingActionButton? = null
+    var foodListForShare: String = ""
+    var foodShareSubject: String = ""
 
-    // admob banner ref
-    lateinit var mAdView: AdView
-
-    // admob banner interstitial ref
+    // admob interstitial ref
     lateinit var mInterstitialAd: InterstitialAd
 
     // Hold the type of food to show in list, use here and by adapter
@@ -66,15 +52,9 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_food_list)
-        mAdView = findViewById(R.id.adView)
 
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        mAdView.loadAd(getAdRequest(this@FoodListActivity))
-
-
-        // empty view for empty list message
-        emptyListText = findViewById(R.id.empty_view)
-
+        adView.loadAd(getAdRequest(this@FoodListActivity))
 
         // TODO : use this in another way
         // get intent extra for configuring list type
@@ -84,16 +64,20 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
             Log.d(TAG, "onCreate: FOOD_TYPE : " + foodlistType.toString())
         }
 
-        // init toolbar
         toolBarInit()
-
-        // navigation fab btn
         addRevealFabBtn()
-
-        // init recycle view list
         initRecycleView()
 
         hideStatusNavBars(this)
+
+        share_food_list.setOnClickListener {
+            val sharingIntent = Intent(Intent.ACTION_SEND)
+            sharingIntent.type = "text/plain"
+            val shareBody = foodListForShare
+            sharingIntent.putExtra(Intent.EXTRA_SUBJECT, foodShareSubject)
+            sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
+            startActivity(Intent.createChooser(sharingIntent, "Share via"))
+        }
     }
 
 
@@ -106,19 +90,12 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
     // Toolbar init
 
     private fun toolBarInit() {
-
-        // get the toolbar
-        foodsListToolbar = findViewById<View>(R.id.food_list_toolbar) as Toolbar
         setToolBarTitle()
-
         // place toolbar in place of action bar
-        setSupportActionBar(foodsListToolbar)
-
-        // get a support action bar
-        val actionBar = supportActionBar
+        setSupportActionBar(food_list_toolbar)
 
         // up button
-        actionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
     /**
@@ -127,22 +104,21 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
      * ---------------------------------------------------------------------------------------------
      */
     private fun setToolBarTitle() {
-        toolbarTitle = foodsListToolbar!!.findViewById(R.id.toolbar_title_tv)
 
         // set correct title
         if (foodlistType == FOOD_EXPIRING) {
-            // foodsListToolbar.setTitle(R.string.foodExpiring_activity_title);
-            toolbarTitle.setText(R.string.foodExpiring_activity_title)
+            toolbar_title_tv.setText(R.string.foodExpiring_activity_title)
+            foodShareSubject = getString(R.string.expiring_food_list_subject)
             Log.d(TAG, "onCreate: FOOD_TYPE : " + R.string.foodExpiring_activity_title)
 
         } else if (foodlistType == FOOD_SAVED) {
-            // foodsListToolbar.setTitle(R.string.R.string.foodSaved_activity_title);
-            toolbarTitle.setText(R.string.foodSaved_activity_title)
+            toolbar_title_tv.setText(R.string.foodSaved_activity_title)
+            foodShareSubject = getString(R.string.saved_food_list_subject)
             Log.d(TAG, "onCreate: FOOD_TYPE : " + R.string.foodSaved_activity_title)
 
         } else if (foodlistType == FOOD_DEAD) {
-            // foodsListToolbar.setTitle(R.string.foodDead_activity_title);
-            toolbarTitle.setText(R.string.foodDead_activity_title)
+            toolbar_title_tv.setText(R.string.foodDead_activity_title)
+            foodShareSubject = getString(R.string.wasted_food_list_subject)
             Log.d(TAG, "onCreate: FOOD_TYPE : " + R.string.foodDead_activity_title)
         }
     }
@@ -153,36 +129,6 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
      * ---------------------------------------------------------------------------------------------
      */
     private fun showInterstitialAd() {
-
-
-        /*
-        // init and load admob interstitial
-        mInterstitialAd = new InterstitialAd(this);
-
-        // Sample AdMob interstitial ID:         ca-app-pub-3940256099942544/1033173712
-        // THIS APP REAL AdMob interstitial ID:  ca-app-pub-8846176967909254/5671183832
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-
-        if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
-            // AdRequest adInterstitialRequest = new AdRequest.Builder().build();
-
-            AdRequest adInterstitialRequest = new AdRequest.Builder()
-                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                    .addTestDevice("7DC1A1E8AEAD7908E42271D4B68FB270")
-                    .build();
-
-
-
-            // load and show admob interstitial
-            mInterstitialAd.loadAd(adInterstitialRequest);
-        }
-
-        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        } else {
-            Toast.makeText(this, "Ad interstitial did not load", Toast.LENGTH_SHORT).show();
-        }
-        */
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = resources.getString(R.string.admob_key_interstitial)
 
@@ -211,35 +157,29 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
      * ---------------------------------------------------------------------------------------------
      */
     private fun initRecycleView() {
-        // Set the RecyclerView's view
-        foodList = findViewById(R.id.food_list_recycleView)
-        if (foodList == null) {
+
+        if (food_list_recycleView == null) {
             Log.d(TAG, "onCreate: foodList == null ")
         }
 
-        // Set LinearLayout
-        foodList.setLayoutManager(LinearLayoutManager(this))
+        food_list_recycleView.setLayoutManager(LinearLayoutManager(this))
 
-
-        // Initialize the adapter and attach it to the RecyclerView
         foodListAdapter = FoodListAdapter(this, this, foodlistType!!)
-        foodList.setAdapter(foodListAdapter)
+        food_list_recycleView.setAdapter(foodListAdapter)
 
-        // Divider decorator
         val decoration = DividerItemDecoration(applicationContext, androidx.recyclerview.widget.DividerItemDecoration.VERTICAL)
-        foodList.addItemDecoration(decoration)
+        food_list_recycleView.addItemDecoration(decoration)
 
-        // Configure the adpater; it uses LiveData to keep updated on changes
         setupAdapter()
 
         // make fab button hide when scrolling list
-        foodList.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+        food_list_recycleView.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0 || dy < 0 && fab!!.isShown) fab!!.hide()
+                if (dy > 0 || dy < 0 && food_list_fab!!.isShown) food_list_fab!!.hide()
             }
 
             override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView, newState: Int) {
-                if (newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE) fab!!.show()
+                if (newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE) food_list_fab!!.show()
                 super.onScrollStateChanged(recyclerView, newState)
             }
         })
@@ -264,11 +204,10 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
     private fun retrieveAllFood() {
         Log.d(TAG, "Actively retrieving Expiring Food from DB")
 
-        // Instance factory FoodsViewModelFactory, parametrized with foodlistType
         val factory = FoodsViewModelFactory(foodlistType!!)
 
         // Create the FoodsViewModel  for the food list, based on  foodlistType
-        val viewModel = ViewModelProviders.of(this, factory).get(FoodsViewModel::class.java)
+        val viewModel = ViewModelProvider(this, factory).get(FoodsViewModel::class.java)
 
         // Observe changes in data through LiveData: getFoodList() actually return LiveData<List<FoodEntry>>
         val foods: LiveData<MutableList<FoodEntry>>? = viewModel.foodList
@@ -277,8 +216,15 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
             foodListAdapter!!.setFoodEntries(foodEntries)
             if (foodEntries!!.size > 0) {
                 emptyListText.visibility = View.INVISIBLE
+                share_food_list.visibility = View.VISIBLE
+                // fill the list for sharing
+                foodListForShare += "${foodShareSubject} \n\n"
+                for(item in foodEntries) {
+                    foodListForShare += "${item.name} :  ${getDateInstance().format(item.expiringAt)}\n\n"
+                }
             } else {
                 emptyListText.visibility = View.VISIBLE
+                share_food_list.visibility = View.INVISIBLE
             }
         })
     }
@@ -299,7 +245,6 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
                 showInterstitialAd()
             }
 
-            // showInterstitialAd();
             onBackPressed()
         }
         return super.onOptionsItemSelected(item)
@@ -310,9 +255,9 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
     // ---------------------------------------------------------------------------------------------
     override fun onBackPressed() {
         super.onBackPressed()
-        if (fabMenu != null) {
-            if (fabMenu!!.isShowing) {
-                fabMenu!!.closeMenu()
+        if (food_list_fabMenu != null) {
+            if (food_list_fabMenu!!.isShowing) {
+                food_list_fabMenu!!.closeMenu()
             }
         }
     }
@@ -323,33 +268,30 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
      * ---------------------------------------------------------------------------------------------
      */
     private fun addRevealFabBtn() {
-        fab = findViewById(R.id.food_list_fab)
-        fabMenu = findViewById(R.id.food_list_fabMenu)
 
         // choose what menu item must be seen based on type of list
         if (foodlistType == FOOD_EXPIRING) {
-            fabMenu?.removeItem(R.id.menu_expiring_food)
+            food_list_fabMenu?.removeItem(R.id.menu_expiring_food)
 
         } else if (foodlistType == FOOD_DEAD) {
-            fabMenu?.removeItem(R.id.menu_dead_food)
+            food_list_fabMenu?.removeItem(R.id.menu_dead_food)
 
         } else if (foodlistType == FOOD_SAVED) {
-            fabMenu?.removeItem(R.id.menu_consumed_food)
+            food_list_fabMenu?.removeItem(R.id.menu_consumed_food)
         }
         try {
-            if (fab != null && fabMenu != null) {
-                fabMenu = fabMenu
+            if (food_list_fab != null && food_list_fabMenu != null) {
 
                 //attach menu to main_fab
-                fabMenu!!.bindAnchorView(fab!!)
+                food_list_fabMenu!!.bindAnchorView(food_list_fab!!)
 
                 //set menu selection listener
-                fabMenu!!.setOnFABMenuSelectedListener(this)
+                food_list_fabMenu!!.setOnFABMenuSelectedListener(this)
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        fabMenu?.setMenuDirection(Direction.LEFT)
+        food_list_fabMenu?.setMenuDirection(Direction.LEFT)
     }
 
     /**
@@ -361,36 +303,53 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
         if (id == R.id.menu_insert) {
             val toInsertFood = Intent(this@FoodListActivity, InsertFoodActivity::class.java)
             startActivity(toInsertFood)
-        } else if (id == R.id.menu_expiring_food) {
-            val showExpiringFood = Intent(this@FoodListActivity, FoodListActivity::class.java)
-            showExpiringFood.putExtra(FOOD_TYPE, FOOD_EXPIRING)
-            startActivity(showExpiringFood)
-        } else if (id == R.id.menu_consumed_food) {
-            val guess = randRange_ApiCheck(1, 10)
-            if (guess <= 3) {
-                showInterstitialAd()
-            }
-            val showSavedFood = Intent(this@FoodListActivity, FoodListActivity::class.java)
-            showSavedFood.putExtra(FOOD_TYPE, FOOD_SAVED)
-            startActivity(showSavedFood)
-        } else if (id == R.id.menu_dead_food) {
-            val guess = randRange_ApiCheck(1, 10)
-            if (guess <= 3) {
-                showInterstitialAd()
-            }
-            val showDeadFood = Intent(this@FoodListActivity, FoodListActivity::class.java)
-            showDeadFood.putExtra(FOOD_TYPE, FOOD_DEAD)
-            startActivity(showDeadFood)
-        } else if (id == R.id.menu_home) {
-            // show interstitial ad on back home only 50% of times
-            val guess = randRange_ApiCheck(1, 10)
-            if (guess <= 4) {
-                showInterstitialAd()
-            }
 
-            // showInterstitialAd();
-            val returnHome = Intent(this@FoodListActivity, MainActivity::class.java)
-            startActivity(returnHome)
+        } else if (id == R.id.menu_expiring_food) {
+            showExpiringFood()
+
+        } else if (id == R.id.menu_consumed_food) {
+            ShowRandomizedInterstAds(3)
+            showSavedFood()
+
+        } else if (id == R.id.menu_dead_food) {
+            ShowRandomizedInterstAds(3)
+            showDeadFood()
+
+        } else if (id == R.id.menu_home) {
+            ShowRandomizedInterstAds(4)
+            returnHome()
+        }
+    }
+
+    private fun returnHome() {
+        val returnHome = Intent(this@FoodListActivity, MainActivity::class.java)
+        startActivity(returnHome)
+    }
+
+
+    private fun showDeadFood() {
+        val showDeadFood = Intent(this@FoodListActivity, FoodListActivity::class.java)
+        showDeadFood.putExtra(FOOD_TYPE, FOOD_DEAD)
+        startActivity(showDeadFood)
+    }
+
+    private fun showSavedFood() {
+        val showSavedFood = Intent(this@FoodListActivity, FoodListActivity::class.java)
+        showSavedFood.putExtra(FOOD_TYPE, FOOD_SAVED)
+        startActivity(showSavedFood)
+    }
+
+    private fun showExpiringFood() {
+        val showExpiringFood = Intent(this@FoodListActivity, FoodListActivity::class.java)
+        showExpiringFood.putExtra(FOOD_TYPE, FOOD_EXPIRING)
+        startActivity(showExpiringFood)
+    }
+
+
+    private fun ShowRandomizedInterstAds(upperLimit: Int) {
+        val guess = randRange_ApiCheck(1, 10)
+        if (guess <= upperLimit) {
+            showInterstitialAd()
         }
     }
 

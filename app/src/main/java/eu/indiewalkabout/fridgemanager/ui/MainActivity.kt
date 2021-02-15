@@ -1,28 +1,20 @@
 package eu.indiewalkabout.fridgemanager.ui
 
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.ads.AdView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.internal.ContextUtils.getActivity
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
-import com.hlab.fabrevealmenu.view.FABRevealMenu
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.SingletonProvider
-import eu.indiewalkabout.fridgemanager.data.FoodEntry
+import eu.indiewalkabout.fridgemanager.App
+import eu.indiewalkabout.fridgemanager.data.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.reminder.FoodReminderWorker
 import eu.indiewalkabout.fridgemanager.reminder.ReminderScheduler.scheduleChargingReminder
 import eu.indiewalkabout.fridgemanager.ui.FoodListAdapter.ItemClickListener
@@ -30,6 +22,7 @@ import eu.indiewalkabout.fridgemanager.util.*
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.ConsentCallback
 import eu.indiewalkabout.fridgemanager.util.GenericUtility.hideStatusNavBars
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,23 +30,10 @@ import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedListener {
-    // admob banner ref
-    lateinit var mAdView: AdView
-    lateinit var applicationRef: Application
-
-    // UI item reference
-    lateinit var settingsBtn: ImageView
-    lateinit var helpBtn: ImageView
-    lateinit var emptyListText: TextView
-    var fabMenu: FABRevealMenu? = null
-    private var fab: FloatingActionButton? = null
 
     // recycle View stuff
-    lateinit var foodList: androidx.recyclerview.widget.RecyclerView
     lateinit var foodListAdapter: FoodListAdapter
-
-    // gestures
-    var onSwipeTouchListener: OnSwipeTouchListener? = null
+    var foodListForShare: String = ""
 
     // vars utils for testing
     private var numPrevOpenings = 0
@@ -68,8 +48,6 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // TODO : fix problem for home_activity_layout in onSwipeTouchListener
-        // onSwipeTouchListener = OnSwipeTouchListener(this, findViewById<View>(R.id.home_activity_layout))
 
         // open intro only for the first 3 times
         numPrevOpenings = appOpenings
@@ -84,24 +62,28 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         }
 
 
-        // empty view for empty list message
-        emptyListText = findViewById(R.id.empty_view)
-        settingsBtn = findViewById(R.id.settingsIcon_img)
-        settingsBtn.setOnClickListener(View.OnClickListener {
+        settingsIcon_img.setOnClickListener {
             val settingsIntent = Intent(applicationContext, MainSettingsActivity::class.java)
             startActivity(settingsIntent)
-        })
-        helpBtn = findViewById(R.id.help_img)
-        helpBtn.setOnClickListener(View.OnClickListener {
+        }
+
+
+        help_img.setOnClickListener {
             val introIntent = Intent(applicationContext, IntroActivity::class.java)
             startActivity(introIntent)
-        })
+        }
+
+        share_img.setOnClickListener {
+            val sharingIntent = Intent(Intent.ACTION_SEND)
+            sharingIntent.type = "text/plain"
+            val shareBody = foodListForShare
+            sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_today_title))
+            sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
+            startActivity(Intent.createChooser(sharingIntent, "Share via"))
+        }
 
 
-        // add main_fab revealing menu
         addRevealFabBtn()
-
-        // Recycle view
         initRecycleView()
 
         // start scheduler for notifications reminder
@@ -109,7 +91,24 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
         hideStatusNavBars(this)
 
-        // TODO : do thing on swipe, check OnSwipeTouchListener
+        // goto to insert on swipe left/right
+        home_activity_layout.setOnTouchListener(object: OnSwipeTouchListener(this@MainActivity) {
+            override fun onSwipeLeft() {
+                toInsertFood()
+            }
+            override fun onSwipeRight() {
+                toInsertFood()
+            }
+        })
+
+        today_food_list_recycleView.setOnTouchListener(object: OnSwipeTouchListener(this@MainActivity) {
+            override fun onSwipeLeft() {
+                toInsertFood()
+            }
+            override fun onSwipeRight() {
+                toInsertFood()
+            }
+        })
 
     }
 
@@ -117,6 +116,12 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
     override fun onStart() {
         super.onStart()
+        showAds()
+    }
+
+
+
+    private fun showAds() {
         checkConsentActive = consentSDKNeed
         if (checkConsentActive == true) {
             // Initialize ConsentSDK
@@ -132,15 +137,12 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
                 override fun onResult(isRequestLocationInEeaOrUnknown: Boolean) {
                     Log.i("gdpr_TAG", "onResult: isRequestLocationInEeaOrUnknown : $isRequestLocationInEeaOrUnknown")
                     // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-                    mAdView.loadAd(getAdRequest(this@MainActivity))
+                    adView.loadAd(getAdRequest(this@MainActivity))
                 }
             })
 
-            // request ad banner
-            mAdView = findViewById(R.id.adView)
-
             // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-            mAdView.loadAd(getAdRequest(this@MainActivity))
+            adView.loadAd(getAdRequest(this@MainActivity))
         }
     }
 
@@ -186,7 +188,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
     fun testNotification(view: View?) {
         lateinit var foodEntriesNextDays: List<FoodEntry>
         CoroutineScope(Dispatchers.Main).launch {
-            val repository = (SingletonProvider.getsContext() as SingletonProvider).repository
+            val repository = (App.getsContext() as App).repository
             val dataNormalizedAtMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.normalizedUtcMsForToday)
             val expiringDateToBeNotified = dataNormalizedAtMidnight + TimeUnit.DAYS.toSeconds(1.toLong()).toInt()
             val foodEntriesNextDays = repository!!.loadAllFoodExpiring_no_livedata(expiringDateToBeNotified)
@@ -212,7 +214,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
             val dataNormalizedAtMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.normalizedUtcMsForToday)
             val previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS
             val nextDayDate = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS
-            val repository = (SingletonProvider.getsContext() as SingletonProvider).repository
+            val repository = (App.getsContext() as App).repository
             foodEntriesToDay = repository!!.loadFoodExpiringToday_no_livedata(previousDayDate, nextDayDate)
 
             foodEntriesToDay.let {
@@ -235,36 +237,25 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
     // Recycle view list init
     private fun initRecycleView() {
-        // Set the RecyclerView's view
-        foodList = findViewById(R.id.main_today_food_list_recycleView)
+        today_food_list_recycleView.setLayoutManager(LinearLayoutManager(this))
 
-        // Set LinearLayout
-        foodList.setLayoutManager(LinearLayoutManager(this))
-
-        // retrieve application context for viewmodel
-        // application = (Application) getApplicationContext();
-        applicationRef = getApplication()
-
-        // Initialize the adapter and attach it to the RecyclerView
         foodListAdapter = FoodListAdapter(this, this,
                 FoodListActivity.FOOD_EXPIRING_TODAY)
-        foodList.setAdapter(foodListAdapter)
+        today_food_list_recycleView.setAdapter(foodListAdapter)
 
-        // Divider decorator
         val decoration = DividerItemDecoration(applicationContext, androidx.recyclerview.widget.DividerItemDecoration.VERTICAL)
-        foodList.addItemDecoration(decoration)
+        today_food_list_recycleView.addItemDecoration(decoration)
 
-        // Configure the adapter; it uses LiveData to keep updated on changes
         setupAdapter()
 
         // make fab button hide when scrolling list
-        foodList.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+        today_food_list_recycleView.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0 || dy < 0 && fab!!.isShown) fab!!.hide()
+                if (dy > 0 || dy < 0 && main_fab!!.isShown) main_fab!!.hide()
             }
 
             override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView, newState: Int) {
-                if (newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE) fab!!.show()
+                if (newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE) main_fab!!.show()
                 super.onScrollStateChanged(recyclerView, newState)
             }
         })
@@ -282,26 +273,28 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
 
     // Livedata/ViewModel recovering Expiring Today Food list
-
     private fun retrieveFoodExpiringToday() {
         Log.d(TAG, "Actively retrieving Expiring Food from DB")
 
-        // Declare my viewModel factory, parametrized with foodlistType
         val factory = FoodsViewModelFactory(FoodListActivity.FOOD_EXPIRING_TODAY)
-
-        // Create the viewModel for the food list, based on  foodlistType
-        val viewModel = ViewModelProviders.of(this, factory).get(FoodsViewModel::class.java)
+        val viewModel = ViewModelProvider(this, factory).get(FoodsViewModel::class.java)
 
         // Observe changes in data through LiveData: getFoodList() actually return LiveData<List<FoodEntry>>
         val foods = viewModel.foodList
             foods!!.observe(this, Observer { foodEntries ->
                 Log.d(TAG, "Receiving database " + FoodListActivity.FOOD_EXPIRING_TODAY + " LiveData")
-                // foodList.setVisibility(View.VISIBLE);
                 foodListAdapter.adapterFoodEntries = foodEntries
                 if (foodEntries!!.size > 0) {
                     emptyListText.visibility = View.INVISIBLE
+                    share_img.visibility = View.VISIBLE
+                    // fill the list for sharing
+                    foodListForShare += "${getString(R.string.share_today_title)} \n"
+                    for(item in foodEntries) {
+                        foodListForShare += "${item.name} \n"
+                    }
                 } else {
                     emptyListText.visibility = View.VISIBLE
+                    share_img.visibility = View.INVISIBLE
                 }
             })
     }
@@ -335,9 +328,9 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
     //                                  REVEALING FAB BTN STUFF
     // ---------------------------------------------------------------------------------------------
     override fun onBackPressed() {
-        if (fabMenu != null) {
-            if (fabMenu!!.isShowing) {
-                fabMenu!!.closeMenu()
+        if (main_fabMenu != null) {
+            if (main_fabMenu!!.isShowing) {
+                main_fabMenu!!.closeMenu()
             }
         }
     }
@@ -346,43 +339,58 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
     // Adding revealing main_fab button
     private fun addRevealFabBtn() {
-        fab = findViewById(R.id.main_fab)
-        fabMenu = findViewById(R.id.main_fabMenu)
         try {
-            if (fab != null && fabMenu != null) {
-                fabMenu = fabMenu
-
+            if (main_fab != null && main_fabMenu != null) {
                 //attach menu to main_fab
-                fabMenu!!.bindAnchorView(fab!!)
+                main_fabMenu!!.bindAnchorView(main_fab!!)
 
                 //set menu selection listener
-                fabMenu!!.setOnFABMenuSelectedListener(this)
+                main_fabMenu!!.setOnFABMenuSelectedListener(this)
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        fabMenu!!.setMenuDirection(Direction.LEFT)
+        main_fabMenu!!.setMenuDirection(Direction.LEFT)
     }
 
 
     // Revealing main_fab button menu management
     override fun onMenuItemSelected(view: View, id: Int) {
         if (id == R.id.menu_insert) {
-            val toInsertFood = Intent(this@MainActivity, InsertFoodActivity::class.java)
-            startActivity(toInsertFood)
+            toInsertFood()
+
         } else if (id == R.id.menu_expiring_food) {
-            val showExpiringFood = Intent(this@MainActivity, FoodListActivity::class.java)
-            showExpiringFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_EXPIRING)
-            startActivity(showExpiringFood)
+            showExpiringFood()
+
         } else if (id == R.id.menu_consumed_food) {
-            val showSavedFood = Intent(this@MainActivity, FoodListActivity::class.java)
-            showSavedFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_SAVED)
-            startActivity(showSavedFood)
+            showSavedFood()
+
         } else if (id == R.id.menu_dead_food) {
-            val showDeadFood = Intent(this@MainActivity, FoodListActivity::class.java)
-            showDeadFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_DEAD)
-            startActivity(showDeadFood)
+            showDeadFood()
         }
+    }
+
+    private fun showDeadFood() {
+        val showDeadFood = Intent(this@MainActivity, FoodListActivity::class.java)
+        showDeadFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_DEAD)
+        startActivity(showDeadFood)
+    }
+
+    private fun showSavedFood() {
+        val showSavedFood = Intent(this@MainActivity, FoodListActivity::class.java)
+        showSavedFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_SAVED)
+        startActivity(showSavedFood)
+    }
+
+    private fun showExpiringFood() {
+        val showExpiringFood = Intent(this@MainActivity, FoodListActivity::class.java)
+        showExpiringFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_EXPIRING)
+        startActivity(showExpiringFood)
+    }
+
+    private fun toInsertFood() {
+        val toInsertFood = Intent(this@MainActivity, InsertFoodActivity::class.java)
+        startActivity(toInsertFood)
     }
 
     companion object {

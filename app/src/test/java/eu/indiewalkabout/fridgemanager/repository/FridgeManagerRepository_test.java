@@ -1,7 +1,5 @@
 package eu.indiewalkabout.fridgemanager.repository;
 
-import androidx.lifecycle.LiveData;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,11 +9,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Date;
 
-import eu.indiewalkabout.fridgemanager.FridgeManagerRepository;
-import eu.indiewalkabout.fridgemanager.data.DateConverter;
-import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
-import eu.indiewalkabout.fridgemanager.data.FoodDbDao;
-import eu.indiewalkabout.fridgemanager.data.FoodEntry;
+import eu.indiewalkabout.fridgemanager.data.db.DateConverter;
+import eu.indiewalkabout.fridgemanager.data.db.FoodDatabase;
+import eu.indiewalkabout.fridgemanager.data.db.FoodDbDao;
+import eu.indiewalkabout.fridgemanager.data.model.FoodEntry;
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
 
 import static org.mockito.ArgumentMatchers.any;

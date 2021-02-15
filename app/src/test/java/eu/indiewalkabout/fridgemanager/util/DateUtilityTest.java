@@ -3,14 +3,11 @@ package eu.indiewalkabout.fridgemanager.util;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
-import eu.indiewalkabout.fridgemanager.data.DateConverter;
+import eu.indiewalkabout.fridgemanager.data.db.DateConverter;
 
 public class DateUtilityTest {
     

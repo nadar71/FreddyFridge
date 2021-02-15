@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">FreddyFridge !</string>
     <string name="app_name_subtitle">Don\'t waste Food !</string>
+    <string name="app_package" translatable="false">eu.indiewalkabout.fridgemanager</string>
 
 
     <!-- activity,titles and others labels  -->
@@ -85,13 +86,13 @@
     <string name="settings_12_hours_value" translatable="false">12</string>
 
     <!-- - - - - - - - - - - -  Help category for preferences  - - - - - - - - - - - - - - - - - -->
-    <string name="gdpr_btn_key">gdpr_withdraw</string>
+    <string name="gdpr_btn_key"  translatable="false">gdpr_withdraw</string>
     <string name="gdpr_btn_title">GDPR</string>
     <string name="gdpr_btn_summary">GDPR Consent Withdraw.</string>
 
 
     <string name="credits_btn_title">Credits</string>
-    <string name="credits_btn_key">credits</string>
+    <string name="credits_btn_key" translatable="false">credits</string>
     <string name="credits_btn_summary">See credits and attributions here.</string>
 
 
@@ -180,6 +181,13 @@
     <!-- - - - - - - - - - - - - Preferences - - - - - - - - - - - - - - - - - - - - - - - - -  -->
     <string name="days_alert_dialog_title">Days Alert</string>
     <string name="days_alert_dialog_msg">Days before alert value can\'t be empty</string>
+    <string name="app_settings_btn_key" translatable="false">notifications_settings</string>
+    <string name="goto_app_settings_description">Go to system App Settings</string>
+    <string name="goto_app_settings_title">App Settings</string>
+    <string name="share_today_title">Food expiring TODAY : </string>
+    <string name="expiring_food_list_subject">"Expiring Food global list : "</string>
+    <string name="saved_food_list_subject">Saved Food till now : </string>
+    <string name="wasted_food_list_subject">WASTED Food till now : </string>
 
 
 </resources>

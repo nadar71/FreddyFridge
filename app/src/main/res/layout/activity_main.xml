@@ -170,7 +170,7 @@
 
     <!-- Empty view is only visible when the list has no items. -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_today_food_list_recycleView"
+        android:id="@+id/today_food_list_recycleView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
@@ -187,7 +187,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
-        android:id="@+id/empty_view"
+        android:id="@+id/emptyListText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -199,10 +199,10 @@
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="@color/brown"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/main_today_food_list_recycleView"
-        app:layout_constraintEnd_toEndOf="@+id/main_today_food_list_recycleView"
-        app:layout_constraintStart_toStartOf="@+id/main_today_food_list_recycleView"
-        app:layout_constraintTop_toTopOf="@+id/main_today_food_list_recycleView" />
+        app:layout_constraintBottom_toBottomOf="@+id/today_food_list_recycleView"
+        app:layout_constraintEnd_toEndOf="@+id/today_food_list_recycleView"
+        app:layout_constraintStart_toStartOf="@+id/today_food_list_recycleView"
+        app:layout_constraintTop_toTopOf="@+id/today_food_list_recycleView" />
 
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -230,8 +230,18 @@
         app:backgroundTint="@color/colorAccent"
         app:fabSize="normal"
         app:layout_constraintBottom_toTopOf="@+id/adView"
-        app:layout_constraintEnd_toEndOf="@+id/main_today_food_list_recycleView"
+        app:layout_constraintEnd_toEndOf="@+id/today_food_list_recycleView"
         app:srcCompat="@drawable/ic_refrigerator_icon" />
+
+    <ImageView
+        android:id="@+id/share_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/main_fab"
+        app:layout_constraintEnd_toStartOf="@+id/main_fab"
+        app:layout_constraintTop_toBottomOf="@+id/main_fab"
+        app:srcCompat="@drawable/ic_baseline_share_48" />
 
     <com.hlab.fabrevealmenu.view.FABRevealMenu
         android:id="@+id/main_fabMenu"

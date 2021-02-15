@@ -2,7 +2,7 @@ package eu.indiewalkabout.fridgemanager.converter;
 
 import org.junit.Test;
 
-import eu.indiewalkabout.fridgemanager.data.DateConverter;
+import eu.indiewalkabout.fridgemanager.data.db.DateConverter;
 
 import java.util.Calendar;
 import java.util.Date;

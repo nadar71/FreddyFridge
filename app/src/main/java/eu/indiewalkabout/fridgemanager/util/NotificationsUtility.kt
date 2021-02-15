@@ -16,7 +16,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.data.FoodEntry
+import eu.indiewalkabout.fridgemanager.data.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.reminder.FoodReminderIntentService
 import eu.indiewalkabout.fridgemanager.reminder.ReminderOps
 import eu.indiewalkabout.fridgemanager.reminder.ReminderScheduler
