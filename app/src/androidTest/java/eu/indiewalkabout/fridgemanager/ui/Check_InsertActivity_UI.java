@@ -31,10 +31,10 @@ import org.junit.runner.RunWith;
 
 
 import eu.indiewalkabout.fridgemanager.R;
-import eu.indiewalkabout.fridgemanager.SingletonProvider;
-import eu.indiewalkabout.fridgemanager.data.DateConverter;
-import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
-import eu.indiewalkabout.fridgemanager.data.FoodDbDao;
+import eu.indiewalkabout.fridgemanager.App;
+import eu.indiewalkabout.fridgemanager.data.db.DateConverter;
+import eu.indiewalkabout.fridgemanager.data.db.FoodDatabase;
+import eu.indiewalkabout.fridgemanager.data.db.FoodDbDao;
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
 import eu.indiewalkabout.fridgemanager.util.TestUtility;
 
@@ -76,7 +76,7 @@ public class Check_InsertActivity_UI {
     public void init(){
         mainActivity   = mainActivityRule.getActivity();
         insertActivity = insertFoodActivityTestRule.getActivity();
-        foodDatabase   = ((SingletonProvider) SingletonProvider.Companion.getsContext()).getDatabase();
+        foodDatabase   = ((App) App.Companion.getsContext()).getDatabase();
         foodDbDao      = foodDatabase.foodDbDao();
     }
 

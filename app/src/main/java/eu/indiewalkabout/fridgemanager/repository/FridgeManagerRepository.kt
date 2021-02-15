@@ -1,10 +1,8 @@
-package eu.indiewalkabout.fridgemanager
-
+package eu.indiewalkabout.fridgemanager.repository
 
 import androidx.lifecycle.LiveData
-
-import eu.indiewalkabout.fridgemanager.data.FoodDatabase
-import eu.indiewalkabout.fridgemanager.data.FoodEntry
+import eu.indiewalkabout.fridgemanager.data.db.FoodDatabase
+import eu.indiewalkabout.fridgemanager.data.model.FoodEntry
 
 /**
  * -------------------------------------------------------------------------------------------------

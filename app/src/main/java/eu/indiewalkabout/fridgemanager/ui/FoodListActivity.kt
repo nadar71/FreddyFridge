@@ -15,9 +15,8 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.InterstitialAd
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
-import com.hlab.fabrevealmenu.view.FABRevealMenu
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.data.FoodEntry
+import eu.indiewalkabout.fridgemanager.data.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.ui.FoodListAdapter.ItemClickListener
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.util.GenericUtility.hideStatusNavBars
@@ -27,7 +26,6 @@ import kotlinx.android.synthetic.main.activity_food_list.adView
 import kotlinx.android.synthetic.main.activity_food_list.emptyListText
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.DateFormat.getDateInstance
-import java.text.SimpleDateFormat
 import java.util.*
 
 // ---------------------------------------------------------------------------------------------

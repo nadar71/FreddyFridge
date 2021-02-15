@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.data
+package eu.indiewalkabout.fridgemanager.data.model
 
 
 import androidx.room.ColumnInfo
@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
+import eu.indiewalkabout.fridgemanager.data.db.DateConverter
 
 import java.util.Date
 

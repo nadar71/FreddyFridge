@@ -3,17 +3,16 @@ package eu.indiewalkabout.fridgemanager.ui
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import eu.indiewalkabout.fridgemanager.AppExecutors.Companion.instance
-import eu.indiewalkabout.fridgemanager.FridgeManagerRepository
+import eu.indiewalkabout.fridgemanager.util.AppExecutors.Companion.instance
+import eu.indiewalkabout.fridgemanager.repository.FridgeManagerRepository
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.SingletonProvider
-import eu.indiewalkabout.fridgemanager.SingletonProvider.Companion.getsContext
-import eu.indiewalkabout.fridgemanager.data.FoodEntry
+import eu.indiewalkabout.fridgemanager.App
+import eu.indiewalkabout.fridgemanager.App.Companion.getsContext
+import eu.indiewalkabout.fridgemanager.data.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.ui.FoodListAdapter.FoodViewRowHolder
 import java.text.SimpleDateFormat
 import java.util.*
@@ -352,6 +351,6 @@ class FoodListAdapter(private val thisContext: Context, // Handle item clicks
 
 
         // TODO : move onClick management to MainActivity
-        repository = (getsContext() as SingletonProvider?)!!.repository
+        repository = (getsContext() as App?)!!.repository
     }
 }

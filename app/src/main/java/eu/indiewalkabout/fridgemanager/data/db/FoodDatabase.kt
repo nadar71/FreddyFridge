@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.data
+package eu.indiewalkabout.fridgemanager.data.db
 
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.room.Database
@@ -8,6 +8,7 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import android.content.Context
 import android.util.Log
+import eu.indiewalkabout.fridgemanager.data.model.FoodEntry
 
 @Database(entities = [FoodEntry::class], version = 2, exportSchema = false)
 @TypeConverters(DateConverter::class)
@@ -53,7 +54,7 @@ abstract class FoodDatabase : RoomDatabase() {
             if (sDbInstance == null) {
                 synchronized(LOCK) {
                     Log.d(TAG, "Creating App db singleton instance...")
-                    sDbInstance = Room.databaseBuilder(context.applicationContext, FoodDatabase::class.java, FoodDatabase.DBNAME)
+                    sDbInstance = Room.databaseBuilder(context.applicationContext, FoodDatabase::class.java, DBNAME)
                             //.allowMainThreadQueries() // TODO : temporary for debugging, delete this
                             .addMigrations(MIGRATION_1_2)
                             .build()

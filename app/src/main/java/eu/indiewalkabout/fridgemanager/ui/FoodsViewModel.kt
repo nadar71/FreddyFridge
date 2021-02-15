@@ -3,10 +3,10 @@ package eu.indiewalkabout.fridgemanager.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import android.util.Log
-import eu.indiewalkabout.fridgemanager.FridgeManagerRepository
-import eu.indiewalkabout.fridgemanager.SingletonProvider
-import eu.indiewalkabout.fridgemanager.SingletonProvider.Companion.getsContext
-import eu.indiewalkabout.fridgemanager.data.FoodEntry
+import eu.indiewalkabout.fridgemanager.repository.FridgeManagerRepository
+import eu.indiewalkabout.fridgemanager.App
+import eu.indiewalkabout.fridgemanager.App.Companion.getsContext
+import eu.indiewalkabout.fridgemanager.data.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.util.DateUtility.DAY_IN_MILLIS
 import eu.indiewalkabout.fridgemanager.util.DateUtility.getLocalMidnightFromNormalizedUtcDate
 import eu.indiewalkabout.fridgemanager.util.DateUtility.normalizedUtcMsForToday
@@ -38,7 +38,7 @@ class FoodsViewModel : ViewModel {
      */
     constructor() {
         // init repository
-        repository = (getsContext() as SingletonProvider?)!!.repository
+        repository = (getsContext() as App?)!!.repository
     }
 
     /**
@@ -52,7 +52,7 @@ class FoodsViewModel : ViewModel {
         Log.d(TAG, "Actively retrieving the collections from repository")
 
         // get repository instance
-        repository = (getsContext() as SingletonProvider?)!!.repository
+        repository = (getsContext() as App?)!!.repository
 
         // choose the type of food list to load from db
         if (foodlistType == FoodListActivity.FOOD_EXPIRING) {

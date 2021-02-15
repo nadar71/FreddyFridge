@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -14,31 +13,27 @@ import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
 import android.widget.*
 import com.google.android.gms.ads.AdView
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import com.hlab.fabrevealmenu.view.FABRevealMenu
-import eu.indiewalkabout.fridgemanager.AppExecutors.Companion.instance
+import eu.indiewalkabout.fridgemanager.util.AppExecutors.Companion.instance
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.SingletonProvider
-import eu.indiewalkabout.fridgemanager.SingletonProvider.Companion.getsContext
-import eu.indiewalkabout.fridgemanager.data.DateConverter
-import eu.indiewalkabout.fridgemanager.data.DateConverter.fromDate
-import eu.indiewalkabout.fridgemanager.data.DateConverter.toDate
-import eu.indiewalkabout.fridgemanager.data.FoodEntry
+import eu.indiewalkabout.fridgemanager.App
+import eu.indiewalkabout.fridgemanager.App.Companion.getsContext
+import eu.indiewalkabout.fridgemanager.data.db.DateConverter.fromDate
+import eu.indiewalkabout.fridgemanager.data.db.DateConverter.toDate
+import eu.indiewalkabout.fridgemanager.data.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.util.DateUtility.getLocalMidnightFromNormalizedUtcDate
 import eu.indiewalkabout.fridgemanager.util.DateUtility.normalizedUtcMsForToday
-import eu.indiewalkabout.fridgemanager.util.GenericUtility
 import eu.indiewalkabout.fridgemanager.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.util.KeyboardUtils.Companion.addKeyboardToggleListener
 import eu.indiewalkabout.fridgemanager.util.KeyboardUtils.SoftKeyboardToggleListener
 import eu.indiewalkabout.fridgemanager.util.OnSwipeTouchListener
 import kotlinx.android.synthetic.main.activity_insert_food.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.home_activity_layout
 import java.util.*
 
 /**
@@ -118,6 +113,9 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
         })
 
 
+        calendar_cv.date
+
+        /*
         calendar_cv.setOnTouchListener(object: OnSwipeTouchListener(this@InsertFoodActivity) {
             override fun onSwipeLeft() {
                 returnHome()
@@ -126,6 +124,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
                 returnHome()
             }
         })
+        */
     }
 
 
@@ -286,7 +285,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
 
 
                 // repo insert, n time as item's number
-                val repository = (getsContext() as SingletonProvider?)!!.repository
+                val repository = (getsContext() as App?)!!.repository
                 for (num in 1..itemsNum) {
                     // create a new food obj and init with data inserted by user
                     val foodEntry = FoodEntry(0, "${foodName}  n. ${num}", expiringDate!!)
@@ -328,7 +327,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
                 foodEntry.done = foodEntryToChange.value!!.done
 
                 // update task on db
-                val repository = (getsContext() as SingletonProvider?)!!.repository
+                val repository = (getsContext() as App?)!!.repository
                 repository!!.updateFoodEntry(foodEntry)
 
                 // end activity

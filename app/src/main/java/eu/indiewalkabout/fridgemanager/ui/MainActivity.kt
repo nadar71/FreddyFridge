@@ -10,12 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.SingletonProvider
-import eu.indiewalkabout.fridgemanager.data.FoodEntry
+import eu.indiewalkabout.fridgemanager.App
+import eu.indiewalkabout.fridgemanager.data.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.reminder.FoodReminderWorker
 import eu.indiewalkabout.fridgemanager.reminder.ReminderScheduler.scheduleChargingReminder
 import eu.indiewalkabout.fridgemanager.ui.FoodListAdapter.ItemClickListener
@@ -189,7 +188,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
     fun testNotification(view: View?) {
         lateinit var foodEntriesNextDays: List<FoodEntry>
         CoroutineScope(Dispatchers.Main).launch {
-            val repository = (SingletonProvider.getsContext() as SingletonProvider).repository
+            val repository = (App.getsContext() as App).repository
             val dataNormalizedAtMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.normalizedUtcMsForToday)
             val expiringDateToBeNotified = dataNormalizedAtMidnight + TimeUnit.DAYS.toSeconds(1.toLong()).toInt()
             val foodEntriesNextDays = repository!!.loadAllFoodExpiring_no_livedata(expiringDateToBeNotified)
@@ -215,7 +214,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
             val dataNormalizedAtMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.normalizedUtcMsForToday)
             val previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS
             val nextDayDate = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS
-            val repository = (SingletonProvider.getsContext() as SingletonProvider).repository
+            val repository = (App.getsContext() as App).repository
             foodEntriesToDay = repository!!.loadFoodExpiringToday_no_livedata(previousDayDate, nextDayDate)
 
             foodEntriesToDay.let {

@@ -16,11 +16,11 @@ import java.util.Date;
 import java.util.List;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
-import eu.indiewalkabout.fridgemanager.SingletonProvider;
-import eu.indiewalkabout.fridgemanager.data.DateConverter;
-import eu.indiewalkabout.fridgemanager.data.FoodDatabase;
-import eu.indiewalkabout.fridgemanager.data.FoodDbDao;
-import eu.indiewalkabout.fridgemanager.data.FoodEntry;
+import eu.indiewalkabout.fridgemanager.App;
+import eu.indiewalkabout.fridgemanager.data.db.DateConverter;
+import eu.indiewalkabout.fridgemanager.data.db.FoodDatabase;
+import eu.indiewalkabout.fridgemanager.data.db.FoodDbDao;
+import eu.indiewalkabout.fridgemanager.data.model.FoodEntry;
 import eu.indiewalkabout.fridgemanager.util.DateUtility;
 
 import static org.junit.Assert.assertEquals;
@@ -33,7 +33,7 @@ as if the foodList from LiveData<List> foodListLive is null.
 foodListLive is null as well if I comment all what is after : Observer<List> observer = res -> assertEquals(1,res.size());
 
 The pb happens both if I use this for creating db :
-foodDatabase = ((SingletonProvider) SingletonProvider.Companion.getsContext()).getDatabase();
+foodDatabase = ((App) App.Companion.getsContext()).getDatabase();
 
 or this :
 foodDatabase = Room.inMemoryDatabaseBuilder(
@@ -64,7 +64,7 @@ public class FoodDbDao_test {
                 .build();
 
 */
-        foodDatabase = ((SingletonProvider) SingletonProvider.Companion.getsContext()).getDatabase();
+        foodDatabase = ((App) App.Companion.getsContext()).getDatabase();
         foodDbDao = foodDatabase.foodDbDao();
 
     }
