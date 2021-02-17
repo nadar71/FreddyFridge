@@ -189,5 +189,17 @@
     <string name="saved_food_list_subject">Saved Food till now : </string>
     <string name="wasted_food_list_subject">WASTED Food till now : </string>
 
+    <string name="review_btn_key"  translatable="false">app_review_btn_key</string>
+    <string name="review_btn_summary">Like this app? Left a review please !</string>
+    <string name="review_btn_title">App Review</string>
+
+    <string name="myapps_btn_key"  translatable="false">goto_myapps_btn_key</string>
+    <string name="myapps_btn_summary">Discover all my other apps and games!</string>
+    <string name="myapps_btn_title">My Other apps and games</string>
+
+    <string name="support_btn_key"  translatable="false">goto_support_btn_key</string>
+    <string name="support_btn_summary">Suggestions, bugs, errors, whatever? drop a line  here please : indie.walkabout.71@gmail.com</string>
+    <string name="support_btn_title">Support</string>
+
 
 </resources>

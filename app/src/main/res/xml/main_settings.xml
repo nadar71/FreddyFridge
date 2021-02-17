@@ -57,15 +57,22 @@
             app:iconSpaceReserved="false" />
 
         <Preference
-            android:key="app_review_btn_key"
-            android:summary="Like this app? Left a review please!"
-            android:title="App Review"
+            android:key="@string/review_btn_key"
+            android:summary="@string/review_btn_summary"
+            android:title="@string/review_btn_title"
             app:iconSpaceReserved="false" />
 
         <Preference
-            android:key="goto_myapps_btn_key"
-            android:summary="Discover all my other apps and games!"
-            android:title="My Other apps"
+            android:key="@string/myapps_btn_key"
+            android:summary="@string/myapps_btn_summary"
+            android:title="@string/myapps_btn_title"
+            app:iconSpaceReserved="false" />
+
+
+        <Preference
+            android:key="@string/support_btn_key"
+            android:summary="@string/support_btn_summary"
+            android:title="@string/support_btn_title"
             app:iconSpaceReserved="false" />
 
     </PreferenceCategory>

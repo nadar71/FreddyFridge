@@ -70,4 +70,10 @@
     <string name="expiring_food_list_subject">"Tutto il Cibo in scadenza : "</string>
     <string name="saved_food_list_subject">Cibo consumato finora :</string>
     <string name="wasted_food_list_subject">"Cibo sprecato finora : "</string>
+    <string name="review_btn_summary">Ti piace l\'app? Lasciami una recensione se vuoi :)</string>
+    <string name="review_btn_title">Recensione app</string>
+    <string name="myapps_btn_summary">Scopri tutte le altre mie app e giochi!</string>
+    <string name="myapps_btn_title">Altre app e giochi</string>
+    <string name="support_btn_summary">"Suggerimenti, bug, errori, qualsiasi cosa? Scrivimi pure qui : indie.walkabout.71@gmail.com "</string>
+    <string name="support_btn_title">Supporto</string>
 </resources>
