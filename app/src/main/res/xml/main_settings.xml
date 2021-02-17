@@ -56,6 +56,18 @@
             android:title="@string/goto_app_settings_title"
             app:iconSpaceReserved="false" />
 
+        <Preference
+            android:key="app_review_btn_key"
+            android:summary="Like this app? Left a review please!"
+            android:title="App Review"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            android:key="goto_myapps_btn_key"
+            android:summary="Discover all my other apps and games!"
+            android:title="My Other apps"
+            app:iconSpaceReserved="false" />
+
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>
