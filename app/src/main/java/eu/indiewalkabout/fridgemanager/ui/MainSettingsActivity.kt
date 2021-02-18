@@ -1,26 +1,30 @@
 package eu.indiewalkabout.fridgemanager.ui
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.service.notification.Condition.SCHEME
 import android.text.Html
 import android.text.InputType
 import android.util.Log
 import android.view.MenuItem
+import android.view.MotionEvent.*
 import android.view.View
+import android.view.ViewTreeObserver
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.browser.customtabs.CustomTabsClient.getPackageName
+import androidx.core.widget.NestedScrollView
 import androidx.preference.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import com.hlab.fabrevealmenu.view.FABRevealMenu
+import eu.indiewalkabout.fridgemanager.App
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.reminder.ReminderScheduler.scheduleChargingReminder
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK
@@ -31,7 +35,9 @@ import eu.indiewalkabout.fridgemanager.util.ConsentSDK.ConsentStatusCallback
 import eu.indiewalkabout.fridgemanager.util.GenericUtility
 import eu.indiewalkabout.fridgemanager.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.util.PreferenceUtility.getHoursCount
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main_settings.*
+import kotlinx.android.synthetic.main.activity_main_settings.adView
 
 
 // Settings configuration class; uses activity_main_settings layout and include settingsFrag
@@ -93,11 +99,14 @@ class MainSettingsActivity : AppCompatActivity(),
     class MainPreferenceFragment : PreferenceFragmentCompat(),
             Preference.OnPreferenceChangeListener,
             SharedPreferences.OnSharedPreferenceChangeListener{
+
         lateinit var consentSDK: ConsentSDK
+        val appPackageName: String = App.getsContext()?.packageName ?: "eu.indiewalkabout.fridgemanager"
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.main_settings, rootKey)
         }
+
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -131,6 +140,9 @@ class MainSettingsActivity : AppCompatActivity(),
             val gdprConsentBtn: Preference? = findPreference(getString(R.string.gdpr_btn_key))
             val creditsBtn: Preference? = findPreference(getString(R.string.credits_btn_key))
             val notificationBtn: Preference? = findPreference(getString(R.string.app_settings_btn_key))
+            val feedbackBtn: Preference? = findPreference(getString(R.string.review_btn_key))
+            val myAppsBtn: Preference? = findPreference(getString(R.string.myapps_btn_key))
+            val supportBtn: Preference? = findPreference(getString(R.string.support_btn_key))
 
             // Initialize ConsentSDK
             initConsentSDK(requireActivity())
@@ -175,6 +187,49 @@ class MainSettingsActivity : AppCompatActivity(),
                 startActivity(intent);
                 true
             }
+
+            // Goto app review in store
+            feedbackBtn?.onPreferenceClickListener = Preference.OnPreferenceClickListener{
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
+                    Log.i(TAG, "feedback pressed, open google play store app ")
+                } catch (anfe: ActivityNotFoundException) {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
+                    Log.i(TAG, "feedback pressed, open google play browser page app ")
+                }
+                true
+            }
+
+            // Goto my apps in store
+            myAppsBtn?.onPreferenceClickListener = Preference.OnPreferenceClickListener{
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://dev?id=9031358010900352978")))
+                    Log.i(TAG, "my app pressed, open google play store app ")
+                } catch (anfe: ActivityNotFoundException) {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/dev?id=9031358010900352978")))
+                    Log.i(TAG, "my app  pressed, open google play browser page app ")
+                }
+                true
+            }
+
+            // Goto support, open mail
+            supportBtn?.onPreferenceClickListener = Preference.OnPreferenceClickListener{
+                try {
+                    val intent = Intent(Intent.ACTION_SENDTO)
+                    intent.type = "message/rfc822"
+                    intent.data = Uri.parse("mailto:") // only email apps should handle this
+                    intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("indie.walkabout.1971@gmail.com"))
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "App feedback")
+                    startActivity(intent)
+                } catch (ex: ActivityNotFoundException) {
+                    Toast.makeText(activity, "There are no email client installed on your device.", Toast.LENGTH_SHORT).show()
+                }
+                true
+            }
+
+
+
+
         }
 
         /**
@@ -365,6 +420,5 @@ class MainSettingsActivity : AppCompatActivity(),
             startActivity(returnHome)
         }
     }
-
 
 }

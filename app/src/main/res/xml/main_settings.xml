@@ -56,6 +56,27 @@
             android:title="@string/goto_app_settings_title"
             app:iconSpaceReserved="false" />
 
+        <Preference
+            android:key="@string/review_btn_key"
+            android:summary="@string/review_btn_summary"
+            android:title="@string/review_btn_title"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            android:key="@string/myapps_btn_key"
+            android:summary="@string/myapps_btn_summary"
+            android:title="@string/myapps_btn_title"
+            app:iconSpaceReserved="false" />
+
+
+        <Preference
+            android:key="@string/support_btn_key"
+            android:summary="@string/support_btn_summary"
+            android:title="@string/support_btn_title"
+            app:iconSpaceReserved="false" />
+
+
+
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>
