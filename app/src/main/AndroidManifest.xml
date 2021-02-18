@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="eu.indiewalkabout.fridgemanager">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -73,14 +75,20 @@
         <activity android:name=".ui.CreditsActivity"
             android:screenOrientation="portrait" />
 
-        <!-- JobService declaration used in FirebaseJobDispatcher -->
+        <!-- JobService declaration used in FirebaseJobDispatcher
         <service
-            android:name=".reminder.FoodReminderWorker"
+            android:name="eu.indiewalkabout.fridgemanager.reminder.FoodReminderWorker"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
+        -->
+
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            tools:node="remove" />
     </application>
 
 </manifest>
