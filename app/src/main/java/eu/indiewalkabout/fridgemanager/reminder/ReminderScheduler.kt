@@ -35,12 +35,22 @@ object ReminderScheduler {
         // TODO : comment debug frequency BEFORE RELEASE!!
         // periodicity = 60*15
 
+        /*
         val request = PeriodicWorkRequest
-                .Builder(FoodReminderWorker::class.java,periodicity,TimeUnit.SECONDS)
+                .Builder(FoodReminderWorker::class.java,periodicity,
+                        TimeUnit.SECONDS,
+                        15, TimeUnit.MINUTES)
+                .build()
+         */
+
+        val request = PeriodicWorkRequestBuilder<FoodReminderWorker>(
+                periodicity,TimeUnit.SECONDS,
+                15, TimeUnit.MINUTES)
                 .build()
 
-        WorkManager.getInstance(context).enqueueUniquePeriodicWork(REMINDER_JOB_TAG,
-                ExistingPeriodicWorkPolicy.KEEP, request)
+        WorkManager
+                .getInstance(context)
+                .enqueueUniquePeriodicWork(REMINDER_JOB_TAG, ExistingPeriodicWorkPolicy.KEEP, request)
 
         Log.i(TAG, "Workmanager, scheduling every seconds : ${periodicity}")
 
