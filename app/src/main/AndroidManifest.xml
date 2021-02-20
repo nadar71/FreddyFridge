@@ -77,7 +77,7 @@
 
         <!-- JobService declaration used in FirebaseJobDispatcher
         <service
-            android:name="eu.indiewalkabout.fridgemanager.reminder.FoodReminderWorker"
+            android:name="eu.indiewalkabout.fridgemanager.reminder.withworkmanager.FoodReminderWorker"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />

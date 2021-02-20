@@ -13,12 +13,10 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.MotionEvent.*
 import android.view.View
-import android.view.ViewTreeObserver
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.widget.NestedScrollView
 import androidx.preference.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hlab.fabrevealmenu.enums.Direction
@@ -26,7 +24,7 @@ import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import com.hlab.fabrevealmenu.view.FABRevealMenu
 import eu.indiewalkabout.fridgemanager.App
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.reminder.ReminderScheduler.scheduleChargingReminder
+import eu.indiewalkabout.fridgemanager.reminder.withworkmanager.ReminderScheduler.scheduleChargingReminder
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.isConsentPersonalized

@@ -1,13 +1,8 @@
-package eu.indiewalkabout.fridgemanager.reminder
+package eu.indiewalkabout.fridgemanager.reminder.withworkmanager
 
 import android.content.Context
 import android.util.Log
 import androidx.work.*
-
-import com.firebase.jobdispatcher.FirebaseJobDispatcher
-import com.firebase.jobdispatcher.GooglePlayDriver
-import com.firebase.jobdispatcher.Lifetime
-import com.firebase.jobdispatcher.Trigger
 
 import java.util.concurrent.TimeUnit
 
@@ -35,13 +30,6 @@ object ReminderScheduler {
         // TODO : comment debug frequency BEFORE RELEASE!!
         // periodicity = 60*15
 
-        /*
-        val request = PeriodicWorkRequest
-                .Builder(FoodReminderWorker::class.java,periodicity,
-                        TimeUnit.SECONDS,
-                        15, TimeUnit.MINUTES)
-                .build()
-         */
 
         val request = PeriodicWorkRequestBuilder<FoodReminderWorker>(
                 periodicity,TimeUnit.SECONDS,
@@ -52,7 +40,7 @@ object ReminderScheduler {
                 .getInstance(context)
                 .enqueueUniquePeriodicWork(REMINDER_JOB_TAG, ExistingPeriodicWorkPolicy.KEEP, request)
 
-        Log.i(TAG, "Workmanager, scheduling every seconds : ${periodicity}")
+        Log.i(TAG, "Workmanager, scheduling every seconds : $periodicity")
 
     }
 }

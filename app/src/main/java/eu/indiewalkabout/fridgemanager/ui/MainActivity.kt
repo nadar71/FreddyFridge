@@ -15,8 +15,8 @@ import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.App
 import eu.indiewalkabout.fridgemanager.data.model.FoodEntry
-import eu.indiewalkabout.fridgemanager.reminder.FoodReminderWorker
-import eu.indiewalkabout.fridgemanager.reminder.ReminderScheduler.scheduleChargingReminder
+import eu.indiewalkabout.fridgemanager.reminder.withworkmanager.FoodReminderWorker
+import eu.indiewalkabout.fridgemanager.reminder.withworkmanager.ReminderScheduler.scheduleChargingReminder
 import eu.indiewalkabout.fridgemanager.ui.FoodListAdapter.ItemClickListener
 import eu.indiewalkabout.fridgemanager.util.*
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest

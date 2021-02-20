@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.reminder
+package eu.indiewalkabout.fridgemanager.reminder.withworkmanager
 
 import android.content.Context
 import android.util.Log

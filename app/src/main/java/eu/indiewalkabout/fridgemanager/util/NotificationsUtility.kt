@@ -19,7 +19,7 @@ import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.data.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.reminder.FoodReminderIntentService
 import eu.indiewalkabout.fridgemanager.reminder.ReminderOps
-import eu.indiewalkabout.fridgemanager.reminder.ReminderScheduler
+import eu.indiewalkabout.fridgemanager.reminder.withworkmanager.ReminderScheduler
 import eu.indiewalkabout.fridgemanager.ui.FoodListActivity
 import eu.indiewalkabout.fridgemanager.ui.MainActivity
 
