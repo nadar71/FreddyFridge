@@ -45,7 +45,7 @@ class App : Application(), Configuration.Provider {
         // scheduleChargingReminder(this)
 
         // start scheduler for notifications reminder
-        AlarmReminderScheduler().setRepeatingAlarm(60)
+        AlarmReminderScheduler().setRepeatingAlarm()
     }
 
     override fun getWorkManagerConfiguration() =

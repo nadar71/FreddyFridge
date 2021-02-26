@@ -6,7 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import eu.indiewalkabout.fridgemanager.App
+import eu.indiewalkabout.fridgemanager.reminder.withworkmanager.ReminderScheduler
+import eu.indiewalkabout.fridgemanager.util.PreferenceUtility
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class AlarmReminderScheduler() {
 
@@ -41,13 +44,28 @@ class AlarmReminderScheduler() {
 
 
 
+    fun setRepeatingAlarm() {
+        val hoursFrequency = PreferenceUtility.getHoursCount(context)
+        val minutesPeriodicity = hoursFrequency * 60
+
+        alarmMgr?.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                calendar.timeInMillis,
+                1000 * 60 * minutesPeriodicity.toLong(),
+                alarmIntent
+        )
+        Log.i(TAG, " AlarmReminderScheduler : repeating alarm set every ${hoursFrequency} hours. ")
+    }
+
+
     fun setRepeatingAlarm(minutes: Int) {
+
         alarmMgr?.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 calendar.timeInMillis,
                 1000 * 60 * minutes.toLong(),
                 alarmIntent
         )
-        Log.i(TAG, " AlarmReminderScheduler : repeating alarm set. ")
+        Log.i(TAG, " AlarmReminderScheduler : repeating alarm set every ${minutes} minutes. ")
     }
 }
