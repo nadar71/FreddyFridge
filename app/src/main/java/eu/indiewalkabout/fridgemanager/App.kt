@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.work.Configuration
 
 import eu.indiewalkabout.fridgemanager.data.db.FoodDatabase
+import eu.indiewalkabout.fridgemanager.reminder.withalarmmanager.AlarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.repository.FridgeManagerRepository
 import eu.indiewalkabout.fridgemanager.util.AppExecutors
 
@@ -40,7 +41,11 @@ class App : Application(), Configuration.Provider {
 
         sContext = applicationContext
 
+        // start scheduler for notifications reminder
+        // scheduleChargingReminder(this)
 
+        // start scheduler for notifications reminder
+        AlarmReminderScheduler().setRepeatingAlarm(60)
     }
 
     override fun getWorkManagerConfiguration() =

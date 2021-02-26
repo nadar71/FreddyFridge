@@ -15,6 +15,7 @@ import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.App
 import eu.indiewalkabout.fridgemanager.data.model.FoodEntry
+import eu.indiewalkabout.fridgemanager.reminder.withalarmmanager.AlarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.reminder.withworkmanager.FoodReminderWorker
 import eu.indiewalkabout.fridgemanager.reminder.withworkmanager.ReminderScheduler.scheduleChargingReminder
 import eu.indiewalkabout.fridgemanager.ui.FoodListAdapter.ItemClickListener
@@ -86,8 +87,8 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         addRevealFabBtn()
         initRecycleView()
 
-        // start scheduler for notifications reminder
-        scheduleChargingReminder(this)
+
+
 
         hideStatusNavBars(this)
 
