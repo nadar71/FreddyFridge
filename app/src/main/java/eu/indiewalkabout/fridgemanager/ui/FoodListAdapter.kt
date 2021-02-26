@@ -347,29 +347,19 @@ class FoodListAdapter(private val thisContext: Context, // Handle item clicks
 
     } // End Inner class FoodViewHolder --------------------------------------------------------
 
-    /**
-     * ----------------------------------------------------------------------------------
-     * Return a food item in list at defined position
-     * ----------------------------------------------------------------------------------
-     */
+
+
+    // Return a food item in list at defined position
     fun getFoodItemAtPosition(position: Int): FoodEntry {
         return adapterFoodEntries!![position]
     }
 
-    /**
-     * ----------------------------------------------------------------------------------
-     * Get all the food items list
-     * ----------------------------------------------------------------------------------
-     */
+    // Get all the food items list
     fun getFoodEntries(): List<FoodEntry>? {
         return adapterFoodEntries
     }
 
-    /**
-     * ----------------------------------------------------------------------------------
-     * Used to refresh recycleView in case of item modifications
-     * ----------------------------------------------------------------------------------
-     */
+    // Refresh recycleView in case of item modifications
     fun swapItems(newFoodList: MutableList<FoodEntry>?) {
         adapterFoodEntries = newFoodList
         notifyDataSetChanged()
