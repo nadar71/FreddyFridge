@@ -50,7 +50,7 @@ class FoodListAdapter(private val thisContext: Context, // Handle item clicks
         // Inflate the food_row_layout to each view
         val view = LayoutInflater.from(thisContext)
                 .inflate(R.layout.food_row_layout, parent, false)
-        return FoodViewRowHolder(view)
+        return FoodViewRowHolder(view, listType, thisContext, foodItemClickListener)
     }
 
 
@@ -126,8 +126,12 @@ class FoodListAdapter(private val thisContext: Context, // Handle item clicks
     // ----------------------------------------------------------------------------------
     // Inner class for creating ViewHolders
     // ----------------------------------------------------------------------------------
-    inner class FoodViewRowHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView),
-            View.OnClickListener {
+    inner class FoodViewRowHolder(itemView: View,
+                                  val listType: String,
+                                  val thisContext: Context,
+                                  val foodItemClickListener: ItemClickListener)
+        : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
+
         // Class variables for the task description and priority TextViews
         var foodName_tv: TextView
         var expiringDate_tv: TextView
