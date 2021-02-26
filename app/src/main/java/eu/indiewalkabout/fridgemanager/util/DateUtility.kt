@@ -107,8 +107,7 @@ object DateUtility {
      * ---------------------------------------------------------------------------------------------
      * This method will return the local time midnight for the provided normalized UTC date.
      *
-     * @param normalizedUtcDate UTC time at midnight for a given date. This number comes from the
-     * database
+     * @param normalizedUtcDate UTC time at midnight for a given date
      * @return The local date corresponding to the given normalized UTC date
      * ---------------------------------------------------------------------------------------------
      */

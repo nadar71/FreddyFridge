@@ -3,38 +3,49 @@ package eu.indiewalkabout.fridgemanager.ui
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat.getColor
 import eu.indiewalkabout.fridgemanager.util.AppExecutors.Companion.instance
 import eu.indiewalkabout.fridgemanager.repository.FridgeManagerRepository
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.App
 import eu.indiewalkabout.fridgemanager.App.Companion.getsContext
+import eu.indiewalkabout.fridgemanager.data.db.DateConverter
 import eu.indiewalkabout.fridgemanager.data.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.ui.FoodListAdapter.FoodViewRowHolder
+import eu.indiewalkabout.fridgemanager.util.DateUtility
+import eu.indiewalkabout.fridgemanager.util.DateUtility.DAY_IN_MILLIS
 import java.text.SimpleDateFormat
 import java.util.*
 
 class FoodListAdapter(private val thisContext: Context, // Handle item clicks
-                      private val foodItemClickListener: ItemClickListener, private val listType: String) : androidx.recyclerview.widget.RecyclerView.Adapter<FoodViewRowHolder>() {
+                      private val foodItemClickListener: ItemClickListener,
+                      private val listType: String)
+    : androidx.recyclerview.widget.RecyclerView.Adapter<FoodViewRowHolder>() {
 
+    companion object {
+        val TAG = FoodListAdapter::class.java.simpleName
+    }
+
+    val DATE_FORMAT = "dd/MM/yyy"
     // Holds food entries data
     internal var adapterFoodEntries: MutableList<FoodEntry>? = null
 
-    // Date formatter
     val dateFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
-
-    // repository ref
     val repository: FridgeManagerRepository?
 
-    /**
-     * ----------------------------------------------------------------------------------
-     * Inflate list's each view/row layout.
-     * @return new FoodViewRowHolder
-     * ----------------------------------------------------------------------------------
-     */
+
+    init {
+        // TODO : move onClick management to MainActivity
+        repository = (getsContext() as App?)!!.repository
+    }
+
+    // Inflate row layout.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewRowHolder {
         // Inflate the food_row_layout to each view
         val view = LayoutInflater.from(thisContext)
@@ -42,22 +53,47 @@ class FoodListAdapter(private val thisContext: Context, // Handle item clicks
         return FoodViewRowHolder(view)
     }
 
-    /**
-     * ----------------------------------------------------------------------------------
-     * Called by the RecyclerView to display data at a specified position in the Cursor.
-     * @param holder   ViewHolder to bind Cursor data to
-     * @param position dataposition in Cursor
-     * ----------------------------------------------------------------------------------
-     */
+
+     // ----------------------------------------------------------------------------------
+     // Display data at a specified position in the Cursor.
+     // @param holder   ViewHolder to bind Cursor data to
+     // @param position dataposition in Cursor
+
     override fun onBindViewHolder(holder: FoodViewRowHolder, position: Int) {
         // Determine the values of the wanted data
         val foodEntry = adapterFoodEntries!![position]
         val foodName = foodEntry.name
-        val expiringAt = dateFormat.format(foodEntry.expiringAt)
+        val expiringAtDate: Date = foodEntry.expiringAt!!
+        val expiringAtString = dateFormat.format(foodEntry.expiringAt!!)
 
         //Set values
         holder.foodName_tv.text = foodName
-        holder.expiringDate_tv.text = expiringAt
+        holder.expiringDate_tv.text = expiringAtString
+
+        setColorByExpirationDayDifference(expiringAtDate, foodName, holder)
+    }
+
+
+    // Different color while the date expiration approximates
+    private fun setColorByExpirationDayDifference(expiringAtDate: Date, foodName: String?, holder: FoodViewRowHolder) {
+        val dataNormalizedAtMidnight = DateUtility
+                .getLocalMidnightFromNormalizedUtcDate(DateUtility
+                        .normalizedUtcMsForToday)
+        val daysBefore = DateConverter.fromDate(expiringAtDate)
+                ?.minus(dataNormalizedAtMidnight)
+                ?.div(DAY_IN_MILLIS)
+                ?.let { Math.floor(it.toDouble()) }
+
+        Log.i(TAG, "onBindViewHolder: for $foodName daysBefore : $daysBefore")
+
+        if (daysBefore != null) {
+            when (daysBefore.toInt()) {
+                0 -> holder.recyclerview_item.setBackgroundColor(getColor(getsContext()!!, R.color.food_red))
+                1 -> holder.recyclerview_item.setBackgroundColor(getColor(getsContext()!!, R.color.food_orange))
+                2 -> holder.recyclerview_item.setBackgroundColor(getColor(getsContext()!!, R.color.food_yellow))
+                3 -> holder.recyclerview_item.setBackgroundColor(getColor(getsContext()!!, R.color.food_green))
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -90,22 +126,55 @@ class FoodListAdapter(private val thisContext: Context, // Handle item clicks
     // ----------------------------------------------------------------------------------
     // Inner class for creating ViewHolders
     // ----------------------------------------------------------------------------------
-    inner class FoodViewRowHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class FoodViewRowHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView),
+            View.OnClickListener {
         // Class variables for the task description and priority TextViews
         var foodName_tv: TextView
         var expiringDate_tv: TextView
         var deleteFoodItem_imgBtn: ImageButton
         var foodConsumed_cb: CheckBox
+        var recyclerview_item: ConstraintLayout
+
 
         // alert dialog object for user confirmation
         var alertDialog: AlertDialog? = null
+
+
+        // FoodViewRowHolder Constructor
+        // @param itemView view inflated in onCreateViewHolder
+        init {
+            foodName_tv = itemView.findViewById(R.id.foodName_tv)
+            expiringDate_tv = itemView.findViewById(R.id.expirationDate_tv)
+            deleteFoodItem_imgBtn = itemView.findViewById(R.id.delete_ImgBtn)
+            foodConsumed_cb = itemView.findViewById(R.id.consumed_cb)
+            recyclerview_item = itemView.findViewById(R.id.recyclerview_item)
+
+            // set correct row layout based on food list type
+            if (listType == FoodListActivity.FOOD_EXPIRING) {
+                foodConsumed_cb.visibility = View.VISIBLE
+            } else if (listType == FoodListActivity.FOOD_DEAD) {
+                foodConsumed_cb.visibility = View.VISIBLE
+            }
+            /*
+            else if (listType.equals(FoodListActivity.FOOD_SAVED)) {
+                foodConsumed_cb.setVisibility(View.INVISIBLE);
+
+            }
+             */
+
+
+            // row click listener
+            itemView.setOnClickListener(this)
+
+            // delete imgBtn click listener
+            deleteFoodItem_imgBtn.setOnClickListener(this)
+
+            // check box click listener
+            foodConsumed_cb.setOnClickListener(this)
+        }
+
         // TODO : implements onClick in MainActivity  with implementing FoodListAdapter.onClick or something similar
-        /**
-         * ------------------------------------------------------------------------------------
-         * Manage click on recycle view row and the widgets inside that
-         * @param view
-         * ------------------------------------------------------------------------------------
-         */
+        // Manage click on recycle view row and the widgets inside that
         override fun onClick(view: View) {
             val elementId = adapterFoodEntries!![adapterPosition].id
 
@@ -158,6 +227,7 @@ class FoodListAdapter(private val thisContext: Context, // Handle item clicks
                     }
                     builder.setView(dialogLayout)
                     alertDialog = builder.show()
+
                 } else { // return food to the not consumed/done ones list
                     // user dialog confirm
 
@@ -274,37 +344,7 @@ class FoodListAdapter(private val thisContext: Context, // Handle item clicks
                     Toast.LENGTH_SHORT).show()
         }
 
-        // FoodViewRowHolder Constructor
-        // @param itemView view inflated in onCreateViewHolder
-        init {
-            foodName_tv = itemView.findViewById(R.id.foodName_tv)
-            expiringDate_tv = itemView.findViewById(R.id.expirationDate_tv)
-            deleteFoodItem_imgBtn = itemView.findViewById(R.id.delete_ImgBtn)
-            foodConsumed_cb = itemView.findViewById(R.id.consumed_cb)
 
-            // set correct row layout based on food list type
-            if (listType == FoodListActivity.FOOD_EXPIRING) {
-                foodConsumed_cb.visibility = View.VISIBLE
-            } else if (listType == FoodListActivity.FOOD_DEAD) {
-                foodConsumed_cb.visibility = View.VISIBLE
-            }
-            /*
-            else if (listType.equals(FoodListActivity.FOOD_SAVED)) {
-                foodConsumed_cb.setVisibility(View.INVISIBLE);
-
-            }
-             */
-
-
-            // row click listener
-            itemView.setOnClickListener(this)
-
-            // delete imgBtn click listener
-            deleteFoodItem_imgBtn.setOnClickListener(this)
-
-            // check box click listener
-            foodConsumed_cb.setOnClickListener(this)
-        }
     } // End Inner class FoodViewHolder --------------------------------------------------------
 
     /**
@@ -335,22 +375,7 @@ class FoodListAdapter(private val thisContext: Context, // Handle item clicks
         notifyDataSetChanged()
     }
 
-    companion object {
-        // Date format
-        private const val DATE_FORMAT = "dd/MM/yyy"
-    }
-
-    /**
-     * ----------------------------------------------------------------------------------
-     * Constructor :
-     * @param context  the current Context
-     * @param listener the ItemClickListener
-     * ----------------------------------------------------------------------------------
-     */
-    init {
 
 
-        // TODO : move onClick management to MainActivity
-        repository = (getsContext() as App?)!!.repository
-    }
+
 }

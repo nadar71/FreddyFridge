@@ -24,8 +24,8 @@
     <string name="main_settings_menu_item">Impostazioni</string>
     <string name="how_many_days_before_title">Notifica cibo in scadenza tra giorni :</string>
     <string name="how_many_days_before_label">Quanti GIORNI prima</string>
-    <string name="how_many_hours_title">Frequenza notifiche orarie :</string>
-    <string name="how_many_hours_label">Con frequenza oraria giornaliera vuoi essere notificato? (di default è ogni 6 ore)</string>
+    <string name="how_many_hours_title">Frequenza notifiche orarie durante il giorno :</string>
+    <string name="how_many_hours_label">Con quale frequenza oraria giornaliera vuoi essere notificato? (di default è ogni 6 ore)</string>
     <string name="gdpr_btn_title">GDPR</string>
     <string name="gdpr_btn_summary">"Consenso GDPR "</string>
     <string name="credits_btn_title">Attribuzioni</string>
