@@ -244,9 +244,6 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
                 FoodListActivity.FOOD_EXPIRING_TODAY)
         today_food_list_recycleView.setAdapter(foodListAdapter)
 
-        val decoration = DividerItemDecoration(applicationContext, androidx.recyclerview.widget.DividerItemDecoration.VERTICAL)
-        today_food_list_recycleView.addItemDecoration(decoration)
-
         setupAdapter()
 
         // make fab button hide when scrolling list

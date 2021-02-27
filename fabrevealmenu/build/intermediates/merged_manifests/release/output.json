@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "applicationId": "com.hlab.fabrevealmenu",
+  "variantType": "LIBRARY",
+  "elements": [
+    {
+      "outputType": {
+        "type": "MERGED_MANIFESTS"
+      },
+      "apkData": {
+        "type": "MAIN",
+        "splits": [],
+        "versionCode": 4,
+        "versionName": "1.0.4",
+        "outputFile": "fabrevealmenu-release.aar",
+        "fullName": "release",
+        "baseName": "release",
+        "dirName": ""
+      },
+      "path": "../../library_manifest/release/AndroidManifest.xml",
+      "properties": {
+        "packageId": "com.hlab.fabrevealmenu",
+        "split": ""
+      }
+    }
+  ]
+}
