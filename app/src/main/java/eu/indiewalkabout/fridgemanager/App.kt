@@ -20,7 +20,7 @@ import eu.indiewalkabout.fridgemanager.util.AppExecutors
 
 class App : Application(), Configuration.Provider {
     val mAppExecutors: AppExecutors? = null
-    val unityGameID = "4029837"
+    val unityGameID = getString(R.string.unity_key)
     val testMode = false
 
     companion object {

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
-
     <!-- ADMOB APP ID -->
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- Sample AdMob app ID:         ca-app-pub-3940256099942544~3347511713 - - - - - - - - - - -->
@@ -27,5 +25,8 @@
     <string name="admob_key_interstitial" templateMergeStrategy="preserve" translatable="false">
         ca-app-pub-3940256099942544/1033173712</string>
 
+
+    <!-- UNITY ADS -->
+    <string name="unity_key" templateMergeStrategy="preserve" translatable="false">12345</string>
 
 </resources>
