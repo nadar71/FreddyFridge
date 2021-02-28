@@ -32,6 +32,7 @@ import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.isUserLocationW
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.ConsentStatusCallback
 import eu.indiewalkabout.fridgemanager.util.GenericUtility
 import eu.indiewalkabout.fridgemanager.util.GenericUtility.hideStatusNavBars
+import eu.indiewalkabout.fridgemanager.util.GenericUtility.showRandomizedInterstAds
 import eu.indiewalkabout.fridgemanager.util.PreferenceUtility.getHoursCount
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main_settings.*
@@ -339,7 +340,7 @@ class MainSettingsActivity : AppCompatActivity(),
 
         // When the home button is pressed, take the user back to Home
         if (id == android.R.id.home) {
-
+            showRandomizedInterstAds(4, this)
             // go home
             onBackPressed()
         }
@@ -348,6 +349,7 @@ class MainSettingsActivity : AppCompatActivity(),
 
     override fun onPause() {
         super.onPause()
+        // TODO : what this is for ?
         val hoursFrequency = getHoursCount(this@MainSettingsActivity)
     }
 
@@ -356,6 +358,7 @@ class MainSettingsActivity : AppCompatActivity(),
     // ---------------------------------------------------------------------------------------------
     override fun onBackPressed() {
         super.onBackPressed()
+        showRandomizedInterstAds(4,this)
         if (fabMenu != null) {
             if (fabMenu!!.isShowing) {
                 fabMenu!!.closeMenu()
@@ -418,5 +421,8 @@ class MainSettingsActivity : AppCompatActivity(),
             startActivity(returnHome)
         }
     }
+
+
+
 
 }

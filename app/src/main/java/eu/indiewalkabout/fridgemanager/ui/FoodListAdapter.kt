@@ -87,6 +87,7 @@ class FoodListAdapter(private val thisContext: Context, // Handle item clicks
                 1 -> holder.recyclerview_item.setBackground(getDrawable(getsContext()!!, R.drawable.rounded_rect_orange_item))
                 2 -> holder.recyclerview_item.setBackground(getDrawable(getsContext()!!, R.drawable.rounded_rect_yellow_item))
                 3 -> holder.recyclerview_item.setBackground(getDrawable(getsContext()!!, R.drawable.rounded_rect_green_item))
+                else -> holder.recyclerview_item.setBackground(getDrawable(getsContext()!!, R.drawable.rounded_rect_green_item))
             }
         }
     }
