@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#46B34A">
 
 
     <PreferenceCategory
@@ -14,11 +15,11 @@
             android:layout_width="wrap_content"
             android:background="@drawable/rounded_rect_light_grey_today"
             android:key="@string/days_before_deadline_count"
-            app:defaultValue="2"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:summary="@string/how_many_days_before_label"
             android:title="@string/how_many_days_before_title"
+            app:defaultValue="2"
             app:iconSpaceReserved="false" />
 
         <ListPreference
@@ -35,6 +36,8 @@
 
 
     <PreferenceCategory
+        android:textColor="@color/brown"
+        android:textStyle="bold"
         android:title="@string/category_help_title"
         app:iconSpaceReserved="false">
 
@@ -74,7 +77,6 @@
             android:summary="@string/support_btn_summary"
             android:title="@string/support_btn_title"
             app:iconSpaceReserved="false" />
-
 
 
     </PreferenceCategory>

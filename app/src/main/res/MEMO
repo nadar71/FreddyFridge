@@ -1,0 +1,5 @@
+
+Before release :
+- set admob and unity ads real id
+- set unity ads to testmode false
+- increment version code
