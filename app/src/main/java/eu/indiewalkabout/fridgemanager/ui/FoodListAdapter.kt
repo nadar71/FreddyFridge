@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.content.ContextCompat.getDrawable
 import eu.indiewalkabout.fridgemanager.repository.FridgeManagerRepository
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.App
@@ -82,10 +83,10 @@ class FoodListAdapter(private val thisContext: Context, // Handle item clicks
 
         if (daysBefore != null) {
             when (daysBefore.toInt()) {
-                0 -> holder.recyclerview_item.setBackgroundColor(getColor(getsContext()!!, R.color.food_red))
-                1 -> holder.recyclerview_item.setBackgroundColor(getColor(getsContext()!!, R.color.food_orange))
-                2 -> holder.recyclerview_item.setBackgroundColor(getColor(getsContext()!!, R.color.food_yellow))
-                3 -> holder.recyclerview_item.setBackgroundColor(getColor(getsContext()!!, R.color.food_green))
+                0 -> holder.recyclerview_item.setBackground(getDrawable(getsContext()!!, R.drawable.rounded_rect_red_item))
+                1 -> holder.recyclerview_item.setBackground(getDrawable(getsContext()!!, R.drawable.rounded_rect_orange_item))
+                2 -> holder.recyclerview_item.setBackground(getDrawable(getsContext()!!, R.drawable.rounded_rect_yellow_item))
+                3 -> holder.recyclerview_item.setBackground(getDrawable(getsContext()!!, R.drawable.rounded_rect_green_item))
             }
         }
     }

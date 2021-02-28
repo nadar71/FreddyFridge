@@ -99,6 +99,10 @@ dependencies {
     // debug stuff
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
+    // Unity
+    // implementation(name: 'unity-ads', ext: 'aar', version: '0.2.0')
+    implementation project(path: ':unity-ads')
+
 
 
     // Intro library

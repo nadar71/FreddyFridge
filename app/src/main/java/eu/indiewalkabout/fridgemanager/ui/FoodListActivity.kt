@@ -15,6 +15,7 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.InterstitialAd
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
+import eu.indiewalkabout.fridgemanager.App
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.data.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.ui.FoodListAdapter.ItemClickListener
@@ -43,12 +44,7 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
     // TODO : find a better way to pass this info to adapter
     private var foodlistType: String? = null
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * onCreate
-     * @param savedInstanceState
-     * ---------------------------------------------------------------------------------------------
-     */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_food_list)
@@ -98,11 +94,7 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Set Toolbar title
-     * ---------------------------------------------------------------------------------------------
-     */
+
     private fun setToolBarTitle() {
 
         // set correct title
@@ -123,11 +115,7 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
         }
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Show an interstitial on ui request
-     * ---------------------------------------------------------------------------------------------
-     */
+    // Show admob interstitial on ui request
     private fun showInterstitialAd() {
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = resources.getString(R.string.admob_key_interstitial)
@@ -151,11 +139,7 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
         }
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Recycle view list init
-     * ---------------------------------------------------------------------------------------------
-     */
+
     private fun initRecycleView() {
 
         if (food_list_recycleView == null) {
@@ -166,9 +150,6 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
 
         foodListAdapter = FoodListAdapter(this, this, foodlistType!!)
         food_list_recycleView.setAdapter(foodListAdapter)
-
-        val decoration = DividerItemDecoration(applicationContext, androidx.recyclerview.widget.DividerItemDecoration.VERTICAL)
-        food_list_recycleView.addItemDecoration(decoration)
 
         setupAdapter()
 
@@ -185,22 +166,14 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
         })
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Used to reload from db the tasks list and update the list view in screen
-     * ---------------------------------------------------------------------------------------------
-     */
+    // Used to reload from db the tasks list and update the list view in screen
     private fun setupAdapter() {
         Log.d(TAG, "setupAdapter: LOAD FOOD ENTRIES IN LIST ")
         retrieveAllFood()
         Log.d(TAG, "setupAdapter: FOOD_TYPE : $foodlistType")
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Livedata/ViewModel recovering Expiring Food list
-     * ---------------------------------------------------------------------------------------------
-     */
+
     private fun retrieveAllFood() {
         Log.d(TAG, "Actively retrieving Expiring Food from DB")
 
@@ -229,11 +202,7 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
         })
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * MENU STUFF
-     * ---------------------------------------------------------------------------------------------
-     */
+    // MENU STUFF
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
 
@@ -349,7 +318,12 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
     private fun ShowRandomizedInterstAds(upperLimit: Int) {
         val guess = randRange_ApiCheck(1, 10)
         if (guess <= upperLimit) {
-            showInterstitialAd()
+            // admob interstitial ads
+            // showInterstitialAd()
+
+            // unity interstitial
+            App.displayInterstitialAd(this, "interstitial")
+
         }
     }
 
