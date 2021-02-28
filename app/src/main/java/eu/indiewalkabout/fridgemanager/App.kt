@@ -20,7 +20,7 @@ import eu.indiewalkabout.fridgemanager.util.AppExecutors
 
 class App : Application(), Configuration.Provider {
     val mAppExecutors: AppExecutors? = null
-    val unityGameID = getString(R.string.unity_key)
+    val unityGameID = "4029837"
     val testMode = false
 
     companion object {
@@ -32,7 +32,7 @@ class App : Application(), Configuration.Provider {
         }
 
         // Implement a function to display an ad if the surfacing is ready:
-        fun displayInterstitialAd(activity: Activity, surfacingId: String) {
+        fun displayUnityInterstitialAd(activity: Activity, surfacingId: String) {
             if (UnityAds.isReady(surfacingId)) {
                 UnityAds.show(activity, surfacingId)
             }

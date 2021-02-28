@@ -23,10 +23,10 @@
     <!-- THIS APP REAL AdMob banner ID:  -->
 
     <string name="admob_key_interstitial" templateMergeStrategy="preserve" translatable="false">
-        ca-app-pub-3940256099942544/1033173712</string>
+       ca-app-pub-3940256099942544/1033173712</string>
 
 
     <!-- UNITY ADS -->
-    <string name="unity_key" templateMergeStrategy="preserve" translatable="false">12345</string>
+    <string name="unity_key" templateMergeStrategy="preserve" translatable="false">4029837</string>
 
 </resources>

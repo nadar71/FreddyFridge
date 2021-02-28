@@ -48,6 +48,7 @@ class AlarmReminderScheduler() {
         val hoursFrequency = PreferenceUtility.getHoursCount(context)
         val minutesPeriodicity = hoursFrequency * 60
 
+        // TODO: not working
         if (Calendar.HOUR_OF_DAY < 21 && Calendar.HOUR_OF_DAY > 8) {
             alarmMgr?.setRepeating(
                     AlarmManager.RTC_WAKEUP,
