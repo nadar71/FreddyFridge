@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/confirm_dialog_id"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/rounded_rect_light_grey_today">
 
@@ -13,13 +13,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/rounded_rectangle"
+        android:background="@drawable/rounded_rect"
         android:fontFamily="@font/quicksand"
         android:text="@string/no"
         android:textColor="@color/colorWhite"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/confirm_dialog_yes_btn"
         app:layout_constraintEnd_toStartOf="@+id/confirm_dialog_yes_btn"
+        app:layout_constraintStart_toStartOf="@+id/confirm_dialog_tv"
         app:layout_constraintTop_toBottomOf="@+id/confirm_dialog_yes_btn"
         app:layout_constraintVertical_bias="0.538" />
 
@@ -27,15 +28,15 @@
         android:id="@+id/confirm_dialog_yes_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/rounded_rectangle"
+        android:background="@drawable/rounded_rect"
         android:fontFamily="@font/quicksand"
         android:text="@string/yes"
         android:textColor="@color/colorWhite"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/confirm_dialog_tv" />
 
     <ImageView
         android:id="@+id/confirm_dialog_img"
@@ -61,11 +62,11 @@
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/quicksand"
         android:textAlignment="center"
-        android:textColor="@color/text_color"
+        android:textColor="@color/brown"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/confirm_dialog_yes_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirm_dialog_img"
         tools:text="@string/confirm_if_deleting_text" />
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

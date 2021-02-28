@@ -1,1 +1,2 @@
+include ':unity-ads'
 include ':app', ':fabrevealmenu'
