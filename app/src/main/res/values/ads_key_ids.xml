@@ -7,7 +7,7 @@
     <!-- THIS APP REAL AdMob app ID:   - - - - - - - - - - -->
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="admob_key_app_id" templateMergeStrategy="preserve" translatable="false">
-        ca-app-pub-8846176967909254~3156345913</string>
+        ca-app-pub-3940256099942544~3347511713</string>
 
 
     <!-- ADMOB BOTTOM BANNER ID -->
@@ -15,7 +15,7 @@
     <!-- THIS APP REAL AdMob banner ID:  -->
 
     <string name="admob_key_bottom_banner" templateMergeStrategy="preserve" translatable="false">
-        ca-app-pub-8846176967909254/6197442229</string>
+        ca-app-pub-3940256099942544/6300978111</string>
 
 
     <!-- ADMOB INTERSTITIAL ID -->
@@ -23,7 +23,7 @@
     <!-- THIS APP REAL AdMob banner ID:  -->
 
     <string name="admob_key_interstitial" templateMergeStrategy="preserve" translatable="false">
-       ca-app-pub-8846176967909254/5671183832</string>
+       ca-app-pub-3940256099942544/6300978111</string>
     
 
 </resources>
