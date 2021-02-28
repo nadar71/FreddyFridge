@@ -15,6 +15,7 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.InterstitialAd
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
+import eu.indiewalkabout.fridgemanager.App
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.data.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.ui.FoodListAdapter.ItemClickListener
@@ -114,7 +115,7 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
         }
     }
 
-    // Show an interstitial on ui request
+    // Show admob interstitial on ui request
     private fun showInterstitialAd() {
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = resources.getString(R.string.admob_key_interstitial)
@@ -317,7 +318,12 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
     private fun ShowRandomizedInterstAds(upperLimit: Int) {
         val guess = randRange_ApiCheck(1, 10)
         if (guess <= upperLimit) {
-            showInterstitialAd()
+            // admob interstitial ads
+            // showInterstitialAd()
+
+            // unity interstitial
+            App.displayInterstitialAd(this, "interstitial")
+
         }
     }
 
