@@ -5,7 +5,6 @@ import androidx.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.MenuItem
@@ -37,7 +36,6 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
     var foodListForShare: String = ""
     var foodShareSubject: String = ""
 
-    // admob interstitial ref
     lateinit var mInterstitialAd: InterstitialAd
 
     // Hold the type of food to show in list, use here and by adapter
@@ -116,7 +114,7 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
     }
 
     // Show admob interstitial on ui request
-    private fun showInterstitialAd() {
+    private fun showAdMobInterstitialAd() {
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = resources.getString(R.string.admob_key_interstitial)
 
@@ -208,15 +206,22 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
 
         // When the home button is pressed, take the user back to Home
         if (id == android.R.id.home) {
-            // show interstitial ad on back home only 50% of times
-            val guess = randRange_ApiCheck(1, 10)
-            if (guess <= 4) {
-                showInterstitialAd()
-            }
-
+            showInterstitialAds()
             onBackPressed()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showInterstitialAds() {
+        // show interstitial ad on back home only 50% of times
+        val guess = randRange_ApiCheck(1, 10)
+        if (guess <= 4) {
+            // admob interstitial ads
+            // showInterstitialAd()
+
+            // unity interstitial
+            App.displayUnityInterstitialAd(this, "interstitial")
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -224,6 +229,7 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
     // ---------------------------------------------------------------------------------------------
     override fun onBackPressed() {
         super.onBackPressed()
+        showInterstitialAds()
         if (food_list_fabMenu != null) {
             if (food_list_fabMenu!!.isShowing) {
                 food_list_fabMenu!!.closeMenu()
@@ -322,7 +328,7 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
             // showInterstitialAd()
 
             // unity interstitial
-            App.displayInterstitialAd(this, "interstitial")
+            App.displayUnityInterstitialAd(this, "interstitial")
 
         }
     }
