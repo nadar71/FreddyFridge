@@ -24,9 +24,6 @@
 
     <string name="admob_key_interstitial" templateMergeStrategy="preserve" translatable="false">
        ca-app-pub-8846176967909254/5671183832</string>
-
-
-    <!-- UNITY ADS -->
-    <string name="unity_key" templateMergeStrategy="preserve" translatable="false">4029837</string>
+    
 
 </resources>

@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.os.Build
 import android.util.Log
 import android.view.View
+import eu.indiewalkabout.fridgemanager.App
 import eu.indiewalkabout.fridgemanager.ui.FoodListActivity
 
 import java.util.Random
@@ -68,6 +69,19 @@ object GenericUtility {
         // hide navigation bar
         val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         decorView.systemUiVisibility = uiOptions
+    }
+
+
+    fun showRandomizedInterstAds(upperLimit: Int, activity: Activity) {
+        val guess = randRange_ApiCheck(1, 10)
+        if (guess <= upperLimit) {
+            // admob interstitial ads
+            // showInterstitialAd()
+
+            // unity interstitial
+            App.displayUnityInterstitialAd(activity, "interstitial")
+
+        }
     }
 
 

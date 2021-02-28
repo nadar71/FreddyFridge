@@ -14,9 +14,13 @@ import com.google.android.gms.ads.AdView
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import com.hlab.fabrevealmenu.view.FABRevealMenu
+import eu.indiewalkabout.fridgemanager.App
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
+import eu.indiewalkabout.fridgemanager.util.GenericUtility
 import eu.indiewalkabout.fridgemanager.util.GenericUtility.hideStatusNavBars
+import eu.indiewalkabout.fridgemanager.util.GenericUtility.randRange_ApiCheck
+import eu.indiewalkabout.fridgemanager.util.GenericUtility.showRandomizedInterstAds
 
 class CreditsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
     // admob banner ref
@@ -71,6 +75,7 @@ class CreditsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
         val id = item.itemId
         when (id) {
             android.R.id.home -> {
+                showRandomizedInterstAds(6, this)
                 onBackPressed()
                 return true
             }
@@ -85,6 +90,7 @@ class CreditsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
     // ---------------------------------------------------------------------------------------------
     override fun onBackPressed() {
         super.onBackPressed()
+        showRandomizedInterstAds(6, this)
         if (fabMenu != null) {
             if (fabMenu.isShowing) {
                 fabMenu.closeMenu()
@@ -122,20 +128,27 @@ class CreditsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
             val toInsertFood = Intent(this@CreditsActivity, InsertFoodActivity::class.java)
             startActivity(toInsertFood)
         } else if (id == R.id.menu_expiring_food) {
+            showRandomizedInterstAds(6, this)
             val showExpiringFood = Intent(this@CreditsActivity, FoodListActivity::class.java)
             showExpiringFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_EXPIRING)
             startActivity(showExpiringFood)
         } else if (id == R.id.menu_consumed_food) {
+            showRandomizedInterstAds(6, this)
             val showSavedFood = Intent(this@CreditsActivity, FoodListActivity::class.java)
             showSavedFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_SAVED)
             startActivity(showSavedFood)
         } else if (id == R.id.menu_dead_food) {
+            showRandomizedInterstAds(6, this)
             val showDeadFood = Intent(this@CreditsActivity, FoodListActivity::class.java)
             showDeadFood.putExtra(FoodListActivity.FOOD_TYPE, FoodListActivity.FOOD_DEAD)
             startActivity(showDeadFood)
         } else if (id == R.id.menu_home) {
+            showRandomizedInterstAds(6, this)
             val returnHome = Intent(this@CreditsActivity, MainActivity::class.java)
             startActivity(returnHome)
         }
     }
+
+
+
 }

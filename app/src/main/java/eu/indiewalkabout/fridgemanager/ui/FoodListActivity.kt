@@ -21,6 +21,7 @@ import eu.indiewalkabout.fridgemanager.ui.FoodListAdapter.ItemClickListener
 import eu.indiewalkabout.fridgemanager.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.util.GenericUtility.randRange_ApiCheck
+import eu.indiewalkabout.fridgemanager.util.GenericUtility.showRandomizedInterstAds
 import kotlinx.android.synthetic.main.activity_food_list.*
 import kotlinx.android.synthetic.main.activity_food_list.adView
 import kotlinx.android.synthetic.main.activity_food_list.emptyListText
@@ -32,6 +33,28 @@ import java.util.*
 // Show list of food depending on FOOD_TYPE
 
 class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedListener {
+
+    companion object {
+        val TAG = FoodListActivity::class.java.simpleName
+
+        // Key constant to use as key for intent extra
+        // get the type of list to show from intent content extra
+        const val FOOD_TYPE = "food_type"
+
+        // Values to use for passing intent extras in key/value pair
+        // expiring food flag
+        const val FOOD_EXPIRING = "ExpiringFood"
+
+        // expiring food Today flag
+        const val FOOD_EXPIRING_TODAY = "ExpiringFoodToday"
+
+        // saved food flag
+        const val FOOD_SAVED = "SavedFood"
+
+        // dead food flag
+        const val FOOD_DEAD = "DeadFood"
+    }
+
     var foodListAdapter: FoodListAdapter? = null
     var foodListForShare: String = ""
     var foodShareSubject: String = ""
@@ -41,6 +64,7 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
     // Hold the type of food to show in list, use here and by adapter
     // TODO : find a better way to pass this info to adapter
     private var foodlistType: String? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -206,30 +230,19 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
 
         // When the home button is pressed, take the user back to Home
         if (id == android.R.id.home) {
-            showInterstitialAds()
+            showRandomizedInterstAds(4, this)
             onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun showInterstitialAds() {
-        // show interstitial ad on back home only 50% of times
-        val guess = randRange_ApiCheck(1, 10)
-        if (guess <= 4) {
-            // admob interstitial ads
-            // showInterstitialAd()
-
-            // unity interstitial
-            App.displayUnityInterstitialAd(this, "interstitial")
-        }
-    }
 
     // ---------------------------------------------------------------------------------------------
     //                                  REVEALING FAB BTN STUFF
     // ---------------------------------------------------------------------------------------------
     override fun onBackPressed() {
         super.onBackPressed()
-        showInterstitialAds()
+        showRandomizedInterstAds(4, this)
         if (food_list_fabMenu != null) {
             if (food_list_fabMenu!!.isShowing) {
                 food_list_fabMenu!!.closeMenu()
@@ -283,15 +296,15 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
             showExpiringFood()
 
         } else if (id == R.id.menu_consumed_food) {
-            ShowRandomizedInterstAds(3)
+            showRandomizedInterstAds(3, this)
             showSavedFood()
 
         } else if (id == R.id.menu_dead_food) {
-            ShowRandomizedInterstAds(3)
+            showRandomizedInterstAds(3, this)
             showDeadFood()
 
         } else if (id == R.id.menu_home) {
-            ShowRandomizedInterstAds(4)
+            showRandomizedInterstAds(4, this)
             returnHome()
         }
     }
@@ -321,36 +334,7 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
     }
 
 
-    private fun ShowRandomizedInterstAds(upperLimit: Int) {
-        val guess = randRange_ApiCheck(1, 10)
-        if (guess <= upperLimit) {
-            // admob interstitial ads
-            // showInterstitialAd()
 
-            // unity interstitial
-            App.displayUnityInterstitialAd(this, "interstitial")
 
-        }
-    }
 
-    companion object {
-        val TAG = FoodListActivity::class.java.simpleName
-
-        // Key constant to use as key for intent extra
-        // get the type of list to show from intent content extra
-        const val FOOD_TYPE = "food_type"
-
-        // Values to use for passing intent extras in key/value pair
-        // expiring food flag
-        const val FOOD_EXPIRING = "ExpiringFood"
-
-        // expiring food Today flag
-        const val FOOD_EXPIRING_TODAY = "ExpiringFoodToday"
-
-        // saved food flag
-        const val FOOD_SAVED = "SavedFood"
-
-        // dead food flag
-        const val FOOD_DEAD = "DeadFood"
-    }
 }
