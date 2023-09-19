@@ -11,7 +11,7 @@
         android:id="@+id/insert_food_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.InsertFoodActivity">
+        tools:context=".presentation.ui.food.InsertFoodActivity">
 
 
         <ImageView
@@ -80,7 +80,7 @@
             app:layout_constraintStart_toStartOf="@+id/calendar_cv"
             app:layout_constraintTop_toBottomOf="@+id/calendar_cv" />
 
-        <eu.indiewalkabout.fridgemanager.util.EditTextWithClear
+        <eu.indiewalkabout.fridgemanager.core.util.EditTextWithClear
             android:id="@+id/foodName_et"
             android:layout_width="245dp"
             android:layout_height="35dp"

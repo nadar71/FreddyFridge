@@ -8,10 +8,10 @@ import com.unity3d.ads.IUnityAdsListener
 import com.unity3d.ads.UnityAds
 import com.unity3d.ads.UnityAds.FinishState
 import com.unity3d.ads.UnityAds.UnityAdsError
-import eu.indiewalkabout.fridgemanager.data.db.FoodDatabase
-import eu.indiewalkabout.fridgemanager.reminder.withalarmmanager.AlarmReminderScheduler
-import eu.indiewalkabout.fridgemanager.repository.FridgeManagerRepository
-import eu.indiewalkabout.fridgemanager.util.AppExecutors
+import eu.indiewalkabout.fridgemanager.data.local.db.FoodDatabase
+import eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmReminderScheduler
+import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepository
+import eu.indiewalkabout.fridgemanager.core.util.AppExecutors
 
 
 // -------------------------------------------------------------------------------------------------

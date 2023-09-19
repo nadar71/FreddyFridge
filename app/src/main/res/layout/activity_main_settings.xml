@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimaryDark"
-    tools:context=".ui.MainSettingsActivity">
+    tools:context=".presentation.ui.settings.MainSettingsActivity">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -59,7 +59,7 @@
 
     <fragment
         android:id="@+id/settingsFrag"
-        android:name="eu.indiewalkabout.fridgemanager.ui.MainSettingsActivity$MainPreferenceFragment"
+        android:name="eu.indiewalkabout.fridgemanager.presentation.ui.settings.MainSettingsActivity$MainPreferenceFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/adView"
