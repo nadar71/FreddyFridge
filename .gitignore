@@ -27,3 +27,5 @@ fabrevealmenu/build/intermediates/incremental/packageDebugResources/
 fabrevealmenu/build/intermediates/manifest_merge_blame_file/debug/
 
 fabrevealmenu/build/outputs/logs/
+
+app/src/main/res/values/ads_key_ids.xml
