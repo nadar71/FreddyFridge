@@ -29,6 +29,19 @@ android {
         }
     }
 
+    productFlavors {
+        production {
+            dimension "FreddyFridge"
+            resValue "string", "app_name", "FreddyFridge"
+        }
+
+        myTesting {
+            dimension "FreddyFridge"
+            resValue "string", "app_name", "FreddyFridge Test"
+            applicationIdSuffix ".testing"
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
@@ -56,6 +69,7 @@ android {
             unitTests.returnDefaultValues = true
         }
     }
+    namespace 'eu.indiewalkabout.fridgemanager'
 }
 
 
