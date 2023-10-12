@@ -2,7 +2,7 @@
 buildscript {
     ext {
         kotlin_vers            = '1.8.10'
-        kotlin_nav_frag_vers   = '2.7.2'
+        kotlin_nav_frag_vers   = '2.7.4'
         coroutines_version     = '1.3.9'
         room_vers              = '2.5.2'
         vm_lifecycle_vers      = '2.2.0'
@@ -13,7 +13,7 @@ buildscript {
         lifecycle_vers         = '2.6.2'
         lifecycle_ext_vers     = '2.2.0'
         legacy_support_vers    = '1.0.0'
-        material_vers          = '1.9.0'
+        material_vers          = '1.10.0'
         recyclerview_vers      = '1.3.1'
         preference_vers        = '1.2.1'
         work_vers              = '2.8.1'
