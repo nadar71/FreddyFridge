@@ -7,25 +7,18 @@ import android.content.Intent
 import android.util.Log
 import eu.indiewalkabout.fridgemanager.App
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.*
+import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
+import java.util.Calendar
 
 class AlarmReminderScheduler() {
-
-    companion object {
-        val TAG = AlarmReminderScheduler::class.java.simpleName
-    }
 
     private var alarmMgr: AlarmManager? = null
     private var alarmIntent: PendingIntent
     private val calendar: Calendar
-    private val context: Context
-
+    private val context: Context = App.getsContext()!!
 
 
     init {
-        context = App.getsContext()!!
         alarmMgr = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
@@ -43,7 +36,6 @@ class AlarmReminderScheduler() {
     }
 
 
-
     fun setRepeatingAlarm() {
         val hoursFrequency = PreferenceUtility.getHoursCount(context)
         val minutesPeriodicity = hoursFrequency * 60
@@ -51,10 +43,10 @@ class AlarmReminderScheduler() {
         // TODO: not working
         if (Calendar.HOUR_OF_DAY < 21 && Calendar.HOUR_OF_DAY > 8) {
             alarmMgr?.setRepeating(
-                    AlarmManager.RTC_WAKEUP,
-                    calendar.timeInMillis,
-                    1000 * 60 * minutesPeriodicity.toLong(),
-                    alarmIntent
+                AlarmManager.RTC_WAKEUP,
+                calendar.timeInMillis,
+                1000 * 60 * minutesPeriodicity.toLong(),
+                alarmIntent
             )
         }
         Log.i(TAG, " AlarmReminderScheduler : repeating alarm set every ${hoursFrequency} hours. ")
@@ -64,15 +56,13 @@ class AlarmReminderScheduler() {
     fun setRepeatingAlarm(minutes: Int) {
 
         alarmMgr?.setRepeating(
-                AlarmManager.RTC_WAKEUP,
-                calendar.timeInMillis,
-                1000 * 60 * minutes.toLong(),
-                alarmIntent
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            1000 * 60 * minutes.toLong(),
+            alarmIntent
         )
         Log.i(TAG, " AlarmReminderScheduler : repeating alarm set every ${minutes} minutes. ")
     }
-
-
 
 
 }

@@ -6,12 +6,8 @@ import android.os.Looper
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
-/**
- * --------------------------------------------------------------------------------
- * Global executor for all the app request; all tasks are grouped here.
- * Used to run threads outside main thread.
- * --------------------------------------------------------------------------------
- */
+// Global executor for all the app request; all tasks are grouped here.
+// Used to run threads outside main thread.
 class AppExecutors// singleton constructor
 private constructor(private val diskIO: Executor, private val mainThread: Executor, private val networkIO: Executor) {
 

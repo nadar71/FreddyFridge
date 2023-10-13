@@ -1,13 +1,14 @@
 package eu.indiewalkabout.fridgemanager.data.local.db
 
-import androidx.sqlite.db.SupportSQLiteDatabase
+import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
-import android.content.Context
-import android.util.Log
+import androidx.sqlite.db.SupportSQLiteDatabase
+import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 
 @Database(entities = [FoodEntry::class], version = 2, exportSchema = false)
@@ -18,8 +19,6 @@ abstract class FoodDatabase : RoomDatabase() {
     abstract fun foodDbDao(): FoodDbDao
 
     companion object {
-        private val TAG = FoodDatabase::class.java.simpleName
-
         // lock for synchro
         private val LOCK = Any()
         private val DBNAME = "FoodDB"

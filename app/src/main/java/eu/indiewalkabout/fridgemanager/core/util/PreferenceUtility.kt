@@ -1,21 +1,12 @@
 package eu.indiewalkabout.fridgemanager.core.util
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
-import android.util.Log
-
 import eu.indiewalkabout.fridgemanager.R
 
 object PreferenceUtility {
 
-    private val TAG = PreferenceUtility::class.java.simpleName
-
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Get the count of days in advance for alerting for expiring foods
-     * ---------------------------------------------------------------------------------------------
-     */
+    // Get the count of days in advance for alerting for expiring foods
     fun getDaysCount(context: Context): Int {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val key = context.getString(R.string.days_before_deadline_count)
@@ -25,11 +16,7 @@ object PreferenceUtility {
     }
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Get the hours interval for alerting during the day
-     * ---------------------------------------------------------------------------------------------
-     */
+    // Get the hours interval for alerting during the day
     fun getHoursCount(context: Context): Int {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         /*

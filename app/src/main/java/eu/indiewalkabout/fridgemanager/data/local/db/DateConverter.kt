@@ -5,7 +5,6 @@ import androidx.room.TypeConverter
 import java.util.Date
 
 object DateConverter {
-    private val TAG = DateConverter::class.java.simpleName
 
     @TypeConverter
     @JvmStatic

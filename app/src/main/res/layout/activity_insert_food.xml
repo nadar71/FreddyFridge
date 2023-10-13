@@ -1,240 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/insert_food_layout"
+    <data>
+
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".presentation.ui.food.InsertFoodActivity">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-
-        <ImageView
-            android:id="@+id/insert_bg_img"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/colorPrimaryDark"
-            android:contentDescription="@string/background_image"
-            android:scaleType="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/insert_food_fabMenu"
-            app:srcCompat="@drawable/food_background" />
-
-        <TextView
-            android:id="@+id/date_tv"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/insert_food_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/rounded_rect"
-            android:backgroundTint="@color/light_grey_very_transparent"
-            android:elevation="2dp"
-            android:fontFamily="@font/fredoka_one"
-            android:paddingLeft="8dp"
-            android:paddingTop="4dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="4dp"
-            android:text="@string/choose_expiring_date_label"
-            android:textAlignment="center"
-            android:textColor="@color/colorWhite"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/calendar_cv"
-            app:layout_constraintTop_toBottomOf="@+id/adView" />
-
-        <CalendarView
-            android:id="@+id/calendar_cv"
-            android:layout_width="0dp"
-            android:layout_height="316dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/rounded_rect_light_grey_very_trasparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/date_tv" />
-
-        <TextView
-            android:id="@+id/name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/rounded_rect_light_grey_today"
-            android:backgroundTint="@color/light_grey_very_transparent"
-            android:contentDescription="@string/insert_food_name_tv"
-            android:elevation="2dp"
-            android:fontFamily="@font/fredoka_one"
-            android:paddingLeft="8dp"
-            android:paddingTop="4dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="4dp"
-            android:text="@string/insert_food_name_tv"
-            android:textColor="@color/colorWhite"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/calendar_cv"
-            app:layout_constraintTop_toBottomOf="@+id/calendar_cv" />
-
-        <eu.indiewalkabout.fridgemanager.core.util.EditTextWithClear
-            android:id="@+id/foodName_et"
-            android:layout_width="245dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/rounded_rect_light_grey_today"
-            android:elevation="2dp"
-            android:ems="10"
-            android:fontFamily="@font/quicksand"
-            android:hint="@string/food_name_hint"
-            android:importantForAutofill="no"
-            android:inputType="textPersonName"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="4dp"
-            android:text=""
-            android:textColor="@color/brown"
-            app:layout_constraintStart_toStartOf="@+id/name_tv"
-            app:layout_constraintTop_toBottomOf="@+id/name_tv"
-            tools:targetApi="o" />
-
-        <TextView
-            android:id="@+id/how_many_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/rounded_rect_light_grey_today"
-            android:backgroundTint="@color/light_grey_very_transparent"
-            android:elevation="2dp"
-            android:fontFamily="@font/fredoka_one"
-            android:paddingLeft="8dp"
-            android:paddingTop="4dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="4dp"
-            android:text="How many?"
-            android:textColor="@color/colorWhite"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/foodName_et"
-            app:layout_constraintTop_toBottomOf="@+id/foodName_et" />
-
-        <EditText
-            android:id="@+id/howmany_et"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/rounded_rect_light_grey_today"
-            android:ems="3"
-            android:fontFamily="@font/fredoka_one"
-            android:hint="1"
-            android:inputType="number"
-            android:paddingLeft="8dp"
-            android:paddingTop="4dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="4dp"
-            android:textAlignment="center"
-            android:textColor="@color/brown"
-            app:layout_constraintStart_toEndOf="@+id/how_many_label"
-            app:layout_constraintTop_toBottomOf="@+id/foodName_et" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="205dp" />
-
-        <Button
-            android:id="@+id/save_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/rounded_rect_light_grey_today"
-            android:backgroundTint="@color/colorPrimary"
-            android:elevation="2dp"
-            android:fontFamily="@font/fredoka_one"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="@string/save_btn_label"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWhite"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/howmany_et" />
+            tools:context=".presentation.ui.food.InsertFoodActivity">
 
 
-        <ImageView
-            android:id="@+id/speak_btn"
-            android:layout_width="44dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="12dp"
-            android:background="@drawable/rounded_rect"
-            android:backgroundTintMode="src_atop"
-            android:contentDescription="@string/speak_btn_description"
-            android:elevation="2dp"
-            app:layout_constraintBottom_toBottomOf="@+id/foodName_et"
-            app:layout_constraintStart_toEndOf="@+id/foodName_et"
-            app:srcCompat="@drawable/ic_mic_white_24dp" />
+            <ImageView
+                android:id="@+id/insert_bg_img"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/colorPrimaryDark"
+                android:contentDescription="@string/background_image"
+                android:scaleType="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/insert_food_fabMenu"
+                app:srcCompat="@drawable/food_background" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/insert_food_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
+            <TextView
+                android:id="@+id/date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_rect"
+                android:backgroundTint="@color/light_grey_very_transparent"
+                android:elevation="2dp"
+                android:fontFamily="@font/fredoka_one"
+                android:paddingLeft="8dp"
+                android:paddingTop="4dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="4dp"
+                android:text="@string/choose_expiring_date_label"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/calendar_cv"
+                app:layout_constraintTop_toBottomOf="@+id/adView" />
 
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="32dp"
-            app:backgroundTint="@color/colorAccent"
-            app:fabSize="normal"
-            app:layout_behavior="eu.indiewalkabout.fridgemanager.util.FAB_Hide_on_Scroll"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_refrigerator_icon" />
+            <CalendarView
+                android:id="@+id/calendar_cv"
+                android:layout_width="0dp"
+                android:layout_height="316dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/rounded_rect_light_grey_very_trasparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/date_tv" />
+
+            <TextView
+                android:id="@+id/name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/rounded_rect_light_grey_today"
+                android:backgroundTint="@color/light_grey_very_transparent"
+                android:contentDescription="@string/insert_food_name_tv"
+                android:elevation="2dp"
+                android:fontFamily="@font/fredoka_one"
+                android:paddingLeft="8dp"
+                android:paddingTop="4dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="4dp"
+                android:text="@string/insert_food_name_tv"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/calendar_cv"
+                app:layout_constraintTop_toBottomOf="@+id/calendar_cv" />
+
+            <eu.indiewalkabout.fridgemanager.core.util.EditTextWithClear
+                android:id="@+id/foodName_et"
+                android:layout_width="245dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rounded_rect_light_grey_today"
+                android:elevation="2dp"
+                android:ems="10"
+                android:fontFamily="@font/quicksand"
+                android:hint="@string/food_name_hint"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="4dp"
+                android:text=""
+                android:textColor="@color/brown"
+                app:layout_constraintStart_toStartOf="@+id/name_tv"
+                app:layout_constraintTop_toBottomOf="@+id/name_tv"
+                tools:targetApi="o" />
+
+            <TextView
+                android:id="@+id/how_many_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rounded_rect_light_grey_today"
+                android:backgroundTint="@color/light_grey_very_transparent"
+                android:elevation="2dp"
+                android:fontFamily="@font/fredoka_one"
+                android:paddingLeft="8dp"
+                android:paddingTop="4dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="4dp"
+                android:text="How many?"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/foodName_et"
+                app:layout_constraintTop_toBottomOf="@+id/foodName_et" />
+
+            <EditText
+                android:id="@+id/howmany_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rounded_rect_light_grey_today"
+                android:ems="3"
+                android:fontFamily="@font/fredoka_one"
+                android:hint="1"
+                android:inputType="number"
+                android:paddingLeft="8dp"
+                android:paddingTop="4dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="4dp"
+                android:textAlignment="center"
+                android:textColor="@color/brown"
+                app:layout_constraintStart_toEndOf="@+id/how_many_label"
+                app:layout_constraintTop_toBottomOf="@+id/foodName_et" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="205dp" />
+
+            <Button
+                android:id="@+id/save_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/rounded_rect_light_grey_today"
+                android:backgroundTint="@color/colorPrimary"
+                android:elevation="2dp"
+                android:fontFamily="@font/fredoka_one"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/save_btn_label"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/howmany_et" />
 
 
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
-            app:adSize="BANNER"
-            app:adUnitId="@string/admob_key_bottom_banner"
-            app:layout_constraintStart_toStartOf="@+id/date_tv"
-            app:layout_constraintTop_toTopOf="@+id/insert_food_fabMenu" />
+            <ImageView
+                android:id="@+id/speak_btn"
+                android:layout_width="44dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/rounded_rect"
+                android:backgroundTintMode="src_atop"
+                android:contentDescription="@string/speak_btn_description"
+                android:elevation="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/foodName_et"
+                app:layout_constraintStart_toEndOf="@+id/foodName_et"
+                app:srcCompat="@drawable/ic_mic_white_24dp" />
 
-        <com.hlab.fabrevealmenu.view.FABRevealMenu
-            android:id="@+id/insert_food_fabMenu"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_centerInParent="true"
-            android:elevation="2dp"
-            app:animateItems="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:menuBackgroundColor="@color/colorAccent"
-            app:menuDirection="left"
-            app:menuRes="@menu/menu_fab_home"
-            app:menuSize="small"
-            app:menuTitleFontFamily="@font/quicksand"
-            app:menuTitleTextColor="@color/colorWhite"
-            app:showOverlay="true"
-            app:showTitle="true">
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/insert_food_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
 
-        </com.hlab.fabrevealmenu.view.FABRevealMenu>
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="32dp"
+                app:backgroundTint="@color/colorAccent"
+                app:fabSize="normal"
+                app:layout_behavior="eu.indiewalkabout.fridgemanager.util.FAB_Hide_on_Scroll"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_refrigerator_icon" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                app:adSize="BANNER"
+                app:adUnitId="@string/admob_key_bottom_banner"
+                app:layout_constraintStart_toStartOf="@+id/date_tv"
+                app:layout_constraintTop_toTopOf="@+id/insert_food_fabMenu" />
+
+            <com.hlab.fabrevealmenu.view.FABRevealMenu
+                android:id="@+id/insert_food_fabMenu"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerInParent="true"
+                android:elevation="2dp"
+                app:animateItems="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:menuBackgroundColor="@color/colorAccent"
+                app:menuDirection="left"
+                app:menuRes="@menu/menu_fab_home"
+                app:menuSize="small"
+                app:menuTitleFontFamily="@font/quicksand"
+                app:menuTitleTextColor="@color/colorWhite"
+                app:showOverlay="true"
+                app:showTitle="true">
+
+            </com.hlab.fabrevealmenu.view.FABRevealMenu>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

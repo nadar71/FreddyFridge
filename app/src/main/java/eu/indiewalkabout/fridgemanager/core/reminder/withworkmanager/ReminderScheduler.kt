@@ -2,11 +2,12 @@ package eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager
 
 import android.content.Context
 import android.util.Log
-import androidx.work.*
-
-import java.util.concurrent.TimeUnit
-
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
+import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
+import java.util.concurrent.TimeUnit
 
 object ReminderScheduler {
 
@@ -15,9 +16,6 @@ object ReminderScheduler {
     // private static final int toleranceInterval   = (int) (TimeUnit.MINUTES.toSeconds(60));
     private var periodicity: Long = 0
     private val REMINDER_JOB_TAG = "food_reminder_tag"
-
-    val TAG = ReminderScheduler::class.java.simpleName
-
 
 
     @Synchronized

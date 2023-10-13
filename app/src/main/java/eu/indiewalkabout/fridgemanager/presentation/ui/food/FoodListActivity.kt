@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import eu.indiewalkabout.fridgemanager.R
@@ -22,19 +23,17 @@ import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity
 import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.showRandomizedInterstAds
-import kotlinx.android.synthetic.main.activity_food_list.*
-import kotlinx.android.synthetic.main.activity_food_list.adView
-import kotlinx.android.synthetic.main.activity_food_list.emptyListText
+import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
+import eu.indiewalkabout.fridgemanager.databinding.ActivityFoodListBinding
 import java.text.DateFormat.getDateInstance
 
 // ---------------------------------------------------------------------------------------------
 // Show list of food depending on FOOD_TYPE
 
 class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedListener {
+    private lateinit var binding: ActivityFoodListBinding
 
     companion object {
-        val TAG = FoodListActivity::class.java.simpleName
-
         // Key constant to use as key for intent extra
         // get the type of list to show from intent content extra
         const val FOOD_TYPE = "food_type"
@@ -53,9 +52,9 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
         const val FOOD_DEAD = "DeadFood"
     }
 
-    var foodListAdapter: FoodListAdapter? = null
-    var foodListForShare: String = ""
-    var foodShareSubject: String = ""
+    private var foodListAdapter: FoodListAdapter? = null
+    private var foodListForShare: String = ""
+    private var foodShareSubject: String = ""
 
     lateinit var mInterstitialAd: InterstitialAd
 
@@ -64,13 +63,14 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
     private var foodlistType: String? = null
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_food_list)
+        // setContentView(R.layout.activity_food_list)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_food_list)
+
 
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        adView.loadAd(getAdRequest(this@FoodListActivity))
+        binding.adView.loadAd(getAdRequest(this@FoodListActivity))
 
         // TODO : use this in another way
         // get intent extra for configuring list type
@@ -86,7 +86,7 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
 
         hideStatusNavBars(this)
 
-        share_food_list.setOnClickListener {
+        binding.shareFoodList.setOnClickListener {
             val sharingIntent = Intent(Intent.ACTION_SEND)
             sharingIntent.type = "text/plain"
             val shareBody = foodListForShare
@@ -102,13 +102,12 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
         Log.d(TAG, "onItemClickListener: Item" + itemId + "touched.")
     }
 
-    // ---------------------------------------------------------------------------------------------
-    // Toolbar init
 
+    // Toolbar init
     private fun toolBarInit() {
         setToolBarTitle()
         // place toolbar in place of action bar
-        setSupportActionBar(food_list_toolbar)
+        setSupportActionBar(binding.foodListToolbar)
 
         // up button
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -119,17 +118,17 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
 
         // set correct title
         if (foodlistType == FOOD_EXPIRING) {
-            toolbar_title_tv.setText(R.string.foodExpiring_activity_title)
+            binding.toolbarTitleTv.setText(R.string.foodExpiring_activity_title)
             foodShareSubject = getString(R.string.expiring_food_list_subject)
             Log.d(TAG, "onCreate: FOOD_TYPE : " + R.string.foodExpiring_activity_title)
 
         } else if (foodlistType == FOOD_SAVED) {
-            toolbar_title_tv.setText(R.string.foodSaved_activity_title)
+            binding.toolbarTitleTv.setText(R.string.foodSaved_activity_title)
             foodShareSubject = getString(R.string.saved_food_list_subject)
             Log.d(TAG, "onCreate: FOOD_TYPE : " + R.string.foodSaved_activity_title)
 
         } else if (foodlistType == FOOD_DEAD) {
-            toolbar_title_tv.setText(R.string.foodDead_activity_title)
+            binding.toolbarTitleTv.setText(R.string.foodDead_activity_title)
             foodShareSubject = getString(R.string.wasted_food_list_subject)
             Log.d(TAG, "onCreate: FOOD_TYPE : " + R.string.foodDead_activity_title)
         }
@@ -161,29 +160,32 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
 
 
     private fun initRecycleView() {
-
-        if (food_list_recycleView == null) {
-            Log.d(TAG, "onCreate: foodList == null ")
-        }
-
-        food_list_recycleView.setLayoutManager(LinearLayoutManager(this))
-
+        binding.foodListRecycleView.setLayoutManager(LinearLayoutManager(this))
         foodListAdapter = FoodListAdapter(this, this, foodlistType!!)
-        food_list_recycleView.setAdapter(foodListAdapter)
+        binding.foodListRecycleView.setAdapter(foodListAdapter)
 
         setupAdapter()
 
         // make fab button hide when scrolling list
-        food_list_recycleView.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0 || dy < 0 && food_list_fab!!.isShown) food_list_fab!!.hide()
-            }
+        binding.foodListRecycleView.addOnScrollListener(
+            object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+                override fun onScrolled(
+                    recyclerView: androidx.recyclerview.widget.RecyclerView,
+                    dx: Int,
+                    dy: Int
+                ) {
+                    if (dy > 0 || dy < 0 && binding.foodListFab.isShown) binding.foodListFab.hide()
+                }
 
-            override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView, newState: Int) {
-                if (newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE) food_list_fab!!.show()
-                super.onScrollStateChanged(recyclerView, newState)
-            }
-        })
+                override fun onScrollStateChanged(
+                    recyclerView: androidx.recyclerview.widget.RecyclerView,
+                    newState: Int
+                ) {
+                    if (newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE)
+                        binding.foodListFab.show()
+                    super.onScrollStateChanged(recyclerView, newState)
+                }
+            })
     }
 
     // Used to reload from db the tasks list and update the list view in screen
@@ -208,16 +210,16 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
             Log.d(TAG, "Receiving database $foodlistType LiveData")
             foodListAdapter!!.setFoodEntries(foodEntries)
             if (foodEntries!!.size > 0) {
-                emptyListText.visibility = View.INVISIBLE
-                share_food_list.visibility = View.VISIBLE
+                binding.emptyListText.visibility = View.INVISIBLE
+                binding.shareFoodList.visibility = View.VISIBLE
                 // fill the list for sharing
                 foodListForShare += "${foodShareSubject} \n\n"
-                for(item in foodEntries) {
+                for (item in foodEntries) {
                     foodListForShare += "${item.name} :  ${getDateInstance().format(item.expiringAt)}\n\n"
                 }
             } else {
-                emptyListText.visibility = View.VISIBLE
-                share_food_list.visibility = View.INVISIBLE
+                binding.emptyListText.visibility = View.VISIBLE
+                binding.shareFoodList.visibility = View.INVISIBLE
             }
         })
     }
@@ -241,50 +243,37 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
     override fun onBackPressed() {
         super.onBackPressed()
         showRandomizedInterstAds(4, this)
-        if (food_list_fabMenu != null) {
-            if (food_list_fabMenu!!.isShowing) {
-                food_list_fabMenu!!.closeMenu()
-            }
+        if (binding.foodListFabMenu.isShowing) {
+            binding.foodListFabMenu.closeMenu()
         }
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Adding revealing main_fab button
-     * ---------------------------------------------------------------------------------------------
-     */
+    // Adding revealing main_fab button
     private fun addRevealFabBtn() {
 
         // choose what menu item must be seen based on type of list
         if (foodlistType == FOOD_EXPIRING) {
-            food_list_fabMenu?.removeItem(R.id.menu_expiring_food)
+            binding.foodListFabMenu.removeItem(R.id.menu_expiring_food)
 
         } else if (foodlistType == FOOD_DEAD) {
-            food_list_fabMenu?.removeItem(R.id.menu_dead_food)
+            binding.foodListFabMenu.removeItem(R.id.menu_dead_food)
 
         } else if (foodlistType == FOOD_SAVED) {
-            food_list_fabMenu?.removeItem(R.id.menu_consumed_food)
+            binding.foodListFabMenu.removeItem(R.id.menu_consumed_food)
         }
         try {
-            if (food_list_fab != null && food_list_fabMenu != null) {
+            //attach menu to main_fab
+            binding.foodListFabMenu.bindAnchorView(binding.foodListFab)
 
-                //attach menu to main_fab
-                food_list_fabMenu!!.bindAnchorView(food_list_fab!!)
-
-                //set menu selection listener
-                food_list_fabMenu!!.setOnFABMenuSelectedListener(this)
-            }
+            //set menu selection listener
+            binding.foodListFabMenu.setOnFABMenuSelectedListener(this)
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        food_list_fabMenu?.setMenuDirection(Direction.LEFT)
+        binding.foodListFabMenu.menuDirection = Direction.LEFT
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Revealing main_fab button menu management
-     * ---------------------------------------------------------------------------------------------
-     */
+    // Revealing main_fab button menu management
     override fun onMenuItemSelected(view: View, id: Int) {
         if (id == R.id.menu_insert) {
             val toInsertFood = Intent(this@FoodListActivity, InsertFoodActivity::class.java)
@@ -330,9 +319,6 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
         showExpiringFood.putExtra(FOOD_TYPE, FOOD_EXPIRING)
         startActivity(showExpiringFood)
     }
-
-
-
 
 
 }

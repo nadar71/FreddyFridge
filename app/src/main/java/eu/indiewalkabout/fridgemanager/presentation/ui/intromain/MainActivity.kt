@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
@@ -23,14 +24,13 @@ import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodsViewModel
 import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodsViewModelFactory
 import eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodActivity
 import eu.indiewalkabout.fridgemanager.presentation.ui.settings.MainSettingsActivity
-import eu.indiewalkabout.fridgemanager.util.*
 import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.ConsentCallback
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.core.util.OnSwipeTouchListener
-import kotlinx.android.synthetic.main.activity_main.*
+import eu.indiewalkabout.fridgemanager.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedListener {
-
+    private lateinit var binding: ActivityMainBinding
     // recycle View stuff
     lateinit var foodListAdapter: FoodListAdapter
     var foodListForShare: String = ""
@@ -54,8 +54,8 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+        // setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         // open intro only for the first 3 times
         numPrevOpenings = appOpenings
@@ -70,18 +70,18 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         }
 
 
-        settingsIcon_img.setOnClickListener {
+        binding.settingsIconImg.setOnClickListener {
             val settingsIntent = Intent(applicationContext, MainSettingsActivity::class.java)
             startActivity(settingsIntent)
         }
 
 
-        help_img.setOnClickListener {
+        binding.helpImg.setOnClickListener {
             val introIntent = Intent(applicationContext, IntroActivity::class.java)
             startActivity(introIntent)
         }
 
-        share_img.setOnClickListener {
+        binding.shareImg.setOnClickListener {
             val sharingIntent = Intent(Intent.ACTION_SEND)
             sharingIntent.type = "text/plain"
             val shareBody = foodListForShare
@@ -90,17 +90,13 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
             startActivity(Intent.createChooser(sharingIntent, "Share via"))
         }
 
-
         addRevealFabBtn()
         initRecycleView()
-
-
-
 
         hideStatusNavBars(this)
 
         // goto to insert on swipe left/right
-        home_activity_layout.setOnTouchListener(object: OnSwipeTouchListener(this@MainActivity) {
+        binding.homeActivityLayout.setOnTouchListener(object: OnSwipeTouchListener(this@MainActivity) {
             override fun onSwipeLeft() {
                 toInsertFood()
             }
@@ -109,7 +105,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
             }
         })
 
-        today_food_list_recycleView.setOnTouchListener(object: OnSwipeTouchListener(this@MainActivity) {
+        binding.todayFoodListRecycleView.setOnTouchListener(object: OnSwipeTouchListener(this@MainActivity) {
             override fun onSwipeLeft() {
                 toInsertFood()
             }
@@ -145,12 +141,12 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
                 override fun onResult(isRequestLocationInEeaOrUnknown: Boolean) {
                     Log.i("gdpr_TAG", "onResult: isRequestLocationInEeaOrUnknown : $isRequestLocationInEeaOrUnknown")
                     // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-                    adView.loadAd(getAdRequest(this@MainActivity))
+                    binding.adView.loadAd(getAdRequest(this@MainActivity))
                 }
             })
 
             // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-            adView.loadAd(getAdRequest(this@MainActivity))
+            binding.adView.loadAd(getAdRequest(this@MainActivity))
         }
     }
 
@@ -189,10 +185,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
             editor.apply()
         }
 
-    /**
-     * *** only for debug notifications
-     * @param view
-     */
+    // DEBUG notifications
     fun testNotification(view: View?) {
         lateinit var foodEntriesNextDays: List<FoodEntry>
         CoroutineScope(Dispatchers.Main).launch {
@@ -212,10 +205,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
     }
 
-    /**
-     * *** only for debug notifications
-     * @param view
-     */
+    // DEBUG notifications
     fun testTodayNotification(view: View?) {
         lateinit var foodEntriesToDay: List<FoodEntry>
 
@@ -247,23 +237,23 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
     // Recycle view list init
     private fun initRecycleView() {
-        today_food_list_recycleView.setLayoutManager(LinearLayoutManager(this))
+        binding.todayFoodListRecycleView.setLayoutManager(LinearLayoutManager(this))
 
         foodListAdapter = FoodListAdapter(this, this,
             FoodListActivity.FOOD_EXPIRING_TODAY
         )
-        today_food_list_recycleView.setAdapter(foodListAdapter)
+        binding.todayFoodListRecycleView.setAdapter(foodListAdapter)
 
         setupAdapter()
 
         // make fab button hide when scrolling list
-        today_food_list_recycleView.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+        binding.todayFoodListRecycleView.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0 || dy < 0 && main_fab!!.isShown) main_fab!!.hide()
+                if (dy > 0 || dy < 0 && binding.mainFab.isShown) binding.mainFab.hide()
             }
 
             override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView, newState: Int) {
-                if (newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE) main_fab!!.show()
+                if (newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE) binding.mainFab.show()
                 super.onScrollStateChanged(recyclerView, newState)
             }
         })
@@ -293,16 +283,16 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
                 Log.d(TAG, "Receiving database " + FoodListActivity.FOOD_EXPIRING_TODAY + " LiveData")
                 foodListAdapter.adapterFoodEntries = foodEntries
                 if (foodEntries!!.size > 0) {
-                    emptyListText.visibility = View.INVISIBLE
-                    share_img.visibility = View.VISIBLE
+                    binding.emptyListText.visibility = View.INVISIBLE
+                    binding.shareImg.visibility = View.VISIBLE
                     // fill the list for sharing
                     foodListForShare += "${getString(R.string.share_today_title)} \n"
                     for(item in foodEntries) {
                         foodListForShare += "${item.name} \n"
                     }
                 } else {
-                    emptyListText.visibility = View.VISIBLE
-                    share_img.visibility = View.INVISIBLE
+                    binding.emptyListText.visibility = View.VISIBLE
+                    binding.shareImg.visibility = View.INVISIBLE
                 }
             })
     }
@@ -336,10 +326,9 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
     //                                  REVEALING FAB BTN STUFF
     // ---------------------------------------------------------------------------------------------
     override fun onBackPressed() {
-        if (main_fabMenu != null) {
-            if (main_fabMenu!!.isShowing) {
-                main_fabMenu!!.closeMenu()
-            }
+        super.onBackPressed()
+        if (binding.mainFabMenu.isShowing) {
+            binding.mainFabMenu.closeMenu()
         }
     }
 
@@ -348,17 +337,15 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
     // Adding revealing main_fab button
     private fun addRevealFabBtn() {
         try {
-            if (main_fab != null && main_fabMenu != null) {
-                //attach menu to main_fab
-                main_fabMenu!!.bindAnchorView(main_fab!!)
+            //attach menu to main_fab
+            binding.mainFabMenu.bindAnchorView(binding.mainFab)
 
-                //set menu selection listener
-                main_fabMenu!!.setOnFABMenuSelectedListener(this)
-            }
+            //set menu selection listener
+            binding.mainFabMenu.setOnFABMenuSelectedListener(this)
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        main_fabMenu!!.setMenuDirection(Direction.LEFT)
+        binding.mainFabMenu.setMenuDirection(Direction.LEFT)
     }
 
 

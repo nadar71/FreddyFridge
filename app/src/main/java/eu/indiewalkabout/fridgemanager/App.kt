@@ -8,16 +8,14 @@ import com.unity3d.ads.IUnityAdsListener
 import com.unity3d.ads.UnityAds
 import com.unity3d.ads.UnityAds.FinishState
 import com.unity3d.ads.UnityAds.UnityAdsError
-import eu.indiewalkabout.fridgemanager.data.local.db.FoodDatabase
 import eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmReminderScheduler
-import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepository
 import eu.indiewalkabout.fridgemanager.core.util.AppExecutors
+import eu.indiewalkabout.fridgemanager.data.local.db.FoodDatabase
+import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepository
 
 
-// -------------------------------------------------------------------------------------------------
 // Class used for access singletons and application context wherever in the app
 // NB : register in manifest in <Application android:name=".App">... </Application>
-
 class App : Application(), Configuration.Provider {
     val mAppExecutors: AppExecutors? = null
     val unityGameID = "12345"
@@ -42,7 +40,7 @@ class App : Application(), Configuration.Provider {
 
 
     // Return singleton db instance
-    val database: FoodDatabase?
+    private val database: FoodDatabase?
         get() = FoodDatabase.getsDbInstance(this)
 
 

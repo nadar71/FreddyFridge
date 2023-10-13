@@ -2,24 +2,22 @@ package eu.indiewalkabout.fridgemanager.core.util
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import androidx.core.content.res.ResourcesCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-
+import android.view.View.OnTouchListener
+import androidx.core.content.res.ResourcesCompat
 import eu.indiewalkabout.fridgemanager.R
 
-/**
- * Custom view that is an extension of EditText.
- * It provides a Clear ("x") button within the text field
- * that, when tapped, clears the text from the field.
- */
 
+// Custom view that is an extension of EditText.
+// It provides a Clear ("x") button within the text field
+// that, when tapped, clears the text from the field.
 class EditTextWithClear : androidx.appcompat.widget.AppCompatEditText {
 
-    internal var mClearButtonImage: Drawable? = null
+    private var mClearButtonImage: Drawable? = null
 
     constructor(context: Context) : super(context) {
         init()
@@ -112,10 +110,7 @@ class EditTextWithClear : androidx.appcompat.widget.AppCompatEditText {
         })
     }
 
-    /**
-     * Shows the clear (X) button.
-     */
-
+    // Shows the clear (X) button.
     private fun showClearButton() {
         // Sets the Drawables (if any) to appear to the left of,
         // above, to the right of, and below the text.
@@ -125,9 +120,7 @@ class EditTextWithClear : androidx.appcompat.widget.AppCompatEditText {
         // Below text.
     }
 
-    /**
-     * Hides the clear button.
-     */
+    // Hides the clear button.
     private fun hideClearButton() {
         setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)// Start of text.
         // Top of text.

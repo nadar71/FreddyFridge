@@ -17,8 +17,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import androidx.preference.*
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import com.hlab.fabrevealmenu.view.FABRevealMenu
@@ -38,9 +38,8 @@ import eu.indiewalkabout.fridgemanager.core.util.GenericUtility
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.showRandomizedInterstAds
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility.getHoursCount
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main_settings.*
-import kotlinx.android.synthetic.main.activity_main_settings.adView
+import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
+import eu.indiewalkabout.fridgemanager.databinding.ActivityMainSettingsBinding
 
 
 // Settings configuration class; uses activity_main_settings layout and include settingsFrag
@@ -48,8 +47,9 @@ class MainSettingsActivity : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
         OnFABMenuSelectedListener {
 
+    private lateinit var binding: ActivityMainSettingsBinding
+
     companion object {
-        val TAG = MainSettingsActivity::class.java.name
         private var dayBeforeKey: String? = null
         private var hoursFreqKey: String? = null
     }
@@ -75,16 +75,15 @@ class MainSettingsActivity : AppCompatActivity(),
         return true
     }
 
-    // ---------------------------------------------------------------------------------------------
-    // onCreate
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_settings)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main_settings)
 
         // admob banner ref
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        adView.loadAd(getAdRequest(this@MainSettingsActivity))
+        binding.adView.loadAd(getAdRequest(this@MainSettingsActivity))
 
         // init toolbar
         toolBarInit()
@@ -96,15 +95,13 @@ class MainSettingsActivity : AppCompatActivity(),
     }
 
 
-     // ---------------------------------------------------------------------------------------------
-     // Preferences screen manager class which is used by  activity_main_settings.xml
-
+    // Preferences screen manager class which is used by  activity_main_settings.xml
     class MainPreferenceFragment : PreferenceFragmentCompat(),
             Preference.OnPreferenceChangeListener,
             SharedPreferences.OnSharedPreferenceChangeListener{
 
-        lateinit var consentSDK: ConsentSDK
-        val appPackageName: String = App.getsContext()?.packageName ?: "eu.indiewalkabout.fridgemanager"
+        private lateinit var consentSDK: ConsentSDK
+        private val appPackageName: String = App.getsContext()?.packageName ?: "eu.indiewalkabout.fridgemanager"
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.main_settings, rootKey)
@@ -117,10 +114,12 @@ class MainSettingsActivity : AppCompatActivity(),
             hoursFreqKey = getString(R.string.hours_freq_today_deadline_count)
 
             // get preference Screen reference
-            val preferenceScreen = preferenceManager.createPreferenceScreen(activity)
+            val preferenceScreen = activity?.let { preferenceManager.createPreferenceScreen(it) }
 
-            preferenceScreen.sharedPreferences
-                    .registerOnSharedPreferenceChangeListener(this)
+            if (preferenceScreen != null) {
+                preferenceScreen.sharedPreferences
+                    ?.registerOnSharedPreferenceChangeListener(this)
+            }
 
             // bind prefs on changes
             val dayBeforePref: EditTextPreference? = findPreference(dayBeforeKey!!)
@@ -172,7 +171,11 @@ class MainSettingsActivity : AppCompatActivity(),
                     true
                 }
             } else {
-                preferenceScreen.removePreference(gdprConsentBtn)
+                if (preferenceScreen != null) {
+                    if (gdprConsentBtn != null) {
+                        preferenceScreen.removePreference(gdprConsentBtn)
+                    }
+                }
             }
 
 
@@ -230,15 +233,11 @@ class MainSettingsActivity : AppCompatActivity(),
                 true
             }
 
-
-
-
         }
 
-        /**
-         * Bind prefs text shown below label on prefs changes
-         * @param preference
-         */
+
+
+        // Bind prefs text shown below label on prefs changes
         private fun bindPreferenceSummaryToValue(preference: Preference) {
             preference.onPreferenceChangeListener = this // bind
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(preference.context)
@@ -249,6 +248,8 @@ class MainSettingsActivity : AppCompatActivity(),
             // callback invokation on preference param
             onPreferenceChange(preference, sPreference as Any)
         }
+
+
 
         // Update summary before writing on shared preferences
         override fun onPreferenceChange(preference: Preference, newValue: Any): Boolean {
@@ -304,9 +305,6 @@ class MainSettingsActivity : AppCompatActivity(),
             }
         }
 
-        // -----------------------------------------------------------------------------------------
-        // Initialize consent
-        // @param context
 
         private fun initConsentSDK(context: Context) {
             // Initialize ConsentSDK
@@ -318,9 +316,8 @@ class MainSettingsActivity : AppCompatActivity(),
         }
     }
 
-    // ---------------------------------------------------------------------------------------------
-    // Toolbar init
 
+    // Toolbar init
     private fun toolBarInit() {
         // get the toolbar
         SettingsToolbar = findViewById(R.id.main_settings_toolbar)
@@ -338,7 +335,7 @@ class MainSettingsActivity : AppCompatActivity(),
 
     // ---------------------------------------------------------------------------------------------
     // MENU STUFF
-
+    // ---------------------------------------------------------------------------------------------
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
 
@@ -351,11 +348,13 @@ class MainSettingsActivity : AppCompatActivity(),
         return super.onOptionsItemSelected(item)
     }
 
+
     override fun onPause() {
         super.onPause()
         // TODO : what this is for ?
         val hoursFrequency = getHoursCount(this@MainSettingsActivity)
     }
+
 
     // ---------------------------------------------------------------------------------------------
     //                                  REVEALING FAB BTN STUFF
@@ -371,25 +370,16 @@ class MainSettingsActivity : AppCompatActivity(),
     }
 
 
-    // ---------------------------------------------------------------------------------------------
     // Adding revealing main_fab button
-
     private fun addRevealFabBtn() {
-        val fab = findViewById<FloatingActionButton>(R.id.settings_fab)
-        var fabMenu = findViewById<FABRevealMenu>(R.id.settings_fabMenu)
-
         // remove insert menu item
         fabMenu!!.removeItem(R.id.menu_insert)
         try {
-            if (fab != null && fabMenu != null) {
-                fabMenu = fabMenu
+            //attach menu to main_fab
+            binding.settingsFabMenu.bindAnchorView(binding.settingsFab)
 
-                //attach menu to main_fab
-                fabMenu.bindAnchorView(fab)
-
-                //set menu selection listener
-                fabMenu.setOnFABMenuSelectedListener(this@MainSettingsActivity)
-            }
+            //set menu selection listener
+            binding.settingsFabMenu.setOnFABMenuSelectedListener(this@MainSettingsActivity)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -397,9 +387,7 @@ class MainSettingsActivity : AppCompatActivity(),
     }
 
 
-     // ---------------------------------------------------------------------------------------------
-     // Revealing main_fab button menu management
-
+    // Revealing main_fab button menu management
     override fun onMenuItemSelected(view: View, id: Int) {
         if (id == R.id.menu_insert) {
             val toInsertFood = Intent(this@MainSettingsActivity, InsertFoodActivity::class.java)

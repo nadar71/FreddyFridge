@@ -24,14 +24,7 @@ class FoodEntry {
 
     var done: Int = 0
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Create a new FoodEntry
-     * ---------------------------------------------------------------------------------------------
-     * @param done
-     * @param name
-     * @param expiringAt
-     */
+    // new FoodEntry
     @Ignore
     constructor(done: Int, name: String, expiringAt: Date) {
         this.done = done
@@ -40,15 +33,7 @@ class FoodEntry {
     }
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Create a new FoodEntry for db
-     * ---------------------------------------------------------------------------------------------
-     * @param id
-     * @param done
-     * @param name
-     * @param expiringAt
-     */
+    // new FoodEntry for db
     constructor(id: Int, done: Int, name: String, expiringAt: Date) {
         this.id = id
         this.done = done

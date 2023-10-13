@@ -14,19 +14,15 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
-
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.core.reminder.FoodReminderIntentService
 import eu.indiewalkabout.fridgemanager.core.reminder.ReminderOps
 import eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager.ReminderScheduler
+import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodListActivity
 import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity
 
 object NotificationsUtility {
-    
-
-    private val TAG = NotificationsUtility::class.java.simpleName
 
     // Unique Id to Refer to notification when displayed
     private val FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_ID = 1000
@@ -49,12 +45,6 @@ object NotificationsUtility {
     private val ACTION_IGNORE_PENDING_INTENT_ID = 20
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Clear all notifications
-     * @param context
-     * ---------------------------------------------------------------------------------------------
-     */
     fun clearAllNotifications(context: Context) {
         val notificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -62,12 +52,7 @@ object NotificationsUtility {
     }
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Food deadline reminder notification
-     * @param context
-     * ---------------------------------------------------------------------------------------------
-     */
+    // Food deadline reminder notification
     fun remindNextDaysExpiringFood(context: Context, foodEntries: List<FoodEntry>) {
 
         val notificationManager =
@@ -100,24 +85,13 @@ object NotificationsUtility {
                 .addAction(ignoreNotificationAction(context))
                 .setAutoCancel(true)
 
-
-        // TODO : check this could be an error
-        /*
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            notificationBuilder.priority = NotificationCompat.PRIORITY_HIGH
-        }*/
-
         // Show notification
         Log.i(ReminderScheduler.TAG, "Create notification for remindNextDaysExpiringFood")
         notificationManager.notify(FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_ID, notificationBuilder.build())
     }
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Format Next days Expiring Food list for notification alert
-     * ---------------------------------------------------------------------------------------------
-     */
+    // Format Next days Expiring Food list for notification alert
     private fun formatForNextdays(context: Context, todayList: List<FoodEntry>): String {
         var listString = ""
         if (todayList.size > 0) {
@@ -131,25 +105,10 @@ object NotificationsUtility {
     }
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Food deadline reminder notification
-     * @param context
-     * ---------------------------------------------------------------------------------------------
-     */
+    // Food deadline reminder notification
     fun remindTodayExpiringFood(context: Context, foodEntries: List<FoodEntry>) {
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        /*
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val mChannel = NotificationChannel(
-                    FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID,
-                    context.getString(R.string.today_expiring_notification_channel_name),
-                    NotificationManager.IMPORTANCE_HIGH)
-            notificationManager.createNotificationChannel(mChannel)
-        }
-        */
 
         createNotificationsChannel(
             FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID,
@@ -178,21 +137,12 @@ object NotificationsUtility {
                 // .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true)
 
-
-        // TODO : check this could be an error
-        /*
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            notificationBuilder.priority = NotificationCompat.PRIORITY_HIGH
-        }*/
-
         // Show notification
         Log.i(ReminderScheduler.TAG, "Create notification for remindTodayExpiringFood")
         notificationManager.notify(FOOD_TODAY_DEADLINE_NOTIFICATION_ID, notificationBuilder.build())
     }
 
 
-    /**  -------------------------------------------------------------------------------------------
-     * Create Notification channel */
     private fun createNotificationsChannel(id: String, name: String, channelDescription: String,
                                            notificationManager: NotificationManager) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -205,11 +155,7 @@ object NotificationsUtility {
     }
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Format Today Expiring Food list for todays notification alert
-     * ---------------------------------------------------------------------------------------------
-     */
+    // Format Today Expiring Food list for todays notification alert
     private fun formatForToday(context: Context, todayList: List<FoodEntry>): String {
         var listString = ""
         if (todayList.size > 0) {
@@ -223,13 +169,7 @@ object NotificationsUtility {
     }
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * User Action Ignore notification
-     * @param context
-     * @return
-     * ---------------------------------------------------------------------------------------------
-     */
+    // User Action Ignore notification
     private fun ignoreNotificationAction(context: Context): NotificationCompat.Action {
         val ignoreReminderIntent = Intent(context, FoodReminderIntentService::class.java)
         ignoreReminderIntent.action = ReminderOps.ACTION_DISMISS_NOTIFICATION
@@ -246,13 +186,7 @@ object NotificationsUtility {
     }
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * User Action Show list of expiring food in the next days opening app on expiring list activity
-     * @param context
-     * @return
-     * ---------------------------------------------------------------------------------------------
-     */
+    // User Action Show list of expiring food in the next days opening app on expiring list activity
     private fun showFoodExpiringNextDaysAction(context: Context): NotificationCompat.Action {
         // Intent foodReminderIntent = new Intent(context, FoodReminderIntentService.class);
         // foodReminderIntent.setAction(ReminderOps.ACTION_SHOW_EXPIRING_FOOD);
@@ -263,7 +197,7 @@ object NotificationsUtility {
                 context,
                 ACTION_SHOW_NEXTDAYS_PENDING_INTENT_ID,
                 showExpiringFoodIntent,
-                PendingIntent.FLAG_CANCEL_CURRENT)
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
         Log.i(ReminderScheduler.TAG, "SHOW notification for showFoodExpiringNextDaysAction")
         return NotificationCompat.Action(R.drawable.ic_warning_green_24dp,
@@ -272,13 +206,7 @@ object NotificationsUtility {
     }
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * User Action Show list of TODAY expiring food opening app on main activity
-     * @param context
-     * @return
-     * ---------------------------------------------------------------------------------------------
-     */
+    // User Action Show list of TODAY expiring food opening app on main activity
     private fun showFoodExpiringTodayAction(context: Context): NotificationCompat.Action {
         // Intent foodReminderIntent = new Intent(context, FoodReminderIntentService.class);
         // foodReminderIntent.setAction(ReminderOps.ACTION_SHOW_EXPIRING_FOOD);
@@ -289,7 +217,7 @@ object NotificationsUtility {
                 context,
                 ACTION_SHOW_TODAY_PENDING_INTENT_ID,
                 startActivityIntent,
-                PendingIntent.FLAG_CANCEL_CURRENT)
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
         Log.i(ReminderScheduler.TAG, "SHOW notification for showFoodExpiringTodayAction")
         return NotificationCompat.Action(R.drawable.ic_warning_green_24dp,
@@ -298,13 +226,7 @@ object NotificationsUtility {
     }
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Pending item about reminder notification, call the MainActivity
-     * @param context
-     * @return
-     * ---------------------------------------------------------------------------------------------
-     */
+    // Pending item about reminder notification, call the MainActivity
     private fun contentIntent(context: Context): PendingIntent {
         val startActivityIntent = Intent(context, MainActivity::class.java)
         return PendingIntent.getActivity(

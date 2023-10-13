@@ -8,6 +8,7 @@ import eu.indiewalkabout.fridgemanager.App
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
 import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
+import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,21 +16,16 @@ import java.util.concurrent.TimeUnit
 
 class AlarmReceiver : BroadcastReceiver() {
 
-    companion object {
-        val TAG = AlarmReceiver::class.java.simpleName
-    }
-
-
     // for real :
-    val days = PreferenceUtility.getDaysCount(App.getsContext()!!)
-    val DAYS_BEFORE = TimeUnit.DAYS.toSeconds(days.toLong()).toInt()
+    private val days = PreferenceUtility.getDaysCount(App.getsContext()!!)
+    private val DAYS_BEFORE = TimeUnit.DAYS.toSeconds(days.toLong()).toInt()
 
     // get repository
-    val repository = (App.getsContext() as App).repository
+    private val repository = (App.getsContext() as App).repository
 
 
     override fun onReceive(context: Context, intent: Intent) {
-        Log.i(AlarmReminderScheduler.TAG, " AlarmReceiver : repeating alarm RECEIVED ")
+        Log.i(TAG, " AlarmReceiver : repeating alarm RECEIVED ")
 
         // -----------------------------------------------------------------------------------------
         // 1 - check for food expiring in the next x days (DAYS_BEFORE), and show notification in case

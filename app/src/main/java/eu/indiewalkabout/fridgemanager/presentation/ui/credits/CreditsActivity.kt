@@ -2,56 +2,41 @@ package eu.indiewalkabout.fridgemanager.presentation.ui.credits
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import com.google.android.gms.ads.AdView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
-import com.hlab.fabrevealmenu.view.FABRevealMenu
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodListActivity
-import eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodActivity
-import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity
 import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.showRandomizedInterstAds
+import eu.indiewalkabout.fridgemanager.databinding.ActivityCreditsBinding
+import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodListActivity
+import eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodActivity
+import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity
 
 class CreditsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
-    // admob banner ref
-    lateinit var mAdView: AdView
-    lateinit var fabMenu: FABRevealMenu
-    lateinit var fab: FloatingActionButton
-    lateinit var creditsToolbar: Toolbar
-    lateinit var toolbarTitle: TextView
+    private lateinit var binding: ActivityCreditsBinding
+    private lateinit var creditsToolbar: Toolbar
+    private lateinit var toolbarTitle: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_credits)
-
-        // load ads banner
-        mAdView = findViewById(R.id.adView)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_credits)
 
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        mAdView.loadAd(getAdRequest(this@CreditsActivity))
-
-
-        // get a support action bar
+        binding.adView.loadAd(getAdRequest(this@CreditsActivity))
         toolBarInit()
-
-        // navigation fab
         addRevealFabBtn()
-
         hideStatusNavBars(this)
     }
 
 
-
-    // ---------------------------------------------------------------------------------------------
     // Toolbar init
-
     private fun toolBarInit() {
         // get the toolbar
         creditsToolbar = findViewById(R.id.credits_toolbar)
@@ -66,9 +51,9 @@ class CreditsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
         actionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
+
     // ---------------------------------------------------------------------------------------------
     // MENU STUFF
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         when (id) {
@@ -77,6 +62,7 @@ class CreditsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
                 onBackPressed()
                 return true
             }
+
             else -> {
             }
         }
@@ -89,38 +75,26 @@ class CreditsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
     override fun onBackPressed() {
         super.onBackPressed()
         showRandomizedInterstAds(6, this)
-        if (fabMenu != null) {
-            if (fabMenu.isShowing) {
-                fabMenu.closeMenu()
-            }
+        if (binding.creditsFabMenu.isShowing) {
+            binding.creditsFabMenu.closeMenu()
         }
     }
 
-    // ---------------------------------------------------------------------------------------------
     //  Adding revealing main_fab button
-
     private fun addRevealFabBtn() {
-        fab     = findViewById(R.id.credits_fab)
-        fabMenu = findViewById(R.id.credits_fabMenu)
         try {
-            if (fab != null && fabMenu != null) {
-                fabMenu = fabMenu
-
-                //attach menu to main_fab
-                fabMenu.bindAnchorView(fab)
-
-                //set menu selection listener
-                fabMenu.setOnFABMenuSelectedListener(this)
-            }
+            //attach menu to main_fab
+            binding.creditsFabMenu.bindAnchorView(binding.creditsFab)
+            //set menu selection listener
+            binding.creditsFabMenu.setOnFABMenuSelectedListener(this)
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        fabMenu.setMenuDirection(Direction.LEFT)
+        binding.creditsFabMenu.setMenuDirection(Direction.LEFT)
     }
 
-    // ---------------------------------------------------------------------------------------------
-    // Revealing main_fab button menu management
 
+    // Revealing main_fab button menu management
     override fun onMenuItemSelected(view: View, id: Int) {
         if (id == R.id.menu_insert) {
             val toInsertFood = Intent(this@CreditsActivity, InsertFoodActivity::class.java)
@@ -146,7 +120,6 @@ class CreditsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
             startActivity(returnHome)
         }
     }
-
 
 
 }

@@ -4,17 +4,13 @@ import androidx.lifecycle.LiveData
 import eu.indiewalkabout.fridgemanager.data.local.db.FoodDatabase
 import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 
-/**
- * -------------------------------------------------------------------------------------------------
- * App repository
- * -------------------------------------------------------------------------------------------------
- */
 class FridgeManagerRepository private constructor(private val foodDb: FoodDatabase) {
 
 
     //----------------------------------------------------------------------------------------------
     //  QUERY
     //----------------------------------------------------------------------------------------------
+
     // retrieve ALL KIND OF FOOD  without regarding expiring date
     fun loadAllFood(): LiveData<MutableList<FoodEntry>> {
         return foodDb.foodDbDao().loadAllFood()
