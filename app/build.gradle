@@ -29,6 +29,8 @@ android {
         }
     }
 
+    flavorDimensions "FreddyFridge"
+
     productFlavors {
         production {
             dimension "FreddyFridge"
@@ -43,12 +45,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11
+        jvmTarget = JavaVersion.VERSION_17
     }
 
     lintOptions {
@@ -143,8 +145,7 @@ dependencies {
     debugImplementation "com.amitshekhar.android:debug-db:$amitshekhar_vers"
 
     // Unity
-    // implementation(name: 'unity-ads', ext: 'aar', version: '0.2.0')
-    implementation project(path: ':unity-ads')
+    implementation 'com.unity3d.ads:unity-ads:4.7.0'
 
 
     // Intro library

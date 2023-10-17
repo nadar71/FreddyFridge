@@ -42,6 +42,7 @@
     <string name="expiring_label">Scade</string>
     <string name="add_label">NUOVO</string>
     <string name="speak_btn_description">Premi e parla</string>
+    <string name="speech_not_recognized">Prova ancora</string>
     <string name="confirm_if_consumed_text">Imposto il cibo come MANGIATO, ok?</string>
     <string name="confirm_if_not_consumed_text">Imposto il cibo come NON MANGIATO, ok?</string>
     <string name="confirm_if_deleting_text">Sei sicuro di volero cancellare ?</string>

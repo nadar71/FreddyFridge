@@ -20,7 +20,7 @@ import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.presentation.components.adapter.FoodListAdapter
 import eu.indiewalkabout.fridgemanager.presentation.components.adapter.FoodListAdapter.ItemClickListener
 import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity
-import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.getAdRequest
+// import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.showRandomizedInterstAds
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
@@ -70,7 +70,7 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
 
 
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        binding.adView.loadAd(getAdRequest(this@FoodListActivity))
+        // binding.adView.loadAd(getAdRequest(this@FoodListActivity))
 
         // TODO : use this in another way
         // get intent extra for configuring list type
@@ -135,7 +135,7 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
     }
 
     // Show admob interstitial on ui request
-    private fun showAdMobInterstitialAd() {
+    /*private fun showAdMobInterstitialAd() {
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = resources.getString(R.string.admob_key_interstitial)
 
@@ -157,7 +157,7 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
             }
         }
     }
-
+*/
 
     private fun initRecycleView() {
         binding.foodListRecycleView.setLayoutManager(LinearLayoutManager(this))

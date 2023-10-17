@@ -3,7 +3,6 @@ package eu.indiewalkabout.fridgemanager.core.util
 import android.app.Activity
 import android.app.AlertDialog
 import android.view.View
-import eu.indiewalkabout.fridgemanager.App
 import java.util.concurrent.ThreadLocalRandom
 
 object GenericUtility {
@@ -57,6 +56,7 @@ object GenericUtility {
     }
 
 
+    // TODO : must recreate with new procedure
     fun showRandomizedInterstAds(upperLimit: Int, activity: Activity) {
         val guess = randRange_ApiCheck(1, 10)
         if (guess <= upperLimit) {
@@ -64,7 +64,8 @@ object GenericUtility {
             // showInterstitialAd()
 
             // unity interstitial
-            App.displayUnityInterstitialAd(activity, "interstitial")
+            //NO MORE PRESENT
+            // App.displayUnityInterstitialAd(activity, "interstitial")
 
         }
     }

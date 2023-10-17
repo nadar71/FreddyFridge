@@ -124,6 +124,8 @@
 
     <!-- - - - - - - - - - - - - Content Descriptions   - - - - - - - - - - - - - - - - - - - - -->
     <string name="speak_btn_description">Press and speak</string>
+    <string name="speech_not_recognized">Try again</string>
+
 
 
     <!-- - - - - - - - - - - - - Credits text   - - - - - - - - - - - - - - - - - - - - - - - -  -->

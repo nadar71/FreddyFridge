@@ -17,7 +17,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.preference.*
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
@@ -30,7 +32,7 @@ import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodListActivity
 import eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodActivity
 import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity
 import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK
-import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.getAdRequest
+// import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.isConsentPersonalized
 import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.isUserLocationWithinEea
 import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.ConsentStatusCallback
@@ -54,17 +56,17 @@ class MainSettingsActivity : AppCompatActivity(),
         private var hoursFreqKey: String? = null
     }
 
-    lateinit var SettingsToolbar: Toolbar
-    lateinit var toolbarTitle: TextView
-    var fabMenu: FABRevealMenu? = null
+    private lateinit var SettingsToolbar: Toolbar
+    private lateinit var toolbarTitle: TextView
+    // private var fabMenu: FABRevealMenu? = null
 
 
     override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
         // Instantiate the new Fragment
         val args = pref.extras
-        val fragment = supportFragmentManager.fragmentFactory.instantiate(
-                classLoader,
-                pref.fragment)
+        val fragmentClassName = pref.fragment
+
+        val fragment = Fragment.instantiate(this, fragmentClassName!!, args)
         fragment.arguments = args
         fragment.setTargetFragment(caller, 0)
         // Replace the existing Fragment with the new Fragment
@@ -83,7 +85,7 @@ class MainSettingsActivity : AppCompatActivity(),
 
         // admob banner ref
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        binding.adView.loadAd(getAdRequest(this@MainSettingsActivity))
+        // binding.adView.loadAd(getAdRequest(this@MainSettingsActivity))
 
         // init toolbar
         toolBarInit()
@@ -362,10 +364,8 @@ class MainSettingsActivity : AppCompatActivity(),
     override fun onBackPressed() {
         super.onBackPressed()
         showRandomizedInterstAds(4,this)
-        if (fabMenu != null) {
-            if (fabMenu!!.isShowing) {
-                fabMenu!!.closeMenu()
-            }
+        if (binding.settingsFabMenu.isShowing) {
+            binding.settingsFabMenu.closeMenu()
         }
     }
 
@@ -373,7 +373,7 @@ class MainSettingsActivity : AppCompatActivity(),
     // Adding revealing main_fab button
     private fun addRevealFabBtn() {
         // remove insert menu item
-        fabMenu!!.removeItem(R.id.menu_insert)
+        binding.settingsFabMenu.removeItem(R.id.menu_insert)
         try {
             //attach menu to main_fab
             binding.settingsFabMenu.bindAnchorView(binding.settingsFab)
@@ -383,7 +383,7 @@ class MainSettingsActivity : AppCompatActivity(),
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        fabMenu!!.menuDirection = Direction.LEFT
+        binding.settingsFabMenu.menuDirection = Direction.LEFT
     }
 
 

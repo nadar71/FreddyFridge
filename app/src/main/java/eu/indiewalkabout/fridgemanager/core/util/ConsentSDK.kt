@@ -10,14 +10,10 @@ import com.google.ads.consent.ConsentInfoUpdateListener
 import com.google.ads.consent.ConsentInformation
 import com.google.ads.consent.ConsentStatus
 import com.google.ads.consent.DebugGeography
-import com.google.ads.mediation.admob.AdMobAdapter
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
 import java.net.MalformedURLException
 import java.net.URL
-import eu.indiewalkabout.fridgemanager.R
 
 class ConsentSDK {
 
@@ -328,7 +324,7 @@ class ConsentSDK {
         // Initialize dummy banner
         fun initDummyBanner(context: Context) {
             val adView = AdView(context)
-            adView.adSize = AdSize.BANNER
+            // adView. = AdSize.BANNER
             adView.adUnitId = DUMMY_BANNER
             adView.loadAd(AdRequest.Builder().build())
         }
@@ -350,7 +346,7 @@ class ConsentSDK {
         // THIS APP REAL AdMob app ID:  ca-app-pub-8846176967909254~3156345913
         // -----------------------------------------------------------------------------------------
         // Get AdRequest
-        fun getAdRequest(context: Context): AdRequest {
+        /*fun getAdRequest(context: Context): AdRequest {
             if (isConsentPersonalized(context)) {
                 MobileAds.initialize(context, context.getString(R.string.admob_key_app_id))
                 return AdRequest.Builder()
@@ -363,7 +359,7 @@ class ConsentSDK {
                     // .addTestDevice("7DC1A1E8AEAD7908E42271D4B68FB270")
                     .build()
             }
-        }
+        }*/
 
         // Get Non Personalized Ads Bundle
         private val nonPersonalizedAdsBundle: Bundle

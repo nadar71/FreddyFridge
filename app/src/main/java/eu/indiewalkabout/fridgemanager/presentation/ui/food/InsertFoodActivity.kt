@@ -25,7 +25,7 @@ import eu.indiewalkabout.fridgemanager.data.local.db.DateConverter.fromDate
 import eu.indiewalkabout.fridgemanager.data.local.db.DateConverter.toDate
 import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity
-import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.getAdRequest
+// import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getLocalMidnightFromNormalizedUtcDate
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.normalizedUtcMsForToday
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
@@ -56,7 +56,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
         binding = DataBindingUtil.setContentView(this, R.layout.activity_insert_food)
 
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        binding.adView.loadAd(getAdRequest(this@InsertFoodActivity))
+        // binding.adView.loadAd(getAdRequest(this@InsertFoodActivity))
 
         // init views
         initViews()
@@ -305,7 +305,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
             REQ_CODE_SPEECH_INPUT -> {
                 if (resultCode == Activity.RESULT_OK && null != data) {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                    binding.foodNameEt.setText(result[0])
+                    binding.foodNameEt.setText(result?.get(0) ?: "retry")
                 }
             }
         }

@@ -25,11 +25,11 @@ class FoodViewRowHolder(
 ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
     // Class variables for the task description and priority TextViews
-    private var foodName_tv: TextView
-    private var expiringDate_tv: TextView
-    private var deleteFoodItem_imgBtn: ImageButton
-    private var foodConsumed_cb: CheckBox
-    private var recyclerview_item: ConstraintLayout
+    var foodName_tv: TextView
+    var expiringDate_tv: TextView
+    var deleteFoodItem_imgBtn: ImageButton
+    var foodConsumed_cb: CheckBox
+    var recyclerview_item: ConstraintLayout
 
 
     // alert dialog object for user confirmation

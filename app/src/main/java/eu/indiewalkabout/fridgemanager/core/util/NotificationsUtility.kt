@@ -18,6 +18,7 @@ import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.reminder.FoodReminderIntentService
 import eu.indiewalkabout.fridgemanager.core.reminder.ReminderOps
 import eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager.ReminderScheduler
+import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodListActivity
 import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity
@@ -25,24 +26,24 @@ import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity
 object NotificationsUtility {
 
     // Unique Id to Refer to notification when displayed
-    private val FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_ID = 1000
+    private const val FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_ID = 1000
 
     // Reference to notification pendingitent
-    private val FOOD_NEXTDAYS_DEADLINE_PENDING_INTENT_ID = 1100
+    private const val FOOD_NEXTDAYS_DEADLINE_PENDING_INTENT_ID = 1100
 
     // Unique Id to Refer to notification when displayed
-    private val FOOD_TODAY_DEADLINE_NOTIFICATION_ID = 2000
+    private const val FOOD_TODAY_DEADLINE_NOTIFICATION_ID = 2000
 
     // Reference to notification pendingitent
     private val FOOD_TODAY_DEADLINE_PENDING_INTENT_ID = 2100
 
     // This notification channel and its action for sdk >= 26 (Oreo)
-    private val FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_CHANNEL_ID = "food_deadline_notification_channel"
-    private val FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID = "food_today_deadline_notification_channel"
+    private const val FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_CHANNEL_ID = "food_deadline_notification_channel"
+    private const val FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID = "food_today_deadline_notification_channel"
 
-    private val ACTION_SHOW_NEXTDAYS_PENDING_INTENT_ID = 10
-    private val ACTION_SHOW_TODAY_PENDING_INTENT_ID = 10
-    private val ACTION_IGNORE_PENDING_INTENT_ID = 20
+    private const val ACTION_SHOW_NEXTDAYS_PENDING_INTENT_ID = 10
+    private const val ACTION_SHOW_TODAY_PENDING_INTENT_ID = 10
+    private const val ACTION_IGNORE_PENDING_INTENT_ID = 20
 
 
     fun clearAllNotifications(context: Context) {
@@ -199,7 +200,7 @@ object NotificationsUtility {
                 showExpiringFoodIntent,
             PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
-        Log.i(ReminderScheduler.TAG, "SHOW notification for showFoodExpiringNextDaysAction")
+        Log.i(TAG, "SHOW notification for showFoodExpiringNextDaysAction")
         return NotificationCompat.Action(R.drawable.ic_warning_green_24dp,
                 context.getString(R.string.show_food_expiring_action_title),
                 foodReminderPendingIntent)
@@ -219,7 +220,7 @@ object NotificationsUtility {
                 startActivityIntent,
             PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
-        Log.i(ReminderScheduler.TAG, "SHOW notification for showFoodExpiringTodayAction")
+        Log.i(TAG, "SHOW notification for showFoodExpiringTodayAction")
         return NotificationCompat.Action(R.drawable.ic_warning_green_24dp,
                 context.getString(R.string.show_food_expiring_today_action_title),
                 foodReminderPendingIntent)

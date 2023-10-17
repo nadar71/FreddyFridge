@@ -1,26 +1,20 @@
 package eu.indiewalkabout.fridgemanager
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
 import androidx.work.Configuration
-import com.unity3d.ads.IUnityAdsListener
+import com.unity3d.ads.IUnityAdsInitializationListener
 import com.unity3d.ads.UnityAds
-import com.unity3d.ads.UnityAds.FinishState
-import com.unity3d.ads.UnityAds.UnityAdsError
 import eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmReminderScheduler
-import eu.indiewalkabout.fridgemanager.core.util.AppExecutors
+import eu.indiewalkabout.fridgemanager.core.unityads.testMode
+import eu.indiewalkabout.fridgemanager.core.unityads.unityGameID
 import eu.indiewalkabout.fridgemanager.data.local.db.FoodDatabase
 import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepository
 
 
 // Class used for access singletons and application context wherever in the app
 // NB : register in manifest in <Application android:name=".App">... </Application>
-class App : Application(), Configuration.Provider {
-    val mAppExecutors: AppExecutors? = null
-    val unityGameID = "12345"
-    val testMode = true
-
+class App : Application(), Configuration.Provider, IUnityAdsInitializationListener {
     companion object {
         private var sContext: Context? = null
 
@@ -29,20 +23,17 @@ class App : Application(), Configuration.Provider {
             return sContext
         }
 
-        // Implement a function to display an ad if the surfacing is ready:
+        /*// Implement a function to display an ad if the surfacing is ready:
         fun displayUnityInterstitialAd(activity: Activity, surfacingId: String) {
             if (UnityAds.isReady(surfacingId)) {
                 UnityAds.show(activity, surfacingId)
             }
-        }
+        }*/
     }
-
-
 
     // Return singleton db instance
     private val database: FoodDatabase?
         get() = FoodDatabase.getsDbInstance(this)
-
 
     // Return depository singleton instance
     val repository: FridgeManagerRepository?
@@ -50,8 +41,6 @@ class App : Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
-        // mAppExecutors = new AppExecutors.getInstance();
-
         sContext = applicationContext
 
         // start scheduler for notifications reminder
@@ -61,14 +50,8 @@ class App : Application(), Configuration.Provider {
         AlarmReminderScheduler().setRepeatingAlarm()
 
         // UNITY
-        // Declare a new listener:
-        val myAdsListener = UnityAdsListener()
-
-        // Add the listener to the SDK:
-        UnityAds.addListener(myAdsListener)
-
         // Initialize the SDK:
-        UnityAds.initialize(this, unityGameID, testMode)
+        UnityAds.initialize(applicationContext, unityGameID, testMode, this)
     }
 
     override fun getWorkManagerConfiguration() =
@@ -76,28 +59,14 @@ class App : Application(), Configuration.Provider {
                     .setMinimumLoggingLevel(android.util.Log.VERBOSE)
                     .build()
 
-
-    // Implement the IUnityAdsListener interface methods:
-    private class UnityAdsListener : IUnityAdsListener {
-        override fun onUnityAdsReady(surfacingId: String) {
-            // Implement functionality for an ad being ready to show.
-        }
-
-        override fun onUnityAdsStart(surfacingId: String) {
-            // Implement functionality for a user starting to watch an ad.
-        }
-
-        override fun onUnityAdsFinish(surfacingId: String, finishState: FinishState) {
-            // Implement functionality for a user finishing an ad.
-        }
-
-        override fun onUnityAdsError(error: UnityAdsError, message: String) {
-            // Implement functionality for a Unity Ads service error occurring.
-        }
+    // unity ads init complete
+    override fun onInitializationComplete() {
+        // TODO("Not yet implemented")
     }
 
-
-
-
+    // unity ads init failed
+    override fun onInitializationFailed(p0: UnityAds.UnityAdsInitializationError?, p1: String?) {
+        // TODO("Not yet implemented")
+    }
 
 }

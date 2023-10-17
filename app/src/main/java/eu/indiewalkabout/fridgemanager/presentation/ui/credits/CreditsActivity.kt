@@ -11,7 +11,7 @@ import androidx.databinding.DataBindingUtil
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.getAdRequest
+// import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.showRandomizedInterstAds
 import eu.indiewalkabout.fridgemanager.databinding.ActivityCreditsBinding
@@ -29,7 +29,7 @@ class CreditsActivity : AppCompatActivity(), OnFABMenuSelectedListener {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_credits)
 
         // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
-        binding.adView.loadAd(getAdRequest(this@CreditsActivity))
+        // binding.adView.loadAd(getAdRequest(this@CreditsActivity))
         toolBarInit()
         addRevealFabBtn()
         hideStatusNavBars(this)
