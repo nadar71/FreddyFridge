@@ -2,6 +2,7 @@ package eu.indiewalkabout.fridgemanager.core.util
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.view.View
 import java.util.concurrent.ThreadLocalRandom
 
@@ -68,6 +69,17 @@ object GenericUtility {
             // App.displayUnityInterstitialAd(activity, "interstitial")
 
         }
+    }
+
+
+    fun getScreenWidthDp(context: Context): Int {
+        val displayMetrics = context.resources.displayMetrics
+        return (displayMetrics.widthPixels / displayMetrics.density).toInt()
+    }
+
+    fun dpToPx(context: Context, dp: Int): Int {
+        val density = context.resources.displayMetrics.density
+        return (dp * density).toInt()
     }
 
 

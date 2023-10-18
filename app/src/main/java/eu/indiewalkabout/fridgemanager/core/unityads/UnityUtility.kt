@@ -9,6 +9,9 @@ import eu.indiewalkabout.fridgemanager.R
 
 val unityGameID = App.getsContext()!!.getString(R.string.unityads_id)
 val testMode = true
+// Initialize the Unity Banner Ad with a margin
+val marginDp = 10 // Set your desired margin in dp
+
 
 // Listener for banner events:
 val bannerListener = object : BannerView.IListener {

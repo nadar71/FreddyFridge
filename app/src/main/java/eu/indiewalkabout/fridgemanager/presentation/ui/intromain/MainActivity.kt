@@ -19,6 +19,7 @@ import eu.indiewalkabout.fridgemanager.App
 import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager.FoodReminderWorker
 import eu.indiewalkabout.fridgemanager.core.unityads.bannerListener
+import eu.indiewalkabout.fridgemanager.core.unityads.marginDp
 import eu.indiewalkabout.fridgemanager.presentation.components.adapter.FoodListAdapter
 import eu.indiewalkabout.fridgemanager.presentation.components.adapter.FoodListAdapter.ItemClickListener
 import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodListActivity
@@ -27,6 +28,8 @@ import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodsViewModelFactor
 import eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodActivity
 import eu.indiewalkabout.fridgemanager.presentation.ui.settings.MainSettingsActivity
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
+import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.dpToPx
+import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.getScreenWidthDp
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.core.util.OnSwipeTouchListener
@@ -157,7 +160,15 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         }*/
 
         // ads banner
-        bottomBanner = BannerView(this, "bottomBanner", UnityBannerSize(320, 50))
+        val bannerWidthDp = getScreenWidthDp(this) - (2 * marginDp) // Subtract margins from screen width
+        // bottomBanner = BannerView(this, "banner", UnityBannerSize(360, 60))
+        val bannerView = BannerView(this, "banner", UnityBannerSize(bannerWidthDp, 50))
+        val layoutParams = ViewGroup.LayoutParams(
+            dpToPx(this, bannerWidthDp), // Convert dp to pixels
+            dpToPx(this, 50) // Set the height in pixels or dp as needed
+        )
+        bannerView.layoutParams = layoutParams
+
         bottomBanner?.listener = bannerListener
         bottomBanner?.load()
         binding.bannerLayout.addView(bottomBanner)
@@ -369,7 +380,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        binding.mainFabMenu.setMenuDirection(Direction.LEFT)
+        binding.mainFabMenu.menuDirection = Direction.LEFT
     }
 
 
