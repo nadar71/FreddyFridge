@@ -160,14 +160,14 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         }*/
 
         // ads banner
-        val bannerWidthDp = getScreenWidthDp(this) - (2 * marginDp) // Subtract margins from screen width
-        // bottomBanner = BannerView(this, "banner", UnityBannerSize(360, 60))
-        val bannerView = BannerView(this, "banner", UnityBannerSize(bannerWidthDp, 50))
+        // val bannerWidthDp = getScreenWidthDp(this) - (2 * marginDp) // Subtract margins from screen width
+        bottomBanner = BannerView(this, "banner", UnityBannerSize(320, 60))
+        /*val bannerView = BannerView(this, "banner", UnityBannerSize(bannerWidthDp, 50))
         val layoutParams = ViewGroup.LayoutParams(
             dpToPx(this, bannerWidthDp), // Convert dp to pixels
             dpToPx(this, 50) // Set the height in pixels or dp as needed
         )
-        bannerView.layoutParams = layoutParams
+        bannerView.layoutParams = layoutParams*/
 
         bottomBanner?.listener = bannerListener
         bottomBanner?.load()
