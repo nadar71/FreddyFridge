@@ -88,7 +88,12 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
         })
 
 
-        binding.calendarCv.date
+        // binding.calendarCv.date
+
+        binding.calendarCv.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            myDatePicked = GregorianCalendar(year, month, dayOfMonth)
+            Log.i(TAG, "onSelectedDayChange: done: $myDatePicked")
+        }
 
         /*
         calendar_cv.setOnTouchListener(object: OnSwipeTouchListener(this@InsertFoodActivity) {
@@ -100,6 +105,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
             }
         })
         */
+
     }
 
 
@@ -120,9 +126,9 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
 
     private fun initViews() {
         // set tomorrow selected in calendar widget
-        val dateTodayNormalizedAtMidnight =
+        /*val dateTodayNormalizedAtMidnight =
             getLocalMidnightFromNormalizedUtcDate(normalizedUtcMsForToday)
-        binding.calendarCv.date = dateTodayNormalizedAtMidnight
+        binding.calendarCv.date = dateTodayNormalizedAtMidnight*/
 
         // saving editing test click
         binding.saveBtn.setOnClickListener(View.OnClickListener { onSaveBtnClicked() })
@@ -140,9 +146,10 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
 
     // Get the date picked up by the user from calendar
     override fun onSelectedDayChange(view: CalendarView, year: Int, month: Int, dayOfMonth: Int) {
-        Log.d(TAG, "onSelectedDayChange: done")
         myDatePicked = GregorianCalendar(year, month, dayOfMonth)
+        Log.i(TAG, "onSelectedDayChange: done: $myDatePicked")
     }
+
 
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -188,11 +195,10 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
 
         // validate item number
         val itemsNumStr = binding.howmanyEt.text.toString()
-        val itemsNum: Int
-        if (itemsNumStr == "") {
-            itemsNum = 1
+        val itemsNum = if (itemsNumStr == "") {
+            1
         } else {
-            itemsNum = itemsNumStr.toInt()
+            itemsNumStr.toInt()
         }
 
         // validate entry : name

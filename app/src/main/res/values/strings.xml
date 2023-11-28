@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">FreddyFridge !</string>
-    <string name="app_name_subtitle">Don\'t waste Food !</string>
+    <string name="app_name_subtitle">No Food wasted!</string>
     <string name="app_package" translatable="false">eu.indiewalkabout.fridgemanager</string>
 
 
