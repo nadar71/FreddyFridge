@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/background_lightgreen_semitransparent"
         tools:context=".presentation.ui.food.FoodListActivity">
 
 
@@ -18,6 +18,7 @@
             android:id="@+id/food_background_img"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:alpha="0.4"
             android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
