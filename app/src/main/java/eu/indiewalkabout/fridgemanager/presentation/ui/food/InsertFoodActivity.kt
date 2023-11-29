@@ -33,6 +33,9 @@ import eu.indiewalkabout.fridgemanager.core.util.KeyboardUtils.Companion.addKeyb
 import eu.indiewalkabout.fridgemanager.core.util.KeyboardUtils.SoftKeyboardToggleListener
 import eu.indiewalkabout.fridgemanager.core.util.OnSwipeTouchListener
 import eu.indiewalkabout.fridgemanager.databinding.ActivityInsertFoodBinding
+import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
+
+
 import java.util.*
 
 // new food to keep monitored
@@ -414,8 +417,6 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
     }
 
     companion object {
-        private val TAG = InsertFoodActivity::class.java.simpleName
-
         // flag for open activity in udate mode
         // public static final String UPDATEMODE = "update_mode";
         // key for id item to be changed for extra content when activity invoked in update mode

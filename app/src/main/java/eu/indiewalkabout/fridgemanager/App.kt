@@ -7,7 +7,7 @@ import androidx.work.Configuration
 import com.unity3d.ads.IUnityAdsInitializationListener
 import com.unity3d.ads.UnityAds
 import eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmReminderScheduler
-import eu.indiewalkabout.fridgemanager.core.unityads.TAG
+import eu.indiewalkabout.fridgemanager.core.unityads.UNITYTAG
 import eu.indiewalkabout.fridgemanager.core.unityads.testMode
 import eu.indiewalkabout.fridgemanager.data.local.db.FoodDatabase
 import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepository
@@ -65,12 +65,12 @@ class App : Application(), Configuration.Provider, IUnityAdsInitializationListen
 
     // unity ads init complete
     override fun onInitializationComplete() {
-        Log.v(TAG, "UnityAds init complete")
+        Log.v(UNITYTAG, "UnityAds init complete")
     }
 
     // unity ads init failed
     override fun onInitializationFailed(p0: UnityAds.UnityAdsInitializationError?, p1: String?) {
-        Log.v(TAG, "UnityAds init FAILED")
+        Log.v(UNITYTAG, "UnityAds init FAILED")
 
     }
 

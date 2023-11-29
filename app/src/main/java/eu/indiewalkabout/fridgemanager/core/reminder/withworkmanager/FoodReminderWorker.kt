@@ -8,6 +8,7 @@ import eu.indiewalkabout.fridgemanager.App
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
 import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
+import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -21,10 +22,6 @@ Every time the scheduler ReminderScheduler activate this worker:
 */
 class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
         Worker(appContext, params) {
-
-    companion object {
-        val TAG = FoodReminderWorker::class.java.simpleName
-    }
 
     // Check the food entries in db and in case activate the specific reminder
     override fun doWork(): Result {

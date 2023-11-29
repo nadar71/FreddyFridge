@@ -77,10 +77,7 @@ class FridgeManagerRepository private constructor(private val foodDb: FoodDataba
     }
 
     companion object {
-        private val TAG = FridgeManagerRepository::class.java.simpleName
-
         private var sInstance: FridgeManagerRepository? = null
-
 
         fun getInstance(database: FoodDatabase): FridgeManagerRepository? {
             if (sInstance == null) {
