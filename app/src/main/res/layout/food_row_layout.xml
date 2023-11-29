@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
-    android:background="@drawable/rounded_rect_light_grey_today"
+    android:background="@drawable/lightgreen_background"
     android:padding="1dp">
 
 
@@ -35,7 +35,7 @@
         android:contentDescription="@string/delete_food_entry_btn_hint"
         android:gravity="center"
         android:padding="4dp"
-        android:src="@drawable/ic_delete_brown_24dp"
+        android:src="@drawable/ic_bin_24dp"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
