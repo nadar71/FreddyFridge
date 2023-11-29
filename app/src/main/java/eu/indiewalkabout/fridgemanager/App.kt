@@ -2,12 +2,13 @@ package eu.indiewalkabout.fridgemanager
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.work.Configuration
 import com.unity3d.ads.IUnityAdsInitializationListener
 import com.unity3d.ads.UnityAds
 import eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmReminderScheduler
+import eu.indiewalkabout.fridgemanager.core.unityads.TAG
 import eu.indiewalkabout.fridgemanager.core.unityads.testMode
-import eu.indiewalkabout.fridgemanager.core.unityads.unityGameID
 import eu.indiewalkabout.fridgemanager.data.local.db.FoodDatabase
 import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepository
 
@@ -51,8 +52,11 @@ class App : Application(), Configuration.Provider, IUnityAdsInitializationListen
 
         // UNITY
         // Initialize the SDK:
-        UnityAds.initialize(applicationContext, unityGameID, testMode, this)
+        UnityAds.initialize(applicationContext,
+            applicationContext.getString(R.string.unityads_id), testMode, this)
+
     }
+
 
     override fun getWorkManagerConfiguration() =
             Configuration.Builder()
@@ -61,12 +65,13 @@ class App : Application(), Configuration.Provider, IUnityAdsInitializationListen
 
     // unity ads init complete
     override fun onInitializationComplete() {
-        // TODO("Not yet implemented")
+        Log.v(TAG, "UnityAds init complete")
     }
 
     // unity ads init failed
     override fun onInitializationFailed(p0: UnityAds.UnityAdsInitializationError?, p1: String?) {
-        // TODO("Not yet implemented")
+        Log.v(TAG, "UnityAds init FAILED")
+
     }
 
 }
