@@ -1,32 +1,31 @@
 <resources>
-    <string name="app_name">FreddyFridge !</string>
-    <string name="app_name_subtitle">Don\'t waste Food !</string>
+    <string name="app_name_subtitle">Zero waste!</string>
     <string name="app_package" translatable="false">eu.indiewalkabout.fridgemanager</string>
 
 
     <!-- activity,titles and others labels  -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="foodExpiring_activity_title">Expiring Food List</string>
-    <string name="foodDead_activity_title">Wasted Food List</string>
-    <string name="foodSaved_activity_title">Eaten Food List</string>
-    <string name="insertFoodActivity_title">Insert Food</string>
+    <string name="foodExpiring_activity_title">Expiring Products List</string>
+    <string name="foodDead_activity_title">Wasted Products List</string>
+    <string name="foodSaved_activity_title">Products consumed</string>
+    <string name="insertFoodActivity_title">Insert Product</string>
     <string name="mainSettingsActivity_title">Settings</string>
 
-    <string name="insert_food_name_tv">Insert your food description :</string>
-    <string name="food_name_hint">Food description</string>
+    <string name="insert_food_name_tv">Product description :</string>
+    <string name="food_name_hint">Product description</string>
     <string name="name_placeholder">Name</string>
-    <string name="choose_expiring_date_label">Insert Food Expiring Date : </string>
+    <string name="choose_expiring_date_label">"Expiring Date : "</string>
     <string name="save_btn_label">Save</string>
     <string name="update_btn_label">Update</string>
-    <string name="delete_food_entry_btn_hint">Delete food entry btn</string>
-    <string name="no_food_todays">No foods expiring for today ! </string>
-    <string name="no_food_in_list">No foods here &#8230; </string>
-    <string name="main_list_title">Food expiring for today : </string>
+    <string name="delete_food_entry_btn_hint">Delete Product entry btn</string>
+    <string name="no_food_todays">"No products expiring for today ! "</string>
+    <string name="no_food_in_list">"No products here &#8230; "</string>
+    <string name="main_list_title">"Expiring Products today : "</string>
 
-    <string name="food_description_alert">Must Insert your food description &#8230;</string>
+    <string name="food_description_alert">Must Insert your product description &#8230;</string>
     <string name="food_expdate_alert">Must choose a date &#8230;</string>
-    <string name="food_inserted_alert"> Inserted </string>
+    <string name="food_inserted_alert">"Inserted "</string>
 
 
 
@@ -41,11 +40,11 @@
 
 
     <!-- Settings menu item -->
-    <string name="main_settings_menu_item">  Settings</string>
+    <string name="main_settings_menu_item">Settings</string>
 
 
     <!-- Strings for how many day before deadline notify users  -->
-    <string name="how_many_days_before_title">Days Before food-deadline notifications :</string>
+    <string name="how_many_days_before_title">Days Before product-deadline notifications :</string>
     <string name="how_many_days_before_label">How many DAYS \nBEFORE food expiration date want you to be notified ?
         (Default is 2 days before expiring date)</string>
     <string name="days_before_deadline_count" translatable="false">days_before_deadline</string>
@@ -101,12 +100,12 @@
     <string name="nextdays_expiring_notification_body">Click below for complete list</string>
     <string name="nextdays_expiring_notification_channel_name" translatable="false">next-days-expiring-food  notifications</string>
 
-    <string name="today_expiring_food_notification_title">TODAY Expiring Foods FOUND, check ! </string>
+    <string name="today_expiring_food_notification_title">"TODAY Expiring Product FOUND, check ! "</string>
     <string name="today_expiring_notification_body">Click below for complete list</string>
     <string name="today_expiring_notification_channel_name" translatable="false">today-expiring-food notifications</string>
 
-    <string name="show_food_expiring_action_title">Show me expiring food</string>
-    <string name="show_food_expiring_today_action_title">Show me TODAY expiring food</string>
+    <string name="show_food_expiring_action_title">Show me expiring products</string>
+    <string name="show_food_expiring_today_action_title">Show me TODAY expiring products</string>
     <string name="dismiss_notification_action_title">Got it</string>
 
     <string name="settings_notify_every_01">Notify every </string>
@@ -124,6 +123,8 @@
 
     <!-- - - - - - - - - - - - - Content Descriptions   - - - - - - - - - - - - - - - - - - - - -->
     <string name="speak_btn_description">Press and speak</string>
+    <string name="speech_not_recognized">Try again</string>
+
 
 
     <!-- - - - - - - - - - - - - Credits text   - - - - - - - - - - - - - - - - - - - - - - - -  -->
@@ -154,8 +155,8 @@
 
 
     <!-- - - - - - - - - - - - - Confirm dialog  - - - - - - - - - - - - - - - - - - - - - - - - -->
-    <string name="confirm_if_consumed_text">Set Food as EATEN, are you sure ?</string>
-    <string name="confirm_if_not_consumed_text">Set Food as NOT EATEN, are you sure ?</string>
+    <string name="confirm_if_consumed_text">Set Product as CONSUMED, are you sure ?</string>
+    <string name="confirm_if_not_consumed_text">Set Product as NOT CONSUMED, are you sure ?</string>
     <string name="confirm_if_deleting_text">Are you sure you want to DELETE ?</string>
 
     <!-- - - - - - - - - - - - - Content description  - - - - - - - - - - - - - - - - - - - - - -->
@@ -172,11 +173,11 @@
     <string name="intro_1_title">1 : Make your shopping &#8230;</string>
     <string name="intro_1_subtitle">&#8230; and open FreddyFridge !</string>
 
-    <string name="intro_2_title">2 : Store your food and expiring date &#8230;</string>
+    <string name="intro_2_title">2 : Store your product and expiring date &#8230;</string>
     <string name="intro_2_subtitle">&#8230; with the New button and Speech Recognition</string>
 
     <string name="intro_3_title">3 : Check expiring date</string>
-    <string name="intro_3_subtitle">and be alerted before happens : no more food wasted!</string>
+    <string name="intro_3_subtitle">and be alerted before happens : no more products wasted!</string>
 
     <!-- - - - - - - - - - - - - Preferences - - - - - - - - - - - - - - - - - - - - - - - - -  -->
     <string name="days_alert_dialog_title">Days Alert</string>
@@ -184,10 +185,10 @@
     <string name="app_settings_btn_key" translatable="false">notifications_settings</string>
     <string name="goto_app_settings_description">Go to system App Settings</string>
     <string name="goto_app_settings_title">App Settings</string>
-    <string name="share_today_title">Food expiring TODAY : </string>
-    <string name="expiring_food_list_subject">"Expiring Food global list : "</string>
-    <string name="saved_food_list_subject">Saved Food till now : </string>
-    <string name="wasted_food_list_subject">WASTED Food till now : </string>
+    <string name="share_today_title">"Products expiring TODAY : "</string>
+    <string name="expiring_food_list_subject">"Expiring Products global list : "</string>
+    <string name="saved_food_list_subject">"Saved Products till now : "</string>
+    <string name="wasted_food_list_subject">"WASTED Products till now : "</string>
 
     <string name="review_btn_key"  translatable="false">app_review_btn_key</string>
     <string name="review_btn_summary">Like this app? Left a review please !</string>

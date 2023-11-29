@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="eu.indiewalkabout.fridgemanager">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
 
     <application
         android:allowBackup="true"
@@ -18,7 +19,7 @@
 
 
         <activity
-            android:name="eu.indiewalkabout.fridgemanager.ui.IntroActivity"
+            android:name="eu.indiewalkabout.fridgemanager.presentation.ui.intromain.IntroActivity"
             android:screenOrientation="portrait">
         </activity>
 
@@ -32,8 +33,9 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".ui.MainActivity"
-            android:screenOrientation="portrait">
+            android:name=".presentation.ui.intromain.MainActivity"
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,36 +46,36 @@
 
         <!-- InsertFoodActivity -->
         <activity
-            android:name=".ui.InsertFoodActivity"
-            android:parentActivityName=".ui.MainActivity"
+            android:name=".presentation.ui.food.InsertFoodActivity"
+            android:parentActivityName=".presentation.ui.intromain.MainActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
+                android:value=".presentation.ui.intromain.MainActivity" />
         </activity>
 
         <!-- FoodListActivity -->
         <activity
-            android:name=".ui.FoodListActivity"
-            android:parentActivityName=".ui.MainActivity"
+            android:name=".presentation.ui.food.FoodListActivity"
+            android:parentActivityName=".presentation.ui.intromain.MainActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
+                android:value=".presentation.ui.intromain.MainActivity" />
         </activity>
 
         <!-- Used for notifications -->
         <service
-            android:name=".reminder.FoodReminderIntentService"
+            android:name=".core.reminder.FoodReminderIntentService"
             android:exported="false" />
 
         <!-- Settings -->
         <activity
-            android:name=".ui.MainSettingsActivity"
+            android:name=".presentation.ui.settings.MainSettingsActivity"
             android:screenOrientation="portrait" />
 
 
-        <activity android:name=".ui.CreditsActivity"
+        <activity android:name=".presentation.ui.credits.CreditsActivity"
             android:screenOrientation="portrait" />
 
         <!-- JobService declaration used in FirebaseJobDispatcher
@@ -86,13 +88,9 @@
         </service>
         -->
 
-        <provider
-            android:name="androidx.work.impl.WorkManagerInitializer"
-            android:authorities="${applicationId}.workmanager-init"
-            tools:node="remove" />
 
         <receiver
-            android:name=".reminder.withalarmmanager.AlarmReceiver"
+            android:name=".core.reminder.withalarmmanager.AlarmReceiver"
             android:enabled="true"
             android:exported="true">
         </receiver>

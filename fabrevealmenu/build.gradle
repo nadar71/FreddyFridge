@@ -6,8 +6,6 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 4
-        versionName "1.0.4"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -20,6 +18,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.hlab.fabrevealmenu'
 }
 
 dependencies {
@@ -39,4 +38,7 @@ ext {
 }
 
 
-apply from: '../android-release-aar.gradle'
+// apply from: '../android-release-aar.gradle'
+repositories {
+    mavenCentral()
+}
