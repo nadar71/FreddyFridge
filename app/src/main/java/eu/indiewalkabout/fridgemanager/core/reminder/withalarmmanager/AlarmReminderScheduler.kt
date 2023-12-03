@@ -24,7 +24,7 @@ class AlarmReminderScheduler() {
         alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
             Log.i(TAG, " AlarmReminderScheduler : repeating alarm activated ")
             // PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)
-            PendingIntent.getBroadcast(context, 0, intent, 0)
+            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         }
 
         // Set the alarm to start at 8:30 a.m.
