@@ -9,6 +9,7 @@ import com.unity3d.ads.UnityAds
 import eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.core.unityads.UNITYTAG
 import eu.indiewalkabout.fridgemanager.core.unityads.testMode
+import eu.indiewalkabout.fridgemanager.core.unityads.unityId
 import eu.indiewalkabout.fridgemanager.data.local.db.FoodDatabase
 import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepository
 
@@ -18,7 +19,6 @@ import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepository
 class App : Application(), Configuration.Provider, IUnityAdsInitializationListener {
     companion object {
         private var sContext: Context? = null
-
         // Return application context wherever we are in the app
         fun getsContext(): Context? {
             return sContext
@@ -43,6 +43,7 @@ class App : Application(), Configuration.Provider, IUnityAdsInitializationListen
     override fun onCreate() {
         super.onCreate()
         sContext = applicationContext
+        unityId = applicationContext.getString(R.string.unityads_id)
 
         // start scheduler for notifications reminder
         // scheduleChargingReminder(this)
@@ -50,8 +51,7 @@ class App : Application(), Configuration.Provider, IUnityAdsInitializationListen
         // start scheduler for notifications reminder
         AlarmReminderScheduler().setRepeatingAlarm()
 
-        // UNITY
-        // Initialize the SDK:
+        // Initialize Unity SDK:
         UnityAds.initialize(applicationContext,
             applicationContext.getString(R.string.unityads_id), testMode, this)
 
