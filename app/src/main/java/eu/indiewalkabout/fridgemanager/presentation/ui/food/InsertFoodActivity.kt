@@ -19,15 +19,13 @@ import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import eu.indiewalkabout.fridgemanager.core.util.AppExecutors.Companion.instance
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.App
-import eu.indiewalkabout.fridgemanager.App.Companion.getsContext
+import eu.indiewalkabout.fridgemanager.FreddyFridgeApplication
+import eu.indiewalkabout.fridgemanager.FreddyFridgeApplication.Companion.getsContext
 import eu.indiewalkabout.fridgemanager.data.local.db.DateConverter.fromDate
 import eu.indiewalkabout.fridgemanager.data.local.db.DateConverter.toDate
 import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity
 // import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.getAdRequest
-import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getLocalMidnightFromNormalizedUtcDate
-import eu.indiewalkabout.fridgemanager.core.util.DateUtility.normalizedUtcMsForToday
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.core.util.KeyboardUtils.Companion.addKeyboardToggleListener
 import eu.indiewalkabout.fridgemanager.core.util.KeyboardUtils.SoftKeyboardToggleListener
@@ -239,7 +237,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
 
 
                 // repo insert, n time as item's number
-                val repository = (getsContext() as App?)!!.repository
+                val repository = (getsContext() as FreddyFridgeApplication?)!!.repository
                 for (num in 1..itemsNum) {
                     // create a new food obj and init with data inserted by user
                     val foodEntry = FoodEntry(0, "${foodName}  n. ${num}", expiringDate!!)
@@ -276,7 +274,7 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
                 foodEntry.done = foodEntryToChange.value!!.done
 
                 // update task on db
-                val repository = (getsContext() as App?)!!.repository
+                val repository = (getsContext() as FreddyFridgeApplication?)!!.repository
                 repository!!.updateFoodEntry(foodEntry)
 
                 finish()

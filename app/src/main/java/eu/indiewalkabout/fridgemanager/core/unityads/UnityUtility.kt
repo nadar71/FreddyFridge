@@ -11,7 +11,7 @@ import com.unity3d.services.banners.BannerErrorInfo
 import com.unity3d.services.banners.BannerView
 
 
-const val testMode = false
+const val unityAdsTestMode = true
 // Initialize the Unity Banner Ad with a margin
 val marginDp = 10 // Set your desired margin in dp
 const val UNITYTAG = "UnityAdsExample"

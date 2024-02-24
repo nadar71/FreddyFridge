@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "applicationId": "eu.indiewalkabout.fridgemanager",
+  "variantType": "BASE_APK",
+  "elements": [
+    {
+      "outputType": {
+        "type": "MERGED_MANIFESTS"
+      },
+      "apkData": {
+        "type": "MAIN",
+        "splits": [],
+        "versionCode": 7,
+        "versionName": "1.4",
+        "outputFile": "app-debug.apk",
+        "fullName": "debug",
+        "baseName": "debug",
+        "dirName": ""
+      },
+      "path": "AndroidManifest.xml",
+      "properties": {
+        "packageId": "eu.indiewalkabout.fridgemanager",
+        "split": "",
+        "minSdkVersion": "21"
+      }
+    }
+  ]
+}

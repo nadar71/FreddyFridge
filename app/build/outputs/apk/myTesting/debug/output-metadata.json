@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "eu.indiewalkabout.fridgemanager.testing",
+  "variantName": "myTestingDebug",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 9,
+      "versionName": "1.5.1",
+      "outputFile": "app-myTesting-debug.apk"
+    }
+  ],
+  "elementType": "File"
+}

@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import eu.indiewalkabout.fridgemanager.App
+import eu.indiewalkabout.fridgemanager.FreddyFridgeApplication
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
 import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
@@ -51,7 +51,7 @@ class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
         // 1549926000000 - 172800000 = 1549753200000
 
         // get repository
-        val repository = (App.getsContext() as App).repository
+        val repository = (FreddyFridgeApplication.getsContext() as FreddyFridgeApplication).repository
 
 
         CoroutineScope(IO).launch {

@@ -1,0 +1,828 @@
+-- Merging decision tree log ---
+provider#androidx.work.impl.WorkManagerInitializer
+INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:89:9-92:35
+REJECTED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:31:9-37:35
+	tools:node
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:92:13-32
+	android:authorities
+		INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:91:13-68
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:90:13-69
+manifest
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:2:1-103:12
+INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:2:1-103:12
+INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:2:1-103:12
+INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:2:1-103:12
+MERGED from [com.amitshekhar.android:debug-db:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/9f2b2d5b841fb61727237f73e5ec0d09/jetified-debug-db-1.0.6/AndroidManifest.xml:2:1-19:12
+MERGED from [com.github.AppIntro:AppIntro:6.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/47c1be2158192998742daec8127666ea/jetified-AppIntro-6.0.0/AndroidManifest.xml:2:1-13:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] /Users/simone/.gradle/caches/transforms-2/files-2.1/5f622c98d847246356a32695bf9adbaa/constraintlayout-2.0.4/AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.android.material:material:1.2.1] /Users/simone/.gradle/caches/transforms-2/files-2.1/23c1a5e549ab20f32360b1e98ab5d332/material-1.2.1/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.ads.consent:consent-library:1.0.8] /Users/simone/.gradle/caches/transforms-2/files-2.1/7e2a66cd7cb7b3e41b31deda8840eb8a/jetified-consent-library-1.0.8/AndroidManifest.xml:2:1-9:12
+MERGED from [:fabrevealmenu] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/fabrevealmenu/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.preference:preference:1.1.1] /Users/simone/.gradle/caches/transforms-2/files-2.1/b4f0042a3a61da58666340ef7b57ac58/preference-1.1.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/9f8c6bf6d6cfede505145b0a0a600913/appcompat-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-ads:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/351ee9e8b7c2fa1edc45b2d0a0580b2a/jetified-play-services-ads-19.6.0/AndroidManifest.xml:17:1-25:12
+MERGED from [androidx.browser:browser:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e4a2bf5d705c7f7067da4ee657567d1c/browser-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/4df444dff12f49e85d152f060cc44987/legacy-support-core-ui-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/3025a18289c360946f5a37cfd5f70634/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/6239fd328bd4692fc9bd7709b5d366d6/jetified-viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/eada461250a7a0bb526c3f52c06439dd/recyclerview-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.navigation:navigation-fragment-ktx:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/339fb5c4fb7b9a98c4b5d0d9e23b8ec4/navigation-fragment-ktx-2.3.2/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.navigation:navigation-runtime-ktx:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/1a896b6d0ce615cd4d841da3ee560032/navigation-runtime-ktx-2.3.2/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment-ktx:1.2.4] /Users/simone/.gradle/caches/transforms-2/files-2.1/e7a3cc4775579d538d2249903d250253/jetified-fragment-ktx-1.2.4/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.activity:activity-ktx:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/3ca46be26b316183bc83f694145af179/jetified-activity-ktx-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/359d3474096d86a38251f576284df71e/jetified-lifecycle-runtime-ktx-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.room:room-ktx:2.2.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/ac2575ced889f374fe3053bf4e5800d7/jetified-room-ktx-2.2.6/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.work:work-runtime-ktx:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/fa8c88c240c2ae1c436c60447ff13dca/work-runtime-ktx-2.4.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/6f0e6624c952e1ac17eaf9c419b2a75a/jetified-lifecycle-viewmodel-ktx-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.amitshekhar.android:debug-db-base:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/af462236d424cc6bb021d10e3ceb7df2/jetified-debug-db-base-1.0.6/AndroidManifest.xml:20:1-32:12
+MERGED from [com.google.android.gms:play-services-gass:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b33d6d419c580f36686d4a1f72e4ddc4/jetified-play-services-gass-19.6.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:17:1-61:12
+MERGED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:17:1-143:12
+MERGED from [androidx.room:room-runtime:2.2.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/736e04c17e9c1cd4506bb968c4ee4d8f/room-runtime-2.2.6/AndroidManifest.xml:17:1-31:12
+MERGED from [androidx.lifecycle:lifecycle-extensions:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/14bc91b2e641c8c49d9672bae580ce81/lifecycle-extensions-2.2.0/AndroidManifest.xml:17:1-27:12
+MERGED from [com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-2/files-2.1/8a3f6f55d4b35e9e6ddb82b3a3468032/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:17:1-42:12
+MERGED from [androidx.appcompat:appcompat-resources:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/cc06215a37ebb899bc6b994de940135a/jetified-appcompat-resources-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/64ced66a213e35e6bfafd2572c9d6193/drawerlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-fragment:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/84c05f3704de1525d3d40bf87fffe0dc/navigation-fragment-2.3.2/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/69ee8c6f82757c8ea9e971aa65e45e9e/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.5.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/2e83f8c4f55e69fac9f498279e4bc713/jetified-play-services-measurement-sdk-api-17.5.0/AndroidManifest.xml:17:1-27:12
+MERGED from [com.google.android.gms:play-services-tasks:17.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f01a35a6da73a0fe4225872c667510fc/jetified-play-services-tasks-17.1.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-measurement-base:17.5.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/159795a0305622fde290a43dce62be5e/jetified-play-services-measurement-base-17.5.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:17.3.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/27363996f5a1ce936e2628e8fd1b249c/jetified-play-services-basement-17.3.0/AndroidManifest.xml:17:1-28:12
+MERGED from [androidx.fragment:fragment:1.2.4] /Users/simone/.gradle/caches/transforms-2/files-2.1/ff7cb4a1d5c09a278dd4ea6ca899add1/fragment-1.2.4/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.loader:loader:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/942f312b80e1e7619d0a4c60f676210b/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/d93b0e8fb9f0b2843ccfcb7de7660fe1/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.transition:transition:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b7a9bd6bba40096ac932643971a97185/transition-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/7b74a721f451896224dc36e5725764f6/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/ba76f1e89e33bd24d33ee963f5fa5a72/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/3a077b87d6d228ca64a0eb5ad93f4f24/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/fc31f1ba1e0919b4887c8f25735e7dcb/slidingpanelayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/a560a4ec3fd8da2628ebe50565a3a822/customview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-common-ktx:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2865c183c384e17e8b3a9b7aca1b1f3/navigation-common-ktx-2.3.2/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core-ktx:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/bb8ccdab19e07db646aaced7e60d9213/jetified-core-ktx-1.1.0/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.navigation:navigation-runtime:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/30a7f835f51cbf22d3f9b4e1f88587d5/navigation-runtime-2.3.2/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.activity:activity:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/7864de7e08927db1530550b5c4ee4ffe/jetified-activity-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.navigation:navigation-common:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/cfd7c0845d8016e742d4ef248918cffc/navigation-common-2.3.2/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/6df3662a28be36077d555b905f533a37/swiperefreshlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e7ff1863608185737296bd15d2238989/asynclayoutinflater-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.3.1] /Users/simone/.gradle/caches/transforms-2/files-2.1/05e29462981c1284471da59c61fe239e/core-1.3.1/AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b6215ce5e8a05a69a580737bf81f7a8d/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:17:1-32:12
+MERGED from [androidx.lifecycle:lifecycle-service:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/64fb15fbae84aeb150c99ff8cd8dde6c/jetified-lifecycle-service-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/d160ce36b30641588df76a38b6f1e6a5/lifecycle-runtime-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/eabe7267cc24828a8d6aba5143d23cab/lifecycle-livedata-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:2:1-37:12
+MERGED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:17:1-50:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/a70ccd6bde02a9246d2fb9efd538fac0/jetified-lifecycle-livedata-core-ktx-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/0336836fa8836b626caf89b408b1cd40/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/4ad254c760abca231626fe43def313c6/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/11d27e721a185c58cee5158adca79a1e/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/7bc37b7780771b866d8e7a020ee86318/print-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/016eb7fedc3eabc31b317e685a8006c4/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/7c7c3389a33fcc41855f0770374ef171/jetified-lifecycle-viewmodel-savedstate-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/0cfd83a55a044c092e210101824d141a/lifecycle-livedata-core-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b0aba59caa2786e7632fe3de918f10a4/jetified-savedstate-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/1e8fb717889bc8cf9bdbc867f69a7522/core-runtime-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/bde897b092ad39a4c70993a06cbec95f/lifecycle-viewmodel-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.test:monitor:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/245a80eb774d562f62b462d85f34c927/monitor-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/4c6f324eabd4efdf01c45e025f6f1a51/versionedparcelable-1.1.0/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/0bd619628a3b98e7ebbe43e99831f5f6/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/cd70a32a6dc1cefb0fd9faa38545d9a8/sqlite-framework-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.sqlite:sqlite:2.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/c764c89050a20409dd169c0d8a80bf6b/sqlite-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.annotation:annotation-experimental:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/d38094735905352cb6a3213163d304a5/jetified-annotation-experimental-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-ads-base:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/1f83772a7e770260db941e270c4f3067/jetified-play-services-ads-base-19.6.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.github.asyl.animation:arcanimator:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/26c655b1b0c909ce9ebf65c83fd77b7f/jetified-arcanimator-1.0.0/AndroidManifest.xml:2:1-14:12
+INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:2:1-103:12
+INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:2:1-103:12
+INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:2:1-103:12
+	package
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:5:5-46
+		INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:2:1-103:12
+		INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:4:5-51
+	android:versionCode
+		INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:2:1-103:12
+		INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:3:5-63
+uses-permission#android.permission.INTERNET
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:7:5-67
+MERGED from [com.amitshekhar.android:debug-db-base:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/af462236d424cc6bb021d10e3ceb7df2/jetified-debug-db-base-1.0.6/AndroidManifest.xml:29:5-67
+MERGED from [com.amitshekhar.android:debug-db-base:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/af462236d424cc6bb021d10e3ceb7df2/jetified-debug-db-base-1.0.6/AndroidManifest.xml:29:5-67
+MERGED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.5.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/2e83f8c4f55e69fac9f498279e4bc713/jetified-play-services-measurement-sdk-api-17.5.0/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.5.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/2e83f8c4f55e69fac9f498279e4bc713/jetified-play-services-measurement-sdk-api-17.5.0/AndroidManifest.xml:23:5-67
+MERGED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:12:5-67
+MERGED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:12:5-67
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:7:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:8:5-79
+MERGED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:24:5-79
+MERGED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:26:5-79
+MERGED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:26:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.5.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/2e83f8c4f55e69fac9f498279e4bc713/jetified-play-services-measurement-sdk-api-17.5.0/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.5.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/2e83f8c4f55e69fac9f498279e4bc713/jetified-play-services-measurement-sdk-api-17.5.0/AndroidManifest.xml:24:5-79
+MERGED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:11:5-79
+MERGED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:11:5-79
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:8:22-76
+uses-permission#android.permission.VIBRATE
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:9:5-66
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:9:22-63
+application
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:11:5-101:19
+MERGED from [com.amitshekhar.android:debug-db:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/9f2b2d5b841fb61727237f73e5ec0d09/jetified-debug-db-1.0.6/AndroidManifest.xml:11:5-17:19
+MERGED from [com.amitshekhar.android:debug-db:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/9f2b2d5b841fb61727237f73e5ec0d09/jetified-debug-db-1.0.6/AndroidManifest.xml:11:5-17:19
+MERGED from [com.github.AppIntro:AppIntro:6.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/47c1be2158192998742daec8127666ea/jetified-AppIntro-6.0.0/AndroidManifest.xml:11:5-20
+MERGED from [com.github.AppIntro:AppIntro:6.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/47c1be2158192998742daec8127666ea/jetified-AppIntro-6.0.0/AndroidManifest.xml:11:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] /Users/simone/.gradle/caches/transforms-2/files-2.1/5f622c98d847246356a32695bf9adbaa/constraintlayout-2.0.4/AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] /Users/simone/.gradle/caches/transforms-2/files-2.1/5f622c98d847246356a32695bf9adbaa/constraintlayout-2.0.4/AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.material:material:1.2.1] /Users/simone/.gradle/caches/transforms-2/files-2.1/23c1a5e549ab20f32360b1e98ab5d332/material-1.2.1/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.2.1] /Users/simone/.gradle/caches/transforms-2/files-2.1/23c1a5e549ab20f32360b1e98ab5d332/material-1.2.1/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-gass:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b33d6d419c580f36686d4a1f72e4ddc4/jetified-play-services-gass-19.6.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-gass:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b33d6d419c580f36686d4a1f72e4ddc4/jetified-play-services-gass-19.6.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:40:5-59:19
+MERGED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:40:5-59:19
+MERGED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:30:5-141:19
+MERGED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:30:5-141:19
+MERGED from [androidx.room:room-runtime:2.2.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/736e04c17e9c1cd4506bb968c4ee4d8f/room-runtime-2.2.6/AndroidManifest.xml:24:5-29:19
+MERGED from [androidx.room:room-runtime:2.2.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/736e04c17e9c1cd4506bb968c4ee4d8f/room-runtime-2.2.6/AndroidManifest.xml:24:5-29:19
+MERGED from [androidx.lifecycle:lifecycle-extensions:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/14bc91b2e641c8c49d9672bae580ce81/lifecycle-extensions-2.2.0/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.lifecycle:lifecycle-extensions:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/14bc91b2e641c8c49d9672bae580ce81/lifecycle-extensions-2.2.0/AndroidManifest.xml:24:5-25:19
+MERGED from [com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-2/files-2.1/8a3f6f55d4b35e9e6ddb82b3a3468032/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:26:5-40:19
+MERGED from [com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-2/files-2.1/8a3f6f55d4b35e9e6ddb82b3a3468032/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:26:5-40:19
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/69ee8c6f82757c8ea9e971aa65e45e9e/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/69ee8c6f82757c8ea9e971aa65e45e9e/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-tasks:17.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f01a35a6da73a0fe4225872c667510fc/jetified-play-services-tasks-17.1.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:17.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f01a35a6da73a0fe4225872c667510fc/jetified-play-services-tasks-17.1.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:17.5.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/159795a0305622fde290a43dce62be5e/jetified-play-services-measurement-base-17.5.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:17.5.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/159795a0305622fde290a43dce62be5e/jetified-play-services-measurement-base-17.5.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:17.3.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/27363996f5a1ce936e2628e8fd1b249c/jetified-play-services-basement-17.3.0/AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:17.3.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/27363996f5a1ce936e2628e8fd1b249c/jetified-play-services-basement-17.3.0/AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.core:core:1.3.1] /Users/simone/.gradle/caches/transforms-2/files-2.1/05e29462981c1284471da59c61fe239e/core-1.3.1/AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.3.1] /Users/simone/.gradle/caches/transforms-2/files-2.1/05e29462981c1284471da59c61fe239e/core-1.3.1/AndroidManifest.xml:24:5-89
+MERGED from [androidx.lifecycle:lifecycle-process:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b6215ce5e8a05a69a580737bf81f7a8d/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:24:5-30:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b6215ce5e8a05a69a580737bf81f7a8d/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:24:5-30:19
+MERGED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:14:5-35:19
+MERGED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:14:5-35:19
+MERGED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:26:5-48:19
+MERGED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:26:5-48:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/4c6f324eabd4efdf01c45e025f6f1a51/versionedparcelable-1.1.0/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/4c6f324eabd4efdf01c45e025f6f1a51/versionedparcelable-1.1.0/AndroidManifest.xml:24:5-25:19
+MERGED from [com.google.android.gms:play-services-ads-base:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/1f83772a7e770260db941e270c4f3067/jetified-play-services-ads-base-19.6.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-ads-base:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/1f83772a7e770260db941e270c4f3067/jetified-play-services-ads-base-19.6.0/AndroidManifest.xml:7:5-20
+MERGED from [com.github.asyl.animation:arcanimator:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/26c655b1b0c909ce9ebf65c83fd77b7f/jetified-arcanimator-1.0.0/AndroidManifest.xml:11:5-12:19
+MERGED from [com.github.asyl.animation:arcanimator:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/26c655b1b0c909ce9ebf65c83fd77b7f/jetified-arcanimator-1.0.0/AndroidManifest.xml:11:5-12:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.3.1] /Users/simone/.gradle/caches/transforms-2/files-2.1/05e29462981c1284471da59c61fe239e/core-1.3.1/AndroidManifest.xml:24:18-86
+	android:supportsRtl
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:16:9-35
+	android:label
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:15:9-41
+	android:icon
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:13:9-43
+	android:allowBackup
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:12:9-35
+	android:theme
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:17:9-40
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:14:9-28
+activity#eu.indiewalkabout.fridgemanager.ui.IntroActivity
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:20:9-23:20
+	android:screenOrientation
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:22:13-49
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:21:13-76
+meta-data#com.google.android.gms.ads.APPLICATION_ID
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:27:9-29:56
+	android:value
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:29:13-53
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:28:13-69
+meta-data#preloaded_fonts
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:30:9-32:57
+	android:resource
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:32:13-54
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:31:13-43
+activity#eu.indiewalkabout.fridgemanager.ui.MainActivity
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:34:9-42:20
+	android:screenOrientation
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:36:13-49
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:35:13-44
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:37:13-41:29
+action#android.intent.action.MAIN
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:38:17-69
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:38:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:40:17-77
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:40:27-74
+activity#eu.indiewalkabout.fridgemanager.ui.InsertFoodActivity
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:46:9-53:20
+	android:screenOrientation
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:49:13-49
+	android:parentActivityName
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:48:13-58
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:47:13-50
+meta-data#android.support.PARENT_ACTIVITY
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:50:13-52:52
+	android:value
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:52:17-49
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:51:17-63
+activity#eu.indiewalkabout.fridgemanager.ui.FoodListActivity
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:56:9-63:20
+	android:screenOrientation
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:59:13-49
+	android:parentActivityName
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:58:13-58
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:57:13-48
+service#eu.indiewalkabout.fridgemanager.reminder.FoodReminderIntentService
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:66:9-68:40
+	android:exported
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:68:13-37
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:67:13-63
+activity#eu.indiewalkabout.fridgemanager.ui.MainSettingsActivity
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:71:9-73:52
+	android:screenOrientation
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:73:13-49
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:72:13-52
+activity#eu.indiewalkabout.fridgemanager.ui.CreditsActivity
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:76:9-77:52
+	android:screenOrientation
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:77:13-49
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:76:19-53
+receiver#eu.indiewalkabout.fridgemanager.reminder.withalarmmanager.AlarmReceiver
+ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:94:9-98:20
+	android:enabled
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:96:13-35
+	android:exported
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:97:13-36
+	android:name
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:95:13-68
+uses-sdk
+INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+MERGED from [com.amitshekhar.android:debug-db:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/9f2b2d5b841fb61727237f73e5ec0d09/jetified-debug-db-1.0.6/AndroidManifest.xml:7:5-9:41
+MERGED from [com.amitshekhar.android:debug-db:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/9f2b2d5b841fb61727237f73e5ec0d09/jetified-debug-db-1.0.6/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.AppIntro:AppIntro:6.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/47c1be2158192998742daec8127666ea/jetified-AppIntro-6.0.0/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.AppIntro:AppIntro:6.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/47c1be2158192998742daec8127666ea/jetified-AppIntro-6.0.0/AndroidManifest.xml:7:5-9:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] /Users/simone/.gradle/caches/transforms-2/files-2.1/5f622c98d847246356a32695bf9adbaa/constraintlayout-2.0.4/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] /Users/simone/.gradle/caches/transforms-2/files-2.1/5f622c98d847246356a32695bf9adbaa/constraintlayout-2.0.4/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.material:material:1.2.1] /Users/simone/.gradle/caches/transforms-2/files-2.1/23c1a5e549ab20f32360b1e98ab5d332/material-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.2.1] /Users/simone/.gradle/caches/transforms-2/files-2.1/23c1a5e549ab20f32360b1e98ab5d332/material-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.ads.consent:consent-library:1.0.8] /Users/simone/.gradle/caches/transforms-2/files-2.1/7e2a66cd7cb7b3e41b31deda8840eb8a/jetified-consent-library-1.0.8/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.ads.consent:consent-library:1.0.8] /Users/simone/.gradle/caches/transforms-2/files-2.1/7e2a66cd7cb7b3e41b31deda8840eb8a/jetified-consent-library-1.0.8/AndroidManifest.xml:5:5-7:41
+MERGED from [:fabrevealmenu] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/fabrevealmenu/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:fabrevealmenu] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/fabrevealmenu/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [androidx.preference:preference:1.1.1] /Users/simone/.gradle/caches/transforms-2/files-2.1/b4f0042a3a61da58666340ef7b57ac58/preference-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.preference:preference:1.1.1] /Users/simone/.gradle/caches/transforms-2/files-2.1/b4f0042a3a61da58666340ef7b57ac58/preference-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/9f8c6bf6d6cfede505145b0a0a600913/appcompat-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/9f8c6bf6d6cfede505145b0a0a600913/appcompat-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-ads:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/351ee9e8b7c2fa1edc45b2d0a0580b2a/jetified-play-services-ads-19.6.0/AndroidManifest.xml:21:5-23:52
+MERGED from [com.google.android.gms:play-services-ads:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/351ee9e8b7c2fa1edc45b2d0a0580b2a/jetified-play-services-ads-19.6.0/AndroidManifest.xml:21:5-23:52
+MERGED from [androidx.browser:browser:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e4a2bf5d705c7f7067da4ee657567d1c/browser-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.browser:browser:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e4a2bf5d705c7f7067da4ee657567d1c/browser-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/4df444dff12f49e85d152f060cc44987/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/4df444dff12f49e85d152f060cc44987/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/3025a18289c360946f5a37cfd5f70634/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/3025a18289c360946f5a37cfd5f70634/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/6239fd328bd4692fc9bd7709b5d366d6/jetified-viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/6239fd328bd4692fc9bd7709b5d366d6/jetified-viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/eada461250a7a0bb526c3f52c06439dd/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/eada461250a7a0bb526c3f52c06439dd/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-fragment-ktx:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/339fb5c4fb7b9a98c4b5d0d9e23b8ec4/navigation-fragment-ktx-2.3.2/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-fragment-ktx:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/339fb5c4fb7b9a98c4b5d0d9e23b8ec4/navigation-fragment-ktx-2.3.2/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-runtime-ktx:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/1a896b6d0ce615cd4d841da3ee560032/navigation-runtime-ktx-2.3.2/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-runtime-ktx:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/1a896b6d0ce615cd4d841da3ee560032/navigation-runtime-ktx-2.3.2/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment-ktx:1.2.4] /Users/simone/.gradle/caches/transforms-2/files-2.1/e7a3cc4775579d538d2249903d250253/jetified-fragment-ktx-1.2.4/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment-ktx:1.2.4] /Users/simone/.gradle/caches/transforms-2/files-2.1/e7a3cc4775579d538d2249903d250253/jetified-fragment-ktx-1.2.4/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity-ktx:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/3ca46be26b316183bc83f694145af179/jetified-activity-ktx-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity-ktx:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/3ca46be26b316183bc83f694145af179/jetified-activity-ktx-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/359d3474096d86a38251f576284df71e/jetified-lifecycle-runtime-ktx-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/359d3474096d86a38251f576284df71e/jetified-lifecycle-runtime-ktx-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.room:room-ktx:2.2.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/ac2575ced889f374fe3053bf4e5800d7/jetified-room-ktx-2.2.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.room:room-ktx:2.2.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/ac2575ced889f374fe3053bf4e5800d7/jetified-room-ktx-2.2.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.work:work-runtime-ktx:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/fa8c88c240c2ae1c436c60447ff13dca/work-runtime-ktx-2.4.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.work:work-runtime-ktx:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/fa8c88c240c2ae1c436c60447ff13dca/work-runtime-ktx-2.4.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/6f0e6624c952e1ac17eaf9c419b2a75a/jetified-lifecycle-viewmodel-ktx-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/6f0e6624c952e1ac17eaf9c419b2a75a/jetified-lifecycle-viewmodel-ktx-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.amitshekhar.android:debug-db-base:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/af462236d424cc6bb021d10e3ceb7df2/jetified-debug-db-base-1.0.6/AndroidManifest.xml:25:5-27:41
+MERGED from [com.amitshekhar.android:debug-db-base:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/af462236d424cc6bb021d10e3ceb7df2/jetified-debug-db-base-1.0.6/AndroidManifest.xml:25:5-27:41
+MERGED from [com.google.android.gms:play-services-gass:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b33d6d419c580f36686d4a1f72e4ddc4/jetified-play-services-gass-19.6.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-gass:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b33d6d419c580f36686d4a1f72e4ddc4/jetified-play-services-gass-19.6.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.room:room-runtime:2.2.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/736e04c17e9c1cd4506bb968c4ee4d8f/room-runtime-2.2.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.room:room-runtime:2.2.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/736e04c17e9c1cd4506bb968c4ee4d8f/room-runtime-2.2.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-extensions:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/14bc91b2e641c8c49d9672bae580ce81/lifecycle-extensions-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-extensions:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/14bc91b2e641c8c49d9672bae580ce81/lifecycle-extensions-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-2/files-2.1/8a3f6f55d4b35e9e6ddb82b3a3468032/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:22:5-24:41
+MERGED from [com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-2/files-2.1/8a3f6f55d4b35e9e6ddb82b3a3468032/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:22:5-24:41
+MERGED from [androidx.appcompat:appcompat-resources:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/cc06215a37ebb899bc6b994de940135a/jetified-appcompat-resources-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/cc06215a37ebb899bc6b994de940135a/jetified-appcompat-resources-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/64ced66a213e35e6bfafd2572c9d6193/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/64ced66a213e35e6bfafd2572c9d6193/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-fragment:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/84c05f3704de1525d3d40bf87fffe0dc/navigation-fragment-2.3.2/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-fragment:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/84c05f3704de1525d3d40bf87fffe0dc/navigation-fragment-2.3.2/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/69ee8c6f82757c8ea9e971aa65e45e9e/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/69ee8c6f82757c8ea9e971aa65e45e9e/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.5.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/2e83f8c4f55e69fac9f498279e4bc713/jetified-play-services-measurement-sdk-api-17.5.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.5.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/2e83f8c4f55e69fac9f498279e4bc713/jetified-play-services-measurement-sdk-api-17.5.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:17.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f01a35a6da73a0fe4225872c667510fc/jetified-play-services-tasks-17.1.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:17.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f01a35a6da73a0fe4225872c667510fc/jetified-play-services-tasks-17.1.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-measurement-base:17.5.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/159795a0305622fde290a43dce62be5e/jetified-play-services-measurement-base-17.5.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-measurement-base:17.5.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/159795a0305622fde290a43dce62be5e/jetified-play-services-measurement-base-17.5.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.3.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/27363996f5a1ce936e2628e8fd1b249c/jetified-play-services-basement-17.3.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.3.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/27363996f5a1ce936e2628e8fd1b249c/jetified-play-services-basement-17.3.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.2.4] /Users/simone/.gradle/caches/transforms-2/files-2.1/ff7cb4a1d5c09a278dd4ea6ca899add1/fragment-1.2.4/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.2.4] /Users/simone/.gradle/caches/transforms-2/files-2.1/ff7cb4a1d5c09a278dd4ea6ca899add1/fragment-1.2.4/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.loader:loader:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/942f312b80e1e7619d0a4c60f676210b/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/942f312b80e1e7619d0a4c60f676210b/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/d93b0e8fb9f0b2843ccfcb7de7660fe1/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/d93b0e8fb9f0b2843ccfcb7de7660fe1/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b7a9bd6bba40096ac932643971a97185/transition-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b7a9bd6bba40096ac932643971a97185/transition-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/7b74a721f451896224dc36e5725764f6/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/7b74a721f451896224dc36e5725764f6/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/ba76f1e89e33bd24d33ee963f5fa5a72/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/ba76f1e89e33bd24d33ee963f5fa5a72/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/3a077b87d6d228ca64a0eb5ad93f4f24/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/3a077b87d6d228ca64a0eb5ad93f4f24/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/fc31f1ba1e0919b4887c8f25735e7dcb/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/fc31f1ba1e0919b4887c8f25735e7dcb/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/a560a4ec3fd8da2628ebe50565a3a822/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/a560a4ec3fd8da2628ebe50565a3a822/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-common-ktx:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2865c183c384e17e8b3a9b7aca1b1f3/navigation-common-ktx-2.3.2/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-common-ktx:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2865c183c384e17e8b3a9b7aca1b1f3/navigation-common-ktx-2.3.2/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core-ktx:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/bb8ccdab19e07db646aaced7e60d9213/jetified-core-ktx-1.1.0/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.core:core-ktx:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/bb8ccdab19e07db646aaced7e60d9213/jetified-core-ktx-1.1.0/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.navigation:navigation-runtime:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/30a7f835f51cbf22d3f9b4e1f88587d5/navigation-runtime-2.3.2/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-runtime:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/30a7f835f51cbf22d3f9b4e1f88587d5/navigation-runtime-2.3.2/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/7864de7e08927db1530550b5c4ee4ffe/jetified-activity-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/7864de7e08927db1530550b5c4ee4ffe/jetified-activity-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-common:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/cfd7c0845d8016e742d4ef248918cffc/navigation-common-2.3.2/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-common:2.3.2] /Users/simone/.gradle/caches/transforms-2/files-2.1/cfd7c0845d8016e742d4ef248918cffc/navigation-common-2.3.2/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/6df3662a28be36077d555b905f533a37/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/6df3662a28be36077d555b905f533a37/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e7ff1863608185737296bd15d2238989/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e7ff1863608185737296bd15d2238989/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.3.1] /Users/simone/.gradle/caches/transforms-2/files-2.1/05e29462981c1284471da59c61fe239e/core-1.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.3.1] /Users/simone/.gradle/caches/transforms-2/files-2.1/05e29462981c1284471da59c61fe239e/core-1.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-process:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b6215ce5e8a05a69a580737bf81f7a8d/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-process:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b6215ce5e8a05a69a580737bf81f7a8d/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-service:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/64fb15fbae84aeb150c99ff8cd8dde6c/jetified-lifecycle-service-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-service:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/64fb15fbae84aeb150c99ff8cd8dde6c/jetified-lifecycle-service-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/d160ce36b30641588df76a38b6f1e6a5/lifecycle-runtime-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/d160ce36b30641588df76a38b6f1e6a5/lifecycle-runtime-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/eabe7267cc24828a8d6aba5143d23cab/lifecycle-livedata-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/eabe7267cc24828a8d6aba5143d23cab/lifecycle-livedata-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:7:5-9:41
+MERGED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:7:5-9:41
+MERGED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/a70ccd6bde02a9246d2fb9efd538fac0/jetified-lifecycle-livedata-core-ktx-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/a70ccd6bde02a9246d2fb9efd538fac0/jetified-lifecycle-livedata-core-ktx-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/0336836fa8836b626caf89b408b1cd40/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/0336836fa8836b626caf89b408b1cd40/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/4ad254c760abca231626fe43def313c6/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/4ad254c760abca231626fe43def313c6/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/11d27e721a185c58cee5158adca79a1e/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/11d27e721a185c58cee5158adca79a1e/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/7bc37b7780771b866d8e7a020ee86318/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/7bc37b7780771b866d8e7a020ee86318/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/016eb7fedc3eabc31b317e685a8006c4/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/016eb7fedc3eabc31b317e685a8006c4/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/7c7c3389a33fcc41855f0770374ef171/jetified-lifecycle-viewmodel-savedstate-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/7c7c3389a33fcc41855f0770374ef171/jetified-lifecycle-viewmodel-savedstate-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/0cfd83a55a044c092e210101824d141a/lifecycle-livedata-core-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/0cfd83a55a044c092e210101824d141a/lifecycle-livedata-core-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b0aba59caa2786e7632fe3de918f10a4/jetified-savedstate-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b0aba59caa2786e7632fe3de918f10a4/jetified-savedstate-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/1e8fb717889bc8cf9bdbc867f69a7522/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/1e8fb717889bc8cf9bdbc867f69a7522/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/bde897b092ad39a4c70993a06cbec95f/lifecycle-viewmodel-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/bde897b092ad39a4c70993a06cbec95f/lifecycle-viewmodel-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.test:monitor:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/245a80eb774d562f62b462d85f34c927/monitor-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.test:monitor:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/245a80eb774d562f62b462d85f34c927/monitor-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/4c6f324eabd4efdf01c45e025f6f1a51/versionedparcelable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/4c6f324eabd4efdf01c45e025f6f1a51/versionedparcelable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/0bd619628a3b98e7ebbe43e99831f5f6/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/0bd619628a3b98e7ebbe43e99831f5f6/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/cd70a32a6dc1cefb0fd9faa38545d9a8/sqlite-framework-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/cd70a32a6dc1cefb0fd9faa38545d9a8/sqlite-framework-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.sqlite:sqlite:2.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/c764c89050a20409dd169c0d8a80bf6b/sqlite-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.sqlite:sqlite:2.1.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/c764c89050a20409dd169c0d8a80bf6b/sqlite-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.annotation:annotation-experimental:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/d38094735905352cb6a3213163d304a5/jetified-annotation-experimental-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.annotation:annotation-experimental:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/d38094735905352cb6a3213163d304a5/jetified-annotation-experimental-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-ads-base:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/1f83772a7e770260db941e270c4f3067/jetified-play-services-ads-base-19.6.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-ads-base:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/1f83772a7e770260db941e270c4f3067/jetified-play-services-ads-base-19.6.0/AndroidManifest.xml:5:5-44
+MERGED from [com.github.asyl.animation:arcanimator:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/26c655b1b0c909ce9ebf65c83fd77b7f/jetified-arcanimator-1.0.0/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.asyl.animation:arcanimator:1.0.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/26c655b1b0c909ce9ebf65c83fd77b7f/jetified-arcanimator-1.0.0/AndroidManifest.xml:7:5-9:41
+INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.google.android.gms:play-services-ads:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/351ee9e8b7c2fa1edc45b2d0a0580b2a/jetified-play-services-ads-19.6.0/AndroidManifest.xml:23:9-49
+	android:targetSdkVersion
+		INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+		ADDED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml
+provider#com.amitshekhar.debug.DebugDBInitProvider
+ADDED from [com.amitshekhar.android:debug-db:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/9f2b2d5b841fb61727237f73e5ec0d09/jetified-debug-db-1.0.6/AndroidManifest.xml:12:9-16:40
+	android:enabled
+		ADDED from [com.amitshekhar.android:debug-db:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/9f2b2d5b841fb61727237f73e5ec0d09/jetified-debug-db-1.0.6/AndroidManifest.xml:15:13-35
+	android:authorities
+		ADDED from [com.amitshekhar.android:debug-db:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/9f2b2d5b841fb61727237f73e5ec0d09/jetified-debug-db-1.0.6/AndroidManifest.xml:14:13-71
+	android:exported
+		ADDED from [com.amitshekhar.android:debug-db:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/9f2b2d5b841fb61727237f73e5ec0d09/jetified-debug-db-1.0.6/AndroidManifest.xml:16:13-37
+	android:name
+		ADDED from [com.amitshekhar.android:debug-db:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/9f2b2d5b841fb61727237f73e5ec0d09/jetified-debug-db-1.0.6/AndroidManifest.xml:13:13-69
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from [com.amitshekhar.android:debug-db-base:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/af462236d424cc6bb021d10e3ceb7df2/jetified-debug-db-base-1.0.6/AndroidManifest.xml:30:5-76
+	android:name
+		ADDED from [com.amitshekhar.android:debug-db-base:1.0.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/af462236d424cc6bb021d10e3ceb7df2/jetified-debug-db-base-1.0.6/AndroidManifest.xml:30:22-73
+queries
+ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:27:5-38:15
+intent
+ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:30:9-36:18
+action#android.intent.action.VIEW
+ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:31:13-65
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:31:21-62
+category#android.intent.category.BROWSABLE
+ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:33:13-74
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:33:23-71
+data
+ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:35:13-44
+	android:scheme
+		ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:35:19-41
+activity#com.google.android.gms.ads.AdActivity
+ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:43:9-47:64
+	android:exported
+		ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:46:13-37
+	android:configChanges
+		ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:45:13-122
+	android:theme
+		ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:47:13-61
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:44:13-65
+provider#com.google.android.gms.ads.MobileAdsInitProvider
+ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:49:9-53:39
+	android:authorities
+		ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:51:13-73
+	android:exported
+		ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:52:13-37
+	android:initOrder
+		ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:53:13-36
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:50:13-76
+service#com.google.android.gms.ads.AdService
+ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:55:9-58:40
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:57:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:58:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads-lite:19.6.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/e2abc73258c03180759d584bafa3fb36/jetified-play-services-ads-lite-19.6.0/AndroidManifest.xml:56:13-64
+uses-permission#android.permission.WAKE_LOCK
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.5.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/2e83f8c4f55e69fac9f498279e4bc713/jetified-play-services-measurement-sdk-api-17.5.0/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.5.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/2e83f8c4f55e69fac9f498279e4bc713/jetified-play-services-measurement-sdk-api-17.5.0/AndroidManifest.xml:25:5-68
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:25:22-65
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:27:5-81
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:27:22-78
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:28:5-77
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:28:22-74
+service#androidx.work.impl.background.systemalarm.SystemAlarmService
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:39:9-44:35
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:42:13-72
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:43:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:44:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:41:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:40:13-88
+service#androidx.work.impl.background.systemjob.SystemJobService
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:45:9-51:35
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:48:13-70
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:49:13-36
+	android:permission
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:50:13-69
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:51:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:47:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:46:13-84
+service#androidx.work.impl.foreground.SystemForegroundService
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:52:9-57:35
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:55:13-77
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:56:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:57:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:54:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:53:13-81
+receiver#androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:59:9-64:35
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:62:13-35
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:63:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:64:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:61:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:60:13-88
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:65:9-75:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:68:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:69:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:70:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:67:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:66:13-106
+intent-filter#action:name:android.intent.action.ACTION_POWER_CONNECTED+action:name:android.intent.action.ACTION_POWER_DISCONNECTED
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:71:13-74:29
+action#android.intent.action.ACTION_POWER_CONNECTED
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:72:17-87
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:72:25-84
+action#android.intent.action.ACTION_POWER_DISCONNECTED
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:73:17-90
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:73:25-87
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:76:9-86:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:79:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:80:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:81:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:78:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:77:13-104
+intent-filter#action:name:android.intent.action.BATTERY_LOW+action:name:android.intent.action.BATTERY_OKAY
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:82:13-85:29
+action#android.intent.action.BATTERY_OKAY
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:83:17-77
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:83:25-74
+action#android.intent.action.BATTERY_LOW
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:84:17-76
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:84:25-73
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:87:9-97:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:90:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:91:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:92:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:89:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:88:13-104
+intent-filter#action:name:android.intent.action.DEVICE_STORAGE_LOW+action:name:android.intent.action.DEVICE_STORAGE_OK
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:93:13-96:29
+action#android.intent.action.DEVICE_STORAGE_LOW
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:94:17-83
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:94:25-80
+action#android.intent.action.DEVICE_STORAGE_OK
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:95:17-82
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:95:25-79
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:98:9-107:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:101:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:102:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:103:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:100:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:99:13-103
+intent-filter#action:name:android.net.conn.CONNECTIVITY_CHANGE
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:104:13-106:29
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:105:17-79
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:105:25-76
+receiver#androidx.work.impl.background.systemalarm.RescheduleReceiver
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:108:9-119:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:111:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:112:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:113:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:110:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:109:13-88
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.TIMEZONE_CHANGED+action:name:android.intent.action.TIME_SET
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:114:13-118:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:115:17-79
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:115:25-76
+action#android.intent.action.TIME_SET
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:116:17-73
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:116:25-70
+action#android.intent.action.TIMEZONE_CHANGED
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:117:17-81
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:117:25-78
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:120:9-129:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:123:13-72
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:124:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:125:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:122:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:121:13-99
+intent-filter#action:name:androidx.work.impl.background.systemalarm.UpdateProxies
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:126:13-128:29
+action#androidx.work.impl.background.systemalarm.UpdateProxies
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:127:17-98
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:127:25-95
+receiver#androidx.work.impl.diagnostics.DiagnosticsReceiver
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:130:9-140:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:133:13-35
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:134:13-36
+	android:permission
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:135:13-57
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:136:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:132:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:131:13-78
+intent-filter#action:name:androidx.work.diagnostics.REQUEST_DIAGNOSTICS
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:137:13-139:29
+action#androidx.work.diagnostics.REQUEST_DIAGNOSTICS
+ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:138:17-88
+	android:name
+		ADDED from [androidx.work:work-runtime:2.4.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/264bc76e4d5be88d45266453227ecfe0/work-runtime-2.4.0/AndroidManifest.xml:138:25-85
+service#androidx.room.MultiInstanceInvalidationService
+ADDED from [androidx.room:room-runtime:2.2.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/736e04c17e9c1cd4506bb968c4ee4d8f/room-runtime-2.2.6/AndroidManifest.xml:25:9-28:40
+	android:exported
+		ADDED from [androidx.room:room-runtime:2.2.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/736e04c17e9c1cd4506bb968c4ee4d8f/room-runtime-2.2.6/AndroidManifest.xml:28:13-37
+	android:directBootAware
+		ADDED from [androidx.room:room-runtime:2.2.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/736e04c17e9c1cd4506bb968c4ee4d8f/room-runtime-2.2.6/AndroidManifest.xml:27:13-43
+	android:name
+		ADDED from [androidx.room:room-runtime:2.2.6] /Users/simone/.gradle/caches/transforms-2/files-2.1/736e04c17e9c1cd4506bb968c4ee4d8f/room-runtime-2.2.6/AndroidManifest.xml:26:13-74
+service#com.firebase.jobdispatcher.GooglePlayReceiver
+ADDED from [com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-2/files-2.1/8a3f6f55d4b35e9e6ddb82b3a3468032/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:32:9-39:19
+	android:exported
+		ADDED from [com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-2/files-2.1/8a3f6f55d4b35e9e6ddb82b3a3468032/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:34:13-36
+	android:permission
+		ADDED from [com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-2/files-2.1/8a3f6f55d4b35e9e6ddb82b3a3468032/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:35:13-93
+	android:name
+		ADDED from [com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-2/files-2.1/8a3f6f55d4b35e9e6ddb82b3a3468032/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:33:13-73
+intent-filter#action:name:com.google.android.gms.gcm.ACTION_TASK_READY
+ADDED from [com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-2/files-2.1/8a3f6f55d4b35e9e6ddb82b3a3468032/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:36:13-38:29
+action#com.google.android.gms.gcm.ACTION_TASK_READY
+ADDED from [com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-2/files-2.1/8a3f6f55d4b35e9e6ddb82b3a3468032/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:37:17-87
+	android:name
+		ADDED from [com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-2/files-2.1/8a3f6f55d4b35e9e6ddb82b3a3468032/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:37:25-84
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:17.3.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/27363996f5a1ce936e2628e8fd1b249c/jetified-play-services-basement-17.3.0/AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:17.3.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/27363996f5a1ce936e2628e8fd1b249c/jetified-play-services-basement-17.3.0/AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:17.3.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/27363996f5a1ce936e2628e8fd1b249c/jetified-play-services-basement-17.3.0/AndroidManifest.xml:24:13-58
+provider#androidx.lifecycle.ProcessLifecycleOwnerInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b6215ce5e8a05a69a580737bf81f7a8d/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:25:9-29:43
+	android:authorities
+		ADDED from [androidx.lifecycle:lifecycle-process:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b6215ce5e8a05a69a580737bf81f7a8d/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:27:13-69
+	android:multiprocess
+		ADDED from [androidx.lifecycle:lifecycle-process:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b6215ce5e8a05a69a580737bf81f7a8d/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:29:13-40
+	android:exported
+		ADDED from [androidx.lifecycle:lifecycle-process:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b6215ce5e8a05a69a580737bf81f7a8d/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:28:13-37
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/b6215ce5e8a05a69a580737bf81f7a8d/jetified-lifecycle-process-2.2.0/AndroidManifest.xml:26:13-79
+activity#com.unity3d.services.ads.adunit.AdUnitActivity
+ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:15:9-19:74
+	android:hardwareAccelerated
+		ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:18:13-47
+	android:configChanges
+		ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:17:13-170
+	android:theme
+		ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:19:13-71
+	android:name
+		ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:16:13-74
+activity#com.unity3d.services.ads.adunit.AdUnitTransparentActivity
+ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:20:9-24:86
+	android:hardwareAccelerated
+		ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:23:13-47
+	android:configChanges
+		ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:22:13-170
+	android:theme
+		ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:24:13-83
+	android:name
+		ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:21:13-85
+activity#com.unity3d.services.ads.adunit.AdUnitTransparentSoftwareActivity
+ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:25:9-29:86
+	android:hardwareAccelerated
+		ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:28:13-48
+	android:configChanges
+		ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:27:13-170
+	android:theme
+		ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:29:13-83
+	android:name
+		ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:26:13-93
+activity#com.unity3d.services.ads.adunit.AdUnitSoftwareActivity
+ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:30:9-34:74
+	android:hardwareAccelerated
+		ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:33:13-48
+	android:configChanges
+		ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:32:13-170
+	android:theme
+		ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:34:13-71
+	android:name
+		ADDED from [:unity-ads] /Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/unity-ads/build/.transforms/0b13b8c761914407e56281db4dd5ac60/jetified-unity-ads/AndroidManifest.xml:31:13-82
+uses-permission#android.permission.REORDER_TASKS
+ADDED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:24:5-72
+	android:name
+		ADDED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:24:22-69
+activity#androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity
+ADDED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:27:9-33:20
+	android:theme
+		ADDED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:29:13-49
+	android:name
+		ADDED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:28:13-99
+intent-filter#action:name:android.intent.action.MAIN
+ADDED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:30:13-32:29
+activity#androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+ADDED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:34:9-40:20
+	android:theme
+		ADDED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:36:13-49
+	android:name
+		ADDED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:35:13-95
+activity#androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity
+ADDED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:41:9-47:20
+	android:theme
+		ADDED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:43:13-56
+	android:name
+		ADDED from [androidx.test:core:1.2.0] /Users/simone/.gradle/caches/transforms-2/files-2.1/f5756db747744a4c6a4a78bb8983968a/jetified-core-1.2.0/AndroidManifest.xml:42:13-103

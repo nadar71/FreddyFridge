@@ -15,11 +15,9 @@ import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import com.unity3d.services.banners.BannerView
 import com.unity3d.services.banners.UnityBannerSize
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.App
+import eu.indiewalkabout.fridgemanager.FreddyFridgeApplication
 import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
-import eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager.FoodReminderWorker
 import eu.indiewalkabout.fridgemanager.core.unityads.bannerListener
-import eu.indiewalkabout.fridgemanager.core.unityads.marginDp
 import eu.indiewalkabout.fridgemanager.presentation.components.adapter.FoodListAdapter
 import eu.indiewalkabout.fridgemanager.presentation.components.adapter.FoodListAdapter.ItemClickListener
 import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodListActivity
@@ -28,8 +26,6 @@ import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodsViewModelFactor
 import eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodActivity
 import eu.indiewalkabout.fridgemanager.presentation.ui.settings.MainSettingsActivity
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
-import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.dpToPx
-import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.getScreenWidthDp
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.core.util.OnSwipeTouchListener
@@ -212,7 +208,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
     fun testNotification(view: View?) {
         lateinit var foodEntriesNextDays: List<FoodEntry>
         CoroutineScope(Dispatchers.Main).launch {
-            val repository = (App.getsContext() as App).repository
+            val repository = (FreddyFridgeApplication.getsContext() as FreddyFridgeApplication).repository
             val dataNormalizedAtMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(
                 DateUtility.normalizedUtcMsForToday
             )
@@ -241,7 +237,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
             )
             val previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS
             val nextDayDate = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS
-            val repository = (App.getsContext() as App).repository
+            val repository = (FreddyFridgeApplication.getsContext() as FreddyFridgeApplication).repository
             foodEntriesToDay =
                 repository!!.loadFoodExpiringToday_no_livedata(previousDayDate, nextDayDate)
 

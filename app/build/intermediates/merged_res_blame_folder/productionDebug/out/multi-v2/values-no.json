@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "eu.indiewalkabout.fridgemanager.app-mergeProductionDebugResources-70:/values-no/values-no.xml",
+            "map": [
+                {
+                    "source": "/Users/simone/.gradle/caches/transforms-3/a19f4a6687edd6a889a8c8b0c6363137/transformed/jetified-AppIntro-6.0.0/res/values-no/values-no.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "55,113,166,236,292",
+                        "endColumns": "57,52,69,55,54",
+                        "endOffsets": "108,161,231,287,342"
+                    }
+                }
+            ]
+        }
+    ]
+}

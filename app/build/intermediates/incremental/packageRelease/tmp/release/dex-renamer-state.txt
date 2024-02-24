@@ -1,0 +1,7 @@
+#Sun Feb 28 11:34:33 CET 2021
+base.0=/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
+path.1=classes2.dex
+renamed.1=classes2.dex
+path.0=classes.dex
+renamed.0=classes.dex
+base.1=/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/build/intermediates/dex/release/mergeDexRelease/classes2.dex

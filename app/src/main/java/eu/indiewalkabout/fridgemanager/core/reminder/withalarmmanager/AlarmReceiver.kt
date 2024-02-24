@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import eu.indiewalkabout.fridgemanager.App
+import eu.indiewalkabout.fridgemanager.FreddyFridgeApplication
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
 import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
@@ -17,11 +17,11 @@ import java.util.concurrent.TimeUnit
 class AlarmReceiver : BroadcastReceiver() {
 
     // for real :
-    private val days = PreferenceUtility.getDaysCount(App.getsContext()!!)
+    private val days = PreferenceUtility.getDaysCount(FreddyFridgeApplication.getsContext()!!)
     private val DAYS_BEFORE = TimeUnit.DAYS.toSeconds(days.toLong()).toInt()
 
     // get repository
-    private val repository = (App.getsContext() as App).repository
+    private val repository = (FreddyFridgeApplication.getsContext() as FreddyFridgeApplication).repository
 
 
     override fun onReceive(context: Context, intent: Intent) {

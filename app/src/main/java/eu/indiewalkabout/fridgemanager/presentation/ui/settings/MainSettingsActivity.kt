@@ -11,20 +11,17 @@ import android.text.Html
 import android.text.InputType
 import android.util.Log
 import android.view.MenuItem
-import android.view.MotionEvent.*
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.preference.*
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
-import com.hlab.fabrevealmenu.view.FABRevealMenu
-import eu.indiewalkabout.fridgemanager.App
+import eu.indiewalkabout.fridgemanager.FreddyFridgeApplication
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager.ReminderScheduler.scheduleChargingReminder
 import eu.indiewalkabout.fridgemanager.presentation.ui.credits.CreditsActivity
@@ -103,7 +100,7 @@ class MainSettingsActivity : AppCompatActivity(),
             SharedPreferences.OnSharedPreferenceChangeListener{
 
         private lateinit var consentSDK: ConsentSDK
-        private val appPackageName: String = App.getsContext()?.packageName ?: "eu.indiewalkabout.fridgemanager"
+        private val appPackageName: String = FreddyFridgeApplication.getsContext()?.packageName ?: "eu.indiewalkabout.fridgemanager"
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.main_settings, rootKey)

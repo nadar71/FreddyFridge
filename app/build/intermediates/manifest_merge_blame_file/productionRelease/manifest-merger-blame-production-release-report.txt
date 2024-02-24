@@ -1,0 +1,706 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="eu.indiewalkabout.fridgemanager"
+4    android:versionCode="9"
+5    android:versionName="1.5.1" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:6:5-67
+11-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:6:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:7:5-79
+12-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:7:22-76
+13    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+13-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:8:5-77
+13-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:8:22-74
+14    <uses-permission android:name="android.permission.VIBRATE" />
+14-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:9:5-66
+14-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:9:22-63
+15    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+15-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:10:5-78
+15-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:10:22-76
+16    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_TOPICS" />
+16-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:11:5-83
+16-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:11:22-80
+17    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION" />
+17-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:12:5-88
+17-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:12:22-85
+18    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_AD_ID" /> <!-- Android package visibility setting -->
+18-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:27:5-82
+18-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:27:22-79
+19    <queries>
+19-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:35:5-51:15
+20
+21        <!-- For browser content -->
+22        <intent>
+22-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:38:9-44:18
+23            <action android:name="android.intent.action.VIEW" />
+23-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:39:13-65
+23-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:39:21-62
+24
+25            <category android:name="android.intent.category.BROWSABLE" />
+25-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:41:13-74
+25-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:41:23-71
+26
+27            <data android:scheme="https" />
+27-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:43:13-44
+27-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:43:19-41
+28        </intent>
+29        <!-- End of browser content -->
+30        <!-- For CustomTabsService -->
+31        <intent>
+31-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:47:9-49:18
+32            <action android:name="android.support.customtabs.action.CustomTabsService" />
+32-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:48:13-90
+32-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:48:21-87
+33        </intent>
+34        <!-- End of CustomTabsService -->
+35    </queries>
+36
+37    <uses-permission android:name="android.permission.WAKE_LOCK" />
+37-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:23:5-68
+37-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:23:22-65
+38    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+38-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:26:5-77
+38-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:26:22-74
+39    <uses-permission android:name="android.permission.REORDER_TASKS" />
+39-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:24:5-72
+39-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:24:22-69
+40
+41    <permission
+41-->[androidx.core:core:1.9.0] /Users/simone/.gradle/caches/transforms-3/d3783e733eeab7851c343ea3b248d521/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
+42        android:name="eu.indiewalkabout.fridgemanager.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+42-->[androidx.core:core:1.9.0] /Users/simone/.gradle/caches/transforms-3/d3783e733eeab7851c343ea3b248d521/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
+43        android:protectionLevel="signature" />
+43-->[androidx.core:core:1.9.0] /Users/simone/.gradle/caches/transforms-3/d3783e733eeab7851c343ea3b248d521/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
+44
+45    <uses-permission android:name="eu.indiewalkabout.fridgemanager.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+45-->[androidx.core:core:1.9.0] /Users/simone/.gradle/caches/transforms-3/d3783e733eeab7851c343ea3b248d521/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
+45-->[androidx.core:core:1.9.0] /Users/simone/.gradle/caches/transforms-3/d3783e733eeab7851c343ea3b248d521/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
+46
+47    <application
+47-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:12:5-99:19
+48        android:name="eu.indiewalkabout.fridgemanager.App"
+48-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:15:9-28
+49        android:allowBackup="true"
+49-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:13:9-35
+50        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+50-->[androidx.core:core:1.9.0] /Users/simone/.gradle/caches/transforms-3/d3783e733eeab7851c343ea3b248d521/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
+51        android:extractNativeLibs="true"
+52        android:icon="@mipmap/ic_launcher"
+52-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:14:9-43
+53        android:label="@string/app_name"
+53-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:16:9-41
+54        android:supportsRtl="true"
+54-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:17:9-35
+55        android:theme="@style/AppTheme" >
+55-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:18:9-40
+56        <activity
+56-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:21:9-24:20
+57            android:name="eu.indiewalkabout.fridgemanager.presentation.ui.intromain.IntroActivity"
+57-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:22:13-99
+58            android:screenOrientation="portrait" >
+58-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:23:13-49
+59        </activity>
+60
+61        <!-- ADMOB -->
+62        <meta-data
+62-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:28:9-30:56
+63            android:name="com.google.android.gms.ads.APPLICATION_ID"
+63-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:29:13-69
+64            android:value="@string/admob_key_app_id" />
+64-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:30:13-53
+65        <meta-data
+65-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:31:9-33:57
+66            android:name="preloaded_fonts"
+66-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:32:13-43
+67            android:resource="@array/preloaded_fonts" />
+67-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:33:13-54
+68
+69        <activity
+69-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:35:9-44:20
+70            android:name="eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity"
+70-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:36:13-67
+71            android:exported="true"
+71-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:38:13-36
+72            android:screenOrientation="portrait" >
+72-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:37:13-49
+73            <intent-filter>
+73-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:39:13-43:29
+74                <action android:name="android.intent.action.MAIN" />
+74-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:40:17-69
+74-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:40:25-66
+75
+76                <category android:name="android.intent.category.LAUNCHER" />
+76-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:42:17-77
+76-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:42:27-74
+77            </intent-filter>
+78        </activity>
+79
+80        <!-- InsertFoodActivity -->
+81        <activity
+81-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:48:9-55:20
+82            android:name="eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodActivity"
+82-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:49:13-68
+83            android:parentActivityName="eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity"
+83-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:50:13-81
+84            android:screenOrientation="portrait" >
+84-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:51:13-49
+85            <meta-data
+85-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:52:13-54:75
+86                android:name="android.support.PARENT_ACTIVITY"
+86-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:53:17-63
+87                android:value=".presentation.ui.intromain.MainActivity" />
+87-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:54:17-72
+88        </activity>
+89
+90        <!-- FoodListActivity -->
+91        <activity
+91-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:58:9-65:20
+92            android:name="eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodListActivity"
+92-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:59:13-66
+93            android:parentActivityName="eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity"
+93-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:60:13-81
+94            android:screenOrientation="portrait" >
+94-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:61:13-49
+95            <meta-data
+95-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:52:13-54:75
+96                android:name="android.support.PARENT_ACTIVITY"
+96-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:53:17-63
+97                android:value=".presentation.ui.intromain.MainActivity" />
+97-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:54:17-72
+98        </activity>
+99
+100        <!-- Used for notifications -->
+101        <service
+101-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:68:9-70:40
+102            android:name="eu.indiewalkabout.fridgemanager.core.reminder.FoodReminderIntentService"
+102-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:69:13-68
+103            android:exported="false" />
+103-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:70:13-37
+104
+105        <!-- Settings -->
+106        <activity
+106-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:73:9-75:52
+107            android:name="eu.indiewalkabout.fridgemanager.presentation.ui.settings.MainSettingsActivity"
+107-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:74:13-74
+108            android:screenOrientation="portrait" />
+108-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:75:13-49
+109        <activity
+109-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:78:9-79:52
+110            android:name="eu.indiewalkabout.fridgemanager.presentation.ui.credits.CreditsActivity"
+110-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:78:19-74
+111            android:screenOrientation="portrait" />
+111-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:79:13-49
+112
+113        <!--
+114        JobService declaration used in FirebaseJobDispatcher
+115        <service
+116            android:name="eu.indiewalkabout.fridgemanager.reminder.withworkmanager.FoodReminderWorker"
+117            android:exported="false">
+118            <intent-filter>
+119                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+120            </intent-filter>
+121        </service>
+122        -->
+123
+124        <receiver
+124-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:92:9-96:20
+125            android:name="eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmReceiver"
+125-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:93:13-73
+126            android:enabled="true"
+126-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:94:13-35
+127            android:exported="true" >
+127-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:95:13-36
+128        </receiver>
+129
+130        <activity
+130-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:15:9-20:74
+131            android:name="com.unity3d.services.ads.adunit.AdUnitActivity"
+131-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:16:13-74
+132            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+132-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:17:13-170
+133            android:exported="false"
+133-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:18:13-37
+134            android:hardwareAccelerated="true"
+134-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:19:13-47
+135            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+135-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:20:13-71
+136        <activity
+136-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:21:9-26:86
+137            android:name="com.unity3d.services.ads.adunit.AdUnitTransparentActivity"
+137-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:22:13-85
+138            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+138-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:23:13-170
+139            android:exported="false"
+139-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:24:13-37
+140            android:hardwareAccelerated="true"
+140-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:25:13-47
+141            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+141-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:26:13-83
+142        <activity
+142-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:27:9-32:86
+143            android:name="com.unity3d.services.ads.adunit.AdUnitTransparentSoftwareActivity"
+143-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:28:13-93
+144            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+144-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:29:13-170
+145            android:exported="false"
+145-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:30:13-37
+146            android:hardwareAccelerated="false"
+146-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:31:13-48
+147            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+147-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:32:13-83
+148        <activity
+148-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:33:9-38:74
+149            android:name="com.unity3d.services.ads.adunit.AdUnitSoftwareActivity"
+149-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:34:13-82
+150            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+150-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:35:13-170
+151            android:exported="false"
+151-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:36:13-37
+152            android:hardwareAccelerated="false"
+152-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:37:13-48
+153            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+153-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:38:13-71
+154
+155        <provider
+155-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:40:9-50:20
+156            android:name="androidx.startup.InitializationProvider"
+156-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:41:13-67
+157            android:authorities="eu.indiewalkabout.fridgemanager.androidx-startup"
+157-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:42:13-68
+158            android:exported="false" >
+158-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:32:13-37
+159            <meta-data
+159-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:44:13-46:52
+160                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+160-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:45:17-78
+161                android:value="androidx.startup" />
+161-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:46:17-49
+162            <meta-data
+162-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:47:13-49:52
+163                android:name="com.unity3d.services.core.configuration.AdsSdkInitializer"
+163-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:48:17-89
+164                android:value="androidx.startup" />
+164-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:49:17-49
+165            <meta-data
+165-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:34:13-36:52
+166                android:name="androidx.work.WorkManagerInitializer"
+166-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:35:17-68
+167                android:value="androidx.startup" />
+167-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:36:17-49
+168            <meta-data
+168-->[androidx.emoji2:emoji2:1.2.0] /Users/simone/.gradle/caches/transforms-3/851437a7d205f0679274ee610f4fba64/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+169                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+169-->[androidx.emoji2:emoji2:1.2.0] /Users/simone/.gradle/caches/transforms-3/851437a7d205f0679274ee610f4fba64/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
+170                android:value="androidx.startup" />
+170-->[androidx.emoji2:emoji2:1.2.0] /Users/simone/.gradle/caches/transforms-3/851437a7d205f0679274ee610f4fba64/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
+171            <meta-data
+171-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+172                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+172-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+173                android:value="androidx.startup" />
+173-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+174        </provider>
+175
+176        <property
+176-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:52:9-54:58
+177            android:name="android.adservices.AD_SERVICES_CONFIG"
+177-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:53:13-65
+178            android:resource="@xml/ad_services_config" /> <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
+178-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:54:13-55
+179        <activity
+179-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:56:9-61:43
+180            android:name="com.google.android.gms.ads.AdActivity"
+180-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:57:13-65
+181            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+181-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:58:13-122
+182            android:exported="false"
+182-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:59:13-37
+183            android:theme="@android:style/Theme.Translucent" />
+183-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:60:13-61
+184
+185        <provider
+185-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:63:9-68:43
+186            android:name="com.google.android.gms.ads.MobileAdsInitProvider"
+186-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:64:13-76
+187            android:authorities="eu.indiewalkabout.fridgemanager.mobileadsinitprovider"
+187-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:65:13-73
+188            android:exported="false"
+188-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:66:13-37
+189            android:initOrder="100" />
+189-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:67:13-36
+190
+191        <service
+191-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:70:9-74:43
+192            android:name="com.google.android.gms.ads.AdService"
+192-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:71:13-64
+193            android:enabled="true"
+193-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:72:13-35
+194            android:exported="false" />
+194-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:73:13-37
+195
+196        <activity
+196-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:76:9-80:43
+197            android:name="com.google.android.gms.ads.OutOfContextTestingActivity"
+197-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:77:13-82
+198            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+198-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:78:13-122
+199            android:exported="false" />
+199-->[com.google.android.gms:play-services-ads-lite:22.4.0] /Users/simone/.gradle/caches/transforms-3/e54393b55a37ec4e1997b79eefed3f8f/transformed/jetified-play-services-ads-lite-22.4.0/AndroidManifest.xml:79:13-37
+200
+201        <property
+201-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:52:9-54:58
+202            android:name="android.adservices.AD_SERVICES_CONFIG"
+202-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:53:13-65
+203            android:resource="@xml/gma_ad_services_config" />
+203-->[com.unity3d.ads:unity-ads:4.7.0] /Users/simone/.gradle/caches/transforms-3/91e4a2c0202bf4588237953540e4f8d6/transformed/jetified-unity-ads-4.7.0/AndroidManifest.xml:54:13-55
+204
+205        <service
+205-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:39:9-45:35
+206            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+206-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:40:13-88
+207            android:directBootAware="false"
+207-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:41:13-44
+208            android:enabled="@bool/enable_system_alarm_service_default"
+208-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:42:13-72
+209            android:exported="false" />
+209-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:43:13-37
+210        <service
+210-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:46:9-52:35
+211            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+211-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:47:13-84
+212            android:directBootAware="false"
+212-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:48:13-44
+213            android:enabled="@bool/enable_system_job_service_default"
+213-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:49:13-70
+214            android:exported="true"
+214-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:50:13-36
+215            android:permission="android.permission.BIND_JOB_SERVICE" />
+215-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:51:13-69
+216        <service
+216-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:53:9-59:35
+217            android:name="androidx.work.impl.foreground.SystemForegroundService"
+217-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:54:13-81
+218            android:directBootAware="false"
+218-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:55:13-44
+219            android:enabled="@bool/enable_system_foreground_service_default"
+219-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:56:13-77
+220            android:exported="false" />
+220-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:57:13-37
+221
+222        <receiver
+222-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:61:9-66:35
+223            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+223-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:62:13-88
+224            android:directBootAware="false"
+224-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:63:13-44
+225            android:enabled="true"
+225-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:64:13-35
+226            android:exported="false" />
+226-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:65:13-37
+227        <receiver
+227-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:67:9-77:20
+228            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+228-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:68:13-106
+229            android:directBootAware="false"
+229-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:69:13-44
+230            android:enabled="false"
+230-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:70:13-36
+231            android:exported="false" >
+231-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:71:13-37
+232            <intent-filter>
+232-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:73:13-76:29
+233                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+233-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:74:17-87
+233-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:74:25-84
+234                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+234-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:75:17-90
+234-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:75:25-87
+235            </intent-filter>
+236        </receiver>
+237        <receiver
+237-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:78:9-88:20
+238            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+238-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:79:13-104
+239            android:directBootAware="false"
+239-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:80:13-44
+240            android:enabled="false"
+240-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:81:13-36
+241            android:exported="false" >
+241-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:82:13-37
+242            <intent-filter>
+242-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:84:13-87:29
+243                <action android:name="android.intent.action.BATTERY_OKAY" />
+243-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:85:17-77
+243-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:85:25-74
+244                <action android:name="android.intent.action.BATTERY_LOW" />
+244-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:86:17-76
+244-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:86:25-73
+245            </intent-filter>
+246        </receiver>
+247        <receiver
+247-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:89:9-99:20
+248            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+248-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:90:13-104
+249            android:directBootAware="false"
+249-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:91:13-44
+250            android:enabled="false"
+250-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:92:13-36
+251            android:exported="false" >
+251-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:93:13-37
+252            <intent-filter>
+252-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:95:13-98:29
+253                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+253-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:96:17-83
+253-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:96:25-80
+254                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+254-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:97:17-82
+254-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:97:25-79
+255            </intent-filter>
+256        </receiver>
+257        <receiver
+257-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:100:9-109:20
+258            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+258-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:101:13-103
+259            android:directBootAware="false"
+259-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:102:13-44
+260            android:enabled="false"
+260-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:103:13-36
+261            android:exported="false" >
+261-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:104:13-37
+262            <intent-filter>
+262-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:106:13-108:29
+263                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+263-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:107:17-79
+263-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:107:25-76
+264            </intent-filter>
+265        </receiver>
+266        <receiver
+266-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:110:9-121:20
+267            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+267-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:111:13-88
+268            android:directBootAware="false"
+268-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:112:13-44
+269            android:enabled="false"
+269-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:113:13-36
+270            android:exported="false" >
+270-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:114:13-37
+271            <intent-filter>
+271-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:116:13-120:29
+272                <action android:name="android.intent.action.BOOT_COMPLETED" />
+272-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:117:17-79
+272-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:117:25-76
+273                <action android:name="android.intent.action.TIME_SET" />
+273-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:118:17-73
+273-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:118:25-70
+274                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+274-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:119:17-81
+274-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:119:25-78
+275            </intent-filter>
+276        </receiver>
+277        <receiver
+277-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:122:9-131:20
+278            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+278-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:123:13-99
+279            android:directBootAware="false"
+279-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:124:13-44
+280            android:enabled="@bool/enable_system_alarm_service_default"
+280-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:125:13-72
+281            android:exported="false" >
+281-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:126:13-37
+282            <intent-filter>
+282-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:128:13-130:29
+283                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+283-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:129:17-98
+283-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:129:25-95
+284            </intent-filter>
+285        </receiver>
+286        <receiver
+286-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:132:9-142:20
+287            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
+287-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:133:13-78
+288            android:directBootAware="false"
+288-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:134:13-44
+289            android:enabled="true"
+289-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:135:13-35
+290            android:exported="true"
+290-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:136:13-36
+291            android:permission="android.permission.DUMP" >
+291-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:137:13-57
+292            <intent-filter>
+292-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:139:13-141:29
+293                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
+293-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:140:17-88
+293-->[androidx.work:work-runtime:2.8.1] /Users/simone/.gradle/caches/transforms-3/0ff9378b0549488e4b53f4b304e01158/transformed/work-runtime-2.8.1/AndroidManifest.xml:140:25-85
+294            </intent-filter>
+295        </receiver>
+296
+297        <service
+297-->[androidx.room:room-runtime:2.5.2] /Users/simone/.gradle/caches/transforms-3/d6bac0d4e56140b5106813b2ea368ade/transformed/room-runtime-2.5.2/AndroidManifest.xml:24:9-28:63
+298            android:name="androidx.room.MultiInstanceInvalidationService"
+298-->[androidx.room:room-runtime:2.5.2] /Users/simone/.gradle/caches/transforms-3/d6bac0d4e56140b5106813b2ea368ade/transformed/room-runtime-2.5.2/AndroidManifest.xml:25:13-74
+299            android:directBootAware="true"
+299-->[androidx.room:room-runtime:2.5.2] /Users/simone/.gradle/caches/transforms-3/d6bac0d4e56140b5106813b2ea368ade/transformed/room-runtime-2.5.2/AndroidManifest.xml:26:13-43
+300            android:exported="false" />
+300-->[androidx.room:room-runtime:2.5.2] /Users/simone/.gradle/caches/transforms-3/d6bac0d4e56140b5106813b2ea368ade/transformed/room-runtime-2.5.2/AndroidManifest.xml:27:13-37
+301        <!--
+302             Receives GooglePlay execution requests and forwards them to the
+303             appropriate internal service.
+304        -->
+305        <service
+305-->[com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-3/89428bb7907cf192ab19c1b1283e5ac7/transformed/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:32:9-39:19
+306            android:name="com.firebase.jobdispatcher.GooglePlayReceiver"
+306-->[com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-3/89428bb7907cf192ab19c1b1283e5ac7/transformed/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:33:13-73
+307            android:exported="true"
+307-->[com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-3/89428bb7907cf192ab19c1b1283e5ac7/transformed/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:34:13-36
+308            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE" >
+308-->[com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-3/89428bb7907cf192ab19c1b1283e5ac7/transformed/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:35:13-93
+309            <intent-filter>
+309-->[com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-3/89428bb7907cf192ab19c1b1283e5ac7/transformed/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:36:13-38:29
+310                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY" />
+310-->[com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-3/89428bb7907cf192ab19c1b1283e5ac7/transformed/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:37:17-87
+310-->[com.firebase:firebase-jobdispatcher:0.8.5] /Users/simone/.gradle/caches/transforms-3/89428bb7907cf192ab19c1b1283e5ac7/transformed/jetified-firebase-jobdispatcher-0.8.5/AndroidManifest.xml:37:25-84
+311            </intent-filter>
+312        </service>
+313
+314        <activity
+314-->[com.google.android.gms:play-services-base:18.0.0] /Users/simone/.gradle/caches/transforms-3/eb914daa5d46d49b8b507a8d60790034/transformed/jetified-play-services-base-18.0.0/AndroidManifest.xml:20:9-22:45
+315            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+315-->[com.google.android.gms:play-services-base:18.0.0] /Users/simone/.gradle/caches/transforms-3/eb914daa5d46d49b8b507a8d60790034/transformed/jetified-play-services-base-18.0.0/AndroidManifest.xml:20:19-85
+316            android:exported="false"
+316-->[com.google.android.gms:play-services-base:18.0.0] /Users/simone/.gradle/caches/transforms-3/eb914daa5d46d49b8b507a8d60790034/transformed/jetified-play-services-base-18.0.0/AndroidManifest.xml:22:19-43
+317            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+317-->[com.google.android.gms:play-services-base:18.0.0] /Users/simone/.gradle/caches/transforms-3/eb914daa5d46d49b8b507a8d60790034/transformed/jetified-play-services-base-18.0.0/AndroidManifest.xml:21:19-78
+318
+319        <meta-data
+319-->[com.google.android.gms:play-services-basement:18.0.0] /Users/simone/.gradle/caches/transforms-3/4f0bab71de770a12b0f0d2b12ee13ccf/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:21:9-23:69
+320            android:name="com.google.android.gms.version"
+320-->[com.google.android.gms:play-services-basement:18.0.0] /Users/simone/.gradle/caches/transforms-3/4f0bab71de770a12b0f0d2b12ee13ccf/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:22:13-58
+321            android:value="@integer/google_play_services_version" />
+321-->[com.google.android.gms:play-services-basement:18.0.0] /Users/simone/.gradle/caches/transforms-3/4f0bab71de770a12b0f0d2b12ee13ccf/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:23:13-66
+322
+323        <uses-library
+323-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] /Users/simone/.gradle/caches/transforms-3/023f706858590a62ceb340ae5ed49be2/transformed/jetified-ads-adservices-1.0.0-beta05/AndroidManifest.xml:23:9-25:40
+324            android:name="android.ext.adservices"
+324-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] /Users/simone/.gradle/caches/transforms-3/023f706858590a62ceb340ae5ed49be2/transformed/jetified-ads-adservices-1.0.0-beta05/AndroidManifest.xml:24:13-50
+325            android:required="false" />
+325-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] /Users/simone/.gradle/caches/transforms-3/023f706858590a62ceb340ae5ed49be2/transformed/jetified-ads-adservices-1.0.0-beta05/AndroidManifest.xml:25:13-37
+326
+327        <activity
+327-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:27:9-34:20
+328            android:name="androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity"
+328-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:28:13-99
+329            android:exported="true"
+329-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:29:13-36
+330            android:theme="@style/WhiteBackgroundTheme" >
+330-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:30:13-56
+331            <intent-filter android:priority="-100" >
+331-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:31:13-33:29
+331-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:31:28-51
+332                <category android:name="android.intent.category.LAUNCHER" />
+332-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:42:17-77
+332-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:42:27-74
+333            </intent-filter>
+334        </activity>
+335        <activity
+335-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:35:9-42:20
+336            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"
+336-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:36:13-95
+337            android:exported="true"
+337-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:37:13-36
+338            android:theme="@style/WhiteBackgroundTheme" >
+338-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:38:13-56
+339            <intent-filter android:priority="-100" >
+339-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:31:13-33:29
+339-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:31:28-51
+340                <category android:name="android.intent.category.LAUNCHER" />
+340-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:42:17-77
+340-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:42:27-74
+341            </intent-filter>
+342        </activity>
+343        <activity
+343-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:43:9-50:20
+344            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity"
+344-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:44:13-103
+345            android:exported="true"
+345-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:45:13-36
+346            android:theme="@style/WhiteBackgroundDialogTheme" >
+346-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:46:13-62
+347            <intent-filter android:priority="-100" >
+347-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:31:13-33:29
+347-->[androidx.test:core:1.5.0] /Users/simone/.gradle/caches/transforms-3/7f7dd859bb8d24884ffd21118ef70ef6/transformed/jetified-core-1.5.0/AndroidManifest.xml:31:28-51
+348                <category android:name="android.intent.category.LAUNCHER" />
+348-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:42:17-77
+348-->/Users/simone/MyDOC/ANDROIDPRJ/PROJECT/MINE/FridgeMemo/FreddyFridge/app/src/main/AndroidManifest.xml:42:27-74
+349            </intent-filter>
+350        </activity>
+351
+352        <uses-library
+352-->[androidx.window:window:1.0.0] /Users/simone/.gradle/caches/transforms-3/dad8605112a99ea20cb07d5859ddf96b/transformed/jetified-window-1.0.0/AndroidManifest.xml:25:9-27:40
+353            android:name="androidx.window.extensions"
+353-->[androidx.window:window:1.0.0] /Users/simone/.gradle/caches/transforms-3/dad8605112a99ea20cb07d5859ddf96b/transformed/jetified-window-1.0.0/AndroidManifest.xml:26:13-54
+354            android:required="false" />
+354-->[androidx.window:window:1.0.0] /Users/simone/.gradle/caches/transforms-3/dad8605112a99ea20cb07d5859ddf96b/transformed/jetified-window-1.0.0/AndroidManifest.xml:27:13-37
+355        <uses-library
+355-->[androidx.window:window:1.0.0] /Users/simone/.gradle/caches/transforms-3/dad8605112a99ea20cb07d5859ddf96b/transformed/jetified-window-1.0.0/AndroidManifest.xml:28:9-30:40
+356            android:name="androidx.window.sidecar"
+356-->[androidx.window:window:1.0.0] /Users/simone/.gradle/caches/transforms-3/dad8605112a99ea20cb07d5859ddf96b/transformed/jetified-window-1.0.0/AndroidManifest.xml:29:13-51
+357            android:required="false" />
+357-->[androidx.window:window:1.0.0] /Users/simone/.gradle/caches/transforms-3/dad8605112a99ea20cb07d5859ddf96b/transformed/jetified-window-1.0.0/AndroidManifest.xml:30:13-37
+358
+359        <provider
+359-->[com.chibatching.kotpref:initializer:2.10.0] /Users/simone/.gradle/caches/transforms-3/4150d828f796a5f786edc0db9a65dc29/transformed/jetified-initializer-2.10.0/AndroidManifest.xml:11:9-15:40
+360            android:name="com.chibatching.kotpref.initializer.KotprefInitProvider"
+360-->[com.chibatching.kotpref:initializer:2.10.0] /Users/simone/.gradle/caches/transforms-3/4150d828f796a5f786edc0db9a65dc29/transformed/jetified-initializer-2.10.0/AndroidManifest.xml:12:13-83
+361            android:authorities="eu.indiewalkabout.fridgemanager.kotprefinitprovider"
+361-->[com.chibatching.kotpref:initializer:2.10.0] /Users/simone/.gradle/caches/transforms-3/4150d828f796a5f786edc0db9a65dc29/transformed/jetified-initializer-2.10.0/AndroidManifest.xml:13:13-71
+362            android:enabled="true"
+362-->[com.chibatching.kotpref:initializer:2.10.0] /Users/simone/.gradle/caches/transforms-3/4150d828f796a5f786edc0db9a65dc29/transformed/jetified-initializer-2.10.0/AndroidManifest.xml:14:13-35
+363            android:exported="false" />
+363-->[com.chibatching.kotpref:initializer:2.10.0] /Users/simone/.gradle/caches/transforms-3/4150d828f796a5f786edc0db9a65dc29/transformed/jetified-initializer-2.10.0/AndroidManifest.xml:15:13-37
+364
+365        <receiver
+365-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+366            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+366-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+367            android:directBootAware="false"
+367-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+368            android:enabled="true"
+368-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+369            android:exported="true"
+369-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+370            android:permission="android.permission.DUMP" >
+370-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+371            <intent-filter>
+371-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+372                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+372-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+372-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+373            </intent-filter>
+374            <intent-filter>
+374-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+375                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+375-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+375-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+376            </intent-filter>
+377            <intent-filter>
+377-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+378                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+378-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+378-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+379            </intent-filter>
+380            <intent-filter>
+380-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+381                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+381-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+381-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/simone/.gradle/caches/transforms-3/83c9094035ae2b74f622aaeb8ea3560e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+382            </intent-filter>
+383        </receiver>
+384    </application>
+385
+386</manifest>

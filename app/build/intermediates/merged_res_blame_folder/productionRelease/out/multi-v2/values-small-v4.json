@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "eu.indiewalkabout.fridgemanager.app-mergeProductionReleaseResources-68:/values-small-v4/values-small-v4.xml",
+            "map": [
+                {
+                    "source": "/Users/simone/.gradle/caches/transforms-3/e7d46cceddcd81db8a7cc5456f6dd915/transformed/material-1.10.0/res/values-small-v4/values-small-v4.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,128,198,270",
+                        "endColumns": "72,69,71,69",
+                        "endOffsets": "123,193,265,335"
+                    }
+                }
+            ]
+        }
+    ]
+}

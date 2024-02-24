@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "/Users/simone/.gradle/daemon/8.0/eu.indiewalkabout.fridgemanager.app-mergeProductionDebugResources-71:/layout/dialog_preference_edittext.xml",
+        "source": "/Users/simone/.gradle/daemon/8.0/eu.indiewalkabout.fridgemanager.app-main-74:/layout/dialog_preference_edittext.xml"
+    },
+    {
+        "merged": "/Users/simone/.gradle/daemon/8.0/eu.indiewalkabout.fridgemanager.app-mergeProductionDebugResources-71:/layout/custom_confirm_dialog.xml",
+        "source": "/Users/simone/.gradle/daemon/8.0/eu.indiewalkabout.fridgemanager.app-main-74:/layout/custom_confirm_dialog.xml"
+    },
+    {
+        "merged": "/Users/simone/.gradle/daemon/8.0/eu.indiewalkabout.fridgemanager.app-mergeProductionDebugResources-71:/layout/activity_food_list.xml",
+        "source": "/Users/simone/.gradle/daemon/8.0/eu.indiewalkabout.fridgemanager.app-main-74:/layout/activity_food_list.xml"
+    },
+    {
+        "merged": "/Users/simone/.gradle/daemon/8.0/eu.indiewalkabout.fridgemanager.app-mergeProductionDebugResources-71:/layout/food_row_layout.xml",
+        "source": "/Users/simone/.gradle/daemon/8.0/eu.indiewalkabout.fridgemanager.app-main-74:/layout/food_row_layout.xml"
+    },
+    {
+        "merged": "/Users/simone/.gradle/daemon/8.0/eu.indiewalkabout.fridgemanager.app-mergeProductionDebugResources-71:/layout/activity_main_settings.xml",
+        "source": "/Users/simone/.gradle/daemon/8.0/eu.indiewalkabout.fridgemanager.app-main-74:/layout/activity_main_settings.xml"
+    },
+    {
+        "merged": "eu.indiewalkabout.fridgemanager.app-mergeProductionDebugResources-71:/layout/activity_main.xml",
+        "source": "eu.indiewalkabout.fridgemanager.app-main-74:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/simone/.gradle/daemon/8.0/eu.indiewalkabout.fridgemanager.app-mergeProductionDebugResources-71:/layout/activity_insert_food.xml",
+        "source": "/Users/simone/.gradle/daemon/8.0/eu.indiewalkabout.fridgemanager.app-main-74:/layout/activity_insert_food.xml"
+    },
+    {
+        "merged": "/Users/simone/.gradle/daemon/8.0/eu.indiewalkabout.fridgemanager.app-mergeProductionDebugResources-71:/layout/activity_credits.xml",
+        "source": "/Users/simone/.gradle/daemon/8.0/eu.indiewalkabout.fridgemanager.app-main-74:/layout/activity_credits.xml"
+    },
+    {
+        "merged": "/Users/simone/.gradle/daemon/8.0/eu.indiewalkabout.fridgemanager.app-mergeProductionDebugResources-71:/layout/activity_main.xml",
+        "source": "/Users/simone/.gradle/daemon/8.0/eu.indiewalkabout.fridgemanager.app-main-74:/layout/activity_main.xml"
+    }
+]

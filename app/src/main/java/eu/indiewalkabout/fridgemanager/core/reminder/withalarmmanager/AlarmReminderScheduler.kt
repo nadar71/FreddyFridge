@@ -5,7 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import eu.indiewalkabout.fridgemanager.App
+import eu.indiewalkabout.fridgemanager.FreddyFridgeApplication
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import java.util.Calendar
@@ -15,7 +15,7 @@ class AlarmReminderScheduler() {
     private var alarmMgr: AlarmManager? = null
     private var alarmIntent: PendingIntent
     private val calendar: Calendar
-    private val context: Context = App.getsContext()!!
+    private val context: Context = FreddyFridgeApplication.getsContext()!!
 
 
     init {
