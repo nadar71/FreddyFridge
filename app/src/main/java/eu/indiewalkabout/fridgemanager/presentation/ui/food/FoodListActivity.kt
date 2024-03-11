@@ -20,7 +20,6 @@ import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.presentation.components.adapter.FoodListAdapter
 import eu.indiewalkabout.fridgemanager.presentation.components.adapter.FoodListAdapter.ItemClickListener
 import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity
-// import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.getAdRequest
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.showRandomizedInterstAds
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG

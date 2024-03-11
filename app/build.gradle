@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
+apply plugin: 'dagger.hilt.android.plugin'
 
 
 
@@ -103,6 +104,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_vers"
     implementation 'androidx.concurrent:concurrent-listenablefuture-callback:1.0.0-beta01'
     implementation "androidx.room:room-ktx:$room_vers"
+    implementation 'com.google.android.gms:play-services-ads-lite:23.0.0'
     // annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     kapt "androidx.room:room-compiler:$room_vers"
 
@@ -166,7 +168,7 @@ dependencies {
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_nav_compose_vers"
 
     // GDPR
-    implementation "com.google.android.ads.consent:consent-library:$consent_library_vers"
+    // implementation "com.google.android.ads.consent:consent-library:$consent_library_vers"
 
     // FAB
     // implementation 'com.hlab.fabrevealmenu:main_fab-reveal-menu:1.0.3'

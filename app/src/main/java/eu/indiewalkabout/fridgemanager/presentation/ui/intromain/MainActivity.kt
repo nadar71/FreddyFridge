@@ -3,52 +3,42 @@ package eu.indiewalkabout.fridgemanager.presentation.ui.intromain
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
-import com.unity3d.services.banners.BannerView
-import com.unity3d.services.banners.UnityBannerSize
-import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApplication
-import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
-import eu.indiewalkabout.fridgemanager.core.unityads.bannerListener
-import eu.indiewalkabout.fridgemanager.presentation.components.adapter.FoodListAdapter
-import eu.indiewalkabout.fridgemanager.presentation.components.adapter.FoodListAdapter.ItemClickListener
-import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodListActivity
-import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodsViewModel
-import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodsViewModelFactory
-import eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodActivity
-import eu.indiewalkabout.fridgemanager.presentation.ui.settings.MainSettingsActivity
+import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
-import eu.indiewalkabout.fridgemanager.core.util.OnSwipeTouchListener
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import eu.indiewalkabout.fridgemanager.databinding.ActivityMainBinding
+import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
+import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodListActivity
+import eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodActivity
+import eu.indiewalkabout.fridgemanager.presentation.ui.settings.MainSettingsActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 
-class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedListener {
+class MainActivity : AppCompatActivity(), /*ItemClickListener,*/ OnFABMenuSelectedListener {
     private lateinit var binding: ActivityMainBinding
 
-    // recycle View stuff
+    /*// recycle View stuff
     private lateinit var foodListAdapter: FoodListAdapter
-    private var foodListForShare: String = ""
+    private var foodListForShare: String = ""*/
 
     // vars utils for testing
     private var numPrevOpenings = 0
 
-    // unity bottom ads
-    private var bottomBanner: BannerView? = null
+    /*// unity bottom ads
+    private var bottomBanner: BannerView? = null*/
 
 
     /* // Return the reference to ConsentSDK instance to be used by test classes
@@ -74,7 +64,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         }
 
 
-        binding.settingsIconImg.setOnClickListener {
+        /*binding.settingsIconImg.setOnClickListener {
             val settingsIntent = Intent(applicationContext, MainSettingsActivity::class.java)
             startActivity(settingsIntent)
         }
@@ -92,15 +82,15 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
             sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_today_title))
             sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
             startActivity(Intent.createChooser(sharingIntent, "Share via"))
-        }
+        }*/
 
-        addRevealFabBtn()
-        initRecycleView()
+        // addRevealFabBtn()
+        // initRecycleView()
 
         hideStatusNavBars(this)
 
         // goto to insert on swipe left/right
-        binding.homeActivityLayout.setOnTouchListener(object :
+        /*binding.homeActivityLayout.setOnTouchListener(object :
             OnSwipeTouchListener(this@MainActivity) {
             override fun onSwipeLeft() {
                 toInsertFood()
@@ -120,19 +110,19 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
             override fun onSwipeRight() {
                 toInsertFood()
             }
-        })
+        })*/
 
     }
 
 
-    override fun onStart() {
+    /*override fun onStart() {
         super.onStart()
         showAds()
     }
 
 
     private fun showAds() {
-        /*checkConsentActive = consentSDKNeed
+        *//*checkConsentActive = consentSDKNeed
         if (checkConsentActive == true) {
             // Initialize ConsentSDK
             consentObjReference = ConsentSDK.Builder(this) // .addTestDeviceId("7DC1A1E8AEAD7908E42271D4B68FB270") // redminote 5 // Add your test device id "Remove addTestDeviceId on production!"
@@ -153,22 +143,22 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
             // You have to pass the AdRequest from ConsentSDK.getAdRequest(this) because it handle the right way to load the ad
             binding.adView.loadAd(getAdRequest(this@MainActivity))
-        }*/
+        }*//*
 
         // ads banner
         // val bannerWidthDp = getScreenWidthDp(this) - (2 * marginDp) // Subtract margins from screen width
         bottomBanner = BannerView(this, "banner", UnityBannerSize(320, 50))
-        /*val bannerView = BannerView(this, "banner", UnityBannerSize(bannerWidthDp, 50))
+        *//*val bannerView = BannerView(this, "banner", UnityBannerSize(bannerWidthDp, 50))
         val layoutParams = ViewGroup.LayoutParams(
             dpToPx(this, bannerWidthDp), // Convert dp to pixels
             dpToPx(this, 50) // Set the height in pixels or dp as needed
         )
-        bannerView.layoutParams = layoutParams*/
+        bannerView.layoutParams = layoutParams*//*
 
         bottomBanner?.listener = bannerListener
         bottomBanner?.load()
         binding.bannerLayout.addView(bottomBanner)
-    }
+    }*/
 
 
     // Go to intro activity
@@ -255,7 +245,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
     }
 
-    // Recycle touch an item callback to update/modify task
+    /*// Recycle touch an item callback to update/modify task
     override fun onItemClickListener(itemId: Int) {
         Log.d(TAG, "onItemClickListener: Item" + itemId + "touched.")
     }
@@ -328,7 +318,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
                 binding.shareImg.visibility = View.INVISIBLE
             }
         })
-    }
+    }*/
 
 
     /*// Set directly in flag the need for consent for admob ads
@@ -357,16 +347,16 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
     // ---------------------------------------------------------------------------------------------
     //                                  REVEALING FAB BTN STUFF
     // ---------------------------------------------------------------------------------------------
-    override fun onBackPressed() {
+    /*override fun onBackPressed() {
         super.onBackPressed()
         if (binding.mainFabMenu.isShowing) {
             binding.mainFabMenu.closeMenu()
         }
-    }
+    }*/
 
 
     // Adding revealing main_fab button
-    private fun addRevealFabBtn() {
+    /*private fun addRevealFabBtn() {
         try {
             //attach menu to main_fab
             binding.mainFabMenu.bindAnchorView(binding.mainFab)
@@ -377,7 +367,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
             e.printStackTrace()
         }
         binding.mainFabMenu.menuDirection = Direction.LEFT
-    }
+    }*/
 
 
     // Revealing main_fab button menu management

@@ -3,7 +3,6 @@ package eu.indiewalkabout.fridgemanager
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import androidx.activity.ComponentActivity
 import androidx.work.Configuration
 import com.unity3d.ads.IUnityAdsInitializationListener
 import com.unity3d.ads.UnityAds
@@ -20,7 +19,7 @@ import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepository
 // NB : register in manifest in <Application android:name=".App">... </Application>
 @HiltAndroidApp
 class FreddyFridgeApplication
-    : ComponentActivity(), Configuration.Provider, IUnityAdsInitializationListener {
+    : Application(), Configuration.Provider, IUnityAdsInitializationListener {
     companion object {
         private var sContext: Context? = null
         // Return application context wherever we are in the app

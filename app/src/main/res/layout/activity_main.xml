@@ -14,7 +14,7 @@
         android:background="@color/background_lightgreen_semitransparent"
         tools:context="eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity">
 
-        <Button
+        <!--<Button
             android:id="@+id/testNotifications_btn"
             android:layout_width="117dp"
             android:layout_height="34dp"
@@ -40,7 +40,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.222"
             app:layout_constraintStart_toStartOf="@+id/testNotifications_btn"
-            app:layout_constraintTop_toBottomOf="@+id/testNotifications_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/testNotifications_btn" />-->
         <!--
             <TextView
                 android:id="@+id/app_title_tv"
@@ -54,7 +54,7 @@
                 tools:layout_editor_absoluteX="265dp"
                 tools:layout_editor_absoluteY="24dp" />
         -->
-        <ImageView
+        <!--<ImageView
             android:id="@+id/food_background"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -190,7 +190,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fridge_logo" />
 
-        <!-- Empty view is only visible when the list has no items. -->
+        &lt;!&ndash; Empty view is only visible when the list has no items. &ndash;&gt;
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/today_food_list_recycleView"
             android:layout_width="0dp"
@@ -225,7 +225,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/today_food_list_recycleView"
             app:layout_constraintEnd_toEndOf="@+id/today_food_list_recycleView"
             app:layout_constraintStart_toStartOf="@+id/today_food_list_recycleView"
-            app:layout_constraintTop_toTopOf="@+id/today_food_list_recycleView" />
+            app:layout_constraintTop_toTopOf="@+id/today_food_list_recycleView" />-->
 
 
         <!--<com.google.android.gms.ads.AdView
@@ -244,7 +244,7 @@
             ads:layout_constraintStart_toStartOf="parent" />-->
 
 
-        <RelativeLayout
+        <!--<RelativeLayout
             android:id="@+id/bannerLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -301,8 +301,18 @@
             app:showOverlay="true"
             app:showTitle="true">
 
-        </com.hlab.fabrevealmenu.view.FABRevealMenu>
+        </com.hlab.fabrevealmenu.view.FABRevealMenu>-->
 
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView"
+            android:name="eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

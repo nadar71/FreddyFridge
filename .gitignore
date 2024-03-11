@@ -16,6 +16,8 @@
 
 .idea/
 
+fabrevealmenu/
+
 fabrevealmenu/build/intermediates/compiled_local_resources/debug/out/
 
 fabrevealmenu/build/intermediates/incremental/mergeDebugShaders/
@@ -65,3 +67,47 @@ unity-ads/build/.transforms/
 *.jar
 
 *.java
+
+fabrevealmenu/build/.transforms/
+
+*.kapt_metadata
+
+*.uniqueId2
+
+fabrevealmenu/build/intermediates/compile_only_not_namespaced_r_class_jar/debug/
+
+fabrevealmenu/build/intermediates/compile_library_classes/debug/
+
+fabrevealmenu/build/intermediates/aar_metadata/release/
+
+fabrevealmenu/build/intermediates/annotation_processor_list/release/
+
+fabrevealmenu/build/intermediates/aapt_friendly_merged_manifests/release/aapt/
+
+fabrevealmenu/build/intermediates/compiled_local_resources/release/out/
+
+fabrevealmenu/build/intermediates/incremental/debug-mergeNativeLibs/
+
+fabrevealmenu/build/intermediates/incremental/mergeReleaseJniLibFolders/
+
+fabrevealmenu/build/intermediates/incremental/mergeReleaseShaders/
+
+fabrevealmenu/build/intermediates/incremental/packageReleaseAssets/
+
+fabrevealmenu/build/intermediates/incremental/packageReleaseResources/
+
+fabrevealmenu/build/intermediates/library_manifest/debug/
+
+fabrevealmenu/build/intermediates/library_manifest/release/
+
+fabrevealmenu/build/intermediates/symbols/debug/
+
+fabrevealmenu/build/intermediates/symbol_list_with_package_name/release/
+
+fabrevealmenu/build/intermediates/runtime_library_classes_jar/release/
+
+fabrevealmenu/build/intermediates/res/symbol-table-with-package/debug/
+
+fabrevealmenu/build/intermediates/packaged_res/release/values/
+
+fabrevealmenu/build/intermediates/packaged_res/release/layout/

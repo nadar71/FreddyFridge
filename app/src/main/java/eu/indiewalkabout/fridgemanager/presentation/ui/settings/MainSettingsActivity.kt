@@ -1,7 +1,6 @@
 package eu.indiewalkabout.fridgemanager.presentation.ui.settings
 
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -28,11 +27,6 @@ import eu.indiewalkabout.fridgemanager.presentation.ui.credits.CreditsActivity
 import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodListActivity
 import eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodActivity
 import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity
-import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK
-// import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.getAdRequest
-import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.isConsentPersonalized
-import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.Companion.isUserLocationWithinEea
-import eu.indiewalkabout.fridgemanager.core.util.ConsentSDK.ConsentStatusCallback
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.showRandomizedInterstAds
@@ -99,7 +93,7 @@ class MainSettingsActivity : AppCompatActivity(),
             Preference.OnPreferenceChangeListener,
             SharedPreferences.OnSharedPreferenceChangeListener{
 
-        private lateinit var consentSDK: ConsentSDK
+        // private lateinit var consentSDK: ConsentSDK
         private val appPackageName: String = FreddyFridgeApplication.getsContext()?.packageName ?: "eu.indiewalkabout.fridgemanager"
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -146,10 +140,10 @@ class MainSettingsActivity : AppCompatActivity(),
             val supportBtn: Preference? = findPreference(getString(R.string.support_btn_key))
 
             // Initialize ConsentSDK
-            initConsentSDK(requireActivity())
+            // initConsentSDK(requireActivity())
 
             // Checking the status of the user
-            if (isUserLocationWithinEea(requireActivity())) {
+            /*if (isUserLocationWithinEea(requireActivity())) {
                 val choice = if (isConsentPersonalized(requireActivity())) "Personalize" else "Non-Personalize"
                 Log.i(TAG, "onCreate: consent choice : $choice")
                 gdprConsentBtn?.onPreferenceClickListener = Preference.OnPreferenceClickListener { // Check Consent SDK
@@ -175,7 +169,7 @@ class MainSettingsActivity : AppCompatActivity(),
                         preferenceScreen.removePreference(gdprConsentBtn)
                     }
                 }
-            }
+            }*/
 
 
             // Faq button
@@ -305,14 +299,14 @@ class MainSettingsActivity : AppCompatActivity(),
         }
 
 
-        private fun initConsentSDK(context: Context) {
+        /*private fun initConsentSDK(context: Context) {
             // Initialize ConsentSDK
             consentSDK = ConsentSDK.Builder(context) // .addTestDeviceId("7DC1A1E8AEAD7908E42271D4B68FB270") // Add your test device id "Remove addTestDeviceId on production!"
                     .addCustomLogTag("gdpr_TAG") // Add custom tag default: ID_LOG
                     .addPrivacyPolicy("http://www.indie-walkabout.eu/privacy-policy-app") // Add your privacy policy url
                     .addPublisherId("pub-8846176967909254") // Add your admob publisher id
                     .build()
-        }
+        }*/
     }
 
 
@@ -361,9 +355,9 @@ class MainSettingsActivity : AppCompatActivity(),
     override fun onBackPressed() {
         super.onBackPressed()
         showRandomizedInterstAds(4,this)
-        if (binding.settingsFabMenu.isShowing) {
+        /*if (binding.settingsFabMenu.isShowing) {
             binding.settingsFabMenu.closeMenu()
-        }
+        }*/
     }
 
 
