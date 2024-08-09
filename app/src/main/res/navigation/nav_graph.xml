@@ -7,5 +7,62 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainFragment"
-        android:label="MainFragment" />
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_expiringFoodFragment"
+            app:destination="@id/expiringFoodFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_consumedFoodFragment"
+            app:destination="@id/consumedFoodFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_deadFoodFragment"
+            app:destination="@id/deadFoodFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_insertFoodFragment"
+            app:destination="@id/insertFoodFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/consumedFoodFragment"
+        android:name="eu.indiewalkabout.fridgemanager.presentation.ui.food.ConsumedFoodFragment"
+        android:label="ConsumedFoodFragment" >
+        <action
+            android:id="@+id/action_consumedFoodFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deadFoodFragment"
+        android:name="eu.indiewalkabout.fridgemanager.presentation.ui.food.DeadFoodFragment"
+        android:label="DeadFoodFragment" >
+        <action
+            android:id="@+id/action_deadFoodFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/expiringFoodFragment"
+        android:name="eu.indiewalkabout.fridgemanager.presentation.ui.food.ExpiringFoodFragment"
+        android:label="ExpiringFoodFragment" >
+        <action
+            android:id="@+id/action_expiringFoodFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/insertFoodFragment"
+        android:name="eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodFragment"
+        android:label="InsertFoodFragment" >
+        <action
+            android:id="@+id/action_insertFoodFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="eu.indiewalkabout.fridgemanager.presentation.ui.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>

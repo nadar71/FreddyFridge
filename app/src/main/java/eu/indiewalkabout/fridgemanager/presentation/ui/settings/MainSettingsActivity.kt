@@ -17,24 +17,29 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.preference.*
+import androidx.preference.EditTextPreference
+import androidx.preference.ListPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApplication
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager.ReminderScheduler.scheduleChargingReminder
-import eu.indiewalkabout.fridgemanager.presentation.ui.credits.CreditsActivity
-import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodListActivity
-import eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodActivity
-import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.showRandomizedInterstAds
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility.getHoursCount
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import eu.indiewalkabout.fridgemanager.databinding.ActivityMainSettingsBinding
+import eu.indiewalkabout.fridgemanager.presentation.ui.credits.CreditsActivity
+import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodListActivity
+import eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodActivity
+import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity
 
 
+// TODO: based on new fragment_settings.xml, create a conventional fragment for manage it
 // Settings configuration class; uses activity_main_settings layout and include settingsFrag
 class MainSettingsActivity : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
