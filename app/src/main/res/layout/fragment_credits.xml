@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
-        tools:context=".presentation.ui.credits.CreditsActivity">
+        tools:context=".presentation.ui.credits.FragmentCredits">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/credits_toolbar"

@@ -64,5 +64,16 @@
         <action
             android:id="@+id/action_settingsFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_creditsFragment"
+            app:destination="@id/creditsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/creditsFragment"
+        android:name="eu.indiewalkabout.fridgemanager.presentation.ui.credits.CreditsFragment"
+        android:label="CreditsFragment" >
+        <action
+            android:id="@+id/action_creditsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
 </navigation>
