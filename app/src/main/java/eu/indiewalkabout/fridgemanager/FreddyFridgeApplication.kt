@@ -11,8 +11,6 @@ import eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmRemin
 import eu.indiewalkabout.fridgemanager.core.unityads.UNITYTAG
 import eu.indiewalkabout.fridgemanager.core.unityads.unityAdsTestMode
 import eu.indiewalkabout.fridgemanager.core.unityads.unityId
-import eu.indiewalkabout.fridgemanager.data.local.db.FoodDatabase
-import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepository
 
 
 // Class used for access singletons and application context wherever in the app
@@ -35,13 +33,13 @@ class FreddyFridgeApplication
         }*/
     }
 
-    // Return singleton db instance
+    /*// Return singleton db instance
     private val database: FoodDatabase?
-        get() = FoodDatabase.getsDbInstance(this)
+        get() = FoodDatabase.getDbInstance(this)
 
     // Return depository singleton instance
     val repository: FridgeManagerRepository?
-        get() = database?.let { FridgeManagerRepository.getInstance(it) }
+        get() = database?.let { FridgeManagerRepository.getInstance(it) }*/
 
     override fun onCreate() {
         super.onCreate()

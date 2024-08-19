@@ -5,14 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getDrawable
-import eu.indiewalkabout.fridgemanager.FreddyFridgeApplication
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApplication.Companion.getsContext
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.DAY_IN_MILLIS
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import eu.indiewalkabout.fridgemanager.data.local.db.DateConverter
-import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepository
 import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.presentation.components.viewholder.FoodViewRowHolder
 import java.text.SimpleDateFormat
@@ -32,7 +30,7 @@ class FoodListAdapter(
     internal var adapterFoodEntries: MutableList<FoodEntry>? = null
 
     val dateFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
-    val repository: FridgeManagerRepository? = (getsContext() as FreddyFridgeApplication?)!!.repository
+    // val repository: FridgeManagerRepository? = (getsContext() as FreddyFridgeApplication?)!!.repository
 
 
     // Inflate row layout.

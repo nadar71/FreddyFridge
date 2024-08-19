@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import eu.indiewalkabout.fridgemanager.data.local.db.FoodDatabase
 import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 
-class FridgeManagerRepository private constructor(private val foodDb: FoodDatabase) {
+class FridgeManagerRepository(private val foodDb: FoodDatabase) {
 
 
     //----------------------------------------------------------------------------------------------
@@ -76,20 +76,18 @@ class FridgeManagerRepository private constructor(private val foodDb: FoodDataba
         foodDb.foodDbDao().deleteFoodEntry(foodEntry)
     }
 
-    companion object {
+
+    /*companion object {
         private var sInstance: FridgeManagerRepository? = null
 
         fun getInstance(database: FoodDatabase): FridgeManagerRepository? {
-            if (sInstance == null) {
-                synchronized(FridgeManagerRepository::class.java) {
+
                     if (sInstance == null) {
                         sInstance = FridgeManagerRepository(database)
                     }
-                }
-            }
             return sInstance
         }
-    }
+    }*/
 
 
 }

@@ -4,6 +4,9 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'dagger.hilt.android.plugin'
 
+/*plugins {
+    id("com.google.dagger.hilt.android")
+}*/
 
 
 configurations {
@@ -163,6 +166,7 @@ dependencies {
     // Dagger - Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     kapt "androidx.hilt:hilt-compiler:1.0.0"
     // Hilt Navigation Compose
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_nav_compose_vers"
