@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import eu.indiewalkabout.fridgemanager.R
+import eu.indiewalkabout.fridgemanager.core.data.locals.Globals.FOOD_CONSUMED
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import eu.indiewalkabout.fridgemanager.databinding.FragmentConsumedFoodBinding
@@ -34,7 +35,7 @@ class ConsumedFoodFragment : Fragment(), FoodListAdapter.ItemClickListener {
     ): View {
         binding = FragmentConsumedFoodBinding.inflate(inflater)
         return binding.apply {
-            consumedFoodFragmentVM = consumedFoodFragmentVM
+            consumedFoodVM = consumedFoodViewModel
             lifecycleOwner = this@ConsumedFoodFragment
         }.root
     }
@@ -108,7 +109,7 @@ class ConsumedFoodFragment : Fragment(), FoodListAdapter.ItemClickListener {
     private fun initRecycleView() {
         foodListAdapter = FoodListAdapter(
             requireContext(), this,
-            "SavedFood"
+            FOOD_CONSUMED
         )
         binding.apply{
             foodListRecycleView.layoutManager = LinearLayoutManager(context)
@@ -122,7 +123,7 @@ class ConsumedFoodFragment : Fragment(), FoodListAdapter.ItemClickListener {
                     }
 
                     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                        if (newState == RecyclerView.SCROLL_STATE_IDLE) foodListFab.show()
+                        if (newState == RecyclerView.SCROLL_STATE_IDLE) foodListFab.show() // TODO: delete
                         super.onScrollStateChanged(recyclerView, newState)
                     }
                 })

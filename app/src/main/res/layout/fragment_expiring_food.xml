@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="expiringFoodVM"
+            type="eu.indiewalkabout.fridgemanager.presentation.ui.food.ExpiringFoodViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

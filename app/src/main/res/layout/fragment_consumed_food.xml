@@ -5,9 +5,8 @@
 
     <data>
         <variable
-            name="consumedFoodFragmentVM"
+            name="consumedFoodVM"
             type="eu.indiewalkabout.fridgemanager.presentation.ui.food.ConsumedFoodViewModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

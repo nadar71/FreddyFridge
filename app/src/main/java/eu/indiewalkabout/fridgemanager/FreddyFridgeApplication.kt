@@ -1,7 +1,6 @@
 package eu.indiewalkabout.fridgemanager
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
 import androidx.work.Configuration
 import com.unity3d.ads.IUnityAdsInitializationListener
@@ -19,11 +18,11 @@ import eu.indiewalkabout.fridgemanager.core.unityads.unityId
 class FreddyFridgeApplication
     : Application(), Configuration.Provider, IUnityAdsInitializationListener {
     companion object {
-        private var sContext: Context? = null
+        /*private var sContext: Context? = null
         // Return application context wherever we are in the app
         fun getsContext(): Context? {
             return sContext
-        }
+        }*/
 
         /*// Implement a function to display an ad if the surfacing is ready:
         fun displayUnityInterstitialAd(activity: Activity, surfacingId: String) {
@@ -43,7 +42,8 @@ class FreddyFridgeApplication
 
     override fun onCreate() {
         super.onCreate()
-        sContext = applicationContext
+        // sContext = applicationContext
+        // TODO: put in external file
         unityId = applicationContext.getString(R.string.unityads_id)
 
         // start scheduler for notifications reminder

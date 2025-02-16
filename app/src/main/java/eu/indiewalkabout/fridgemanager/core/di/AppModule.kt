@@ -1,30 +1,22 @@
 package eu.indiewalkabout.fridgemanager.core.di
 
+import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import eu.indiewalkabout.fridgemanager.data.local.db.FoodDatabase
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DatabaseModule {
+object AppModule {
 
     @Provides
     @Singleton
-    fun provideFoodDatabase(@ApplicationContext context: Context): FoodDatabase {
-        return FoodDatabase.getDbInstance(context)
+    @ApplicationContext
+    fun provideApplicationContext(application: Application): Context {
+        return application.applicationContext
     }
 }
-
-
-/*
-Inject sample :
-
-class MyViewModel
- @Inject constructor(@ApplicationContext private val context: Context)
-: ViewModel() { ... }
- */
