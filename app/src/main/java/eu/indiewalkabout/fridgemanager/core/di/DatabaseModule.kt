@@ -15,9 +15,16 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideFoodDatabase(@ApplicationContext context: Context): FoodDatabase {
+    fun provideFoodDatabase(
+        @ApplicationContext context: Context
+    ): FoodDatabase {
         return FoodDatabase.getDbInstance(context)
     }
+
+    @Provides
+    @Singleton
+    fun provideFoodDao(foodDatabase: FoodDatabase) = foodDatabase.foodDbDao()
+
 }
 
 

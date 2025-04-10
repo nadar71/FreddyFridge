@@ -195,6 +195,7 @@ class MainActivity : AppCompatActivity(), /*ItemClickListener,*/ OnFABMenuSelect
         }*/
 
     // DEBUG notifications
+    // TODO: use viewmodel and use case for db call
     fun testNotification(view: View?) {
         lateinit var foodEntriesNextDays: List<FoodEntry>
         CoroutineScope(Dispatchers.Main).launch {

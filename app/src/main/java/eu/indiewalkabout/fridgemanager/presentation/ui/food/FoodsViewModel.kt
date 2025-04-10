@@ -9,7 +9,7 @@ import eu.indiewalkabout.fridgemanager.core.util.DateUtility.DAY_IN_MILLIS
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getLocalMidnightFromNormalizedUtcDate
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.normalizedUtcMsForToday
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
-import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepository
+import eu.indiewalkabout.fridgemanager.domain.repository.FridgeManagerRepositoryImpl
 import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 
 
@@ -23,7 +23,7 @@ class FoodsViewModel : ViewModel {
     private var foodEntry: LiveData<FoodEntry>? = null
 
     // repository ref
-    private var repository: FridgeManagerRepository?
+    private var repository: FridgeManagerRepositoryImpl?
 
     constructor() {
         // init repository
