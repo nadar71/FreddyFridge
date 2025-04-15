@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import eu.indiewalkabout.fridgemanager.domain.repository.FridgeManagerRepositoryImpl
+import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepositoryImpl
 import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 import javax.inject.Inject
 

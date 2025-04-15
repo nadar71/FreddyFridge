@@ -1,28 +1,29 @@
-package com.triberunclub.tribe.core.presentation.theme.nodarkmode_colors
+package eu.indiewalkabout.fridgemanager.core.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
-// TODO: setup colors
-val primaryColor = Color(0xFFFFFFFF)
-val secondaryColor = Color(0xFF024D45)
-val colorAlert = Color(0xFFED1C4B)
-val colorSearch = Color(0xFFEC3970)
-val colorSearchTraining = Color(0xFFFF61BE)
-val colorConfirm = Color(0xFF0E7AFE)
-val colorInfo = Color(0xFF474747)
-val colorTextLight = Color(0xFF64635D)
-val colorText = Color(0xFF000000)
-val colorStroke_01 = Color(0xFFD0D5DD)
-val colorSkillSelected = Color(0xFFE7ECEC)
-val colorStrokeTextFields = Color(0xFFE0E0DE)
-val colorText_02 = Color(0xFF0F0E33)
-val colorText_alpha_60 = Color(0x99000000)
-val colorText_03 = Color(0xFF666666)
-val colorText_04 = Color(0xFF8B8B8B)
-val colorText_05 = Color(0xFF9DB2CE)
-val colorText_06 = Color(0xFFCFD7D6)
-val colorStroke_02 = Color(0xFFDCDCDC)
-val colorNotificationBackground = Color(0xFFE7ECEC)
-val colorHintText = Color(0xFFC5C5C7)
-val colorStroke_03 = Color(0xFFE0E0DE)
-val colorStroke_04 = Color(0xFF93DD00)
+
+object AppColors {
+    val primaryColor = Color(0xFF7AA44D)
+    val primaryColorDark = Color(0xFF578D18)
+    val colorAccent = Color(0xFFEC9039)
+    val brown = Color(0xFF734B26)
+    val todayListRecordLightGrey = Color(0xC8C3DBF6)
+    val fabYellow = Color(0xFFFCC742)
+    val todayListRecordLightBlue = Color(0xC899EFF8)
+    val backgroundLightGreen = Color(0xFF007E00)
+    val backgroundLightGreenSemitransparent = Color(0xC8007E00)
+    val fabLightGreen = Color(0xFF2CFD03)
+    val lightWhiteSemitransparent = Color(0xDCFFFFFF)
+    val lightWhiteTransparent = Color(0x00FFFFFF)
+    val primaryColorSemitransparent = Color(0xC87AA44D)
+    val lightGreyVeryTransparent = Color(0x6EC3DBF6)
+    val foodGreen = Color(0xFF5FDD31)
+    val foodYellow = Color(0xFFFCC742)
+    val foodOrange = Color(0xFFEC8405)
+    val foodRed = Color(0xFFE9F33D4D)
+}
+
+
+
+

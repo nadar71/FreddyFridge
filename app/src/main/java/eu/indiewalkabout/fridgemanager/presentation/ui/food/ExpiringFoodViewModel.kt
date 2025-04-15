@@ -7,7 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.DAY_IN_MILLIS
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getLocalMidnightFromNormalizedUtcDate
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.normalizedUtcMsForToday
-import eu.indiewalkabout.fridgemanager.domain.repository.FridgeManagerRepositoryImpl
+import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepositoryImpl
 import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.presentation.ui.intromain
+package eu.indiewalkabout.fridgemanager.presentation.ui.intromain.no_more_used
 
 import android.os.Bundle
 import android.view.LayoutInflater

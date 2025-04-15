@@ -3,7 +3,7 @@ buildscript {
     ext {
         appcompat_vers           = '1.6.1'
         amitshekhar_vers         = '1.0.6'
-        compose_bom_vers         = '2023.05.00'
+        compose_bom_vers         = '2024.09.02'
         compose_compiler_version = '1.4.3'
         compose_constraint       = '1.1.1'
         compose_navigation       = '2.8.9'

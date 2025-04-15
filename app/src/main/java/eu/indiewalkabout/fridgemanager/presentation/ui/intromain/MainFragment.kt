@@ -22,6 +22,7 @@ import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodListActivity
 import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodsViewModel
 import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodsViewModelFactory
 import eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodActivity
+import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.no_more_used.IntroActivity
 import eu.indiewalkabout.fridgemanager.presentation.ui.settings.MainSettingsActivity
 
 class MainFragment : Fragment(), FoodListAdapter.ItemClickListener {

@@ -20,6 +20,7 @@ import eu.indiewalkabout.fridgemanager.databinding.ActivityMainBinding
 import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodListActivity
 import eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodActivity
+import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.no_more_used.IntroActivity
 import eu.indiewalkabout.fridgemanager.presentation.ui.settings.MainSettingsActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

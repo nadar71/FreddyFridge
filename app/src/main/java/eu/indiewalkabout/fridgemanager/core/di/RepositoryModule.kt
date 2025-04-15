@@ -4,10 +4,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import eu.indiewalkabout.fridgemanager.data.local.db.FoodDatabase
 import eu.indiewalkabout.fridgemanager.data.local.db.FoodDbDao
-import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepository
-import eu.indiewalkabout.fridgemanager.domain.repository.FridgeManagerRepositoryImpl
+import eu.indiewalkabout.fridgemanager.domain.repository.FridgeManagerRepository
+import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepositoryImpl
 import javax.inject.Singleton
 
 @Module

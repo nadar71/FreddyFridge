@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.presentation.ui.intromain
+package eu.indiewalkabout.fridgemanager.presentation.ui.intromain.no_more_used
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import com.github.appintro.AppIntroFragment
 import com.github.appintro.AppIntroPageTransformerType
 import com.github.appintro.model.SliderPage
 import eu.indiewalkabout.fridgemanager.R
+import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity
 
 class IntroActivity : AppIntro2() {
     override fun onCreate(savedInstanceState: Bundle?) {

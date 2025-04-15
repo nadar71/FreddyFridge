@@ -1,9 +1,9 @@
-package eu.indiewalkabout.fridgemanager.domain.repository
+package eu.indiewalkabout.fridgemanager.data.repository
 
 import androidx.lifecycle.LiveData
 import eu.indiewalkabout.fridgemanager.data.local.db.FoodDbDao
-import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepository
 import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
+import eu.indiewalkabout.fridgemanager.domain.repository.FridgeManagerRepository
 
 class FridgeManagerRepositoryImpl(
     private val foodDbDao: FoodDbDao

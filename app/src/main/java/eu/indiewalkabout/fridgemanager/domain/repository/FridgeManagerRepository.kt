@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.data.repository
+package eu.indiewalkabout.fridgemanager.domain.repository
 
 import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 

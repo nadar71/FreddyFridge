@@ -28,8 +28,3 @@ fun FoodEntry.toFoodEntryUI(): FoodEntryUI {
 }
 
 
-data class FoodEntryUI(
-    var name: String? = null,
-    var expiringAt: Date? = null,
-    var done: Int = 0,
-)
