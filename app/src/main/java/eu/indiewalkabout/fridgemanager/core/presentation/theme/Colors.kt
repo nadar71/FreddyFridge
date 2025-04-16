@@ -6,6 +6,8 @@ import androidx.compose.ui.graphics.Color
 object AppColors {
     val primaryColor = Color(0xFF7AA44D)
     val primaryColorDark = Color(0xFF578D18)
+    val colorText = Color(0xFFFFFFFF)
+    val colorText_01 = Color(0xFF000000)
     val colorAccent = Color(0xFFEC9039)
     val brown = Color(0xFF734B26)
     val todayListRecordLightGrey = Color(0xC8C3DBF6)

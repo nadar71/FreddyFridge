@@ -33,9 +33,6 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
 
-        <activity
-            android:name=".presentation.ui.intromain.no_more_used.IntroActivity"
-            android:screenOrientation="portrait"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
@@ -49,42 +46,12 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- InsertFoodActivity -->
-        <activity
-            android:name=".presentation.ui.food.InsertFoodActivity"
-            android:parentActivityName=".presentation.ui.intromain.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".presentation.ui.intromain.MainActivity" />
-        </activity> <!-- FoodListActivity -->
-        <activity
-            android:name=".presentation.ui.food.FoodListActivity"
-            android:parentActivityName=".presentation.ui.intromain.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".presentation.ui.intromain.MainActivity" />
-        </activity> <!-- Used for notifications -->
+        </activity>
+
+         <!-- Used for notifications -->
         <service
             android:name=".core.reminder.FoodReminderIntentService"
-            android:exported="false" /> <!-- Settings -->
-        <activity
-            android:name=".presentation.ui.settings.MainSettingsActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".presentation.ui.credits.CreditsActivity"
-            android:screenOrientation="portrait" />
-        <!--
- JobService declaration used in FirebaseJobDispatcher
-        <service
-            android:name="eu.indiewalkabout.fridgemanager.reminder.withworkmanager.FoodReminderWorker"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
-            </intent-filter>
-        </service>
-        -->
+            android:exported="false" />
         <receiver
             android:name=".core.reminder.withalarmmanager.AlarmReceiver"
             android:enabled="true"

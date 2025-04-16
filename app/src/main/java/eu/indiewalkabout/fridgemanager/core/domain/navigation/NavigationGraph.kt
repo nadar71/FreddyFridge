@@ -5,6 +5,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import eu.indiewalkabout.fridgemanager.presentation.ui.credits.CreditsScreen
+import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodConsumedScreen
+import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodExpiredScreen
+import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodExpiringScreen
+import eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodScreen
+import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainScreen
+import eu.indiewalkabout.fridgemanager.presentation.ui.settings.SettingsScreen
 
 @Composable
 fun NavigationGraph(
@@ -17,34 +24,39 @@ fun NavigationGraph(
     // Applying innerPadding to NavHos avoid overlapping with BottomNavigationBar
     NavHost(
         navController,
-        startDestination = AppDestinationRoutes.HomeScreen.route,
+        startDestination = AppDestinationRoutes.MainScreen.route,
     ) {
 
         Log.d("DEBUG_ROUTING", "NavHost: called")
 
-        composable(route = AppDestinationRoutes.HomeScreen.route) {
-            AppDestinationRoutes.HomeScreen()
+        composable(route = AppDestinationRoutes.MainScreen.route) {
+            MainScreen()
         }
-        
+
         composable(route = AppDestinationRoutes.InsertFoodScreen.route) {
-            AppDestinationRoutes.InsertFoodScreen()
+            InsertFoodScreen()
         }
 
         composable(route = AppDestinationRoutes.FoodExpiringScreen.route) {
-            AppDestinationRoutes.FoodExpiringScreen()
+            FoodExpiringScreen()
         }
 
         composable(route = AppDestinationRoutes.FoodExpiredScreen.route) {
-            AppDestinationRoutes.FoodExpiredScreen()
+            FoodExpiredScreen()
         }
 
         composable(route = AppDestinationRoutes.FoodConsumedScreen.route) {
-            AppDestinationRoutes.FoodConsumedScreen()
+            FoodConsumedScreen()
         }
 
         composable(route = AppDestinationRoutes.SettingsScreen.route) {
-            AppDestinationRoutes.SettingsScreen()
+            SettingsScreen()
 
+        }
+
+        composable(route = AppDestinationRoutes.CreditsScreen.route) {
+            CreditsScreen()
+        }
     }
 
 }

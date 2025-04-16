@@ -1,25 +1,21 @@
-package com.triberunclub.tribe.core.presentation.theme
+package eu.indiewalkabout.fridgemanager.core.presentation.theme
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors
+import com.triberunclub.tribe.core.presentation.theme.MyColorScheme
+import com.triberunclub.tribe.core.presentation.theme.Shapes
+import com.triberunclub.tribe.core.presentation.theme.Typography
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.backgroundLightGreen
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.backgroundLightGreenSemitransparent
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.brown
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.colorAccent
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.colorText
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.fabLightGreen
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.fabYellow
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.foodGreen
@@ -36,7 +32,8 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.todayLi
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.todayListRecordLightGrey
 
 
-val LocalAppColors = staticCompositionLocalOf { AppColors }
+// customized color palette no material no darkmode allowed for now
+/*val LocalAppColors = staticCompositionLocalOf { AppColors }
 
 @Composable
 fun AppCustomTheme(content: @Composable () -> Unit) {
@@ -47,7 +44,7 @@ fun AppCustomTheme(content: @Composable () -> Unit) {
 
 
 // USAGE PREVIEW : fix compose libs &c. before using this
-/*@Composable
+@Composable
 fun HomeScreen() {
     val colors = LocalAppColors.current
 
@@ -66,15 +63,16 @@ fun HomeScreen() {
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 colors = ButtonDefaults.buttonColors(containerColor = colors.primaryColorSemitransparent),
-                onClick = { *//* do something *//* }
+                onClick = {  *//*do something*//*  }
             ) {
-                Text("Click Me", color = colors.onButton)
+                Text("Click Me", color = colors.colorText)
             }
         }
     }
 }
 
 
+@Preview(showBackground = true)
 @Composable
 fun MyApp() {
     AppCustomTheme {
@@ -87,65 +85,8 @@ fun MyApp() {
 
 // ---------- OLD
 
-
-fun setupColorScheme(): ProvidableCompositionLocal<MyColorScheme> {
-    return compositionLocalOf {
-            MyColorScheme(
-                primaryColor = primaryColor,
-                primaryColorDark,
-                colorAccent,
-                brown,
-                todayListRecordLightGrey,
-                fabYellow,
-                todayListRecordLightBlue,
-                backgroundLightGreen,
-                backgroundLightGreenSemitransparent,
-                fabLightGreen,
-                lightWhiteSemitransparent,
-                lightWhiteTransparent,
-                primaryColorSemitransparent,
-                lightGreyVeryTransparent,
-                foodGreen,
-                foodYellow,
-                foodOrange,
-                foodRed
-            )
-    }
-}
-
-var LocalMyColorScheme = setupColorScheme()
-
-
-
-@Composable
-fun FridgeManagerTheme(
-    darkTheme: Boolean = false, // no dark for this app
-    content: @Composable () -> Unit
-) {
-
-    // use my
-    val myColorScheme = LocalMyColorScheme.current
-    val colorScheme = if (darkTheme) {
-        MyMaterialDarkColorScheme(myColorScheme)
-    } else {
-        MyMaterialLightColorScheme(myColorScheme)
-    }
-
-    LocalMyColorScheme = setupColorScheme()
-    CompositionLocalProvider(LocalMyColorScheme provides myColorScheme){
-        MaterialTheme(
-            colorScheme = colorScheme,
-            typography = Typography,
-            shapes = Shapes,
-            content = content
-        )
-    }
-}
-
-
-
 // Not used: no dark mode, used a different color logic
-/*fun MyMaterialLightColorScheme(myColorScheme: MyColorScheme): ColorScheme {
+fun MyMaterialLightColorScheme(myColorScheme: MyColorScheme): ColorScheme {
     return lightColorScheme(
         primary = myColorScheme.primaryColor,
         secondary = myColorScheme.primaryColorDark,
@@ -177,12 +118,95 @@ fun MyMaterialDarkColorScheme(myColorScheme: MyColorScheme): ColorScheme {
         error = myColorScheme.colorAccent,
         onError = myColorScheme.foodRed
     )
+}
+
+/*fun setupColorScheme(): ProvidableCompositionLocal<MyColorScheme> {
+    return compositionLocalOf {
+            MyColorScheme(
+                primaryColor = primaryColor,
+                primaryColorDark,
+                colorAccent,
+                colorText,
+                brown,
+                todayListRecordLightGrey,
+                fabYellow,
+                todayListRecordLightBlue,
+                backgroundLightGreen,
+                backgroundLightGreenSemitransparent,
+                fabLightGreen,
+                lightWhiteSemitransparent,
+                lightWhiteTransparent,
+                primaryColorSemitransparent,
+                lightGreyVeryTransparent,
+                foodGreen,
+                foodYellow,
+                foodOrange,
+                foodRed
+            )
+    }
 }*/
+
+// var localMyColorScheme = setupColorScheme()
+val LocalMyColorScheme: ProvidableCompositionLocal<MyColorScheme> = compositionLocalOf {
+    error("No MyColorScheme provided")
+}
+
+
+@Composable
+fun FridgeManagerTheme(
+    darkTheme: Boolean = false, // no dark for this app
+    content: @Composable () -> Unit
+) {
+
+    // use my
+    // LocalMyColorScheme = setupColorScheme()
+    // val myColorScheme = LocalMyColorScheme.current
+    val myColorScheme = MyColorScheme(
+        primaryColor = primaryColor,
+        primaryColorDark = primaryColorDark,
+        colorAccent = colorAccent,
+        colorText = colorText,
+        brown = brown,
+        todayListRecordLightGrey = todayListRecordLightGrey,
+        fabYellow = fabYellow,
+        todayListRecordLightBlue = todayListRecordLightBlue,
+        backgroundLightGreen = backgroundLightGreen,
+        backgroundLightGreenSemitransparent = backgroundLightGreenSemitransparent,
+        fabLightGreen = fabLightGreen,
+        lightWhiteSemitransparent = lightWhiteSemitransparent,
+        lightWhiteTransparent = lightWhiteTransparent,
+        primaryColorSemitransparent = primaryColorSemitransparent,
+        lightGreyVeryTransparent = lightGreyVeryTransparent,
+        foodGreen = foodGreen,
+        foodYellow = foodYellow,
+        foodOrange = foodOrange,
+        foodRed = foodRed
+    )
+
+    val colorScheme = if (darkTheme) {
+        MyMaterialDarkColorScheme(myColorScheme)
+    } else {
+        MyMaterialLightColorScheme(myColorScheme)
+    }
+
+    CompositionLocalProvider(LocalMyColorScheme provides myColorScheme){
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            shapes = Shapes,
+            content = content
+        )
+    }
+}
+
+
+
+
 
 
 // -------------------------------------------- TESTING --------------------------------------------
-
-/*@Composable
+/*
+@Composable
 fun MyComposableView01() {
     val colorScheme = LocalMyColorScheme.current
     Column(
@@ -205,6 +229,7 @@ fun MyComposableView01() {
         ColorGrid(colorScheme)
     }
 }
+
 
 
 @Composable

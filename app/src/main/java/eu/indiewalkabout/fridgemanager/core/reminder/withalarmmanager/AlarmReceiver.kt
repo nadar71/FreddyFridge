@@ -4,24 +4,32 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import dagger.hilt.android.qualifiers.ApplicationContext
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApplication
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
 import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
+import eu.indiewalkabout.fridgemanager.domain.repository.FridgeManagerRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class AlarmReceiver : BroadcastReceiver() {
+
+class AlarmReceiver @Inject constructor(
+    private val repository: FridgeManagerRepository,
+    private val preferenceUtility: PreferenceUtility,
+    @ApplicationContext private val context: Context
+) : BroadcastReceiver() {
 
     // for real :
     private val days = PreferenceUtility.getDaysCount(FreddyFridgeApplication.getsContext()!!)
     private val DAYS_BEFORE = TimeUnit.DAYS.toSeconds(days.toLong()).toInt()
 
     // get repository
-    private val repository = (FreddyFridgeApplication.getsContext() as FreddyFridgeApplication).repository
+    //private val repository = (FreddyFridgeApplication.getsContext() as FreddyFridgeApplication).repository
 
 
     override fun onReceive(context: Context, intent: Intent) {

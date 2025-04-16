@@ -111,3 +111,7 @@ fabrevealmenu/build/intermediates/res/symbol-table-with-package/debug/
 fabrevealmenu/build/intermediates/packaged_res/release/values/
 
 fabrevealmenu/build/intermediates/packaged_res/release/layout/
+
+.kotlin/
+
+app/build/

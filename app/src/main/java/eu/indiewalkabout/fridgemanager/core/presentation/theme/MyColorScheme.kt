@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 data class MyColorScheme(
     val primaryColor: Color,
     val primaryColorDark: Color,
+    val colorText: Color,
     val colorAccent: Color,
     val brown: Color,
     val todayListRecordLightGrey: Color,

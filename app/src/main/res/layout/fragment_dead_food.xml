@@ -6,14 +6,14 @@
     <data>
         <variable
             name="deadFoodVM"
-            type="eu.indiewalkabout.fridgemanager.presentation.ui.food.DeadFoodViewModel" />
+            type="eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodExpiredViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_lightgreen_semitransparent"
-        tools:context=".presentation.ui.food.DeadFoodFragment">
+        tools:context=".presentation.ui.food.FoodExpiredScreen">
 
 
 
@@ -50,7 +50,7 @@
                 android:fontFamily="@font/fredoka_one"
                 android:text="title"
                 android:textAlignment="viewStart"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorText"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="18dp" />
@@ -83,7 +83,7 @@
             android:fontFamily="@font/quicksand"
             android:text="@string/no_food_in_list"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorText"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -130,26 +130,7 @@
             ads:layout_constraintEnd_toEndOf="parent"
             ads:layout_constraintStart_toStartOf="parent" />
 
-        <com.hlab.fabrevealmenu.view.FABRevealMenu
-            android:id="@+id/food_list_fabMenu"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_centerInParent="true"
-            app:animateItems="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:menuBackgroundColor="@color/colorAccent"
-            app:menuDirection="left"
-            app:menuRes="@menu/menu_fab_home"
-            app:menuSize="small"
-            app:menuTitleFontFamily="@font/quicksand"
-            app:menuTitleTextColor="@color/colorWhite"
-            app:showOverlay="true"
-            app:showTitle="true">
 
-        </com.hlab.fabrevealmenu.view.FABRevealMenu>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

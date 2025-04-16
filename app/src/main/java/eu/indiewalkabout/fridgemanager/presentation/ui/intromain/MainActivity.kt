@@ -1,35 +1,13 @@
 package eu.indiewalkabout.fridgemanager.presentation.ui.intromain
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.preference.PreferenceManager
-import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
-import eu.indiewalkabout.fridgemanager.FreddyFridgeApplication
-import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.core.util.DateUtility
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
-import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
-import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
-import eu.indiewalkabout.fridgemanager.databinding.ActivityMainBinding
-import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
-import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodListActivity
-import eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodActivity
-import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.no_more_used.IntroActivity
-import eu.indiewalkabout.fridgemanager.presentation.ui.settings.MainSettingsActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 
 
-class MainActivity : AppCompatActivity(), /*ItemClickListener,*/ OnFABMenuSelectedListener {
-    private lateinit var binding: ActivityMainBinding
+class MainActivity : AppCompatActivity()  {
+    // private lateinit var binding: ActivityMainBinding
 
     /*// recycle View stuff
     private lateinit var foodListAdapter: FoodListAdapter
@@ -50,19 +28,19 @@ class MainActivity : AppCompatActivity(), /*ItemClickListener,*/ OnFABMenuSelect
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // setContentView(R.layout.activity_main)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        // binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         // open intro only for the first 3 times
         numPrevOpenings = appOpenings
 
         // set consent sdk for gdpr true by default
         // setConsentSDKNeed(true);
-        val callingActivity = intent
+        /*val callingActivity = intent
         val comingFromIntro = callingActivity.getBooleanExtra("ComingFromIntro", false)
         if (numPrevOpenings < NUM_MAX_OPENINGS && !comingFromIntro) {
             appOpenings = numPrevOpenings + 1
-            goToIntro()
-        }
+            // goToIntro()
+        }*/
 
 
         /*binding.settingsIconImg.setOnClickListener {
@@ -163,10 +141,10 @@ class MainActivity : AppCompatActivity(), /*ItemClickListener,*/ OnFABMenuSelect
 
 
     // Go to intro activity
-    private fun goToIntro() {
+    /*private fun goToIntro() {
         val introActivityIntent = Intent(baseContext, IntroActivity::class.java)
         startActivity(introActivityIntent)
-    }
+    }*/
 
 
     // Get/Set the number of times the app has been opened
@@ -197,7 +175,7 @@ class MainActivity : AppCompatActivity(), /*ItemClickListener,*/ OnFABMenuSelect
 
     // DEBUG notifications
     // TODO: use viewmodel and use case for db call
-    fun testNotification(view: View?) {
+    /*fun testNotification(view: View?) {
         lateinit var foodEntriesNextDays: List<FoodEntry>
         CoroutineScope(Dispatchers.Main).launch {
             val repository = (FreddyFridgeApplication.getsContext() as FreddyFridgeApplication).repository
@@ -245,7 +223,7 @@ class MainActivity : AppCompatActivity(), /*ItemClickListener,*/ OnFABMenuSelect
         }
 
 
-    }
+    }*/
 
     /*// Recycle touch an item callback to update/modify task
     override fun onItemClickListener(itemId: Int) {
@@ -331,7 +309,7 @@ class MainActivity : AppCompatActivity(), /*ItemClickListener,*/ OnFABMenuSelect
     // ---------------------------------------------------------------------------------------------
     //                                          MENU STUFF
     // ---------------------------------------------------------------------------------------------
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.mainactivity_menu, menu)
         return true
     }
@@ -344,7 +322,7 @@ class MainActivity : AppCompatActivity(), /*ItemClickListener,*/ OnFABMenuSelect
             return true
         }
         return super.onOptionsItemSelected(item)
-    }
+    }*/
 
     // ---------------------------------------------------------------------------------------------
     //                                  REVEALING FAB BTN STUFF
@@ -373,7 +351,7 @@ class MainActivity : AppCompatActivity(), /*ItemClickListener,*/ OnFABMenuSelect
 
 
     // Revealing main_fab button menu management
-    override fun onMenuItemSelected(view: View, id: Int) {
+    /*override fun onMenuItemSelected(view: View, id: Int) {
         if (id == R.id.menu_insert) {
             toInsertFood()
 
@@ -409,7 +387,7 @@ class MainActivity : AppCompatActivity(), /*ItemClickListener,*/ OnFABMenuSelect
     private fun toInsertFood() {
         val toInsertFood = Intent(this@MainActivity, InsertFoodActivity::class.java)
         startActivity(toInsertFood)
-    }
+    }*/
 
     companion object {
         private const val APP_OPENING_COUNTER = "app-opening-counter"

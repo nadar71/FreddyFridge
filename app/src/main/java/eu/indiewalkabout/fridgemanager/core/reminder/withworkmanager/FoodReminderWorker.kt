@@ -2,13 +2,16 @@ package eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager
 
 import android.content.Context
 import android.util.Log
+import androidx.hilt.work.HiltWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import eu.indiewalkabout.fridgemanager.FreddyFridgeApplication
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
 import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
+import eu.indiewalkabout.fridgemanager.domain.repository.FridgeManagerRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -20,8 +23,12 @@ Every time the scheduler ReminderScheduler activate this worker:
 - check if a daily notification is needed for food expiring in x days
 - check if a hourly notification is needed for food expiring today (every x hours)
 */
-class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
-        Worker(appContext, params) {
+@HiltWorker
+class FoodReminderWorker @AssistedInject constructor(
+    @Assisted private val appContext: Context,
+    @Assisted params: WorkerParameters,
+    private val repository: FridgeManagerRepository
+):Worker(appContext, params) {
 
     // Check the food entries in db and in case activate the specific reminder
     override fun doWork(): Result {
@@ -49,10 +56,6 @@ class FoodReminderWorker (appContext: Context, params: WorkerParameters) :
         val dataNormalizedAtMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(DateUtility.normalizedUtcMsForToday)
         val expiringDateToBeNotified = dataNormalizedAtMidnight + DAYS_BEFORE
         // 1549926000000 - 172800000 = 1549753200000
-
-        // get repository
-        val repository = (FreddyFridgeApplication.getsContext() as FreddyFridgeApplication).repository
-
 
         CoroutineScope(IO).launch {
             Log.i(TAG, "Workmanager, doWork: check food expiring in the next days")

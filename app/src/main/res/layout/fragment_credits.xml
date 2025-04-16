@@ -34,7 +34,7 @@
                 android:layout_marginBottom="4dp"
                 android:fontFamily="@font/fredoka_one"
                 android:textAlignment="viewStart"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorText"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="@+id/main_settings_toolbar"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -90,28 +90,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_refrigerator_icon" />
 
-        <com.hlab.fabrevealmenu.view.FABRevealMenu
-            android:id="@+id/credits_fabMenu"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_centerInParent="true"
-            app:animateItems="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:menuBackgroundColor="@color/colorAccent"
-            app:menuDirection="left"
-            app:menuRes="@menu/menu_fab_home"
-            app:menuSize="small"
-            app:menuTitleFontFamily="@font/quicksand"
-            app:menuTitleTextColor="@color/colorWhite"
-            app:showOverlay="true"
-            app:showTitle="true">
-
-        </com.hlab.fabrevealmenu.view.FABRevealMenu>
 
         <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"

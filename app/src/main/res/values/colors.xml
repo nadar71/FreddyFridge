@@ -9,6 +9,10 @@
     <color name="colorPrimary">#7aa44d</color>
     <color name="colorPrimaryDark">#578d18</color>
     <color name="colorAccent">#EC9039</color>
+    <color name="colorText">#FFFFFF</color>
+    <color name="colorText_01">#000000</color>
+
+
 
     <color name="brown">#734B26</color>
 

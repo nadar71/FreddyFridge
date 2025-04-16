@@ -50,7 +50,7 @@
                 android:paddingBottom="4dp"
                 android:text="@string/choose_expiring_date_label"
                 android:textAlignment="center"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorText"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/calendar_cv"
                 app:layout_constraintTop_toBottomOf="@+id/adView" />
@@ -85,7 +85,7 @@
                 android:paddingRight="8dp"
                 android:paddingBottom="4dp"
                 android:text="@string/insert_food_name_tv"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorText"
                 android:textStyle="bold"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="@+id/calendar_cv"
@@ -126,7 +126,7 @@
                 android:paddingRight="8dp"
                 android:paddingBottom="4dp"
                 android:text="How many?"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorText"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/foodName_et"
                 app:layout_constraintTop_toBottomOf="@+id/foodName_et" />
@@ -171,7 +171,7 @@
                 android:paddingRight="10dp"
                 android:text="@string/save_btn_label"
                 android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorText"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -222,29 +222,7 @@
                 app:layout_constraintStart_toStartOf="@+id/date_tv"
                 app:layout_constraintTop_toTopOf="@+id/insert_food_fabMenu" />
 
-            <com.hlab.fabrevealmenu.view.FABRevealMenu
-                android:id="@+id/insert_food_fabMenu"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_centerInParent="true"
-                android:elevation="2dp"
-                app:animateItems="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                app:menuBackgroundColor="@color/colorAccent"
-                app:menuDirection="left"
-                app:menuRes="@menu/menu_fab_home"
-                app:menuSize="small"
-                app:menuTitleFontFamily="@font/quicksand"
-                app:menuTitleTextColor="@color/colorWhite"
-                app:showOverlay="true"
-                app:showTitle="true">
 
-            </com.hlab.fabrevealmenu.view.FABRevealMenu>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
