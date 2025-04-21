@@ -1,82 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- GENERICS -->
+
+    <!-- - - - - - - - - - - - - - - - - - COMMONS - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="yes">Sì</string>
     <string name="no">No</string>
-
-    <!-- OTHER -->
-    <string name="main_subtitle">Zero Sprechi !</string>
-    <string name="foodExpiring_title">Prodotti in scadenza</string>
-    <string name="foodExpired_title">Prodotti scaduti</string>
-    <string name="foodSaved_title">Prodotti Consumati</string>
-    <string name="insert_food_title">Inserisci il nuovo prodotto</string>
-    <string name="settings_title">Impostazioni</string>
-    <string name="insert_food_name_tv">Inserisci una descrizione : </string>
-    <string name="insert_food_name_hint">Descrizione Prodotto</string>
-    <string name="insert_name_placeholder">Nome</string>
-    <string name="insert_expiring_date_label">"Data di scadenza : "</string>
     <string name="save_btn_label">Salva</string>
     <string name="update_btn_label">Aggiorna</string>
-    <string name="delete_food_entry_btn_hint">Cancella</string>
-    <string name="no_food_todays">Nessun prodotto in scadenza per oggi!</string>
     <string name="no_food_in_list">Non vedo prodotti qua…</string>
-    <string name="main_list_title">Prodotti in scadenza oggi :</string>
-    <string name="settings_category_title">Impostazioni</string>
-    <string name="settings_category_help_title">Aiuto</string>
-    <string name="settings_menu_item">Impostazioni</string>
-    <string name="settings_how_many_days_before_title">Notifica cibo in scadenza tra giorni :</string>
-    <string name="settings_how_many_days_before_label">Quanti GIORNI prima</string>
-    <string name="settings_how_many_hours_title">Frequenza notifiche orarie durante il giorno :</string>
-    <string name="settings_how_many_hours_label">Con quale frequenza oraria giornaliera vuoi essere notificato? (di default è ogni 6 ore)</string>
-    <string name="gdpr_btn_title">GDPR</string>
-    <string name="gdpr_btn_summary">"Consenso GDPR "</string>
-    <string name="credits_btn_title">Attribuzioni</string>
-    <string name="credits_btn_summary">Guarda le attribuzioni qua</string>
-    <string name="notification_nextdays_expiring_food_title">Hai cibo in scadenza nei PROSSIMI GIORNI</string>
-    <string name="notification_nextdays_expiring_body">Usa il link sotto per vedere la lista completa</string>
-    <string name="notification_today_expiring_food_title">OGGI hai dei prodotti che scadono</string>
-    <string name="notification_show_food_expiring_action_title">Mostrami i prodotti in scadenza</string>
-    <string name="notification_show_food_expiring_today_action_title">Mostrami i prodotti che scadono OGGI</string>
-    <string name="notification_dismiss_action_title">Ok</string>
-    <string name="menu_home_label_item">Home</string>
-    <string name="menu_wasted_label_item">Scaduto</string>
-    <string name="menu_consumed_label_item">Usato</string>
-    <string name="menu_expiring_label_item">Scade</string>
-    <string name="menu_add_label_item">NUOVO</string>
-    <string name="insert_speak_btn_description">Premi e parla</string>
-    <string name="insert_speech_not_recognized">Prova ancora</string>
+    <string name="delete_food_entry_btn_hint">Cancella</string>
     <string name="dialog_confirm_if_consumed_text">Imposto il prodotto come CONSUMATO, ok?</string>
     <string name="dialog_confirm_if_not_consumed_text">Imposto il prodotto come NON CONSUMATO, ok?</string>
     <string name="dialog_confirm_if_deleting_text">Sei sicuro di volerlo cancellare ?</string>
-    <string name="background_image">Immagine di sfondo</string>
-    <string name="app_logo_right">Logo app destro</string>
-    <string name="app_logo_left">Logo app sinistro</string>
-    <string name="app_logo">Logo app</string>
-    <string name="settings_icon">Icona impostazioni</string>
+    <string name="foodExpiring_title">Prodotti in scadenza</string>
+    <string name="foodExpired_title">Prodotti scaduti</string>
+    <string name="foodSaved_title">Prodotti Consumati</string>
+
+    <!-- - - - - - - - - - - - - - - - INTRO STUFF  - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="intro_1_title">1 : Fai la tua spesa…</string>
     <string name="intro_1_subtitle">…e poi apri FreddyFridge !</string>
     <string name="intro_2_title">2 : Salva il prodotto e la data di scadenza…</string>
     <string name="intro_2_subtitle">…con il bottone NUOVO e il Riconoscimento Vocale</string>
     <string name="intro_3_title">3 : Controlla la data di scadenza</string>
     <string name="intro_3_subtitle">e verrai avvisato prima : mai più prodotti sprecati!</string>
-    <string name="notification_today_expiring_body">Usa il link sotto per vedere la lista completa</string>
+
+    <!-- - - - - - - - - - - - - - - -  MAIN SCREENS - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="main_list_title">Prodotti in scadenza oggi :</string>
+    <string name="main_subtitle">Zero Sprechi !</string>
+    <string name="no_food_todays">Nessun prodotto in scadenza per oggi!</string>
+
+    <!-- - - - - - - - - - - - - - - -  INSERT FOOD - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="insert_food_title">Inserisci il nuovo prodotto</string>
+    <string name="insert_food_name_tv">Inserisci una descrizione : </string>
+    <string name="insert_food_name_hint">Descrizione Prodotto</string>
+    <string name="insert_name_placeholder">Nome</string>
+    <string name="insert_expiring_date_label">Data di scadenza : </string>
     <string name="insert_food_description_msg">Devi inserire una descrizione del prodotto…</string>
     <string name="insert_food_expiration_date_miss_msg">Devi inserire una data di scadenza…</string>
     <string name="insert_food_inserted_confirm">Inserito correttamente !</string>
-    <string name="settings_notify_every_01">"Notifica ogni "</string>
-    <string name="settings_notify_every_02">" ore"</string>
+    <string name="insert_speak_btn_description">Premi e parla</string>
+    <string name="insert_speech_not_recognized">Prova ancora</string>
+
+    <!-- - - - - - - - - - - - - - - - - - SETTINGS - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="settings_title">Impostazioni</string>
+    <string name="settings_menu_item">Impostazioni</string>
+    <string name="settings_category_title">Impostazioni</string>
+    <string name="settings_category_help_title">Aiuto</string>
+    <string name="settings_how_many_days_before_title">Notifica cibo in scadenza tra giorni :</string>
+    <string name="settings_how_many_days_before_label">Quanti GIORNI prima</string>
+    <string name="settings_how_many_hours_title">Frequenza notifiche orarie durante il giorno :</string>
+    <string name="settings_how_many_hours_label">Con quale frequenza oraria giornaliera vuoi essere notificato? (di default è ogni 6 ore)</string>
+    <string name="settings_notify_every_01">Notifica ogni </string>
+    <string name="settings_notify_every_02"> ore</string>
     <string name="settings_days_alert_dialog_title">Avviso giorni</string>
     <string name="settings_days_alert_dialog_msg">I giorni prima del valore di avviso non possono essere vuoti</string>
     <string name="settings_goto_system_app_settings_label">Vai alle impostazioni di sistema dell\'app</string>
-    <string name="settings_goto_system_app_settings_title">Impostazioni dell\'App</string>
-    <string name="settings_share_today_title">"Prodotti in scadenza OGGI : "</string>
-    <string name="settings_expiring_food_list_subject">"Tutti prodotti in scadenza : "</string>
+    <string name="settings_goto_system_app_settings_title">Impostazioni App</string>
+    <string name="settings_share_today_title">Prodotti in scadenza OGGI : </string>
+    <string name="settings_expiring_food_list_subject">Tutti prodotti in scadenza : </string>
     <string name="settings_saved_food_list_subject">Prodotti consumati finora :</string>
-    <string name="settings_wasted_food_list_subject">"Prodotti sprecati finora : "</string>
+    <string name="settings_wasted_food_list_subject">Prodotti sprecati finora : </string>
     <string name="settings_review_btn_summary">Ti piace l\'app? Lasciami una recensione se vuoi :)</string>
     <string name="settings_review_btn_title">Recensione app</string>
     <string name="settings_myapps_btn_summary">Scopri tutte le altre mie app e giochi!</string>
     <string name="settings_myapps_btn_title">Altre app e giochi</string>
-    <string name="settings_support_btn_summary">"Suggerimenti, bug, errori, qualsiasi cosa? Scrivimi pure qui : indie.walkabout.71@gmail.com "</string>
+    <string name="settings_support_btn_summary">Suggerimenti, bug, errori, qualsiasi cosa? Scrivimi pure qui : indie.walkabout.71@gmail.com </string>
     <string name="settings_support_btn_title">Supporto</string>
+
+    <!-- - - - - - - - - - - - - Notifications   - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="notification_nextdays_expiring_food_title">Hai cibo in scadenza nei PROSSIMI GIORNI</string>
+    <string name="notification_nextdays_expiring_body">Usa il link sotto per vedere la lista completa</string>
+    <string name="notification_today_expiring_food_title">OGGI hai dei prodotti che scadono</string>
+    <string name="notification_today_expiring_body">Usa il link sotto per vedere la lista completa</string>
+    <string name="notification_show_food_expiring_action_title">Mostrami i prodotti in scadenza</string>
+    <string name="notification_show_food_expiring_today_action_title">Mostrami i prodotti che scadono OGGI</string>
+    <string name="notification_dismiss_action_title">Ok</string>
+
+    <!-- - - - - - - - - - - - - - - - MENU LABEL   - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="menu_home_label_item">Home</string>
+    <string name="menu_wasted_label_item">Scaduto</string>
+    <string name="menu_consumed_label_item">Usato</string>
+    <string name="menu_expiring_label_item">Scade</string>
+    <string name="menu_add_label_item">NUOVO</string>
+
+    <!-- - - - - - - - - - - - - - - - - -  CREDITS - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="credits_btn_title">Attribuzioni</string>
+    <string name="credits_btn_summary">Guarda le attribuzioni qua</string>
+
+    <!-- - - - - - - - - - - - - Content description  - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="background_image">Immagine di sfondo</string>
+    <string name="app_logo_right">Logo app destro</string>
+    <string name="app_logo_left">Logo app sinistro</string>
+    <string name="app_logo">Logo app</string>
+    <string name="settings_icon">Icona impostazioni</string>
+
+    <!-- 🧹 DUPLICATES & UNUSED KEYS -->
+    <!--<string name="gdpr_btn_title">GDPR</string>
+    <string name="gdpr_btn_summary">Consenso GDPR</string>
+    <string name="credits_text" translatable="false">
+        &lt;b&gt;CREDITS &amp; ATTRIBUTIONS&lt;/b&gt;\n
+        &lt;b&gt;Idea&lt;/b&gt;\nGigliola Rocca\n\n
+        &lt;b&gt;Development and Design&lt;/b&gt;\nSimone Mapelli\n
+        &lt;a href='http://www.indie-walkabout.eu/'&gt; www.indie-walkabout.eu &lt;/a&gt;\n\n
+        &lt;b&gt;Attributions&lt;/b&gt;\n\n
+        Alarm clock in icons:\n
+        &lt;a href="https://www.freepik.com/free-photos-vectors/office"&gt;Office vector created by dooder - www.freepik.com&lt;/a&gt;\n\n
+        Fridge image:\n
+        &lt;a href="https://www.freepik.com/free-photos-vectors/food"&gt;Food vector created by freepik - www.freepik.com&lt;/a&gt;\n\n
+        Fruits images:\n
+        &lt;a href="https://vecteezy.com" rel="nofollow"&gt;Graphics Provided by www.Vecteezy.com&lt;/a&gt;\n\n
+        Background:\n
+        &lt;a href="https://www.freepik.com/free-photos-vectors/background"&gt;Background vector created by freepik - www.freepik.com&lt;/a&gt;\n
+    </string>
+    <string name="settings_support_btn_key" translatable="false">goto_support_btn_key</string>
+    <string name="app_package" translatable="false">eu.indiewalkabout.fridgemanager</string>
+    <string name="gdpr_btn_key" translatable="false">gdpr_withdraw</string>
+    <string name="credits_btn_key" translatable="false">credits</string>
+    <string name="confirm_dialog_string_settings_icon" translatable="false">confirm dialog @string/settings_icon</string>
+    <string name="settings_days_before_deadline_count" translatable="false">days_before_deadline</string>
+    <string name="settings_days_before_default" translatable="false">2</string>
+    <string name="settings_btn_key" translatable="false">notifications_settings</string>
+    <string name="settings_hours_freq_today_deadline_count" translatable="false">todays_howmany_each_hours</string>
+    <string name="settings_review_btn_key" translatable="false">app_review_btn_key</string>
+    <string name="settings_myapps_btn_key" translatable="false">goto_myapps_btn_key</string>
+    <string name="settings_today_hours_repeat_default" translatable="false">@string/settings_6_hours_value</string>
+
+    &lt;!&ndash; Hour labels (1–12) &ndash;&gt;
+    <string name="settings_1_hours_label" translatable="false">1</string>
+    <string name="settings_2_hours_label" translatable="false">2</string>
+    <string name="settings_3_hours_label" translatable="false">3</string>
+    <string name="settings_4_hours_label" translatable="false">4</string>
+    <string name="settings_5_hours_label" translatable="false">5</string>
+    <string name="settings_6_hours_label" translatable="false">6</string>
+    <string name="settings_7_hours_label" translatable="false">7</string>
+    <string name="settings_8_hours_label" translatable="false">8</string>
+    <string name="settings_9_hours_label" translatable="false">9</string>
+    <string name="settings_10_hours_label" translatable="false">10</string>
+    <string name="settings_11_hours_label" translatable="false">11</string>
+    <string name="settings_12_hours_label" translatable="false">12</string>
+
+    &lt;!&ndash; Hour values (1–12) &ndash;&gt;
+    <string name="settings_1_hours_value" translatable="false">1</string>
+    <string name="settings_2_hours_value" translatable="false">2</string>
+    <string name="settings_3_hours_value" translatable="false">3</string>
+    <string name="settings_4_hours_value" translatable="false">4</string>
+    <string name="settings_5_hours_value" translatable="false">5</string>
+    <string name="settings_6_hours_value" translatable="false">6</string>
+    <string name="settings_7_hours_value" translatable="false">7</string>
+    <string name="settings_8_hours_value" translatable="false">8</string>
+    <string name="settings_9_hours_value" translatable="false">9</string>
+    <string name="settings_10_hours_value" translatable="false">10</string>
+    <string name="settings_11_hours_value" translatable="false">11</string>
+    <string name="settings_12_hours_value" translatable="false">12</string>
+
+    <string name="banner_ad_unit_id" translatable="false">YOUR_BANNER_AD_UNIT_ID</string>-->
+
 </resources>
