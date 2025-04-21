@@ -72,7 +72,7 @@
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="@+id/app_title_img"
             app:layout_constraintTop_toBottomOf="@+id/app_title_img"
-            app:srcCompat="@drawable/ic_filter_vintage_white_24dp" />
+            app:srcCompat="@drawable/ic_flower_white" />
 
         <ImageView
             android:id="@+id/app_title_img"
@@ -84,14 +84,14 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/title_2048_white" />
+            app:srcCompat="@drawable/img_app_title" />
 
         <TextView
             android:id="@+id/newFoodLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/fredoka_one"
-            android:text="@string/app_name_subtitle"
+            android:text="@string/main_subtitle"
             android:textAlignment="center"
             android:textColor="@color/light_white_semitransparent"
             android:textSize="24sp"
@@ -154,7 +154,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/newFoodLabel"
-            app:srcCompat="@drawable/fridge_background" />
+            app:srcCompat="@drawable/fridge_foreground" />
 
         <TextView
             android:id="@+id/today_expiring_list_title"

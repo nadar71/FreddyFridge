@@ -9,8 +9,8 @@ object PreferenceUtility {
     // Get the count of days in advance for alerting for expiring foods
     fun getDaysCount(context: Context): Int {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val key = context.getString(R.string.days_before_deadline_count)
-        val default_value = context.getString(R.string.days_before_default)    // the default num days values
+        val key = context.getString(R.string.settings_days_before_deadline_count)
+        val default_value = context.getString(R.string.settings_days_before_default)    // the default num days values
         val daysBefore_s = prefs.getString(key, default_value)
         return Integer.parseInt(daysBefore_s!!)
     }
@@ -29,8 +29,8 @@ object PreferenceUtility {
         Log.d(TAG, "getHoursCount: context.getString(R.string.today_hours_repeat_default) : "+context.getString(R.string.today_hours_repeat_default));
         int hoursFreq = prefs.getInt(key, default_value);
         */
-        val key = context.getString(R.string.hours_freq_today_deadline_count)
-        val default_value = context.getString(R.string.today_hours_repeat_default)   // the default num days values
+        val key = context.getString(R.string.settings_hours_freq_today_deadline_count)
+        val default_value = context.getString(R.string.settings_today_hours_repeat_default)   // the default num days values
         val hoursFreq_s = prefs.getString(key, default_value)
         return Integer.parseInt(hoursFreq_s!!)
     }

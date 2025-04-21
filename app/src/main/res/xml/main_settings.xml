@@ -7,29 +7,29 @@
     <PreferenceCategory
         android:textColor="@color/brown"
         android:textStyle="bold"
-        android:title="@string/category_settings_title"
+        android:title="@string/settings_category_title"
         app:iconSpaceReserved="false">
 
 
         <EditTextPreference
             android:layout_width="wrap_content"
             android:background="@drawable/rounded_rect_light_grey_today"
-            android:key="@string/days_before_deadline_count"
+            android:key="@string/settings_days_before_deadline_count"
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            android:summary="@string/how_many_days_before_label"
-            android:title="@string/how_many_days_before_title"
+            android:summary="@string/settings_how_many_days_before_label"
+            android:title="@string/settings_how_many_days_before_title"
             app:defaultValue="2"
             app:iconSpaceReserved="false" />
 
         <ListPreference
             android:background="@drawable/rounded_rect_light_grey_today"
-            android:defaultValue="@string/today_hours_repeat_default"
+            android:defaultValue="@string/settings_today_hours_repeat_default"
             android:entries="@array/hours_freq_labels"
             android:entryValues="@array/hours_freq_values"
-            android:key="@string/hours_freq_today_deadline_count"
-            android:summary="@string/how_many_hours_label"
-            android:title="@string/how_many_hours_title"
+            android:key="@string/settings_hours_freq_today_deadline_count"
+            android:summary="@string/settings_how_many_hours_label"
+            android:title="@string/settings_how_many_hours_title"
             app:iconSpaceReserved="false" />
 
     </PreferenceCategory>
@@ -38,7 +38,7 @@
     <PreferenceCategory
         android:textColor="@color/brown"
         android:textStyle="bold"
-        android:title="@string/category_help_title"
+        android:title="@string/settings_category_help_title"
         app:iconSpaceReserved="false">
 
         <Preference
@@ -54,28 +54,28 @@
             app:iconSpaceReserved="false" />
 
         <Preference
-            android:key="@string/app_settings_btn_key"
-            android:summary="@string/goto_app_settings_description"
-            android:title="@string/goto_app_settings_title"
+            android:key="@string/settings_btn_key"
+            android:summary="@string/settings_goto_system_app_settings_label"
+            android:title="@string/settings_goto_system_app_settings_title"
             app:iconSpaceReserved="false" />
 
         <Preference
-            android:key="@string/review_btn_key"
-            android:summary="@string/review_btn_summary"
-            android:title="@string/review_btn_title"
+            android:key="@string/settings_review_btn_key"
+            android:summary="@string/settings_review_btn_summary"
+            android:title="@string/settings_review_btn_title"
             app:iconSpaceReserved="false" />
 
         <Preference
-            android:key="@string/myapps_btn_key"
-            android:summary="@string/myapps_btn_summary"
-            android:title="@string/myapps_btn_title"
+            android:key="@string/settings_myapps_btn_key"
+            android:summary="@string/settings_myapps_btn_summary"
+            android:title="@string/settings_myapps_btn_title"
             app:iconSpaceReserved="false" />
 
 
         <Preference
-            android:key="@string/support_btn_key"
-            android:summary="@string/support_btn_summary"
-            android:title="@string/support_btn_title"
+            android:key="@string/settings_support_btn_key"
+            android:summary="@string/settings_support_btn_summary"
+            android:title="@string/settings_support_btn_title"
             app:iconSpaceReserved="false" />
 
 

@@ -63,8 +63,8 @@ object NotificationsUtility {
 
         createNotificationsChannel(
             FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_CHANNEL_ID,
-                context.getString(R.string.nextdays_expiring_notification_channel_name),
-                context.getString(R.string.nextdays_expiring_notification_channel_name),
+                context.getString(R.string.notification_nextdays_expiring_channel_name),
+                context.getString(R.string.notification_nextdays_expiring_channel_name),
                 notificationManager)
 
         // create data visualization string
@@ -74,10 +74,10 @@ object NotificationsUtility {
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 .setSmallIcon(R.drawable.nextdays_notifications)
                 .setLargeIcon(largeIcon(context))
-                .setContentTitle(context.getString(R.string.nextdays_expiring_food_notification_title))
+                .setContentTitle(context.getString(R.string.notification_nextdays_expiring_food_title))
                 .setContentText(notificationsText)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(
-                        context.getString(R.string.nextdays_expiring_notification_body)))
+                        context.getString(R.string.notification_nextdays_expiring_body)))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent(context)) // link a pending intent to notification
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -99,7 +99,7 @@ object NotificationsUtility {
                 listString += item.name + ", "
             }
         } else {
-            listString = context.getString(R.string.nextdays_expiring_notification_body)
+            listString = context.getString(R.string.notification_nextdays_expiring_body)
         }
         return listString
     }
@@ -112,8 +112,8 @@ object NotificationsUtility {
 
         createNotificationsChannel(
             FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID,
-                context.getString(R.string.today_expiring_notification_channel_name),
-                context.getString(R.string.today_expiring_notification_channel_name),
+                context.getString(R.string.notification_today_expiring_channel_name),
+                context.getString(R.string.notification_today_expiring_channel_name),
                 notificationManager)
 
         // create data visualization string
@@ -124,10 +124,10 @@ object NotificationsUtility {
                 .setSmallIcon(R.drawable.today_notifications)
                 .setLargeIcon(largeIcon(context))
 
-                .setContentTitle(context.getString(R.string.today_expiring_food_notification_title))
+                .setContentTitle(context.getString(R.string.notification_today_expiring_food_title))
                 .setContentText(notificationsText)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(
-                        context.getString(R.string.today_expiring_notification_body)))
+                        context.getString(R.string.notification_today_expiring_body)))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent(context))  // link a pending intent to notification
                 // .addAction(showFoodExpiringTodayAction(context))
@@ -160,7 +160,7 @@ object NotificationsUtility {
                 listString += item.name + ", "
             }
         } else {
-            listString = context.getString(R.string.today_expiring_notification_body)
+            listString = context.getString(R.string.notification_today_expiring_body)
         }
         return listString
     }
@@ -178,7 +178,7 @@ object NotificationsUtility {
                 PendingIntent.FLAG_UPDATE_CURRENT)
 
         return NotificationCompat.Action(R.drawable.ic_warning_green_24dp,
-                context.getString(R.string.dismiss_notification_action_title),
+                context.getString(R.string.notification_dismiss_action_title),
                 ignoreReminderPendingIntent)
     }
 

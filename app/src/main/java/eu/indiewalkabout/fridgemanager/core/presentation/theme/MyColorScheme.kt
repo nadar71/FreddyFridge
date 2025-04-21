@@ -1,4 +1,4 @@
-package com.triberunclub.tribe.core.presentation.theme
+package eu.indiewalkabout.fridgemanager.core.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

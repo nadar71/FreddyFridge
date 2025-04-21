@@ -28,9 +28,9 @@ import androidx.constraintlayout.compose.Dimension.Companion.fillToConstraints
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
-import com.triberunclub.tribe.core.presentation.theme.text_14
-import com.triberunclub.tribe.core.presentation.theme.text_26
 import eu.indiewalkabout.fridgemanager.core.presentation.components.RoundedCornerButton
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_14
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_26
 import kotlinx.coroutines.launch
 
 

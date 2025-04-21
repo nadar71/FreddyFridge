@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.triberunclub.tribe.core.presentation.theme.text_14
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_14
 
 
 // TODO : customize
