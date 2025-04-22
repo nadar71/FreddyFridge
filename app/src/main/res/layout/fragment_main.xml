@@ -112,7 +112,7 @@
             app:layout_constraintHorizontal_bias="0.55"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/fridge_logo"
-            app:srcCompat="@drawable/main_logo_left" />
+            app:srcCompat="@drawable/food_left" />
 
 
         <ImageView
@@ -128,7 +128,7 @@
             app:layout_constraintHorizontal_bias="0.45"
             app:layout_constraintStart_toStartOf="@+id/fridge_logo"
             app:layout_constraintTop_toTopOf="@+id/fridge_logo"
-            app:srcCompat="@drawable/main_logo_right" />
+            app:srcCompat="@drawable/food_right" />
 
 
         <ImageView

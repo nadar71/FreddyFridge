@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,11 +24,14 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_18
 
 @Composable
 fun TopBar(
-    showLeftIcon: Boolean = true,
-    showRightIcon: Boolean = true,
-    title: String = ""
+    showLeftIcon: Boolean? = true,
+    showRightIcon: Boolean? = true,
+    leftIconColor: Color = LocalAppColors.current.iconColor,
+    rightIconColor: Color = LocalAppColors.current.iconColor,
+    title: String = "",
+    titleColor: Color = LocalAppColors.current.colorText
 ) {
-    val colors = LocalAppColors.current
+
 
     Row(
         modifier = Modifier
@@ -35,29 +39,33 @@ fun TopBar(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
-            imageVector = Icons.Default.HelpOutline,
-            contentDescription = stringResource(R.string.help_icon),
-            modifier = Modifier
-                .size(28.dp)
-                .clickable { /* Handle help */ },
-            tint = colors.iconColor
-        )
+        if (showLeftIcon == true) {
+            Icon(
+                imageVector = Icons.Default.HelpOutline,
+                contentDescription = stringResource(R.string.help_icon),
+                modifier = Modifier
+                    .size(28.dp)
+                    .clickable { /* Handle help */ },
+                tint = leftIconColor
+            )
+        }
 
         Text(
             text = title,
             fontFamily = Fredoka,
-            style = text_18(colors.colorText, true),
+            style = text_18(titleColor, true),
         )
 
-        Icon(
-            imageVector = Icons.Default.Settings,
-            contentDescription = stringResource(R.string.settings_icon),
-            modifier = Modifier
-                .size(28.dp)
-                .clickable { /* Handle settings */ },
-            tint = colors.iconColor
-        )
+        if (showRightIcon == true) {
+            Icon(
+                imageVector = Icons.Default.Settings,
+                contentDescription = stringResource(R.string.settings_icon),
+                modifier = Modifier
+                    .size(28.dp)
+                    .clickable { /* Handle settings */ },
+                tint = rightIconColor
+            )
+        }
     }
 }
 
@@ -65,5 +73,5 @@ fun TopBar(
 @Composable
 @Preview
 private fun TopBarPreview() {
-    TopBar()
+    TopBar(title ="Titolo", titleColor = LocalAppColors.current.brown)
 }
