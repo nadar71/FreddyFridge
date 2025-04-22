@@ -1,5 +1,8 @@
 package eu.indiewalkabout.fridgemanager.presentation.ui.intromain
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -20,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
@@ -31,6 +37,7 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_18
 import eu.indiewalkabout.fridgemanager.presentation.components.TopBar
+import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen() {
@@ -76,7 +83,9 @@ fun MainScreen() {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Box(
+                AnimatedFoodBox()
+
+                /*Box(
                     modifier = Modifier
                         .height(120.dp)
                         .padding(vertical = 12.dp)
@@ -123,8 +132,7 @@ fun MainScreen() {
                             .fillMaxSize()
                             .align(Alignment.Center)
                     )
-                }
-
+                }*/
 
                 // List Section Title
                 Text(
@@ -144,6 +152,86 @@ fun MainScreen() {
         }
     }
 
+}
+
+
+@Composable
+fun AnimatedFoodBox() {
+    val foodLeftOffsetX = remember { Animatable(-350f) } // Start off-screen to the left
+    val foodRightOffsetX = remember { Animatable(350f) } // Start off-screen to the right
+
+    LaunchedEffect(key1 = true) {
+        // Launch both animations in parallel
+        launch {
+            foodLeftOffsetX.animateTo(
+                targetValue = -5f,
+                animationSpec = tween(
+                    durationMillis = 1500,
+                    easing = FastOutSlowInEasing
+                )
+            )
+        }
+
+        launch {
+            foodRightOffsetX.animateTo(
+                targetValue = 20f,
+                animationSpec = tween(
+                    durationMillis = 1500,
+                    easing = FastOutSlowInEasing
+                )
+            )
+        }
+    }
+
+
+    Box(
+        modifier = Modifier
+            .height(120.dp)
+            .padding(vertical = 12.dp)
+    ) {
+
+        // Food Left (Behind)
+        Image(
+            painter = painterResource(id = R.drawable.food_left),
+            contentDescription = "Food Left",
+            modifier = Modifier
+                .padding(end = 30.dp)
+                .height(80.dp)
+                .offset { IntOffset(foodLeftOffsetX.value.toInt(), 0) }
+                .align(Alignment.CenterStart),
+            contentScale = ContentScale.FillHeight
+        )
+
+        // Food Right (Behind)
+        Image(
+            painter = painterResource(id = R.drawable.food_right),
+            contentDescription = "Food Right",
+            modifier = Modifier
+                .padding(end = 20.dp)
+                .height(80.dp)
+                .offset { IntOffset(foodRightOffsetX.value.toInt(), 0) }
+                .align(Alignment.CenterEnd),
+            contentScale = ContentScale.FillHeight
+        )
+
+        // Fridge Background (Middle)
+        Image(
+            painter = painterResource(id = R.drawable.fridge_background_white),
+            contentDescription = "Fridge Background",
+            modifier = Modifier
+                .fillMaxSize()
+                .align(Alignment.Center)
+        )
+
+        // Fridge Foreground (Middle)
+        Image(
+            painter = painterResource(id = R.drawable.fridge_foreground),
+            contentDescription = "Fridge Foreground",
+            modifier = Modifier
+                .fillMaxSize()
+                .align(Alignment.Center)
+        )
+    }
 }
 
 @Preview
