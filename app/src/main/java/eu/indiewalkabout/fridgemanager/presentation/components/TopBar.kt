@@ -12,8 +12,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 
 @Composable
@@ -28,7 +30,7 @@ fun TopBar() {
     ) {
         Icon(
             imageVector = Icons.Default.HelpOutline,
-            contentDescription = "Help",
+            contentDescription = stringResource(R.string.help_icon),
             modifier = Modifier
                 .size(28.dp)
                 .clickable { /* Handle help */ },
@@ -36,7 +38,7 @@ fun TopBar() {
         )
         Icon(
             imageVector = Icons.Default.Settings,
-            contentDescription = "Settings",
+            contentDescription = stringResource(R.string.settings_icon),
             modifier = Modifier
                 .size(28.dp)
                 .clickable { /* Handle settings */ },

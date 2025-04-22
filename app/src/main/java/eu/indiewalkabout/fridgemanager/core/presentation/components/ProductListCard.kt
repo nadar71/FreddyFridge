@@ -13,16 +13,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 
 @Composable
 fun ProductListCard(
     modifier: Modifier = Modifier,
-    message: String = "Nessun prodotto in scadenza per oggi!"
+    message: String = stringResource(R.string.no_food_todays)
 ) {
     val colors = LocalAppColors.current
 

@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -63,7 +64,7 @@ fun MainScreen() {
 
                 // subtitle
                 Text(
-                    text = "Zero Sprechi!",
+                    text = stringResource(R.string.main_subtitle),
                     style = text_18(colors.colorText, true),
                 )
 
@@ -89,7 +90,7 @@ fun MainScreen() {
 
                 // List Section Title
                 Text(
-                    text = "Prodotti in scadenza oggi :",
+                    text = stringResource(R.string.main_list_title),
                     style = text_16(colors.colorText, true),
                     textAlign = TextAlign.Center,
                     modifier = Modifier

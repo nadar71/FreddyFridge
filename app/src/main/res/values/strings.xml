@@ -77,6 +77,8 @@
     <string name="settings_support_btn_key" translatable="false">goto_support_btn_key</string>
     <string name="settings_support_btn_summary">Suggestions, bugs, errors, whatever? drop a line  here please : indie.walkabout.71@gmail.com</string>
     <string name="settings_support_btn_title">Support</string>
+    <string name="gdpr_btn_title">GDPR</string>
+    <string name="gdpr_btn_summary">GDPR Consent</string>
 
     <!-- - - - - - - - - - - - - Notifications   - - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="notification_nextdays_expiring_food_title">NEXT DAYS Expiring Foods found, check. </string>
@@ -93,10 +95,10 @@
 
     <!-- - - - - - - - - - - - - - - - MENU LABEL   - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="menu_home_label_item">Home</string>
-    <string name="menu_wasted_label_item">Wasted</string>
-    <string name="menu_consumed_label_item">Eaten</string>
+    <string name="menu_expired_label_item">Expired</string>
+    <string name="menu_consumed_label_item">Consumed</string>
     <string name="menu_expiring_label_item">Expiring</string>
-    <string name="menu_add_label_item">NEW</string>
+    <string name="menu_add_label_item">ADD</string>
 
 
     <!-- - - - - - - - - - - - - - - - - -  CREDITS - - - - - - - - - - - - - - - - - - - - - - -->
@@ -137,6 +139,13 @@
     <string name="app_logo_left">app logo left</string>
     <string name="app_logo">app logo</string>
     <string name="settings_icon">settings icon</string>
+    <string name="help_icon">help icon</string>
+    <string name="content_menu_home_label_item">Icon Home</string>
+    <string name="content_menu_expired_label_item">Icon Expired food</string>
+    <string name="content_menu_consumed_label_item">Icon Consumed food</string>
+    <string name="content_menu_expiring_label_item">Icon Expiring food</string>
+    <string name="content_menu_add_label_item">Icon ADD food</string>
+
 
     <!-- - - - - - - - - - - - - - -  NOT TRANSLATABLE - - - - - - - - - - - - - - - - - - - - - -->
     <string name="app_package" translatable="false">eu.indiewalkabout.fridgemanager</string>

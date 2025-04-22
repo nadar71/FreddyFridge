@@ -77,10 +77,10 @@
 
     <!-- - - - - - - - - - - - - - - - MENU LABEL   - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="menu_home_label_item">Home</string>
-    <string name="menu_wasted_label_item">Scaduto</string>
-    <string name="menu_consumed_label_item">Usato</string>
-    <string name="menu_expiring_label_item">Scade</string>
-    <string name="menu_add_label_item">NUOVO</string>
+    <string name="menu_expired_label_item">Scaduto</string>
+    <string name="menu_consumed_label_item">Consumato</string>
+    <string name="menu_expiring_label_item">In Scadenza</string>
+    <string name="menu_add_label_item">AGGIUNGI</string>
 
     <!-- - - - - - - - - - - - - - - - - -  CREDITS - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="credits_btn_title">Attribuzioni</string>
@@ -92,11 +92,17 @@
     <string name="app_logo_left">Logo app sinistro</string>
     <string name="app_logo">Logo app</string>
     <string name="settings_icon">Icona impostazioni</string>
+    <string name="help_icon">Icona Help</string>
+    <string name="content_menu_home_label_item">Icona Cibo Home</string>
+    <string name="content_menu_expired_label_item">Icona Cibo Scaduto</string>
+    <string name="content_menu_consumed_label_item">Icona Cibo Consumato</string>
+    <string name="content_menu_expiring_label_item">Icona Cibo In Scadenza</string>
+    <string name="content_menu_add_label_item">Icona AGGIUNGI Cibo</string>
 
     <!-- 🧹 DUPLICATES & UNUSED KEYS -->
-    <!--<string name="gdpr_btn_title">GDPR</string>
+    <string name="gdpr_btn_title">GDPR</string>
     <string name="gdpr_btn_summary">Consenso GDPR</string>
-    <string name="credits_text" translatable="false">
+    <!--<string name="credits_text" translatable="false">
         &lt;b&gt;CREDITS &amp; ATTRIBUTIONS&lt;/b&gt;\n
         &lt;b&gt;Idea&lt;/b&gt;\nGigliola Rocca\n\n
         &lt;b&gt;Development and Design&lt;/b&gt;\nSimone Mapelli\n
