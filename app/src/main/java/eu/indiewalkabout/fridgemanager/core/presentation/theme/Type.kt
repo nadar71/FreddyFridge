@@ -4,10 +4,12 @@ package eu.indiewalkabout.fridgemanager.core.presentation.theme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
+import eu.indiewalkabout.fridgemanager.R
 
 
 val fontSize_title_16_txt: TextUnit
@@ -52,10 +54,27 @@ val Typography = androidx.compose.material3.Typography(
 
 
 
+// fonts
+// Font families
+val Fredoka = FontFamily(
+    Font(R.font.fredoka_light, FontWeight.Light),
+    Font(R.font.fredoka_regular, FontWeight.Normal),
+    Font(R.font.fredoka_bold, FontWeight.Bold),
+    Font(R.font.fredoka_medium, FontWeight.Medium),
+    Font(R.font.fredoka_semibold, FontWeight.SemiBold)
+)
+
+val QuickSand = FontFamily(
+    Font(R.font.quicksand, FontWeight.Normal),
+    Font(R.font.quicksand, FontWeight.Medium),
+    Font(R.font.quicksand,FontWeight.Bold),
+    Font(R.font.quicksand, FontWeight.Light),
+)
 
 
 
 
+// text styles
 
 @Composable
 fun text_26(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
