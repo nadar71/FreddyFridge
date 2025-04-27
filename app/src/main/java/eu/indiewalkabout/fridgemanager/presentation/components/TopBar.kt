@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import eu.indiewalkabout.fridgemanager.R
@@ -28,6 +29,8 @@ fun TopBar(
     showRightIcon: Boolean? = true,
     leftIconColor: Color = LocalAppColors.current.iconColor,
     rightIconColor: Color = LocalAppColors.current.iconColor,
+    onLeftIconClick: () -> Unit = {},
+    onRightIconClick: () -> Unit = {},
     title: String = "",
     titleColor: Color = LocalAppColors.current.colorText
 ) {
@@ -45,7 +48,7 @@ fun TopBar(
                 contentDescription = stringResource(R.string.help_icon),
                 modifier = Modifier
                     .size(28.dp)
-                    .clickable { /* Handle help */ },
+                    .clickable { onLeftIconClick() },
                 tint = leftIconColor
             )
         }
@@ -54,6 +57,8 @@ fun TopBar(
             text = title,
             fontFamily = Fredoka,
             style = text_18(titleColor, true),
+            textAlign = TextAlign.Center,
+            modifier = Modifier.weight(1f)
         )
 
         if (showRightIcon == true) {
@@ -62,7 +67,7 @@ fun TopBar(
                 contentDescription = stringResource(R.string.settings_icon),
                 modifier = Modifier
                     .size(28.dp)
-                    .clickable { /* Handle settings */ },
+                    .clickable { onRightIconClick() },
                 tint = rightIconColor
             )
         }
@@ -73,5 +78,23 @@ fun TopBar(
 @Composable
 @Preview
 private fun TopBarPreview() {
-    TopBar(title ="Titolo", titleColor = LocalAppColors.current.brown)
+    TopBar(title = "Titolo", titleColor = LocalAppColors.current.brown)
+}
+
+@Composable
+@Preview
+private fun TopBarPreviewNoLeft() {
+    TopBar(showLeftIcon = false, title = "Titolo", titleColor = LocalAppColors.current.brown)
+}
+
+@Composable
+@Preview
+private fun TopBarPreviewNoRight() {
+    TopBar(showRightIcon = false, title = "Titolo", titleColor = LocalAppColors.current.brown)
+}
+
+@Composable
+@Preview
+private fun TopBarPreviewNoIcons() {
+    TopBar(showLeftIcon = false, showRightIcon = false, title = "Titolo", titleColor = LocalAppColors.current.brown)
 }

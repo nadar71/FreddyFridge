@@ -2,6 +2,7 @@ package eu.indiewalkabout.fridgemanager.core.domain.navigation
 
 object NavigationScreenConstants {
     val MAIN_SCREEN = "MainScreen"
+    // val INTRO_SCREEN = "intro_screen"
     val INSERT_FOOD_SCREEN = "insert_food_screen"
     val FOOD_EXPIRING_SCREEN = "food_expiring_screen"
     val FOOD_EXPIRED_SCREEN = "food_expired_screen"

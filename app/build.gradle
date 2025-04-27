@@ -21,6 +21,7 @@ plugins {
 
 
 android {
+    namespace 'eu.indiewalkabout.fridgemanager'
     compileSdkVersion 35
     defaultConfig {
         applicationId "eu.indiewalkabout.fridgemanager"
@@ -38,6 +39,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -56,6 +61,22 @@ android {
             dimension "FreddyFridge"
             resValue "string", "app_name", "FreddyFridge Test !"
             applicationIdSuffix ".testing"
+        }
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs += ['src/main/java', 'src/main/kotlin']
+        }
+        myTesting {
+            java.srcDirs += ['src/main/java', 'src/main/kotlin']
+            res.srcDirs += 'src/main/res'
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+        }
+        production {
+            java.srcDirs += ['src/main/java', 'src/main/kotlin']
+            res.srcDirs += 'src/main/res'
+            manifest.srcFile 'src/main/AndroidManifest.xml'
         }
     }
 
@@ -86,7 +107,6 @@ android {
             unitTests.returnDefaultValues = true
         }
     }
-    namespace 'eu.indiewalkabout.fridgemanager'
     buildFeatures {
         viewBinding true
     }

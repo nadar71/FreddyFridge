@@ -33,6 +33,10 @@ fun NavigationGraph(
             MainScreen()
         }
 
+        /*composable(route = AppDestinationRoutes.IntroScreen.route) {
+            IntroScreen()
+        }*/
+
         composable(route = AppDestinationRoutes.InsertFoodScreen.route) {
             InsertFoodScreen()
         }

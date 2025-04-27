@@ -1,6 +1,5 @@
 package eu.indiewalkabout.fridgemanager.presentation.ui.tutorials
 
-import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -37,9 +36,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnBoardingScreenOverlay(
-    context: Context? = null,
-    onSkip: () -> Unit,
-    onContinue: () -> Unit
+    onSkip: () -> Unit = {},
+    onContinue: () -> Unit = {}
 ) {
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()

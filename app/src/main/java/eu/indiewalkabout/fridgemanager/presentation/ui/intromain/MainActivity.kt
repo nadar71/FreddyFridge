@@ -3,7 +3,9 @@ package eu.indiewalkabout.fridgemanager.presentation.ui.intromain
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
+import dagger.hilt.android.HiltAndroidApp
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
+
 
 
 class MainActivity : AppCompatActivity()  {
@@ -178,7 +180,7 @@ class MainActivity : AppCompatActivity()  {
     /*fun testNotification(view: View?) {
         lateinit var foodEntriesNextDays: List<FoodEntry>
         CoroutineScope(Dispatchers.Main).launch {
-            val repository = (FreddyFridgeApplication.getsContext() as FreddyFridgeApplication).repository
+            val repository = (eu.indiewalkabout.fridgemanager.FreddyFridgeApplication.getsContext() as eu.indiewalkabout.fridgemanager.FreddyFridgeApplication).repository
             val dataNormalizedAtMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(
                 DateUtility.normalizedUtcMsForToday
             )
@@ -207,7 +209,7 @@ class MainActivity : AppCompatActivity()  {
             )
             val previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS
             val nextDayDate = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS
-            val repository = (FreddyFridgeApplication.getsContext() as FreddyFridgeApplication).repository
+            val repository = (eu.indiewalkabout.fridgemanager.FreddyFridgeApplication.getsContext() as eu.indiewalkabout.fridgemanager.FreddyFridgeApplication).repository
             foodEntriesToDay =
                 repository!!.loadFoodExpiringToday_no_livedata(previousDayDate, nextDayDate)
 

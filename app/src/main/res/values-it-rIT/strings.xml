@@ -43,7 +43,7 @@
     <!-- - - - - - - - - - - - - - - - - - SETTINGS - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="settings_title">Impostazioni</string>
     <string name="settings_menu_item">Impostazioni</string>
-    <string name="settings_category_title">Impostazioni</string>
+    <string name="settings_category_title">Impostazioni Notifiche</string>
     <string name="settings_category_help_title">Aiuto</string>
     <string name="settings_how_many_days_before_title">Notifica cibo in scadenza tra giorni :</string>
     <string name="settings_how_many_days_before_label">Quanti GIORNI prima</string>

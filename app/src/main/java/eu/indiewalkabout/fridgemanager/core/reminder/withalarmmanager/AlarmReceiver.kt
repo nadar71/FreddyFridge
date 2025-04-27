@@ -29,7 +29,7 @@ class AlarmReceiver @Inject constructor(
     private val DAYS_BEFORE = TimeUnit.DAYS.toSeconds(days.toLong()).toInt()
 
     // get repository
-    //private val repository = (FreddyFridgeApplication.getsContext() as FreddyFridgeApplication).repository
+    //private val repository = (eu.indiewalkabout.fridgemanager.FreddyFridgeApplication.getsContext() as eu.indiewalkabout.fridgemanager.FreddyFridgeApplication).repository
 
 
     override fun onReceive(context: Context, intent: Intent) {

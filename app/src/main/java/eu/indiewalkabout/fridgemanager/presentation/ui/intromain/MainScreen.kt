@@ -16,7 +16,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -28,6 +31,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import eu.indiewalkabout.fridgemanager.R
+import eu.indiewalkabout.fridgemanager.core.domain.navigation.AppDestinationRoutes
+import eu.indiewalkabout.fridgemanager.core.domain.navigation.AppNavigation.navigate
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BottomNavigationBar
 import eu.indiewalkabout.fridgemanager.core.presentation.components.ProductListCard
@@ -35,13 +40,20 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.Fredoka
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_18
 import eu.indiewalkabout.fridgemanager.presentation.components.TopBar
+import eu.indiewalkabout.fridgemanager.presentation.ui.tutorials.OnBoardingScreenOverlay
 import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen() {
     val colors = LocalAppColors.current
+
+    var showOnBoarding by remember { mutableStateOf(false) }
+
+    if (showOnBoarding) {
+        OnBoardingScreenOverlay()
+    }
+
 
     Scaffold(
         bottomBar = {
@@ -61,8 +73,8 @@ fun MainScreen() {
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                TopBar()
-                Spacer(modifier = Modifier.height(8.dp))
+
+
 
                 // title
                 Image(
@@ -72,13 +84,15 @@ fun MainScreen() {
                         .height(80.dp)
                         .padding(vertical = 8.dp)
                 )
-
-                // subtitle
-                Text(
-                    text = stringResource(R.string.main_subtitle),
-                    fontFamily = Fredoka,
-                    fontWeight = FontWeight.SemiBold,
-                    style = text_18(colors.colorText, true),
+                Spacer(modifier = Modifier.height(8.dp))
+                TopBar(
+                    title = stringResource(R.string.main_subtitle),
+                    onLeftIconClick = {
+                        showOnBoarding = true
+                    },
+                    onRightIconClick = {
+                        navigate(AppDestinationRoutes.SettingsScreen.route)
+                    }
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))

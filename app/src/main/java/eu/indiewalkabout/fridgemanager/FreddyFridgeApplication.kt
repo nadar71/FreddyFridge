@@ -11,8 +11,7 @@ import eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmRemin
 // Class used for access singletons and application context wherever in the app
 // NB : register in manifest in <Application android:name=".App">... </Application>
 @HiltAndroidApp
-class FreddyFridgeApplication
-    : Application(), Configuration.Provider {
+class FreddyFridgeApplication : Application(), Configuration.Provider {
     companion object {
         private var sContext: Context? = null
         // Return application context wherever we are in the app

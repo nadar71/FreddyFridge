@@ -11,6 +11,7 @@ import eu.indiewalkabout.fridgemanager.core.domain.navigation.NavigationScreenCo
 sealed class AppDestinationRoutes(var name:String, var route:String) {
 
     object MainScreen : AppDestinationRoutes("MainScreen", MAIN_SCREEN )
+    // object IntroScreen : AppDestinationRoutes("IntroScreen", INTRO_SCREEN )
     object InsertFoodScreen : AppDestinationRoutes("InsertFoodScreen", INSERT_FOOD_SCREEN)
     object FoodExpiringScreen : AppDestinationRoutes("FoodExpiringScreen", FOOD_EXPIRING_SCREEN)
     object FoodExpiredScreen : AppDestinationRoutes("FoodExpiredScreen", FOOD_EXPIRED_SCREEN)

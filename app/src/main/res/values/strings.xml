@@ -49,7 +49,7 @@
     <!-- - - - - - - - - - - - - - - - - - SETTINGS - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="settings_title">Settings</string>
     <string name="settings_menu_item">Settings</string>
-    <string name="settings_category_title">Settings</string>
+    <string name="settings_category_title">Notifications Setting</string>
     <string name="settings_category_help_title">Help</string>
 
     <string name="settings_how_many_days_before_title">Days Before product-deadline notifications :</string>
