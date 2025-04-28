@@ -10,12 +10,14 @@
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
 
     <application
-        android:name="eu.indiewalkabout.fridgemanager.FreddyFridgeApplication"
-        android:allowBackup="true"
+        android:name=".FreddyFridgeApp"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true"
+        tools:targetApi="31">
 
         <!--
             Adding this meta data is required as of Google Mobile Ads SDK version 17.0.0 as explained in
@@ -55,7 +57,8 @@
         <receiver
             android:name=".core.reminder.withalarmmanager.AlarmReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true">
+        </receiver>
     </application>
 
 </manifest>

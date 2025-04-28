@@ -1,10 +1,3 @@
-/*apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-// apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-parcelize'
-apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: 'com.google.devtools.ksp'*/
-
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
@@ -13,16 +6,10 @@ plugins {
     id 'com.google.devtools.ksp'
 }
 
-/*plugins {
-    id("com.google.dagger.hilt.android")
-}*/
-
-
-
-
 android {
     namespace 'eu.indiewalkabout.fridgemanager'
     compileSdkVersion 35
+
     defaultConfig {
         applicationId "eu.indiewalkabout.fridgemanager"
         minSdkVersion 23
@@ -32,10 +19,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
-    }
-
-    buildFeatures {
-        buildConfig true  // Add this line
     }
 
     buildTypes {
@@ -56,7 +39,6 @@ android {
             dimension "FreddyFridge"
             resValue "string", "app_name", "FreddyFridge !"
         }
-
         myTesting {
             dimension "FreddyFridge"
             resValue "string", "app_name", "FreddyFridge Test !"
@@ -64,21 +46,6 @@ android {
         }
     }
 
-    sourceSets {
-        main {
-            java.srcDirs += ['src/main/java', 'src/main/kotlin']
-        }
-        myTesting {
-            java.srcDirs += ['src/main/java', 'src/main/kotlin']
-            res.srcDirs += 'src/main/res'
-            manifest.srcFile 'src/main/AndroidManifest.xml'
-        }
-        production {
-            java.srcDirs += ['src/main/java', 'src/main/kotlin']
-            res.srcDirs += 'src/main/res'
-            manifest.srcFile 'src/main/AndroidManifest.xml'
-        }
-    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -89,81 +56,61 @@ android {
         jvmTarget = JavaVersion.VERSION_17
     }
 
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+        buildConfig true
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = '2.1.0' // Matches your Kotlin
+    }
+
     lintOptions {
         abortOnError false
-    }
-
-    dataBinding {
-        enabled true
-    }
-
-    viewBinding {
-        enabled true
     }
 
     testOptions {
         unitTests {
             includeAndroidResources = true
-            unitTests.returnDefaultValues = true
+            returnDefaultValues = true
         }
     }
-    buildFeatures {
-        viewBinding true
+
+    dexOptions {
+        javaMaxHeapSize "4g" // 4 GB for dexing
     }
 }
 
-
-
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "androidx.appcompat:appcompat:$appcompat_vers"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_vers"
-    implementation "androidx.legacy:legacy-support-core-utils:$legacy_support_vers"
-    implementation "com.google.android.material:material:$material_vers"
+
+
+    // Core
+    implementation "androidx.appcompat:appcompat:1.7.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.2.1"
+    implementation "androidx.legacy:legacy-support-core-utils:1.0.0"
+    implementation "com.google.android.material:material:1.12.0"
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.24"
-    implementation "androidx.navigation:navigation-fragment-ktx:$kotlin_nav_frag_vers"
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$vm_lifecycle_vers"
-
-
-    // Room dependencies
-    implementation "androidx.room:room-runtime:$room_vers"
-    implementation 'androidx.concurrent:concurrent-listenablefuture-callback:1.0.0-beta01'
-    implementation "androidx.room:room-ktx:$room_vers"
-    implementation 'com.google.android.gms:play-services-ads-lite:24.0.0'
-    // annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
-    ksp "androidx.room:room-compiler:$room_vers"
-
-    // LiveData dependencies
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_vers"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_vers"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_ext_vers"
-
-    // JobService
-    // implementation "com.firebase:firebase-jobdispatcher:$jobdispatcher_vers"
-
-    // gson
-    implementation 'com.google.code.gson:gson:gsonVersion'
-
-    // Ads through  Playservices : it gives me problem....
-    // implementation "com.google.android.gms:play-services-ads:$play_services_ads_vers"
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.8.7"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.8.7"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7"
 
     // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:$navigation_version"
-
-    // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.8.9"
+    implementation "androidx.navigation:navigation-ui-ktx:2.8.9"
+    implementation "androidx.navigation:navigation-compose:2.8.9"
 
     // Compose with bom
-    def composeBom = platform("androidx.compose:compose-bom:$compose_bom_vers")
+    def composeBom = platform("androidx.compose:compose-bom:2025.04.01")
     implementation(composeBom)
     androidTestImplementation(composeBom)
     implementation "androidx.compose.runtime:runtime"
@@ -176,13 +123,34 @@ dependencies {
     implementation "androidx.compose.runtime:runtime-livedata"
     implementation "androidx.compose.ui:ui-tooling"
     implementation "androidx.compose.ui:ui-tooling-preview"
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.1.1"
 
-    implementation "androidx.navigation:navigation-compose:$compose_navigation"
-    implementation "androidx.constraintlayout:constraintlayout-compose:$compose_constraint"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$compose_viewmodel"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0"
+
+    // Room
+    implementation "androidx.room:room-runtime:2.7.1"
+    implementation "androidx.room:room-ktx:2.7.1"
+    ksp "androidx.room:room-compiler:2.7.1"
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:2.49"
+    ksp "com.google.dagger:hilt-android-compiler:2.45"
+    implementation "androidx.hilt:hilt-navigation-compose:1.2.0"
+    implementation "androidx.hilt:hilt-work:1.2.0"
+    ksp "androidx.hilt:hilt-compiler:1.2.0"
+
+    // WorkManager
+    implementation "androidx.work:work-runtime-ktx:2.10.1"
+
 
     // accompanist lib for compose integration
     implementation 'com.google.accompanist:accompanist-pager:0.22.0-rc'
+
+    // gson
+    implementation 'com.google.code.gson:gson:gsonVersion'
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -191,22 +159,8 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
     implementation "com.squareup.okhttp3:okhttp-urlconnection:$okhttp_version"
 
-    // Dagger - Hilt
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    ksp "com.google.dagger:hilt-android-compiler:$hilt_version"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
-    implementation "androidx.hilt:hilt-navigation-compose:$hilt_nav_compose_vers"
-    implementation "androidx.hilt:hilt-work:1.2.0"
-    ksp "androidx.hilt:hilt-compiler:1.2.0"
-
-    // GDPR
-    // implementation "com.google.android.ads.consent:consent-library:$consent_library_vers"
-
     // Preference
-    implementation "androidx.preference:preference-ktx:$preference_vers"
-
-    // Workmanager
-    implementation "androidx.work:work-runtime-ktx:$work_vers"
+    implementation "androidx.preference:preference-ktx:1.2.1"
 
     // Kotpref SharePreferences lib: https://github.com/chibatching/Kotpref
     // core
@@ -222,56 +176,14 @@ dependencies {
     // experimental, preference screen build dsl
     implementation 'com.chibatching.kotpref:preference-screen-dsl:2.10.0'
 
-    // debug stuff
-    // debugImplementation "com.amitshekhar.android:debug-db:$amitshekhar_vers"
-
     // Unity
     implementation 'com.unity3d.ads:unity-ads:4.14.1'
 
 
-    // Intro library
-    // AndroidX Capable version
-    // implementation 'com.github.AppIntro:AppIntro:v5.1.0'
-    // *** OR ***
-    // Support Library compatibility version
-    implementation 'com.github.AppIntro:AppIntro:6.0.0'
+    // Other Libs (your other dependencies)
 
-    // https://ktlint.github.io/#getting-started
-    // ktlint 'com.pinterest:ktlint:0.39.0'
-
-    // Testing code should not be included in the main code.
-    // Once https://issuetracker.google.com/128612536 is fixed this can be fixed.
-    implementation "androidx.test:core:1.6.1"
-
-    //  AndroidX Test - local unit tests - JVM testing
+    // Testing
     testImplementation "junit:junit:4.13.2"
-    testImplementation "org.hamcrest:hamcrest-all:1.3"
-    testImplementation "androidx.arch.core:core-testing:2.2.0"
-    testImplementation 'androidx.test:runner:1.6.2'
-    testImplementation "androidx.test:core-ktx:1.6.1"
-    testImplementation "androidx.test.ext:junit:1.2.1"
-    testImplementation "org.robolectric:robolectric:4.10"
-    testImplementation 'org.mockito:mockito-core:5.3.1'
-    testImplementation 'org.mockito:mockito-inline:2.13.0'
-    testImplementation "io.mockk:mockk:1.9.3"
-
-
-    // AndroidX Test - Instrumented testing
-    androidTestImplementation "junit:junit:4.13.2"
-    androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation "androidx.test.ext:junit:1.2.1"
-    androidTestImplementation "androidx.arch.core:core-testing:2.2.0"
-    androidTestImplementation 'androidx.test:rules:1.6.1'
-
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.6.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.6.1'
-
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.6.1"
 }
-
-
-
-repositories {
-    mavenCentral()
-}
-

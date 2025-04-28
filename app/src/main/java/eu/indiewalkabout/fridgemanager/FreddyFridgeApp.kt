@@ -1,8 +1,9 @@
 package eu.indiewalkabout.fridgemanager
 
-import android.app.Application
 import android.content.Context
 import android.util.Log
+import androidx.multidex.MultiDex
+import androidx.multidex.MultiDexApplication
 import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
 import eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmReminderScheduler
@@ -11,7 +12,7 @@ import eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmRemin
 // Class used for access singletons and application context wherever in the app
 // NB : register in manifest in <Application android:name=".App">... </Application>
 @HiltAndroidApp
-class FreddyFridgeApplication : Application(), Configuration.Provider {
+class FreddyFridgeApp : MultiDexApplication(), Configuration.Provider {
     companion object {
         private var sContext: Context? = null
         // Return application context wherever we are in the app
@@ -51,6 +52,11 @@ class FreddyFridgeApplication : Application(), Configuration.Provider {
         /*UnityAds.initialize(applicationContext,
             applicationContext.getString(R.string.unityads_id), unityAdsTestMode, this)*/
 
+    }
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        MultiDex.install(this) // 👈 IMPORTANT
     }
 
 
