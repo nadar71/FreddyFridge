@@ -19,8 +19,8 @@ import eu.indiewalkabout.fridgemanager.core.reminder.FoodReminderIntentService
 import eu.indiewalkabout.fridgemanager.core.reminder.ReminderOps
 import eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager.ReminderScheduler
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
-import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
-import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainActivity
+import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
+import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain.MainActivity
 
 
 // TODO : All the part commented here is to be refactored to use workmanager

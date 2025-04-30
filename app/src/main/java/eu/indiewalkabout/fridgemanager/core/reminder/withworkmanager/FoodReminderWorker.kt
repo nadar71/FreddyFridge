@@ -13,7 +13,7 @@ import eu.indiewalkabout.fridgemanager.core.util.DateUtility
 import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
-import eu.indiewalkabout.fridgemanager.domain.repository.FridgeManagerRepository
+import eu.indiewalkabout.fridgemanager.feat_food.domain.repository.FridgeManagerRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch

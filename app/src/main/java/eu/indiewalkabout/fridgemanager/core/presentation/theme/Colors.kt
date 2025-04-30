@@ -15,6 +15,8 @@ object AppColors {
     val fabYellow = Color(0xFFFCC742)
     val todayListRecordLightBlue = Color(0xC899EFF8)
     val backgroundLightGreen = Color(0xFF007E00)
+    val backgroundLightGreen_01 = Color(0xFF0EAD0E)
+    val backgroundLightGreen_02 = Color(0xFF31A431)
     val backgroundLightGreenSemitransparent = Color(0xC8007E00)
     val fabLightGreen = Color(0xFF2CFD03)
     val lightWhiteSemitransparent = Color(0xDCFFFFFF)

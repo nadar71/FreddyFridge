@@ -10,9 +10,13 @@
     <string name="dialog_confirm_if_consumed_text">Set Product as CONSUMED, are you sure ?</string>
     <string name="dialog_confirm_if_not_consumed_text">Set Product as NOT CONSUMED, are you sure ?</string>
     <string name="dialog_confirm_if_deleting_text">Are you sure you want to DELETE ?</string>
-    <string name="foodExpiring_title">Expiring Products List</string>
-    <string name="foodExpired_title">Wasted Products List</string>
-    <string name="foodSaved_title">Products consumed</string>
+    <string name="foodExpiring_title">Expiring Products</string>
+    <string name="foodExpiring_message">No products expiring here </string>
+    <string name="foodExpired_title">Expired Products</string>
+    <string name="foodExpired_message">No products expired here </string>
+    <string name="foodConsumed_title">Products consumed</string>
+    <string name="foodConsumed_message">No products consumed here </string>
+
 
 
     <!-- - - - - - - - - - - - - - - - INTRO STUFF  - - - - - - - - - - - - - - - - - - - - - - -->
@@ -30,7 +34,7 @@
     <!-- - - - - - - - - - - - - - - -  MAIN SCREENS - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="main_list_title">Expiring Products today : </string>
     <string name="main_subtitle">Zero waste!</string>
-    <string name="no_food_todays">"No products expiring for today ! "</string>
+    <string name="no_food_todays">No products expiring for today !</string>
 
 
     <!-- - - - - - - - - - - - - - - -  INSERT FOOD - - - - - - - - - - - - - - - - - - - - - - -->
@@ -98,7 +102,7 @@
     <string name="menu_expired_label_item">Expired</string>
     <string name="menu_consumed_label_item">Consumed</string>
     <string name="menu_expiring_label_item">Expiring</string>
-    <string name="menu_add_label_item">ADD</string>
+    <string name="menu_add_label_item">NEW</string>
 
 
     <!-- - - - - - - - - - - - - - - - - -  CREDITS - - - - - - - - - - - - - - - - - - - - - - -->

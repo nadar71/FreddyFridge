@@ -2,7 +2,7 @@ package eu.indiewalkabout.fridgemanager.core.reminder
 
 import android.content.Context
 
-import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
+import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
 
 /*

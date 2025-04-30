@@ -1,5 +1,6 @@
 package eu.indiewalkabout.fridgemanager.core.presentation.components
 
+import android.R.attr.text
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -36,6 +37,7 @@ fun BottomNavigationBar() {
                     contentDescription = stringResource(R.string.content_menu_consumed_label_item))
             },
             label = { Text(
+
                 text = stringResource(R.string.menu_consumed_label_item)
             ) }
         )
@@ -51,6 +53,7 @@ fun BottomNavigationBar() {
                 text = stringResource(R.string.menu_expiring_label_item)
             ) }
         )
+
         NavigationBarItem(
             selected = false,
             onClick = {  },

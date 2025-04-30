@@ -5,13 +5,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import eu.indiewalkabout.fridgemanager.presentation.ui.credits.CreditsScreen
-import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodConsumedScreen
-import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodExpiredScreen
-import eu.indiewalkabout.fridgemanager.presentation.ui.food.FoodExpiringScreen
-import eu.indiewalkabout.fridgemanager.presentation.ui.food.InsertFoodScreen
-import eu.indiewalkabout.fridgemanager.presentation.ui.intromain.MainScreen
-import eu.indiewalkabout.fridgemanager.presentation.ui.settings.SettingsScreen
+import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.credits.CreditsScreen
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodConsumedScreen
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodExpiredScreen
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodExpiringScreen
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodScreen
+import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain.MainScreen
+import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.SettingsScreen
 
 @Composable
 fun NavigationGraph(

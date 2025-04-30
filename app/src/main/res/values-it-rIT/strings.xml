@@ -12,14 +12,19 @@
     <string name="dialog_confirm_if_not_consumed_text">Imposto il prodotto come NON CONSUMATO, ok?</string>
     <string name="dialog_confirm_if_deleting_text">Sei sicuro di volerlo cancellare ?</string>
     <string name="foodExpiring_title">Prodotti in scadenza</string>
-    <string name="foodExpired_title">Prodotti scaduti</string>
-    <string name="foodSaved_title">Prodotti Consumati</string>
+    <string name="foodExpiring_message">Nessun prodotto in scadenza qui</string>
+    <string name="foodExpired_title">Elenco dei prodotti sprecati</string>
+    <string name="foodExpired_message">Nessun prodotto scaduto qui</string>
+    <string name="foodConsumed_title">Prodotti consumati</string>
+    <string name="foodConsumed_message">Nessun prodotto salvato qui</string>
 
     <!-- - - - - - - - - - - - - - - - INTRO STUFF  - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="intro_1_title">1 : Fai la tua spesa…</string>
     <string name="intro_1_subtitle">…e poi apri FreddyFridge !</string>
+
     <string name="intro_2_title">2 : Salva il prodotto e la data di scadenza…</string>
     <string name="intro_2_subtitle">…con il bottone NUOVO e il Riconoscimento Vocale</string>
+
     <string name="intro_3_title">3 : Controlla la data di scadenza</string>
     <string name="intro_3_subtitle">e verrai avvisato prima : mai più prodotti sprecati!</string>
 
@@ -80,7 +85,7 @@
     <string name="menu_expired_label_item">Scaduto</string>
     <string name="menu_consumed_label_item">Consumato</string>
     <string name="menu_expiring_label_item">In Scadenza</string>
-    <string name="menu_add_label_item">AGGIUNGI</string>
+    <string name="menu_add_label_item">NUOVO</string>
 
     <!-- - - - - - - - - - - - - - - - - -  CREDITS - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="credits_btn_title">Attribuzioni</string>

@@ -29,12 +29,9 @@ fun ProductListCard(
     val colors = LocalAppColors.current
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .height(200.dp),
+        modifier = modifier,
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = colors.todayListRecordLightGrey)
+        colors = CardDefaults.cardColors(containerColor = colors.lightGreyVeryTransparent)
     ) {
         Box(
             modifier = Modifier

@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import eu.indiewalkabout.fridgemanager.R
 
 @Composable
@@ -17,4 +18,10 @@ fun BackgroundPattern() {
         modifier = Modifier.fillMaxSize(),
         alpha = 0.25f
     )
+}
+
+@Preview
+@Composable
+fun BackgroundPatternPreview() {
+    BackgroundPattern()
 }
