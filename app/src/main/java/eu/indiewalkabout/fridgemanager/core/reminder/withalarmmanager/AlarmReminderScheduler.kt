@@ -5,17 +5,20 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import dagger.hilt.android.qualifiers.ApplicationContext
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import java.util.Calendar
+import javax.inject.Inject
 
-class AlarmReminderScheduler() {
+class AlarmReminderScheduler @Inject constructor(
+    @ApplicationContext private val context: Context
+) {
 
     private var alarmMgr: AlarmManager? = null
     private var alarmIntent: PendingIntent
     private val calendar: Calendar
-    private val context: Context = FreddyFridgeApp.getsContext()!!
 
 
     init {

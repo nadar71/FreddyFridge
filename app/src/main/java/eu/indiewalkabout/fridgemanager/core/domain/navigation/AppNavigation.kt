@@ -11,7 +11,6 @@ import androidx.navigation.compose.rememberNavController
 // This Make NavHost Controller available all over the app session without passing it in each screen
 object AppNavigation{
 
-    // TODO: make this injectable as singleton through hilt
     lateinit var appNavHostController: NavHostController
 
     // simplify navigation call

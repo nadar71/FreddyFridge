@@ -1,9 +1,11 @@
 package eu.indiewalkabout.fridgemanager.presentation.ui.intromain
 
+import android.util.Log
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -32,6 +34,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.domain.navigation.AppDestinationRoutes
+import eu.indiewalkabout.fridgemanager.core.domain.navigation.AppNavigation
 import eu.indiewalkabout.fridgemanager.core.domain.navigation.AppNavigation.navigate
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BottomNavigationBar
@@ -46,8 +49,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen() {
+    val TAG = "MainScreen"
     val colors = LocalAppColors.current
-
     var showOnBoarding by remember { mutableStateOf(false) }
 
     if (showOnBoarding) {
@@ -83,15 +86,23 @@ fun MainScreen() {
                     modifier = Modifier
                         .height(80.dp)
                         .padding(vertical = 8.dp)
+                        .clickable(onClick = {
+                            Log.d(TAG, "MainScreen: settings icon pressed")
+                            // navigate(AppDestinationRoutes.SettingsScreen.route)
+                            AppNavigation.appNavHostController.navigate(AppDestinationRoutes.SettingsScreen.route)
+                        })
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 TopBar(
                     title = stringResource(R.string.main_subtitle),
                     onLeftIconClick = {
+                        Log.d(TAG, "MainScreen: help icon pressed")
                         showOnBoarding = true
                     },
                     onRightIconClick = {
-                        navigate(AppDestinationRoutes.SettingsScreen.route)
+                        Log.d(TAG, "MainScreen: settings icon pressed")
+                        // navigate(AppDestinationRoutes.SettingsScreen.route)
+                        AppNavigation.appNavHostController.navigate(AppDestinationRoutes.SettingsScreen.route)
                     }
                 )
 

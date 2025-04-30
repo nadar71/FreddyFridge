@@ -30,6 +30,7 @@ fun NavigationGraph(
         Log.d("DEBUG_ROUTING", "NavHost: called")
 
         composable(route = AppDestinationRoutes.MainScreen.route) {
+            Log.d("DEBUG_ROUTING", "NavigationGraph: go to MainScreen")
             MainScreen()
         }
 
@@ -38,10 +39,12 @@ fun NavigationGraph(
         }*/
 
         composable(route = AppDestinationRoutes.InsertFoodScreen.route) {
+            Log.d("DEBUG_ROUTING", "NavigationGraph: go to InsertFoodScreen")
             InsertFoodScreen()
         }
 
         composable(route = AppDestinationRoutes.FoodExpiringScreen.route) {
+            Log.d("DEBUG_ROUTING", "NavigationGraph: go to FoodExpiringScreen")
             FoodExpiringScreen()
         }
 
@@ -54,8 +57,8 @@ fun NavigationGraph(
         }
 
         composable(route = AppDestinationRoutes.SettingsScreen.route) {
+            Log.d("DEBUG_ROUTING", "NavigationGraph: go to SettingsScreen")
             SettingsScreen()
-
         }
 
         composable(route = AppDestinationRoutes.CreditsScreen.route) {

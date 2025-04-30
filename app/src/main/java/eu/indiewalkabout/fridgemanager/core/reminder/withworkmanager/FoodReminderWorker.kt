@@ -3,10 +3,12 @@ package eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager
 import android.content.Context
 import android.util.Log
 import androidx.hilt.work.HiltWorker
+import androidx.work.CoroutineWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import dagger.hilt.android.qualifiers.ApplicationContext
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
 import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
@@ -16,6 +18,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 
 /*
@@ -23,17 +26,14 @@ Every time the scheduler ReminderScheduler activate this worker:
 - check if a daily notification is needed for food expiring in x days
 - check if a hourly notification is needed for food expiring today (every x hours)
 */
-@HiltWorker
-class FoodReminderWorker @AssistedInject constructor(
-    @Assisted private val appContext: Context,
-    @Assisted params: WorkerParameters,
+class FoodReminderWorker @Inject constructor(
+    @ApplicationContext private val context: Context,
+    params: WorkerParameters,
     private val repository: FridgeManagerRepository
-):Worker(appContext, params) {
+) : CoroutineWorker(context, params) {
 
     // Check the food entries in db and in case activate the specific reminder
-    override fun doWork(): Result {
-
-        val context = applicationContext
+    override suspend fun doWork(): Result {
 
         // time scheduling
         Log.i(TAG, "Workmanager, doWork: FoodReminderWorker activated by scheduler!")
@@ -59,7 +59,7 @@ class FoodReminderWorker @AssistedInject constructor(
 
         CoroutineScope(IO).launch {
             Log.i(TAG, "Workmanager, doWork: check food expiring in the next days")
-            val foodEntriesNextDays = repository!!.loadAllFoodExpiring_no_livedata(expiringDateToBeNotified)
+            val foodEntriesNextDays = repository.loadAllFoodExpiring_no_livedata(expiringDateToBeNotified)
             foodEntriesNextDays.let {
                 if (foodEntriesNextDays.size > 0) {
                     NotificationsUtility.remindNextDaysExpiringFood(context, it)

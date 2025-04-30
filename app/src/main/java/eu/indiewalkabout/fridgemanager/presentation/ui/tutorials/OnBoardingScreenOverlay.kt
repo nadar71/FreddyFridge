@@ -1,5 +1,6 @@
 package eu.indiewalkabout.fridgemanager.presentation.ui.tutorials
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -40,6 +41,9 @@ fun OnBoardingScreenOverlay(
     onSkip: () -> Unit = {},
     onContinue: () -> Unit = {}
 ) {
+    val TAG = "OnBoardingScreenOverlay"
+    Log.d(TAG, "OnBoardingScreenOverlay: shown")
+
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
 

@@ -1,5 +1,6 @@
 package eu.indiewalkabout.fridgemanager.presentation.ui.settings
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,6 +25,8 @@ import eu.indiewalkabout.fridgemanager.presentation.ui.settings.components.Setti
 
 @Composable
 fun SettingsScreen() {
+    val TAG = "SettingsScreen"
+    Log.d(TAG, "SettingsScreen: shown")
     val colors = LocalAppColors.current
 
     Scaffold(

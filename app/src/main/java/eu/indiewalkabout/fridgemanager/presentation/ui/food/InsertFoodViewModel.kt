@@ -4,13 +4,14 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepositoryImpl
+import eu.indiewalkabout.fridgemanager.domain.repository.FridgeManagerRepository
 import javax.inject.Inject
 
 
 @HiltViewModel
 class InsertFoodViewModel @Inject constructor(
     val context: Application,
-    private val repository: FridgeManagerRepositoryImpl
+    private val repository: FridgeManagerRepository
 ): ViewModel() {
 
 }

@@ -5,20 +5,24 @@ import android.util.Log
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
 import androidx.work.Configuration
+import androidx.work.WorkerFactory
+import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 import eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmReminderScheduler
+import javax.inject.Inject
 
 
 // Class used for access singletons and application context wherever in the app
 // NB : register in manifest in <Application android:name=".App">... </Application>
 @HiltAndroidApp
 class FreddyFridgeApp : MultiDexApplication(), Configuration.Provider {
+    lateinit var alarmReminderScheduler: AlarmReminderScheduler
+    @Inject
+    lateinit var workerFactory: WorkerFactory
+
     companion object {
-        private var sContext: Context? = null
-        // Return application context wherever we are in the app
-        fun getsContext(): Context? {
-            return sContext
-        }
+        // private var appContext: Context? = null
+
 
         /*// Implement a function to display an ad if the surfacing is ready:
         fun displayUnityInterstitialAd(activity: Activity, surfacingId: String) {
@@ -38,6 +42,7 @@ class FreddyFridgeApp : MultiDexApplication(), Configuration.Provider {
 */
     override fun onCreate() {
         super.onCreate()
+        // appContext = applicationContext
         // sContext = applicationContext
         // TODO: put in external file
         // unityId = applicationContext.getString(R.string.unityads_id)
@@ -46,7 +51,8 @@ class FreddyFridgeApp : MultiDexApplication(), Configuration.Provider {
         // scheduleChargingReminder(this)
 
         // start scheduler for notifications reminder
-        AlarmReminderScheduler().setRepeatingAlarm()
+        alarmReminderScheduler = AlarmReminderScheduler(this)
+        alarmReminderScheduler.setRepeatingAlarm()
 
         // Initialize Unity SDK:
         /*UnityAds.initialize(applicationContext,
@@ -60,8 +66,10 @@ class FreddyFridgeApp : MultiDexApplication(), Configuration.Provider {
     }
 
 
+    // Assign the injected factory in order to let it manage your Workers.
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder()
+            .setWorkerFactory(workerFactory)
             .setMinimumLoggingLevel(Log.VERBOSE)
             .build()
 

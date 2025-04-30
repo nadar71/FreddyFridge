@@ -1,13 +1,18 @@
 package eu.indiewalkabout.fridgemanager.presentation.ui.intromain
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
+import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
+import eu.indiewalkabout.fridgemanager.core.domain.navigation.AppNavigation
+import eu.indiewalkabout.fridgemanager.core.domain.navigation.NavigationGraph
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
 
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity()  {
     // private lateinit var binding: ActivityMainBinding
 
@@ -29,11 +34,16 @@ class MainActivity : AppCompatActivity()  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // setContentView(R.layout.activity_main)
-        // binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         // open intro only for the first 3 times
         numPrevOpenings = appOpenings
+
+        setContent {
+            FreddyFridgeTheme {
+                AppNavigation.NavigationInit()
+                NavigationGraph(AppNavigation.appNavHostController)
+            }
+        }
 
         // set consent sdk for gdpr true by default
         // setConsentSDKNeed(true);

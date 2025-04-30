@@ -20,12 +20,12 @@ import javax.inject.Inject
 
 class AlarmReceiver @Inject constructor(
     private val repository: FridgeManagerRepository,
-    private val preferenceUtility: PreferenceUtility,
+    // private val preferenceUtility: PreferenceUtility,
     @ApplicationContext private val context: Context
 ) : BroadcastReceiver() {
 
     // for real :
-    private val days = PreferenceUtility.getDaysCount(FreddyFridgeApp.getsContext()!!)
+    private val days = PreferenceUtility.getDaysCount(context)
     private val DAYS_BEFORE = TimeUnit.DAYS.toSeconds(days.toLong()).toInt()
 
     // get repository
@@ -47,7 +47,7 @@ class AlarmReceiver @Inject constructor(
 
         CoroutineScope(Dispatchers.IO).launch {
             Log.i(TAG, "AlarmReceiver : check food expiring in the next days")
-            val foodEntriesNextDays = repository!!.loadAllFoodExpiring_no_livedata(expiringDateToBeNotified)
+            val foodEntriesNextDays = repository.loadAllFoodExpiring_no_livedata(expiringDateToBeNotified)
             foodEntriesNextDays.let {
                 if (foodEntriesNextDays.size > 0) {
                     NotificationsUtility.remindNextDaysExpiringFood(context, it)

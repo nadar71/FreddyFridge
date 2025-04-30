@@ -3,8 +3,10 @@ package eu.indiewalkabout.fridgemanager.data.repository
 import eu.indiewalkabout.fridgemanager.data.local.db.FoodDbDao
 import eu.indiewalkabout.fridgemanager.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.domain.repository.FridgeManagerRepository
+import javax.inject.Inject
 
-class FridgeManagerRepositoryImpl(
+
+class FridgeManagerRepositoryImpl @Inject constructor(
     private val foodDbDao: FoodDbDao
 ): FridgeManagerRepository {
 
