@@ -21,9 +21,6 @@ class FreddyFridgeApp : MultiDexApplication(), Configuration.Provider {
     lateinit var workerFactory: WorkerFactory
 
     companion object {
-        // private var appContext: Context? = null
-
-
         /*// Implement a function to display an ad if the surfacing is ready:
         fun displayUnityInterstitialAd(activity: Activity, surfacingId: String) {
             if (UnityAds.isReady(surfacingId)) {
@@ -32,23 +29,9 @@ class FreddyFridgeApp : MultiDexApplication(), Configuration.Provider {
         }*/
     }
 
-    /*// Return singleton db instance
-    private val database: FoodDatabase?
-        get() = FoodDatabase.getDbInstance(this)
-
-    // Return depository singleton instance
-    val repository: FridgeManagerRepository?
-        get() = database?.let { FridgeManagerRepository.getInstance(it) }
-*/
     override fun onCreate() {
         super.onCreate()
-        // appContext = applicationContext
-        // sContext = applicationContext
-        // TODO: put in external file
         // unityId = applicationContext.getString(R.string.unityads_id)
-
-        // start scheduler for notifications reminder
-        // scheduleChargingReminder(this)
 
         // start scheduler for notifications reminder
         alarmReminderScheduler = AlarmReminderScheduler(this)
