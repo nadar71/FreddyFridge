@@ -1,5 +1,6 @@
 package eu.indiewalkabout.fridgemanager
 
+import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.multidex.MultiDex
@@ -15,7 +16,7 @@ import javax.inject.Inject
 // Class used for access singletons and application context wherever in the app
 // NB : register in manifest in <Application android:name=".App">... </Application>
 @HiltAndroidApp
-class FreddyFridgeApp : MultiDexApplication(), Configuration.Provider {
+class FreddyFridgeApp : Application(), Configuration.Provider {
     lateinit var alarmReminderScheduler: AlarmReminderScheduler
     @Inject
     lateinit var workerFactory: WorkerFactory
@@ -43,10 +44,6 @@ class FreddyFridgeApp : MultiDexApplication(), Configuration.Provider {
 
     }
 
-    override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
-        MultiDex.install(this) // 👈 IMPORTANT
-    }
 
 
     // Assign the injected factory in order to let it manage your Workers.
