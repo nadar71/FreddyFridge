@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.core.domain.navigation
+package eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation
 
 object NavigationScreenConstants {
     val MAIN_SCREEN = "MainScreen"

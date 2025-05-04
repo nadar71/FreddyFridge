@@ -84,6 +84,7 @@
     <string name="menu_home_label_item">Home</string>
     <string name="menu_expired_label_item">Scaduto</string>
     <string name="menu_consumed_label_item">Consumato</string>
+    <string name="menu_home_item">Home</string>
     <string name="menu_expiring_label_item">In Scadenza</string>
     <string name="menu_add_label_item">NUOVO</string>
 

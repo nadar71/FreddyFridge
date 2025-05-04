@@ -101,6 +101,7 @@
     <string name="menu_home_label_item">Home</string>
     <string name="menu_expired_label_item">Expired</string>
     <string name="menu_consumed_label_item">Consumed</string>
+    <string name="menu_home_item">Home</string>
     <string name="menu_expiring_label_item">Expiring</string>
     <string name="menu_add_label_item">NEW</string>
 

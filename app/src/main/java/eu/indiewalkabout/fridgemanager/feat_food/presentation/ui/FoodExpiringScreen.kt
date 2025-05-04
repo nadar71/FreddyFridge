@@ -17,11 +17,12 @@ import androidx.compose.ui.unit.dp
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.components.AdBannerPlaceholder
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
-import eu.indiewalkabout.fridgemanager.core.presentation.components.BottomNavigationBar
+import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
 import eu.indiewalkabout.fridgemanager.core.presentation.components.ProductListCard
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
+import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
 
 @Composable
 fun FoodExpiringScreen() {
@@ -30,7 +31,8 @@ fun FoodExpiringScreen() {
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar()
+            // BottomNavigationBar(AppNavigation.getNavController())
+            BottomNavigationBar(stringResource(R.string.menu_expiring_label_item))
         },
         containerColor = colors.primaryColor
     ) {

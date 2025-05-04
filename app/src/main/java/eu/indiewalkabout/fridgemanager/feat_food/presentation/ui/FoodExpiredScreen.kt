@@ -9,10 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -21,12 +17,12 @@ import androidx.compose.ui.unit.dp
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.components.AdBannerPlaceholder
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
-import eu.indiewalkabout.fridgemanager.core.presentation.components.BottomNavigationBar
+import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
 import eu.indiewalkabout.fridgemanager.core.presentation.components.ProductListCard
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
-import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.tutorials.OnBoardingScreenOverlay
+import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
 
 
 @Composable
@@ -36,7 +32,8 @@ fun FoodExpiredScreen()  {
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar()
+            // BottomNavigationBar(AppNavigation.getNavController())
+            BottomNavigationBar(stringResource(R.string.menu_expired_label_item))
         },
         containerColor = colors.primaryColor
     ) {

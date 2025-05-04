@@ -8,8 +8,8 @@ import androidx.preference.PreferenceManager
 import dagger.hilt.android.AndroidEntryPoint
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.APP_OPENING_COUNTER
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.DEFAULT_COUNT
-import eu.indiewalkabout.fridgemanager.core.domain.navigation.AppNavigation
-import eu.indiewalkabout.fridgemanager.core.domain.navigation.NavigationGraph
+import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
+import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.NavigationGraph
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
 
@@ -17,9 +17,6 @@ import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBar
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity()  {
     val TAG = "MainActivity"
-
-
-
     private var numPrevOpenings = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +33,7 @@ class MainActivity : AppCompatActivity()  {
             }
         }
 
-        hideStatusNavBars(this)
+        // hideStatusNavBars(this)
 
         // TODO : share button
         // TODO : admob/unity ads

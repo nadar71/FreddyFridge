@@ -9,7 +9,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -34,11 +33,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.core.domain.navigation.AppDestinationRoutes
-import eu.indiewalkabout.fridgemanager.core.domain.navigation.AppNavigation
+import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppDestinationRoutes
+import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
 import eu.indiewalkabout.fridgemanager.core.presentation.components.AdBannerPlaceholder
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
-import eu.indiewalkabout.fridgemanager.core.presentation.components.BottomNavigationBar
+import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
 import eu.indiewalkabout.fridgemanager.core.presentation.components.ProductListCard
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.Fredoka
@@ -61,7 +60,8 @@ fun MainScreen() {
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar()
+            // BottomNavigationBar(AppNavigation.getNavController())
+            BottomNavigationBar(stringResource(R.string.menu_home_item))
         },
         containerColor = colors.primaryColor
     ) {

@@ -15,11 +15,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
-import eu.indiewalkabout.fridgemanager.core.presentation.components.BottomNavigationBar
+import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
+import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components.SettingsGroupTitle
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components.SettingsItem
 
@@ -31,7 +32,8 @@ fun SettingsScreen() {
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar()
+            // BottomNavigationBar(AppNavigation.getNavController())
+            // BottomNavigationBar()
         },
         containerColor = colors.primaryColor
     ) { paddingValues ->
