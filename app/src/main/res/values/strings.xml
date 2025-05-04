@@ -1,8 +1,10 @@
 <resources>
 
     <!-- - - - - - - - - - - - - - - - - - COMMONS - - - - - - - - - - - - - - - - - - - - - - - -->
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="generic_yes">Yes</string>
+    <string name="generic_no">No</string>
+    <string name="generic_ok">Ok</string>
+    <string name="generic_cancel">Cancel</string>
     <string name="save_btn_label">Save</string>
     <string name="update_btn_label">Update</string>
     <string name="no_food_in_list">"No products here… "</string>

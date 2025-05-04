@@ -1,0 +1,171 @@
+/*
+ * Copyright 2022 Matteo Miceli
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package eu.indiewalkabout.fridgemanager.core.presentation.components.composecalendar.composable
+
+import android.graphics.Color.alpha
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import eu.indiewalkabout.fridgemanager.core.presentation.components.composecalendar.model.DateWrapper
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.colorAccent
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.colorText
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
+import java.time.LocalDate
+
+@Composable
+internal fun CalendarDay(
+    date: DateWrapper,
+    onSelected: (LocalDate) -> Unit
+) {
+    // LogCompositions("CalendarDay")
+
+    var currentModifier = Modifier
+        .aspectRatio(1F)
+        .clip(CircleShape)
+
+    currentModifier = when {
+        date.isSelectedDay -> {
+            currentModifier
+                .background(
+                    color = colorAccent,
+                    shape = CircleShape
+                )
+        }
+
+        date.isCurrentDay -> {
+            currentModifier
+                .border(
+                    width = 1.dp,
+                    color = colorAccent, // MaterialTheme.colorScheme.primary,
+                    shape = CircleShape
+                )
+        }
+        else -> currentModifier
+    }
+
+    if (date.isInDateRange /*&& date.isCurrentMonth*/) {
+        currentModifier = currentModifier.clickable(
+            interactionSource = remember { MutableInteractionSource() },
+            indication = null, // Disable ripple effect
+        ) {
+            onSelected(date.localDate)
+        }
+    }
+
+    val textColor = when {
+        !date.isInDateRange || !date.isCurrentMonth -> {
+            // MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38F)
+            colorText.copy(alpha = 0.60F)
+        }
+
+        date.isSelectedDay -> {
+            // MaterialTheme.colorScheme.onPrimary
+            primaryColor
+        }
+
+        date.isCurrentDay -> {
+            // MaterialTheme.colorScheme.primary
+            // primaryColor
+            colorAccent
+        }
+
+        else -> colorText 
+    }
+
+    val text = "${date.localDate.dayOfMonth}"
+
+    Box(
+        modifier = currentModifier,
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = text,
+            color = textColor,
+            textAlign = TextAlign.Center,
+            fontSize = 14.sp,
+        )
+    }
+}
+
+
+
+// -------- PREVIEW --------
+
+
+@Preview(showBackground = true)
+@Composable
+fun CalendarDayPreview() {
+    Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+        CalendarDay(
+            date = DateWrapper(
+                localDate = LocalDate.now(),
+                isSelectedDay = true,
+                isCurrentDay = false,
+                isCurrentMonth = false,
+                isInDateRange = false,
+            ),
+            {}
+        )
+
+
+        CalendarDay(
+            date = DateWrapper(
+                localDate = LocalDate.now(),
+                isSelectedDay = false,
+                isCurrentDay = true,
+                isCurrentMonth = false,
+                isInDateRange = false,
+            ), {}
+        )
+
+        CalendarDay(
+            date = DateWrapper(
+                localDate = LocalDate.now().minusDays(1),
+                isSelectedDay = false,
+                isCurrentDay = false,
+                isCurrentMonth = true,
+                isInDateRange = false,
+            ),{}
+        )
+
+        CalendarDay(
+            date = DateWrapper(
+                localDate = LocalDate.now().minusMonths(1),
+                isSelectedDay = false,
+                isCurrentDay = false,
+                isCurrentMonth = false,
+                isInDateRange = true,
+            ),{}
+        )
+    }
+}
