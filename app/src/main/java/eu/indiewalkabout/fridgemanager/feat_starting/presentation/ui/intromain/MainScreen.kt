@@ -14,13 +14,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,26 +50,40 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.Fredoka
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.brown
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.colorText
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodBottomSheetContent
 import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.tutorials.OnBoardingScreenOverlay
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen() {
     val TAG = "MainScreen"
-    val colors = LocalAppColors.current
     var showOnBoarding by remember { mutableStateOf(false) }
+    var showBottomSheet by remember { mutableStateOf(false) }
+
+    var descriptionText by remember { mutableStateOf("") }
+    // TODO : put others
 
     if (showOnBoarding) {
         OnBoardingScreenOverlay()
     }
 
 
+
     Scaffold(
         bottomBar = {
-            // BottomNavigationBar(AppNavigation.getNavController())
-            BottomNavigationBar(stringResource(R.string.menu_home_item))
+            BottomNavigationBar(
+                stringResource(R.string.menu_home_item),
+                onAddClicked = {
+                    showBottomSheet = true
+                }
+            )
         },
-        containerColor = colors.primaryColor
+        containerColor = primaryColor
     ) {
         Box(
             Modifier
@@ -74,10 +94,9 @@ fun MainScreen() {
             Column(
                 modifier = Modifier
                     .fillMaxSize(),
-                    //.padding(16.dp),
+                //.padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
 
 
                 // title
@@ -86,7 +105,7 @@ fun MainScreen() {
                     contentDescription = "FreddyFridge Logo",
                     modifier = Modifier
                         .height(80.dp)
-                        .padding(vertical = 8.dp)
+                        .padding(vertical = 8.dp, horizontal = 16.dp)
                         .clickable(onClick = {
                             Log.d(TAG, "MainScreen: settings icon pressed")
                             // navigate(AppDestinationRoutes.SettingsScreen.route)
@@ -98,6 +117,8 @@ fun MainScreen() {
                     title = stringResource(R.string.main_subtitle),
                     drawableLeftIcon = R.drawable.ic_help_outline,
                     drawableRightIcon = R.drawable.ic_flower_white,
+                    paddingStart = 16.dp,
+                    paddingEnd = 16.dp,
                     onLeftIconClick = {
                         Log.d(TAG, "MainScreen: help icon pressed")
                         showOnBoarding = true
@@ -113,12 +134,12 @@ fun MainScreen() {
 
                 AnimatedFoodBox()
 
-                // List Section 
+                // List Section
                 Text(
                     text = stringResource(R.string.main_list_title),
                     fontFamily = Fredoka,
                     fontWeight = FontWeight.SemiBold,
-                    style = text_16(colors.colorText, true),
+                    style = text_16(colorText, true),
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -143,7 +164,22 @@ fun MainScreen() {
 
             }
         }
+
+        if (showBottomSheet) {
+            ModalBottomSheet(
+                onDismissRequest = { showBottomSheet = false },
+                sheetMaxWidth = 600.dp,
+                containerColor = primaryColor,
+                shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
+            ) {
+                InsertFoodBottomSheetContent(
+                    descriptionText = descriptionText,
+                    onDescriptionChange = { descriptionText = it }
+                )
+            }
+        }
     }
+
 
 }
 

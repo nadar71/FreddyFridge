@@ -19,12 +19,15 @@ package eu.indiewalkabout.fridgemanager.core.presentation.components.composecale
 
 import eu.indiewalkabout.fridgemanager.R
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -45,7 +48,7 @@ fun ComposeCalendar(
     onDone: (millis: LocalDate) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val selectedDate = remember { mutableStateOf(LocalDate.now()) }
+    var selectedDate by remember { mutableStateOf(LocalDate.now()) }
 
     AlertDialog(
         modifier = Modifier
@@ -54,7 +57,7 @@ fun ComposeCalendar(
         onDismissRequest = onDismiss,
         confirmButton = {
             TextButton(onClick = {
-                onDone(selectedDate.value)
+                onDone(selectedDate)
             }) {
                 Text(stringResource(id = R.string.generic_ok), color = colorText)
             }
@@ -69,7 +72,7 @@ fun ComposeCalendar(
                 startDate = startDate,
                 minDate = minDate,
                 maxDate = maxDate,
-                onDateSelected = { selectedDate.value = it },
+                onDateSelected = { selectedDate = it },
                 showSelectedDate = showSelectedDate,
                 selectedDateFormat = selectedDateFormat
             )
@@ -81,14 +84,15 @@ fun ComposeCalendar(
 @Preview(showBackground = true)
 @Composable
 fun ComposeCalendarPreview() {
+    var selectedDateText by remember { mutableStateOf("") }
+    var dismissText by remember { mutableStateOf("") }
+
     ComposeCalendar(
         onDone = { selectedDate ->
-            // Handle date selection
-            println("Selected date: $selectedDate")
+            selectedDateText = "Selected date: $selectedDate"
         },
         onDismiss = {
-            // Handle dismiss
-            println("Calendar dismissed")
+            dismissText = "Calendar dismissed"
         }
     )
 }

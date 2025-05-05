@@ -42,12 +42,15 @@
     <!-- - - - - - - - - - - - - - - -  INSERT FOOD - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="insert_food_title">Insert Product</string>
     <string name="insert_food_name_tv">Product description :</string>
-    <string name="insert_food_name_hint">Product description</string>
+    <string name="insert_food_description_hint">Description</string>
     <string name="insert_name_placeholder">Name</string>
-    <string name="insert_expiring_date_label">"Expiring Date : "</string>
+    <string name="insert_expiring_date_label">Expiring</string>
+    <string name="insert_expiring_date_hint">Expiring Date</string>
+    <string name="insert_expiring_date_icon_description">Expiring Date Calendar Icon</string>
+    <string name="insert_quantity_label">Quantity</string>
     <string name="insert_food_description_msg">Must Insert your product description…</string>
     <string name="insert_food_expiration_date_miss_msg">Must choose a date…</string>
-    <string name="insert_food_inserted_confirm">"Inserted successfully !"</string>
+    <string name="insert_food_inserted_confirm">Inserted successfully !</string>
     <string name="insert_speak_btn_description">Press and speak</string>
     <string name="insert_speech_not_recognized">Try again</string>
 
