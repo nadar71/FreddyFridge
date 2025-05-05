@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
@@ -26,7 +25,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,22 +37,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppDestinationRoutes
-import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
 import eu.indiewalkabout.fridgemanager.core.presentation.components.AdBannerPlaceholder
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
-import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
 import eu.indiewalkabout.fridgemanager.core.presentation.components.ProductListCard
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.Fredoka
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.brown
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.colorText
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.Fredoka
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodBottomSheetContent
+import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppDestinationRoutes
+import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
+import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
 import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.tutorials.OnBoardingScreenOverlay
 import kotlinx.coroutines.launch
 
@@ -64,6 +59,9 @@ fun MainScreen() {
     val TAG = "MainScreen"
     var showOnBoarding by remember { mutableStateOf(false) }
     var showBottomSheet by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
 
     var descriptionText by remember { mutableStateOf("") }
     // TODO : put others
@@ -168,7 +166,8 @@ fun MainScreen() {
         if (showBottomSheet) {
             ModalBottomSheet(
                 onDismissRequest = { showBottomSheet = false },
-                sheetMaxWidth = 600.dp,
+                // sheetMaxWidth = 600.dp,
+                sheetState = sheetState,
                 containerColor = primaryColor,
                 shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
             ) {
