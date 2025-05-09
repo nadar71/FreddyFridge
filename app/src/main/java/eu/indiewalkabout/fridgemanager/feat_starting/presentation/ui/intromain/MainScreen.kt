@@ -63,7 +63,9 @@ fun MainScreen() {
         skipPartiallyExpanded = true
     )
 
+    var expiringDateText by remember { mutableStateOf("") }
     var descriptionText by remember { mutableStateOf("") }
+    var quantityText by remember { mutableStateOf("") }
     // TODO : put others
 
     if (showOnBoarding) {
