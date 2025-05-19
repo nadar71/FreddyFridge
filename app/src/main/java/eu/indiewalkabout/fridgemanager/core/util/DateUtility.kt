@@ -6,20 +6,35 @@ import android.text.format.DateUtils
 
 import java.time.LocalDate
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 import java.util.TimeZone
 import java.util.concurrent.TimeUnit
 
 
-/**
- * ---------------------------------------------------------------------------------------------
- * Class for handling a bunch of date conversions.
- * ---------------------------------------------------------------------------------------------
- */
+
+
+// date conversions utils
+
 object DateUtility {
 
-    /* Milliseconds in a day */
+    // get a Local date formatter for converting dates to current device local dte format
+    fun getLocalDateFormat(): DateTimeFormatter{
+        // get the default locale
+        val currentLocale = Locale.getDefault()
+
+        // Create a DateTimeFormatter for the localized date format
+        // Use FormatStyle.SHORT, MEDIUM, LONG, or FULL based on desired detail
+        val localizedFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+            .withLocale(currentLocale)
+
+        return localizedFormatter
+    }
+
+    // Milliseconds in a day
     val DAY_IN_MILLIS = TimeUnit.DAYS.toMillis(1)
 
     /**
@@ -50,6 +65,7 @@ object DateUtility {
      * time zone
      * ---------------------------------------------------------------------------------------------
      */
+
     /*
          * This number represents the number of milliseconds that have elapsed since January
          * 1st, 1970 at midnight in the GMT time zone.

@@ -11,7 +11,8 @@ import java.util.Locale
 class VoiceRecognitionManager(
     private val context: Context,
     private val onResult: (String) -> Unit,
-    private val onError: (String) -> Unit
+    private val onErrorCallback: (String) -> Unit,
+    private val onRmsCallback: (Float) -> Unit  = {}
 ) {
     private val recognizer: SpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(context)
 
@@ -19,11 +20,17 @@ class VoiceRecognitionManager(
         recognizer.setRecognitionListener(object : RecognitionListener {
             override fun onReadyForSpeech(params: Bundle?) {}
             override fun onBeginningOfSpeech() {}
-            override fun onRmsChanged(rmsdB: Float) {}
             override fun onBufferReceived(buffer: ByteArray?) {}
             override fun onEndOfSpeech() {}
+            override fun onPartialResults(partialResults: Bundle?) {}
+            override fun onEvent(eventType: Int, params: Bundle?) {}
+
+            override fun onRmsChanged(rmsdB: Float) {
+                onRmsCallback(rmsdB) // 👈 Emit updates to UI
+            }
+
             override fun onError(error: Int) {
-                onError("Recognition error code: $error")
+                onErrorCallback("Recognition error code: $error")
             }
 
             override fun onResults(results: Bundle?) {
@@ -31,9 +38,6 @@ class VoiceRecognitionManager(
                 val result = matches?.firstOrNull() ?: ""
                 onResult(result)
             }
-
-            override fun onPartialResults(partialResults: Bundle?) {}
-            override fun onEvent(eventType: Int, params: Bundle?) {}
         })
     }
 

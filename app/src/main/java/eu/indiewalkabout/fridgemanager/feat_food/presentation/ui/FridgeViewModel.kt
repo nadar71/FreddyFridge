@@ -3,7 +3,7 @@ package eu.indiewalkabout.fridgemanager.feat_food.presentation.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import eu.indiewalkabout.fridgemanager.core.domain.model.ApiResponse
+import eu.indiewalkabout.fridgemanager.core.domain.model.DbResponse
 import eu.indiewalkabout.fridgemanager.core.domain.model.ErrorResponse
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.DeleteFoodEntryUseCase
@@ -63,8 +63,8 @@ class FridgeViewModel @Inject constructor(
             try {
                 val response = loadAllFoodUseCase()
                 _foodState.value = when (response) {
-                    is ApiResponse.Success -> FoodUiState.Success(response.data)
-                    is ApiResponse.Error -> FoodUiState.Error(response.error)
+                    is DbResponse.Success -> FoodUiState.Success(response.data)
+                    is DbResponse.Error -> FoodUiState.Error(response.error)
                 }
             } catch (e: Exception) {
                 _foodState.value = FoodUiState.Error(
@@ -81,8 +81,8 @@ class FridgeViewModel @Inject constructor(
             try {
                 val response = loadExpiringFoodUseCase(date)
                 _foodState.value = when (response) {
-                    is ApiResponse.Success -> FoodUiState.Success(response.data)
-                    is ApiResponse.Error -> FoodUiState.Error(response.error)
+                    is DbResponse.Success -> FoodUiState.Success(response.data)
+                    is DbResponse.Error -> FoodUiState.Error(response.error)
                 }
             } catch (e: Exception) {
                 _foodState.value = FoodUiState.Error(
@@ -99,8 +99,8 @@ class FridgeViewModel @Inject constructor(
             try {
                 val response = loadFoodExpiringTodayUseCase(dayBefore, dayAfter)
                 _foodState.value = when (response) {
-                    is ApiResponse.Success -> FoodUiState.Success(response.data)
-                    is ApiResponse.Error -> FoodUiState.Error(response.error)
+                    is DbResponse.Success -> FoodUiState.Success(response.data)
+                    is DbResponse.Error -> FoodUiState.Error(response.error)
                 }
             } catch (e: Exception) {
                 _foodState.value = FoodUiState.Error(
@@ -117,8 +117,8 @@ class FridgeViewModel @Inject constructor(
             try {
                 val response = loadExpiredFoodUseCase(date)
                 _foodState.value = when (response) {
-                    is ApiResponse.Success -> FoodUiState.Success(response.data)
-                    is ApiResponse.Error -> FoodUiState.Error(response.error)
+                    is DbResponse.Success -> FoodUiState.Success(response.data)
+                    is DbResponse.Error -> FoodUiState.Error(response.error)
                 }
             } catch (e: Exception) {
                 _foodState.value = FoodUiState.Error(
@@ -135,8 +135,8 @@ class FridgeViewModel @Inject constructor(
             try {
                 val response = loadConsumedFoodUseCase()
                 _foodState.value = when (response) {
-                    is ApiResponse.Success -> FoodUiState.Success(response.data)
-                    is ApiResponse.Error -> FoodUiState.Error(response.error)
+                    is DbResponse.Success -> FoodUiState.Success(response.data)
+                    is DbResponse.Error -> FoodUiState.Error(response.error)
                 }
             } catch (e: Exception) {
                 _foodState.value = FoodUiState.Error(
@@ -153,8 +153,8 @@ class FridgeViewModel @Inject constructor(
             try {
                 val response = loadFoodByIdUseCase(id)
                 _foodByIdState.value = when (response) {
-                    is ApiResponse.Success -> FoodUiState.Success(response.data)
-                    is ApiResponse.Error -> FoodUiState.Error(response.error)
+                    is DbResponse.Success -> FoodUiState.Success(response.data)
+                    is DbResponse.Error -> FoodUiState.Error(response.error)
                 }
             } catch (e: Exception) {
                 _foodByIdState.value = FoodUiState.Error(
@@ -171,8 +171,8 @@ class FridgeViewModel @Inject constructor(
             try {
                 val response = insertFoodEntryUseCase(foodEntry)
                 _operationState.value = when (response) {
-                    is ApiResponse.Success -> FoodUiState.Success(Unit)
-                    is ApiResponse.Error -> FoodUiState.Error(response.error)
+                    is DbResponse.Success -> FoodUiState.Success(Unit)
+                    is DbResponse.Error -> FoodUiState.Error(response.error)
                 }
             } catch (e: Exception) {
                 _operationState.value = FoodUiState.Error(
@@ -189,8 +189,8 @@ class FridgeViewModel @Inject constructor(
             try {
                 val response = updateFoodEntryUseCase(foodEntry)
                 _operationState.value = when (response) {
-                    is ApiResponse.Success -> FoodUiState.Success(Unit)
-                    is ApiResponse.Error -> FoodUiState.Error(response.error)
+                    is DbResponse.Success -> FoodUiState.Success(Unit)
+                    is DbResponse.Error -> FoodUiState.Error(response.error)
                 }
             } catch (e: Exception) {
                 _operationState.value = FoodUiState.Error(
@@ -207,8 +207,8 @@ class FridgeViewModel @Inject constructor(
             try {
                 val response = updateDoneFieldUseCase(done, id)
                 _operationState.value = when (response) {
-                    is ApiResponse.Success -> FoodUiState.Success(Unit)
-                    is ApiResponse.Error -> FoodUiState.Error(response.error)
+                    is DbResponse.Success -> FoodUiState.Success(Unit)
+                    is DbResponse.Error -> FoodUiState.Error(response.error)
                 }
             } catch (e: Exception) {
                 _operationState.value = FoodUiState.Error(
@@ -225,8 +225,8 @@ class FridgeViewModel @Inject constructor(
             try {
                 val response = deleteFoodEntryUseCase(foodEntry)
                 _operationState.value = when (response) {
-                    is ApiResponse.Success -> FoodUiState.Success(Unit)
-                    is ApiResponse.Error -> FoodUiState.Error(response.error)
+                    is DbResponse.Success -> FoodUiState.Success(Unit)
+                    is DbResponse.Error -> FoodUiState.Error(response.error)
                 }
             } catch (e: Exception) {
                 _operationState.value = FoodUiState.Error(
@@ -243,8 +243,8 @@ class FridgeViewModel @Inject constructor(
             try {
                 val response = dropTableUseCase()
                 _operationState.value = when (response) {
-                    is ApiResponse.Success -> FoodUiState.Success(Unit)
-                    is ApiResponse.Error -> FoodUiState.Error(response.error)
+                    is DbResponse.Success -> FoodUiState.Success(Unit)
+                    is DbResponse.Error -> FoodUiState.Error(response.error)
                 }
             } catch (e: Exception) {
                 _operationState.value = FoodUiState.Error(

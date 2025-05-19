@@ -1,5 +1,6 @@
 package eu.indiewalkabout.fridgemanager.core.presentation.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,6 +14,8 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_14
 
 
@@ -21,8 +24,9 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_14
 fun RoundedCornerButton(
     onClick: () -> Unit,
     shape: Shape,
+    borderStroke: BorderStroke? = null,
     backgroundColor: Color = Color.White,
-    btnElevation: Int = 5,
+    elevation: Int = 5,
     text: String,
     textPadding: Int = 4,
     contentPadding: PaddingValues = PaddingValues(16.dp, 0.dp, 16.dp, 0.dp),
@@ -33,9 +37,10 @@ fun RoundedCornerButton(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
         shape = shape,
+        border = borderStroke,
         elevation = ButtonDefaults.buttonElevation(
-            defaultElevation = btnElevation.dp, //5.dp,
-            pressedElevation = if (btnElevation > 0) 2.dp else 0.dp,
+            defaultElevation = elevation.dp, //5.dp,
+            pressedElevation = if (elevation > 0) 2.dp else 0.dp,
             disabledElevation = 0.dp
         ),
         contentPadding = PaddingValues(16.dp, 0.dp, 16.dp, 0.dp),
@@ -54,11 +59,15 @@ fun RoundedCornerButton(
 @Composable
 fun RoundedCornerButtonPreview2() {
     RoundedCornerButton(
+        modifier = Modifier
+            .padding(16.dp),
+        shape = RoundedCornerShape(15.dp),
+        elevation = 0,
+        borderStroke = BorderStroke(2.dp, secondaryColor),
         onClick = { /*TODO*/ },
-        shape = RoundedCornerShape(25.dp),
-        backgroundColor = Color.Blue,
+        backgroundColor = primaryColor,
         text = "Button",
         textPadding = 0,
-        style = text_14(Color.White, true)
+        style = text_14(secondaryColor, true)
     )
 }

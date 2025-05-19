@@ -1,6 +1,6 @@
 package eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases
 
-import eu.indiewalkabout.fridgemanager.core.domain.model.ApiResponse
+import eu.indiewalkabout.fridgemanager.core.domain.model.DbResponse
 import eu.indiewalkabout.fridgemanager.core.domain.model.ErrorResponse
 import eu.indiewalkabout.fridgemanager.feat_food.domain.repository.FridgeManagerRepository
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
@@ -9,12 +9,12 @@ import javax.inject.Inject
 class InsertFoodEntryUseCase @Inject constructor(
     private val repository: FridgeManagerRepository
 ) {
-    operator fun invoke(foodEntry: FoodEntry): ApiResponse<Unit> {
+    operator fun invoke(foodEntry: FoodEntry): DbResponse<Unit> {
         return try {
             repository.insertFoodEntry(foodEntry)
-            ApiResponse.Success(Unit)
+            DbResponse.Success(Unit)
         } catch (e: Exception) {
-            ApiResponse.Error(ErrorResponse(0, listOf(), e.localizedMessage ?: "Unknown error"))
+            DbResponse.Error(ErrorResponse(0, listOf(), e.localizedMessage ?: "Unknown error"))
         }
     }
 }

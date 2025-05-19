@@ -2,6 +2,7 @@ package eu.indiewalkabout.fridgemanager.core.data.locals
 
 import java.text.DateFormat
 
+
 object Constants {
     const val APP_OPENING_COUNTER = "app-opening-counter"
     const val DEFAULT_COUNT = 0
@@ -14,6 +15,7 @@ object Constants {
     const val FOOD_DEAD = "DeadFood"
 
     // DATE
-    val LOCAL_DATE_FORMAT = DateFormat.getDateInstance(DateFormat.DEFAULT)
+    // val LOCAL_DATE_FORMAT = DateFormat.getDateInstance(DateFormat.DEFAULT).toString()
+    var LOCAL_DATE_FORMAT = ""
     const val DEFAULT_DATE_FORMAT =  "dd/MM/yyyy" // "d MMMM yyyy"
 }

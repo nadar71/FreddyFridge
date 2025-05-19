@@ -21,7 +21,7 @@ object AppColors {
     val backgroundLightGreen_02 = Color(0xFF31A431)
     val backgroundLightGreenSemitransparent = Color(0xC8007E00)
     val backgroundLightGrey = Color(0xC8C3DBF6)
-    val fabLightGreen = Color(0xFF2CFD03)
+    val lightGreen = Color(0xFF2CFD03)
     val lightWhiteSemitransparent = Color(0xDCFFFFFF)
     val lightWhiteTransparent = Color(0x00FFFFFF)
     val primaryColorSemitransparent = Color(0xC87AA44D)

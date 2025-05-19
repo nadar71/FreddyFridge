@@ -32,9 +32,17 @@ fun SimpleTextField(
     hintText: String,
     hintTextStyle: TextStyle = TextStyle(color = colorHintText, fontSize = 14.sp),
     inputTextStyle: TextStyle = TextStyle(color = colorText, fontSize = 14.sp),
+    isNumeric: Boolean = false,
+    isDecimal: Boolean = false,
     value: String,
     onValueChange: (String) -> Unit,
 ) {
+
+    val keyboardType = when {
+        isNumeric && isDecimal -> KeyboardType.Decimal
+        isNumeric && !isDecimal -> KeyboardType.Number
+        else -> KeyboardType.Text
+    }
 
     TextField(
         value = value,
@@ -63,7 +71,7 @@ fun SimpleTextField(
         ),
         shape = RoundedCornerShape(8.dp),
         keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Text,
+            keyboardType = keyboardType,
             imeAction = ImeAction.Next
         )
     )

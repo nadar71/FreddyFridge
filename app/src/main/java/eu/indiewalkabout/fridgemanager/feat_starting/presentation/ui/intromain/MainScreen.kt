@@ -5,6 +5,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,6 +44,7 @@ import eu.indiewalkabout.fridgemanager.core.presentation.components.ProductListC
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.colorText
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.Fredoka
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
@@ -167,11 +169,14 @@ fun MainScreen() {
 
         if (showBottomSheet) {
             ModalBottomSheet(
+                modifier = Modifier
+                    .border(1.dp, secondaryColor, RoundedCornerShape(24.dp)),
                 onDismissRequest = { showBottomSheet = false },
                 // sheetMaxWidth = 600.dp,
                 sheetState = sheetState,
                 containerColor = primaryColor,
                 shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
+
             ) {
                 InsertFoodBottomSheetContent(
                     descriptionText = descriptionText,

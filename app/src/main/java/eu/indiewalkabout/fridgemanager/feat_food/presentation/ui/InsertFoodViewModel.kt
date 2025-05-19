@@ -13,4 +13,7 @@ class InsertFoodViewModel @Inject constructor(
     private val repository: FridgeManagerRepository
 ): ViewModel() {
 
+
+
+
 }
