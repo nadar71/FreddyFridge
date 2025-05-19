@@ -158,6 +158,26 @@
     <string name="content_menu_add_label_item">Icon ADD food</string>
 
 
+    <!-- - - - - - - - - - - - - - - - - -  ERRORS MSG - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="db_error_deleting_food_table">Error deleting food table</string>
+    <string name="db_error_deleting_food_entry">Error deleting food</string>
+    <string name="db_error_inserting_food_entry">Error inserting food</string>
+    <string name="db_error_loading_all_food">Error loading all food</string>
+    <string name="db_error_loading_consumed_food">Error loading consumed food</string>
+    <string name="db_error_loading_expired_food">Error loading expired food</string>
+    <string name="db_error_loading_expiring_food">Error loading expiring food</string>
+    <string name="db_error_loading_food">Error loading food</string>
+    <string name="db_error_loading_expiring_today_food">Error loading expiring food</string>
+    <string name="db_error_updating_done_food_entry">Error updating food</string>
+    <string name="db_error_updating_food_entry">Error updating food</string>
+
+
+
+
+
+
+
+
     <!-- - - - - - - - - - - - - - -  NOT TRANSLATABLE - - - - - - - - - - - - - - - - - - - - - -->
     <string name="app_package" translatable="false">eu.indiewalkabout.fridgemanager</string>
     <string name="gdpr_btn_key" translatable="false">gdpr_withdraw</string>

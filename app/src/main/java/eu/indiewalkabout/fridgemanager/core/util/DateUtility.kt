@@ -21,7 +21,10 @@ import java.util.concurrent.TimeUnit
 
 object DateUtility {
 
-    // get a Local date formatter for converting dates to current device local dte format
+    // Milliseconds in a day
+    val DAY_IN_MILLIS = TimeUnit.DAYS.toMillis(1)
+
+    // get a Local date formatter for converting dates to current device local date format
     fun getLocalDateFormat(): DateTimeFormatter{
         // get the default locale
         val currentLocale = Locale.getDefault()
@@ -34,8 +37,22 @@ object DateUtility {
         return localizedFormatter
     }
 
-    // Milliseconds in a day
-    val DAY_IN_MILLIS = TimeUnit.DAYS.toMillis(1)
+
+    // convert a locale date string to java.util.Date
+    fun localDateTextToDate(localeDateText: String): Date? {
+        return try {
+            val formatter = getLocalDateFormat() // your method
+            val localDate = LocalDate.parse(localeDateText, formatter)
+
+            // Convert LocalDate -> Date (at start of day in system default timezone)
+            val zoneId = java.time.ZoneId.systemDefault()
+            val instant = localDate.atStartOfDay(zoneId).toInstant()
+            Date.from(instant)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 
     /**
      * ---------------------------------------------------------------------------------------------

@@ -50,6 +50,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_14
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
@@ -66,6 +67,7 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.lightGr
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getLocalDateFormat
+import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.NumberPickerWithTitle
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.util.VoiceRecognitionManager
 import java.time.LocalDate
@@ -73,6 +75,7 @@ import java.time.LocalDate
 
 @Composable
 fun InsertFoodBottomSheetContent(
+    foodViewModel: FoodViewModel = hiltViewModel(),
     descriptionText: String,
     onDescriptionChange: (String) -> Unit
 ) {
@@ -384,6 +387,13 @@ fun InsertFoodBottomSheetContent(
                 onClick = {
                     if (!isBtnEnabled) return@RoundedCornerButton
                     else {
+                        foodViewModel.insertFood(
+                            FoodEntry(
+                                name = descriptionText,
+                                expiringAt = localeDateText,
+                            )
+                        )
+                        onDismiss()
 
 
 

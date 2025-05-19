@@ -75,6 +75,7 @@ dependencies {
     // hilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.common)
+    implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.hilt.android.compiler)
 
     // Accompanist lib for compose integration

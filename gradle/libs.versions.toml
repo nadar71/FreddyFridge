@@ -14,6 +14,8 @@ espressoCore = "3.6.1"
 gsonSupport = "2.10.0"
 gsonVersion = "2.11.0"
 hilt = "2.51.1"
+hiltCommon = "1.2.0"
+hiltNavigationCompose = "1.2.0"
 kotlin = "2.0.0"
 ksp = "2.0.0-1.0.23"
 kotlinxCoroutinesCore = "1.8.0"
@@ -47,7 +49,7 @@ loggingInterceptor = "5.0.0-alpha.2"
 multidex = "2.0.1"
 unityAds = "4.14.1"
 workRuntimeKtx = "2.10.1"
-hiltCommon = "1.2.0"
+
 
 
 
@@ -61,6 +63,7 @@ androidx-preference-ktx = { module = "androidx.preference:preference-ktx", versi
 androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

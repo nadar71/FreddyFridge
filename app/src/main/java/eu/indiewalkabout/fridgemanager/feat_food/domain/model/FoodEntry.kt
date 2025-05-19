@@ -14,7 +14,7 @@ data class FoodEntry (
     var id: Int = 0,
     var name: String? = null,
     @ColumnInfo(name = "EXPIRING_AT") @TypeConverters(DateConverter::class)
-    var expiringAt: Date? = null,
+    var expiringAt: Date? = null, // Because your DB uses a @TypeConverter, Date is converted to Long and stored in milliseconds
     var done: Int = 0,
     )
 
