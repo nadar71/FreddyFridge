@@ -86,7 +86,7 @@
             android:layout_marginBottom="16dp"
             app:backgroundTint="@color/colorAccent"
             app:fabSize="normal"
-            app:layout_constraintBottom_toTopOf="@+id/adView"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_refrigerator_icon" />
 
@@ -113,6 +113,7 @@
 
         </com.hlab.fabrevealmenu.view.FABRevealMenu>
 
+<!--
         <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
             android:layout_width="match_parent"
@@ -126,6 +127,7 @@
             ads:layout_constraintBottom_toBottomOf="parent"
             ads:layout_constraintEnd_toEndOf="parent"
             ads:layout_constraintStart_toStartOf="parent" />
+-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

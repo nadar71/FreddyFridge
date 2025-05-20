@@ -11,8 +11,9 @@ import android.view.MenuItem
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.interstitial.InterstitialAd
+// import com.google.android.gms.ads.interstitial.InterstitialAd
+// import com.google.android.gms.ads.AdListener
+// import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.hlab.fabrevealmenu.enums.Direction
 import com.hlab.fabrevealmenu.listeners.OnFABMenuSelectedListener
 import eu.indiewalkabout.fridgemanager.R
@@ -56,7 +57,7 @@ class FoodListActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelect
     private var foodListForShare: String = ""
     private var foodShareSubject: String = ""
 
-    lateinit var mInterstitialAd: InterstitialAd
+    // lateinit var mInterstitialAd: InterstitialAd
 
     // Hold the type of food to show in list, use here and by adapter
     // TODO : find a better way to pass this info to adapter

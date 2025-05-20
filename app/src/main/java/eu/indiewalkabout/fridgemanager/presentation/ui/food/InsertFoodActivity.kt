@@ -117,11 +117,11 @@ class InsertFoodActivity : AppCompatActivity(), CalendarView.OnDateChangeListene
         addKeyboardToggleListener(this, object : SoftKeyboardToggleListener {
             override fun onToggleSoftKeyboard(isVisible: Boolean) {
                 Log.d("keyboard", "keyboard visible: $isVisible")
-                if (isVisible) {
+                /*if (isVisible) {
                     binding.adView.visibility = View.INVISIBLE
                 } else {
                     binding.adView.visibility = View.VISIBLE
-                }
+                }*/
             }
         })
     }

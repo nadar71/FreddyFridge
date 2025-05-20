@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
     override fun onStart() {
         super.onStart()
-        showAds()
+        // showAds()
     }
 
 
@@ -161,7 +161,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
 
         // ads banner
         // val bannerWidthDp = getScreenWidthDp(this) - (2 * marginDp) // Subtract margins from screen width
-        bottomBanner = BannerView(this, "banner", UnityBannerSize(320, 50))
+        // bottomBanner = BannerView(this, "banner", UnityBannerSize(320, 50))
         /*val bannerView = BannerView(this, "banner", UnityBannerSize(bannerWidthDp, 50))
         val layoutParams = ViewGroup.LayoutParams(
             dpToPx(this, bannerWidthDp), // Convert dp to pixels
@@ -169,9 +169,9 @@ class MainActivity : AppCompatActivity(), ItemClickListener, OnFABMenuSelectedLi
         )
         bannerView.layoutParams = layoutParams*/
 
-        bottomBanner?.listener = bannerListener
+        /*bottomBanner?.listener = bannerListener
         bottomBanner?.load()
-        binding.bannerLayout.addView(bottomBanner)
+        binding.bannerLayout.addView(bottomBanner)*/
     }
 
 

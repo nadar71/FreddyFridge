@@ -15,7 +15,7 @@ import eu.indiewalkabout.fridgemanager.data.repository.FridgeManagerRepository
 
 // Class used for access singletons and application context wherever in the app
 // NB : register in manifest in <Application android:name=".App">... </Application>
-class App : Application(), Configuration.Provider, IUnityAdsInitializationListener {
+class App : Application(), Configuration.Provider /*, IUnityAdsInitializationListener*/ {
     companion object {
         private var sContext: Context? = null
 
@@ -48,12 +48,12 @@ class App : Application(), Configuration.Provider, IUnityAdsInitializationListen
         // scheduleChargingReminder(this)
 
         // start scheduler for notifications reminder
-        AlarmReminderScheduler().setRepeatingAlarm()
+        // AlarmReminderScheduler().setRepeatingAlarm()
 
         // UNITY
         // Initialize the SDK:
-        UnityAds.initialize(applicationContext,
-            applicationContext.getString(R.string.unityads_id), testMode, this)
+        /*UnityAds.initialize(applicationContext,
+            applicationContext.getString(R.string.unityads_id), testMode, this)*/
 
     }
 
@@ -63,7 +63,7 @@ class App : Application(), Configuration.Provider, IUnityAdsInitializationListen
                     .setMinimumLoggingLevel(android.util.Log.VERBOSE)
                     .build()
 
-    // unity ads init complete
+    /*// unity ads init complete
     override fun onInitializationComplete() {
         Log.v(UNITYTAG, "UnityAds init complete")
     }
@@ -72,6 +72,6 @@ class App : Application(), Configuration.Provider, IUnityAdsInitializationListen
     override fun onInitializationFailed(p0: UnityAds.UnityAdsInitializationError?, p1: String?) {
         Log.v(UNITYTAG, "UnityAds init FAILED")
 
-    }
+    }*/
 
 }

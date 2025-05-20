@@ -39,7 +39,6 @@
                 android:id="@+id/date_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:background="@drawable/rounded_rect"
                 android:backgroundTint="@color/light_grey_very_transparent"
                 android:elevation="2dp"
@@ -53,7 +52,7 @@
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/calendar_cv"
-                app:layout_constraintTop_toBottomOf="@+id/adView" />
+                app:layout_constraintTop_toTopOf="@+id/insert_bg_img" />
 
             <CalendarView
                 android:id="@+id/calendar_cv"
@@ -210,7 +209,7 @@
                 app:srcCompat="@drawable/ic_refrigerator_icon" />
 
 
-            <com.google.android.gms.ads.AdView
+            <!--<com.google.android.gms.ads.AdView
                 android:id="@+id/adView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -220,7 +219,7 @@
                 app:adSize="BANNER"
                 app:adUnitId="@string/admob_key_bottom_banner"
                 app:layout_constraintStart_toStartOf="@+id/date_tv"
-                app:layout_constraintTop_toTopOf="@+id/insert_food_fabMenu" />
+                app:layout_constraintTop_toTopOf="@+id/insert_food_fabMenu" />-->
 
             <com.hlab.fabrevealmenu.view.FABRevealMenu
                 android:id="@+id/insert_food_fabMenu"

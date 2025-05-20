@@ -109,13 +109,13 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_ext_vers"
 
     // JobService
-    implementation "com.firebase:firebase-jobdispatcher:$jobdispatcher_vers"
+    // implementation "com.firebase:firebase-jobdispatcher:$jobdispatcher_vers"
 
     // Ads through  Playservices : it gives me problem....
-    implementation "com.google.android.gms:play-services-ads:$play_services_ads_vers"
+    // implementation "com.google.android.gms:play-services-ads:$play_services_ads_vers"
 
     // GDPR
-    implementation "com.google.android.ads.consent:consent-library:$consent_library_vers"
+    // implementation "com.google.android.ads.consent:consent-library:$consent_library_vers"
 
     // FAB
     // implementation 'com.hlab.fabrevealmenu:main_fab-reveal-menu:1.0.3'
@@ -142,7 +142,7 @@ dependencies {
     implementation 'com.chibatching.kotpref:preference-screen-dsl:2.10.0'
 
     // debug stuff
-    debugImplementation "com.amitshekhar.android:debug-db:$amitshekhar_vers"
+    // debugImplementation "com.amitshekhar.android:debug-db:$amitshekhar_vers"
 
     // Unity
     implementation 'com.unity3d.ads:unity-ads:4.7.0'

@@ -68,7 +68,7 @@
                 android:name="eu.indiewalkabout.fridgemanager.presentation.ui.settings.MainSettingsActivity$MainPreferenceFragment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/adView"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +93,7 @@
                 android:layout_marginBottom="16dp"
                 app:backgroundTint="@color/colorAccent"
                 app:fabSize="normal"
-                app:layout_constraintBottom_toTopOf="@+id/adView"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_refrigerator_icon" />
 
@@ -117,7 +117,7 @@
                 app:showTitle="true" />
 
 
-            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            <!--<com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
                 ads:adUnitId="@string/admob_key_bottom_banner"
                 ads:layout_constraintBottom_toBottomOf="parent"
                 ads:layout_constraintEnd_toEndOf="parent"
-                ads:layout_constraintStart_toStartOf="parent" />
+                ads:layout_constraintStart_toStartOf="parent" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
