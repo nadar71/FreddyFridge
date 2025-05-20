@@ -110,6 +110,21 @@
     <string name="content_menu_consumed_label_item">Icona Cibo Consumato</string>
     <string name="content_menu_expiring_label_item">Icona Cibo In Scadenza</string>
     <string name="content_menu_add_label_item">Icona AGGIUNGI Cibo</string>
+    <string name="content_delete_food_icon">Icona elimina scheda cibo</string>
+
+    <!-- - - - - - - - - - - - - - - - - - - - ERRORS MSG - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="db_error_deleting_food_table">Errore durante l\'eliminazione della tabella degli alimenti</string>
+    <string name="db_error_deleting_food_entry">Errore durante l\'eliminazione degli alimenti</string>
+    <string name="db_error_inserting_food_entry">Errore durante l\'inserimento degli alimenti</string>
+    <string name="db_error_loading_all_food">Errore durante il caricamento di tutti gli alimenti</string>
+    <string name="db_error_loading_consumed_food">Errore durante il caricamento degli alimenti consumati</string>
+    <string name="db_error_loading_expired_food">Errore durante il caricamento degli alimenti scaduti</string>
+    <string name="db_error_loading_expiring_food">Errore durante il caricamento del cibo in scadenza</string>
+    <string name="db_error_loading_food">Errore durante il caricamento del cibo in scadenza</string>
+    <string name="db_error_loading_expiring_today_food">Errore durante il caricamento del cibo in scadenza</string>
+    <string name="db_error_updating_done_food_entry">Errore durante l\'aggiornamento del cibo</string>
+    <string name="db_error_updating_food_entry">Errore durante l\'aggiornamento del cibo</string>
+
 
     <!-- 🧹 DUPLICATES & UNUSED KEYS -->
     <string name="gdpr_btn_title">GDPR</string>

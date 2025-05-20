@@ -156,6 +156,7 @@
     <string name="content_menu_consumed_label_item">Icon Consumed food</string>
     <string name="content_menu_expiring_label_item">Icon Expiring food</string>
     <string name="content_menu_add_label_item">Icon ADD food</string>
+    <string name="content_delete_food_icon">Icon delete food card</string>
 
 
     <!-- - - - - - - - - - - - - - - - - -  ERRORS MSG - - - - - - - - - - - - - - - - - - - - - -->

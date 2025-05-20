@@ -26,6 +26,7 @@ object AppColors {
     val lightWhiteTransparent = Color(0x00FFFFFF)
     val primaryColorSemitransparent = Color(0xC87AA44D)
     val lightGreyVeryTransparent = Color(0x6EC3DBF6)
+    val foodGray = Color(0xFFA1A8A9)
     val foodGreen = Color(0xFF5FDD31)
     val foodYellow = Color(0xFFFCC742)
     val foodOrange = Color(0xFFEC8405)

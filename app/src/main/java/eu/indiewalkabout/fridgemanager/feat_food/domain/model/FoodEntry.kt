@@ -26,7 +26,8 @@ data class FoodEntry (
 fun FoodEntry.toFoodEntryUI(): FoodEntryUI {
     return FoodEntryUI (
         name = name,
-        expiringAt = expiringAt?.format(getLocalDateFormat()) ?: "",
+        expiringAtLocalDate = expiringAt,
+        expiringAtUI = expiringAt?.format(getLocalDateFormat()) ?: "",
         quantity = quantity,
         done = done,
     )
