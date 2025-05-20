@@ -15,7 +15,7 @@ class DeleteFoodEntryUseCase @Inject constructor(
     @ApplicationContext context: Context
 ) {
     private val context = context
-    operator fun invoke(foodEntry: FoodEntry): DbResponse<Unit> {
+    suspend operator fun invoke(foodEntry: FoodEntry): DbResponse<Unit> {
         return try {
             repository.deleteFoodEntry(foodEntry)
             DbResponse.Success(Unit)

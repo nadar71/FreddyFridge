@@ -14,7 +14,7 @@ class DropTableUseCase @Inject constructor(
     @ApplicationContext context: Context
 ) {
     private val context = context
-    operator fun invoke(): DbResponse<Unit> {
+    suspend operator fun invoke(): DbResponse<Unit> {
         return try {
             repository.dropTable()
             DbResponse.Success(Unit)

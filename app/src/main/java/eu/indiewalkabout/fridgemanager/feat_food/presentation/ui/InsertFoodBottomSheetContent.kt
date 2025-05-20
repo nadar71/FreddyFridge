@@ -89,13 +89,12 @@ fun InsertFoodBottomSheetContent(
     var showCalendarDialog by remember { mutableStateOf(false) }
     var showQuantityWheelPicker by remember { mutableStateOf(false) }
 
-    // var dateText by remember { mutableStateOf("") }
-    var localeDateText by remember { mutableStateOf("") }
+    var localeDateText by remember { mutableStateOf<LocalDate?>(null) }
+    var localeDateShownText by remember { mutableStateOf("") }
     var descriptionText by remember { mutableStateOf("") }
     var quantityNumText by remember { mutableStateOf("1") }
 
-    var isBtnEnabled = localeDateText.isNotEmpty() && descriptionText.isNotEmpty()
-
+    var isBtnEnabled = localeDateShownText.isNotEmpty() && descriptionText.isNotEmpty()
 
 
     // ------------------------------------- LOGIC -------------------------------------------------
@@ -148,10 +147,15 @@ fun InsertFoodBottomSheetContent(
         ComposeCalendar(
             startDate = LocalDate.now(),
             maxDate = LocalDate.MAX,
-            onDone = { it: LocalDate ->
+            onDone = { it: LocalDate -> // ISO-8601 default format: YYYY-MM-DD
                 Log.d(TAG, "InsertFoodBottomSheetContent: date selected : $it")
-                localeDateText = it.format(getLocalDateFormat())
-                // onTextChanged(textFieldValue)
+                localeDateText = it     // for db
+                localeDateShownText =
+                    it.format(getLocalDateFormat())  // local default date format, i.e. mm/dd/yy
+                Log.d(
+                    TAG,
+                    "InsertFoodBottomSheetContent: date formatted for local default : $localeDateShownText"
+                )
                 showCalendarDialog = false
             },
             onDismiss = {
@@ -177,17 +181,18 @@ fun InsertFoodBottomSheetContent(
     }
 
 
-
     // ------------------------------------- UI ----------------------------------------------------
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
+            // .border(1.dp, secondaryColor, RoundedCornerShape(24.dp))
+            .clip(RoundedCornerShape(24.dp)) // Clip the Box to the rounded shape
             .background(
-                primaryColor.copy(alpha = 0.5f), // You can keep this background if you want a fallback or overlay color
-                shape = RoundedCornerShape(16.dp)
+                primaryColor.copy(alpha = 0.5f),
+                shape = RoundedCornerShape(24.dp)
             )
-            .clip(RoundedCornerShape(16.dp)) // Clip the Box to the rounded shape
+
     ) {
         // background Image
         Image(
@@ -206,8 +211,7 @@ fun InsertFoodBottomSheetContent(
                     shape = RoundedCornerShape(16.dp)
                 )
                 .padding(16.dp),
-
-            ) {
+        ) {
 
 
             TopBar(
@@ -238,14 +242,15 @@ fun InsertFoodBottomSheetContent(
                 horizontalArrangement = Arrangement.Center
             ) {
                 SimpleTextField(
+                    enabled = false,
                     modifier = Modifier
                         .weight(1f)
                         .align(Alignment.CenterVertically),
                     hintText = stringResource(R.string.insert_expiring_date_hint),
                     hintTextStyle = text_14(colorHintText, false),
                     inputTextStyle = text_14(colorText, false),
-                    value = localeDateText,
-                    onValueChange = { localeDateText = it },
+                    value = localeDateShownText,
+                    onValueChange = { localeDateShownText = it },
                 )
                 Image(
                     painter = painterResource(id = R.drawable.ic_calendar_month),
@@ -314,7 +319,11 @@ fun InsertFoodBottomSheetContent(
                         )
                         .clickable {
                             if (!SpeechRecognizer.isRecognitionAvailable(context)) {
-                                Toast.makeText(context, "Speech Recognition not available", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    context,
+                                    "Speech Recognition not available",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                                 return@clickable
                             }
                             if (!isListening) {
@@ -385,22 +394,17 @@ fun InsertFoodBottomSheetContent(
                     .padding(16.dp)
                     .align(Alignment.CenterHorizontally),
                 onClick = {
-                    if (!isBtnEnabled) return@RoundedCornerButton
-                    else {
-                        foodViewModel.insertFood(
-                            FoodEntry(
-                                name = descriptionText,
-                                expiringAt = localeDateText,
-                            )
-                        )
-                        onDismiss()
-
-
-
-                    }
-
-                    // do db saving
-                },
+                            if (!isBtnEnabled) return@RoundedCornerButton
+                            else {
+                                foodViewModel.insertFood(
+                                    FoodEntry(
+                                        name = descriptionText,
+                                        expiringAt = localeDateText,
+                                        quantity = quantityNumText.toInt()
+                                    )
+                                )
+                            }
+                          },
                 shape = RoundedCornerShape(15.dp),
                 elevation = 0,
                 borderStroke = BorderStroke(1.dp, secondaryColor),
@@ -412,7 +416,6 @@ fun InsertFoodBottomSheetContent(
         }
     }
 }
-
 
 
 @Preview(showBackground = true)

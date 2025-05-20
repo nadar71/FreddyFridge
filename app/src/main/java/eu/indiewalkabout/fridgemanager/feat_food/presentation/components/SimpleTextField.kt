@@ -24,11 +24,13 @@ import androidx.compose.ui.unit.sp
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.backgroundLightGrey
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.colorHintText
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.colorText
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.lightGreyVeryTransparent
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 
 @Composable
 fun SimpleTextField(
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     hintText: String,
     hintTextStyle: TextStyle = TextStyle(color = colorHintText, fontSize = 14.sp),
     inputTextStyle: TextStyle = TextStyle(color = colorText, fontSize = 14.sp),
@@ -45,6 +47,7 @@ fun SimpleTextField(
     }
 
     TextField(
+        enabled = enabled,
         value = value,
         onValueChange = onValueChange,
         modifier = modifier
@@ -64,6 +67,7 @@ fun SimpleTextField(
         colors = TextFieldDefaults.colors(
             focusedContainerColor = backgroundLightGrey,
             unfocusedContainerColor = backgroundLightGrey,
+            disabledContainerColor = lightGreyVeryTransparent,
             cursorColor = colorText,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
@@ -83,6 +87,7 @@ fun SimpleTextField(
 @Composable
 fun PreviewSimpleTextField() {
     SimpleTextField(
+        enabled = false,
         hintText = "Name",
         value = "",
         onValueChange = {}

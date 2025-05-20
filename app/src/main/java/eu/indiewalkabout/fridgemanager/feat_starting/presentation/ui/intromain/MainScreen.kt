@@ -169,13 +169,13 @@ fun MainScreen() {
 
         if (showBottomSheet) {
             ModalBottomSheet(
-                modifier = Modifier
-                    .border(1.dp, secondaryColor, RoundedCornerShape(24.dp)),
+                shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+                modifier = Modifier,
+                    // .border(1.dp, secondaryColor, RoundedCornerShape(24.dp)),
                 onDismissRequest = { showBottomSheet = false },
                 // sheetMaxWidth = 600.dp,
                 sheetState = sheetState,
                 containerColor = primaryColor,
-                shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
 
             ) {
                 InsertFoodBottomSheetContent(

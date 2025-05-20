@@ -42,27 +42,27 @@ class FridgeManagerRepositoryImpl @Inject constructor(
 
 
     //----------------------------------------- INSERT ---------------------------------------------
-    override fun insertFoodEntry(foodEntry: FoodEntry) {
+    override suspend fun insertFoodEntry(foodEntry: FoodEntry) {
         foodDbDao.insertFoodEntry(foodEntry)
     }
 
 
     //------------------------------------------ UPDATE---------------------------------------------
-    override fun updateFoodEntry(foodEntry: FoodEntry) {
+    override suspend fun updateFoodEntry(foodEntry: FoodEntry) {
         foodDbDao.updateFoodEntry(foodEntry)
     }
 
-    override fun updateDoneField(done: Int, id: Int) {
+    override suspend fun updateDoneField(done: Int, id: Int) {
         foodDbDao.updateDoneField(done, id)
     }
 
     // delete single record
-    override fun deleteFoodEntry(foodEntry: FoodEntry) {
+    override suspend fun deleteFoodEntry(foodEntry: FoodEntry) {
         foodDbDao.deleteFoodEntry(foodEntry)
     }
 
     //------------------------------------------- DROP TABLE ---------------------------------------
-    override fun dropTable() {
+    override suspend fun dropTable() {
         foodDbDao.dropTable()
     }
 

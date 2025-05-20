@@ -19,7 +19,6 @@ package eu.indiewalkabout.fridgemanager.core.presentation.components.composecale
 
 import eu.indiewalkabout.fridgemanager.R
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -45,7 +44,7 @@ fun ComposeCalendar(
     maxDate: LocalDate = LocalDate.MAX,
     showSelectedDate: Boolean = true,
     selectedDateFormat: DateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT),
-    onDone: (millis: LocalDate) -> Unit,
+    onDone: (localdate: LocalDate) -> Unit,  // ISO-8601 default format: YYYY-MM-DD
     onDismiss: () -> Unit
 ) {
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }

@@ -14,7 +14,7 @@ class UpdateDoneFieldUseCase @Inject constructor(
     @ApplicationContext context: Context
 ) {
     private val context = context
-    operator fun invoke(done: Int, id: Int): DbResponse<Unit> {
+    suspend operator fun invoke(done: Int, id: Int): DbResponse<Unit> {
         return try {
             repository.updateDoneField(done, id)
             DbResponse.Success(Unit)

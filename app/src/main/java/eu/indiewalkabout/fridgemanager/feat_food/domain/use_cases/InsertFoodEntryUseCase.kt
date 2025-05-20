@@ -15,7 +15,7 @@ class InsertFoodEntryUseCase @Inject constructor(
     @ApplicationContext context: Context
 ) {
     private val context = context
-    operator fun invoke(foodEntry: FoodEntry): DbResponse<Unit> {
+    suspend operator fun invoke(foodEntry: FoodEntry): DbResponse<Unit> {
         return try {
             repository.insertFoodEntry(foodEntry)
             DbResponse.Success(Unit)

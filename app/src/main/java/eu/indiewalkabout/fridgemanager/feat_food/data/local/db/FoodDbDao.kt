@@ -41,23 +41,23 @@ interface FoodDbDao {
 
     //----------------------------------------- INSERT ---------------------------------------------
     @Insert
-    fun insertFoodEntry(foodEntry: FoodEntry)
+    suspend fun insertFoodEntry(foodEntry: FoodEntry)
 
 
     //------------------------------------------ UPDATE---------------------------------------------
-      @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateFoodEntry(foodEntry: FoodEntry)
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateFoodEntry(foodEntry: FoodEntry)
 
     @Query("UPDATE FOODLIST SET done=:done WHERE id = :id")
-    fun updateDoneField(done: Int, id: Int)
+    suspend fun updateDoneField(done: Int, id: Int)
 
     // delete single record
     @Delete
-    fun deleteFoodEntry(foodEntry: FoodEntry)
+    suspend fun deleteFoodEntry(foodEntry: FoodEntry)
 
 
     //------------------------------------------- DROP TABLE ---------------------------------------
     // drop table
     @Query("DELETE FROM FOODLIST")
-    fun dropTable()
+    suspend fun dropTable()
 }

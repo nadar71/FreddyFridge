@@ -24,7 +24,7 @@ object DateUtility {
     // Milliseconds in a day
     val DAY_IN_MILLIS = TimeUnit.DAYS.toMillis(1)
 
-    // get a Local date formatter for converting dates to current device local date format
+    // get a local date Date formatter to current device local Date formatter
     fun getLocalDateFormat(): DateTimeFormatter{
         // get the default locale
         val currentLocale = Locale.getDefault()
@@ -41,8 +41,8 @@ object DateUtility {
     // convert a locale date string to java.util.Date
     fun localDateTextToDate(localeDateText: String): Date? {
         return try {
-            val formatter = getLocalDateFormat() // your method
-            val localDate = LocalDate.parse(localeDateText, formatter)
+            val formatter = getLocalDateFormat() // get the local device date format
+            val localDate = LocalDate.parse(localeDateText, formatter) // convert to locale date
 
             // Convert LocalDate -> Date (at start of day in system default timezone)
             val zoneId = java.time.ZoneId.systemDefault()
