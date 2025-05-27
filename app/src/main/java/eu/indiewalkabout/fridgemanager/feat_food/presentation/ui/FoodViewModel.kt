@@ -35,7 +35,6 @@ class FoodViewModel @Inject constructor(
     private val loadFoodByIdUseCase: LoadFoodByIdUseCase,
     private val updateDoneFieldUseCase: UpdateDoneFieldUseCase,
     private val loadAllFoodUseCase: LoadAllFoodUseCase,
-    private val loadFoodExpiringTodayUseCase: LoadFoodExpiringTodayUseCase
 ) : ViewModel() {
 
     private val _foodListUiState = MutableStateFlow<FoodListUiState<List<FoodEntry>>>(FoodListUiState.Idle)
@@ -157,22 +156,6 @@ class FoodViewModel @Inject constructor(
     }
 
 
-    // Fetch food expiring today
-    fun getFoodExpiringToday(dayBefore: Long?, dayAfter: Long?) {
-        viewModelScope.launch {
-            _foodListUiState.value = FoodListUiState.Loading
-            try {
-                val result: DbResponse<List<FoodEntry>> = loadFoodExpiringTodayUseCase(dayBefore, dayAfter)
-                _foodListUiState.value = when (result) {
-                    is DbResponse.Success -> FoodListUiState.Success(result.data) // result.data is List<FoodEntry>
-                    is DbResponse.Error -> FoodListUiState.Error(result.error)
-                }
-            } catch (e: Exception) {
-                _foodListUiState.value = FoodListUiState.Error(
-                    ErrorResponse(0, emptyList(), e.message ?: "Unknown error")
-                )            }
-        }
-    }
 
 
 }
