@@ -23,6 +23,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
+// TODO: to delete
 @HiltViewModel
 class FridgeViewModel @Inject constructor(
     private val loadAllFoodUseCase: LoadAllFoodUseCase,
@@ -38,7 +40,7 @@ class FridgeViewModel @Inject constructor(
     private val dropTableUseCase: DropTableUseCase
 ) : ViewModel() {
 
-    // UI State Sealed Class
+    /*// UI State Sealed Class
     sealed class FoodUiState<out T> {
         object Idle : FoodUiState<Nothing>()
         object Loading : FoodUiState<Nothing>()
@@ -55,9 +57,9 @@ class FridgeViewModel @Inject constructor(
 
     private val _operationState = MutableStateFlow<FoodUiState<Unit>>(FoodUiState.Idle)
     val operationState: StateFlow<FoodUiState<Unit>> = _operationState.asStateFlow()
-
+*/
     // Fetch all food
-    fun getAllFood() {
+    /*fun getAllFood() {
         viewModelScope.launch {
             _foodState.value = FoodUiState.Loading
             try {
@@ -72,10 +74,10 @@ class FridgeViewModel @Inject constructor(
                 )
             }
         }
-    }
+    }*/
 
     // Fetch expiring food
-    fun getExpiringFood(date: Long?) {
+    /*fun getExpiringFood(date: Long?) {
         viewModelScope.launch {
             _foodState.value = FoodUiState.Loading
             try {
@@ -90,10 +92,10 @@ class FridgeViewModel @Inject constructor(
                 )
             }
         }
-    }
+    }*/
 
     // Fetch food expiring today
-    fun getFoodExpiringToday(dayBefore: Long?, dayAfter: Long?) {
+    /*fun getFoodExpiringToday(dayBefore: Long?, dayAfter: Long?) {
         viewModelScope.launch {
             _foodState.value = FoodUiState.Loading
             try {
@@ -108,10 +110,10 @@ class FridgeViewModel @Inject constructor(
                 )
             }
         }
-    }
+    }*/
 
     // Fetch expired food
-    fun getExpiredFood(date: Long?) {
+    /*fun getExpiredFood(date: Long?) {
         viewModelScope.launch {
             _foodState.value = FoodUiState.Loading
             try {
@@ -126,10 +128,10 @@ class FridgeViewModel @Inject constructor(
                 )
             }
         }
-    }
+    }*/
 
     // Fetch consumed food
-    fun getConsumedFood() {
+    /*fun getConsumedFood() {
         viewModelScope.launch {
             _foodState.value = FoodUiState.Loading
             try {
@@ -144,10 +146,10 @@ class FridgeViewModel @Inject constructor(
                 )
             }
         }
-    }
+    }*/
 
     // Fetch food by ID
-    fun getFoodById(id: Int) {
+    /*fun getFoodById(id: Int) {
         viewModelScope.launch {
             _foodByIdState.value = FoodUiState.Loading
             try {
@@ -162,10 +164,10 @@ class FridgeViewModel @Inject constructor(
                 )
             }
         }
-    }
+    }*/
 
     // Insert food entry
-    fun insertFoodEntry(foodEntry: FoodEntry) {
+    /*fun insertFoodEntry(foodEntry: FoodEntry) {
         viewModelScope.launch {
             _operationState.value = FoodUiState.Loading
             try {
@@ -180,10 +182,10 @@ class FridgeViewModel @Inject constructor(
                 )
             }
         }
-    }
+    }*/
 
     // Update food entry
-    fun updateFoodEntry(foodEntry: FoodEntry) {
+    /*fun updateFoodEntry(foodEntry: FoodEntry) {
         viewModelScope.launch {
             _operationState.value = FoodUiState.Loading
             try {
@@ -198,10 +200,10 @@ class FridgeViewModel @Inject constructor(
                 )
             }
         }
-    }
+    }*/
 
     // Update done field
-    fun updateDoneField(done: Int, id: Int) {
+    /*fun updateDoneField(done: Int, id: Int) {
         viewModelScope.launch {
             _operationState.value = FoodUiState.Loading
             try {
@@ -216,10 +218,10 @@ class FridgeViewModel @Inject constructor(
                 )
             }
         }
-    }
+    }*/
 
     // Delete food entry
-    fun deleteFoodEntry(foodEntry: FoodEntry) {
+    /*fun deleteFoodEntry(foodEntry: FoodEntry) {
         viewModelScope.launch {
             _operationState.value = FoodUiState.Loading
             try {
@@ -234,10 +236,10 @@ class FridgeViewModel @Inject constructor(
                 )
             }
         }
-    }
+    }*/
 
     // Drop table
-    fun dropTable() {
+    /*fun dropTable() {
         viewModelScope.launch {
             _operationState.value = FoodUiState.Loading
             try {
@@ -252,5 +254,5 @@ class FridgeViewModel @Inject constructor(
                 )
             }
         }
-    }
+    }*/
 }

@@ -1,8 +1,5 @@
 package eu.indiewalkabout.fridgemanager.feat_food.presentation.ui
 
-import android.R.attr.bottom
-import android.R.attr.end
-import android.R.attr.top
 import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,12 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.Dimension.Companion.fillToConstraints
 import androidx.hilt.navigation.compose.hiltViewModel
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.components.AdBannerPlaceholder
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
-import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
 import eu.indiewalkabout.fridgemanager.core.presentation.components.ProductListCard
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
@@ -39,10 +34,11 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getPreviousDayEndOfDayDate
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
+import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
 
 @Composable
 fun FoodExpiringScreen(
-    foodViewModel: FoodViewModel = hiltViewModel(),
+    foodExpiringViewModel: FoodExpiringViewModel = hiltViewModel(),
 ) {
     val TAG = "FoodExpiringScreen"
     val colors = LocalAppColors.current
@@ -54,11 +50,11 @@ fun FoodExpiringScreen(
 
 
     // ----------------------------- LOGIC ---------------------------------------------------------
-    val foodListUiState by foodViewModel.foodListUiState.collectAsState()
+    val foodListUiState by foodExpiringViewModel.foodListUiState.collectAsState()
 
 
     LaunchedEffect(Unit) {
-        foodViewModel.getExpiringFood(getPreviousDayEndOfDayDate())
+        foodExpiringViewModel.getExpiringFood(getPreviousDayEndOfDayDate())
     }
 
     // handling loading food list from db
@@ -69,7 +65,7 @@ fun FoodExpiringScreen(
                 expiringFoodList = (foodListUiState
                         as FoodListUiState.Success<List<FoodEntry>>).data
                 foodListLoaded = true
-                Log.d(TAG, "foodListLoaded : $expiringFoodList")
+                Log.d(TAG, "foodExpiringListLoaded : $expiringFoodList")
             }
             is FoodListUiState.Error -> {
                 showProgressBar = false
@@ -85,9 +81,10 @@ fun FoodExpiringScreen(
         }
     }
 
+    // ----------------------------- UI ---------------------------------------------------------
+
     Scaffold(
         bottomBar = {
-            // BottomNavigationBar(AppNavigation.getNavController())
             BottomNavigationBar(stringResource(R.string.menu_expiring_label_item))
         },
         containerColor = colors.primaryColor
@@ -119,7 +116,7 @@ fun FoodExpiringScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp)
-                            .weight(1f), // card take all available vertical space
+                            .weight(1f),
                         message = stringResource(R.string.foodExpiring_message)
                     )
                 }

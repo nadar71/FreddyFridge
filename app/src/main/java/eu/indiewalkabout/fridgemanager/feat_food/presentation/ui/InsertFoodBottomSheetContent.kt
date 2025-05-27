@@ -1,8 +1,6 @@
 package eu.indiewalkabout.fridgemanager.feat_food.presentation.ui
 
 import android.Manifest
-import android.R.attr.onClick
-import android.R.attr.text
 import android.speech.SpeechRecognizer
 import android.util.Log
 import android.widget.Toast
@@ -14,7 +12,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,7 +26,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.SegmentedButtonDefaults.borderStroke
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -45,7 +41,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -75,7 +70,7 @@ import java.time.LocalDate
 
 @Composable
 fun InsertFoodBottomSheetContent(
-    foodViewModel: FoodViewModel = hiltViewModel(),
+    insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
     descriptionText: String,
     onDescriptionChange: (String) -> Unit
 ) {
@@ -396,7 +391,7 @@ fun InsertFoodBottomSheetContent(
                 onClick = {
                             if (!isBtnEnabled) return@RoundedCornerButton
                             else {
-                                foodViewModel.insertFood(
+                                insertFoodViewModel.insertFood(
                                     FoodEntry(
                                         name = descriptionText,
                                         expiringAt = localeDateText,
