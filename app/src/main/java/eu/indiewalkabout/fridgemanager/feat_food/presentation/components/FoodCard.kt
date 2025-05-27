@@ -73,14 +73,14 @@ fun FoodCard(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 4.dp)
-            .background(backgroundColor, shape = RoundedCornerShape(12.dp))
+            .padding(horizontal = 4.dp, vertical = 2.dp)
+            .background(backgroundColor, shape = RoundedCornerShape(10.dp))
             .border(
-                width = 2.dp,
+                width = 1.dp,
                 color = secondaryColor,
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(10.dp)
             )
-            .padding(12.dp)
+            .padding(2.dp, 8.dp, 10.dp, 8.dp)
     ) {
         // Checkbox
         var isChecked by remember { mutableStateOf(food.done == 1) }
@@ -95,10 +95,11 @@ fun FoodCard(
                 uncheckedColor = brown,
                 checkmarkColor = secondaryColor,
 
-            )
+            ),
+
         )
 
-        Spacer(modifier = Modifier.width(8.dp))
+        // Spacer(modifier = Modifier.width(2.dp))
 
         // Content
         Column(

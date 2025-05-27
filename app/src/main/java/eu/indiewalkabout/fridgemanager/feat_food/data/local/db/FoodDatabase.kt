@@ -11,7 +11,7 @@ import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 
 @Database(
     entities = [FoodEntry::class],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(DateConverter::class)
@@ -31,9 +31,14 @@ abstract class FoodDatabase : RoomDatabase() {
             }
         }
 
-        // migration from Date -> LocalDate field
-        // added quantity column
         internal val MIGRATION_2_3: Migration = object : Migration(2, 3) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                // migration from Date -> LocalDate field
+            }
+        }
+
+        // added quantity column
+        internal val MIGRATION_3_4: Migration = object : Migration(3, 4) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(
                     "ALTER TABLE FOODLIST " +
@@ -47,7 +52,7 @@ abstract class FoodDatabase : RoomDatabase() {
                 FoodDatabase::class.java,
                 DBNAME
             )
-                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                 .build()
         }
     }

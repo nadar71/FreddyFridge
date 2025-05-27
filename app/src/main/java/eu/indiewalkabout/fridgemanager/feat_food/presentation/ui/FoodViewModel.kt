@@ -16,9 +16,11 @@ import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.LoadFoodByIdUs
 import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.LoadFoodExpiringTodayUseCase
 import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.UpdateDoneFieldUseCase
 import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.UpdateFoodEntryUseCase
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,94 +39,228 @@ class FoodViewModel @Inject constructor(
     private val loadFoodExpiringTodayUseCase: LoadFoodExpiringTodayUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<FoodUiState<Any>>(FoodUiState.Idle)
-    val uiState: StateFlow<FoodUiState<Any>> = _uiState
+    private val _foodListUiState = MutableStateFlow<FoodListUiState<List<FoodEntry>>>(FoodListUiState.Idle)
+    val foodListUiState: StateFlow<FoodListUiState<List<FoodEntry>>> = _foodListUiState.asStateFlow()
+
+    private val _foodUiState = MutableStateFlow<FoodUiState<FoodEntry>>(FoodUiState.Idle)
+    val foodUiState: StateFlow<FoodUiState<FoodEntry>> = _foodUiState.asStateFlow()
+
+    private val _unitUiState = MutableStateFlow<FoodUiState<Unit>>(FoodUiState.Idle)
+    val unitUiState: StateFlow<FoodUiState<Unit>> = _unitUiState.asStateFlow()
 
     fun insertFood(food: FoodEntry) {
         viewModelScope.launch {
-            _uiState.value = FoodUiState.Loading
-            val result = insertFoodEntryUseCase(food)
-            _uiState.value = handleDbResult(result)
+            _unitUiState.value = FoodUiState.Loading
+            val result: DbResponse<Unit> = insertFoodEntryUseCase(food) // Assuming insert returns DbResponse<Unit>
+            _unitUiState.value = when (result) {
+                is DbResponse.Success -> FoodUiState.Success(result.data) // result.data is Unit
+                is DbResponse.Error -> FoodUiState.Error(result.error)
+            }
         }
     }
 
     fun updateFood(food: FoodEntry) {
         viewModelScope.launch {
-            _uiState.value = FoodUiState.Loading
-            val result = updateFoodEntryUseCase(food)
-            _uiState.value = handleDbResult(result)
+            _unitUiState.value = FoodUiState.Loading
+            val result: DbResponse<Unit> = updateFoodEntryUseCase(food) // Assuming update returns DbResponse<Unit>
+            _unitUiState.value = when (result) {
+                is DbResponse.Success -> FoodUiState.Success(result.data) // result.data is Unit
+                is DbResponse.Error -> FoodUiState.Error(result.error)
+            }
         }
     }
 
     fun deleteFood(food: FoodEntry) {
         viewModelScope.launch {
-            _uiState.value = FoodUiState.Loading
-            val result = deleteFoodEntryUseCase(food)
-            _uiState.value = handleDbResult(result)
+            _unitUiState.value = FoodUiState.Loading
+            val result: DbResponse<Unit> = deleteFoodEntryUseCase(food) // Assuming delete returns DbResponse<Unit>
+            _unitUiState.value = when (result) {
+                is DbResponse.Success -> FoodUiState.Success(result.data) // result.data is Unit
+                is DbResponse.Error -> FoodUiState.Error(result.error)
+            }
         }
     }
 
     fun dropAllFood() {
         viewModelScope.launch {
-            _uiState.value = FoodUiState.Loading
-            val result = dropTableUseCase()
-            _uiState.value = handleDbResult(result)
+            _unitUiState.value = FoodUiState.Loading
+            val result: DbResponse<Unit> = dropTableUseCase() // Assuming drop returns DbResponse<Unit>
+            _unitUiState.value = when (result) {
+                is DbResponse.Success -> FoodUiState.Success(result.data) // result.data is Unit
+                is DbResponse.Error -> FoodUiState.Error(result.error)
+            }
         }
     }
 
     fun getFoodById(id: Int) {
         viewModelScope.launch {
-            _uiState.value = FoodUiState.Loading
-            val result = loadFoodByIdUseCase(id)
-            _uiState.value = handleDbResult(result)
+            _foodUiState.value = FoodUiState.Loading
+            val result: DbResponse<FoodEntry?> = loadFoodByIdUseCase(id) // Assuming load by ID returns DbResponse<FoodEntry?>
+            _foodUiState.value = when (result) {
+                is DbResponse.Success -> FoodUiState.Success(result.data) as FoodUiState<FoodEntry>
+                is DbResponse.Error -> FoodUiState.Error(result.error)
+            }
         }
     }
 
     fun updateDoneField(done: Int, id: Int) {
         viewModelScope.launch {
-            _uiState.value = FoodUiState.Loading
-            val result = updateDoneFieldUseCase(done, id)
-            _uiState.value = handleDbResult(result)
+            _unitUiState.value = FoodUiState.Loading
+            val result: DbResponse<Unit> = updateDoneFieldUseCase(done, id) // Assuming update done returns DbResponse<Unit>
+            _unitUiState.value = when (result) {
+                is DbResponse.Success -> FoodUiState.Success(result.data)
+                is DbResponse.Error -> FoodUiState.Error(result.error)
+            }
         }
     }
 
     fun getAllFood() {
         viewModelScope.launch {
-            _uiState.value = FoodUiState.Loading
-            val result = loadAllFoodUseCase()
-            _uiState.value = handleDbResult(result)
+            _foodListUiState.value = FoodListUiState.Loading
+            val result: DbResponse<List<FoodEntry>> = loadAllFoodUseCase() // Assuming load all returns DbResponse<List<FoodEntry>>
+            _foodListUiState.value = when (result) {
+                is DbResponse.Success -> FoodListUiState.Success(result.data)
+                is DbResponse.Error -> FoodListUiState.Error(result.error)
+            }
         }
     }
 
     fun getConsumedFood() {
         viewModelScope.launch {
-            _uiState.value = FoodUiState.Loading
-            val result = loadConsumedFoodUseCase()
-            _uiState.value = handleDbResult(result)
+            _foodListUiState.value = FoodListUiState.Loading
+            // Assuming loadConsumedFoodUseCase returns DbResponse<List<FoodEntry>>
+            val result: DbResponse<List<FoodEntry>> = loadConsumedFoodUseCase()
+            _foodListUiState.value = when (result) {
+                is DbResponse.Success -> FoodListUiState.Success(result.data) // result.data is List<FoodEntry>
+                is DbResponse.Error -> FoodListUiState.Error(result.error)
+            }
         }
     }
 
+
     fun getExpiredFood(referenceDate: Long) {
         viewModelScope.launch {
-            _uiState.value = FoodUiState.Loading
-            val result = loadExpiredFoodUseCase(referenceDate)
-            _uiState.value = handleDbResult(result)
+            _foodListUiState.value = FoodListUiState.Loading
+            // Assuming loadExpiredFoodUseCase returns DbResponse<List<FoodEntry>>
+            val result: DbResponse<List<FoodEntry>> = loadExpiredFoodUseCase(referenceDate)
+            _foodListUiState.value = when (result) {
+                is DbResponse.Success -> FoodListUiState.Success(result.data) // result.data is List<FoodEntry>
+                is DbResponse.Error -> FoodListUiState.Error(result.error)
+            }
         }
     }
 
     fun getExpiringFood(referenceDate: Long) {
         viewModelScope.launch {
-            _uiState.value = FoodUiState.Loading
-            val result = loadExpiringFoodUseCase(referenceDate)
-            _uiState.value = handleDbResult(result)
+            _foodListUiState.value = FoodListUiState.Loading
+            // Assuming loadExpiringFoodUseCase returns DbResponse<List<FoodEntry>>
+            val result: DbResponse<List<FoodEntry>> = loadExpiringFoodUseCase(referenceDate)
+            _foodListUiState.value = when (result) {
+                is DbResponse.Success -> FoodListUiState.Success(result.data) // result.data is List<FoodEntry>
+                is DbResponse.Error -> FoodListUiState.Error(result.error)
+            }
         }
     }
 
     fun getFoodExpiringToday(before: Long, after: Long) {
         viewModelScope.launch {
-            _uiState.value = FoodUiState.Loading
+            _foodListUiState.value = FoodListUiState.Loading
+            // Assuming loadFoodExpiringTodayUseCase returns DbResponse<List<FoodEntry>>
+            val result: DbResponse<List<FoodEntry>> = loadFoodExpiringTodayUseCase(before, after)
+            _foodListUiState.value = when (result) {
+                is DbResponse.Success -> FoodListUiState.Success(result.data) // result.data is List<FoodEntry>
+                is DbResponse.Error -> FoodListUiState.Error(result.error)
+            }
+        }
+    }
+
+
+
+    /*fun insertFood(food: FoodEntry) {
+        viewModelScope.launch {
+            _foodUiState.value = FoodUiState.Loading
+            val result = insertFoodEntryUseCase(food)
+            _foodUiState.value = handleDbResult(result)
+        }
+    }
+
+    fun updateFood(food: FoodEntry) {
+        viewModelScope.launch {
+            _foodUiState.value = FoodUiState.Loading
+            val result = updateFoodEntryUseCase(food)
+            _foodUiState.value = handleDbResult(result)
+        }
+    }
+
+    fun deleteFood(food: FoodEntry) {
+        viewModelScope.launch {
+            _foodUiState.value = FoodUiState.Loading
+            val result = deleteFoodEntryUseCase(food)
+            _foodUiState.value = handleDbResult(result)
+        }
+    }
+
+    fun dropAllFood() {
+        viewModelScope.launch {
+            _foodUiState.value = FoodUiState.Loading
+            val result = dropTableUseCase()
+            _foodUiState.value = handleDbResult(result)
+        }
+    }
+
+    fun getFoodById(id: Int) {
+        viewModelScope.launch {
+            _foodUiState.value = FoodUiState.Loading
+            val result = loadFoodByIdUseCase(id)
+            _foodUiState.value = handleDbResult(result)
+        }
+    }
+
+    fun updateDoneField(done: Int, id: Int) {
+        viewModelScope.launch {
+            _foodUiState.value = FoodUiState.Loading
+            val result = updateDoneFieldUseCase(done, id)
+            _foodUiState.value = handleDbResult(result)
+        }
+    }
+
+    fun getAllFood() {
+        viewModelScope.launch {
+            _foodUiState.value = FoodUiState.Loading
+            val result = loadAllFoodUseCase()
+            _foodUiState.value = handleDbResult(result)
+        }
+    }
+
+    fun getConsumedFood() {
+        viewModelScope.launch {
+            _foodUiState.value = FoodUiState.Loading
+            val result = loadConsumedFoodUseCase()
+            _foodUiState.value = handleDbResult(result)
+        }
+    }
+
+    fun getExpiredFood(referenceDate: Long) {
+        viewModelScope.launch {
+            _foodUiState.value = FoodUiState.Loading
+            val result = loadExpiredFoodUseCase(referenceDate)
+            _foodUiState.value = handleDbResult(result)
+        }
+    }
+
+    fun getExpiringFood(referenceDate: Long) {
+        viewModelScope.launch {
+            _foodUiState.value = FoodUiState.Loading
+            val result = loadExpiringFoodUseCase(referenceDate)
+            _foodUiState.value = handleDbResult(result)
+        }
+    }
+
+    fun getFoodExpiringToday(before: Long, after: Long) {
+        viewModelScope.launch {
+            _foodUiState.value = FoodUiState.Loading
             val result = loadFoodExpiringTodayUseCase(before, after)
-            _uiState.value = handleDbResult(result)
+            _foodUiState.value = handleDbResult(result)
         }
     }
 
@@ -133,5 +269,5 @@ class FoodViewModel @Inject constructor(
             is DbResponse.Success -> FoodUiState.Success(result.data)
             is DbResponse.Error -> FoodUiState.Error(result.error)
         }
-    }
+    }*/
 }

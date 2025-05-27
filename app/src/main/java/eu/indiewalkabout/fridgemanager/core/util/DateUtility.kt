@@ -3,9 +3,13 @@ package eu.indiewalkabout.fridgemanager.core.util
 
 import android.content.Context
 import android.text.format.DateUtils
+import android.util.Log
 
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Calendar
@@ -21,6 +25,7 @@ import java.util.concurrent.TimeUnit
 
 object DateUtility {
 
+    val TAG = "DateUtility"
     // Milliseconds in a day
     val DAY_IN_MILLIS = TimeUnit.DAYS.toMillis(1)
 
@@ -52,6 +57,41 @@ object DateUtility {
             e.printStackTrace()
             null
         }
+    }
+
+
+    // return the last possible moment of the previous day (i.e. yesterday ending at 23:59:59.999)
+    fun getPreviousDayEndOfDayDate(): Long {
+        // Get the system's default time zone
+        val systemDefaultZoneId: ZoneId = ZoneId.systemDefault()
+        Log.d(TAG, "getPreviousDayEndOfDayDate: Device's default time zone: $systemDefaultZoneId")
+
+        // --- Last possible moment of the previous day in device's time zone ---
+        // Get today's date in the system's default zone
+        val todayInSystemZone: LocalDate = LocalDate.now(systemDefaultZoneId)
+
+        // Get yesterday's date
+        val yesterdayInSystemZone: LocalDate = todayInSystemZone.minusDays(1)
+
+        // Define the time for the very end of the day
+        val endOfDayTime: LocalTime = LocalTime.MAX // 23:59:59.999999999
+
+        // Combine yesterday's date with the end-of-day time,
+        // then create a ZonedDateTime in the system's default zone.
+        val endOfYesterdayInSystemZone: ZonedDateTime =
+            LocalDateTime.of(yesterdayInSystemZone, endOfDayTime).atZone(systemDefaultZoneId)
+
+        Log.d(TAG, "Yesterday's date (in system zone): $yesterdayInSystemZone")
+        Log.d(TAG, "End of yesterday (23:59:59.999...) in system zone: $endOfYesterdayInSystemZone")
+
+
+        // formatting for display (optional) ---
+        // val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS Z VV")
+        // println("Formatted End of yesterday: ${endOfYesterdayInSystemZone.format(formatter)}")
+
+        val endOfYesterdayEpochMillis: Long = endOfYesterdayInSystemZone.toInstant().toEpochMilli()
+        Log.d(TAG, "End of yesterday (Epoch Millis): $endOfYesterdayEpochMillis")
+        return endOfYesterdayEpochMillis
     }
 
     /**
