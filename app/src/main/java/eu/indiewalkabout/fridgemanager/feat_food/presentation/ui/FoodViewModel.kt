@@ -29,16 +29,12 @@ import javax.inject.Inject
 // TODO: extract insert, then check the others
 @HiltViewModel
 class FoodViewModel @Inject constructor(
-    // private val insertFoodEntryUseCase: InsertFoodEntryUseCase,
     private val updateFoodEntryUseCase: UpdateFoodEntryUseCase,
     private val deleteFoodEntryUseCase: DeleteFoodEntryUseCase,
     private val dropTableUseCase: DropTableUseCase,
     private val loadFoodByIdUseCase: LoadFoodByIdUseCase,
     private val updateDoneFieldUseCase: UpdateDoneFieldUseCase,
     private val loadAllFoodUseCase: LoadAllFoodUseCase,
-    /*private val loadConsumedFoodUseCase: LoadConsumedFoodUseCase,
-    private val loadExpiredFoodUseCase: LoadExpiredFoodUseCase,
-    private val loadExpiringFoodUseCase: LoadExpiringFoodUseCase,*/
     private val loadFoodExpiringTodayUseCase: LoadFoodExpiringTodayUseCase
 ) : ViewModel() {
 
@@ -51,23 +47,6 @@ class FoodViewModel @Inject constructor(
     private val _unitUiState = MutableStateFlow<FoodUiState<Unit>>(FoodUiState.Idle)
     val unitUiState: StateFlow<FoodUiState<Unit>> = _unitUiState.asStateFlow()
 
-    // Insert food entry
-    /*fun insertFood(foodEntry: FoodEntry) {
-        viewModelScope.launch {
-            _unitUiState.value = FoodUiState.Loading
-            try {
-                val result: DbResponse<Unit> = insertFoodEntryUseCase(foodEntry) // Assuming insert returns DbResponse<Unit>
-                _unitUiState.value = when (result) {
-                    is DbResponse.Success -> FoodUiState.Success(result.data) // result.data is Unit
-                    is DbResponse.Error -> FoodUiState.Error(result.error)
-                }
-            } catch (e: Exception) {
-                _unitUiState.value = FoodUiState.Error(
-                    ErrorResponse(0, emptyList(), e.message ?: "Unknown error")
-                )
-            }
-        }
-    }*/
 
     // Update food entry
     fun updateFoodEntry(foodEntry: FoodEntry) {
@@ -178,51 +157,10 @@ class FoodViewModel @Inject constructor(
     }
 
 
-    // Fetch expiring food
-    /*fun getExpiredFood(referenceDate: Long) {
-        viewModelScope.launch {
-            _foodListUiState.value = FoodListUiState.Loading
-            // Assuming loadExpiredFoodUseCase returns DbResponse<List<FoodEntry>>
-            try {
-                val result: DbResponse<List<FoodEntry>> = loadExpiredFoodUseCase(referenceDate)
-                _foodListUiState.value = when (result) {
-                    is DbResponse.Success -> FoodListUiState.Success(result.data) // result.data is List<FoodEntry>
-                    is DbResponse.Error -> FoodListUiState.Error(result.error)
-                }
-            } catch (e: Exception) {
-                _foodListUiState.value = FoodListUiState.Error(
-                    ErrorResponse(0, emptyList(), e.message ?: "Unknown error")
-                )
-            }
-        }
-    }*/
-
-
-    // Fetch expired food
-    /*fun getExpiringFood(referenceDate: Long) {
-        viewModelScope.launch {
-            _foodListUiState.value = FoodListUiState.Loading
-            // Assuming loadExpiringFoodUseCase returns DbResponse<List<FoodEntry>>
-            try {
-                val result: DbResponse<List<FoodEntry>> = loadExpiringFoodUseCase(referenceDate)
-                _foodListUiState.value = when (result) {
-                    is DbResponse.Success -> FoodListUiState.Success(result.data) // result.data is List<FoodEntry>
-                    is DbResponse.Error -> FoodListUiState.Error(result.error)
-                }
-            } catch (e: Exception) {
-                _foodListUiState.value = FoodListUiState.Error(
-                    ErrorResponse(0, emptyList(), e.message ?: "Unknown error")
-                )
-            }
-        }
-    }*/
-
-
     // Fetch food expiring today
     fun getFoodExpiringToday(dayBefore: Long?, dayAfter: Long?) {
         viewModelScope.launch {
             _foodListUiState.value = FoodListUiState.Loading
-            // Assuming loadFoodExpiringTodayUseCase returns DbResponse<List<FoodEntry>>
             try {
                 val result: DbResponse<List<FoodEntry>> = loadFoodExpiringTodayUseCase(dayBefore, dayAfter)
                 _foodListUiState.value = when (result) {

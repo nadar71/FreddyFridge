@@ -8,7 +8,6 @@ import eu.indiewalkabout.fridgemanager.core.domain.model.ErrorResponse
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.LoadConsumedFoodUseCase
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FridgeViewModel.FoodUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,7 +26,6 @@ class FoodConsumedViewModel @Inject constructor(
     fun getConsumedFood() {
         viewModelScope.launch {
             _foodListUiState.value = FoodListUiState.Loading
-            // Assuming loadConsumedFoodUseCase returns DbResponse<List<FoodEntry>>
             try {
                 val result: DbResponse<List<FoodEntry>> = loadConsumedFoodUseCase()
                 _foodListUiState.value = when (result) {

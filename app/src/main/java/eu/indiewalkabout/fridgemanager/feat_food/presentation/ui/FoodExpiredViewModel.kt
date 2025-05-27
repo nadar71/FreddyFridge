@@ -27,7 +27,6 @@ class FoodExpiredViewModel @Inject constructor(
     fun getExpiredFood(referenceDate: Long) {
         viewModelScope.launch {
             _foodListUiState.value = FoodListUiState.Loading
-            // Assuming loadExpiredFoodUseCase returns DbResponse<List<FoodEntry>>
             try {
                 val result: DbResponse<List<FoodEntry>> = loadExpiredFoodUseCase(referenceDate)
                 _foodListUiState.value = when (result) {
