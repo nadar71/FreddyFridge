@@ -23,7 +23,7 @@ class MainViewModel @Inject constructor(
     val foodListUiState: StateFlow<FoodListUiState<List<FoodEntry>>> = _foodListUiState.asStateFlow()
 
 
-    // Fetch food expiring today
+    // Fetch food expiring today: from 23:59:59.999 of dayBefore to 23:59:59.999 of dayAfter
     fun getFoodExpiringToday(dayBefore: Long?, dayAfter: Long?) {
         viewModelScope.launch {
             _foodListUiState.value = FoodListUiState.Loading

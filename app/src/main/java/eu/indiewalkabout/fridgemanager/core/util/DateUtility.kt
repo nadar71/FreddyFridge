@@ -94,6 +94,31 @@ object DateUtility {
         return endOfYesterdayEpochMillis
     }
 
+
+
+    // return the last possible moment of the current day (i.e. today ending at 23:59:59.999)
+    fun getEndOfTodayEpochMillis(): Long {
+        val zoneId: ZoneId = ZoneId.systemDefault()
+        Log.d(TAG, "getEndOfTodayEpochMillis: Device time zone: $zoneId")
+
+        val today: LocalDate = LocalDate.now(zoneId)
+        val endOfDay: LocalTime = LocalTime.MAX // 23:59:59.999999999
+
+        val endOfTodayZoned: ZonedDateTime = LocalDateTime.of(today, endOfDay).atZone(zoneId)
+
+        Log.d(TAG, "Today's date: $today")
+        Log.d(TAG, "End of today: $endOfTodayZoned")
+
+        val endOfTodayMillis: Long = endOfTodayZoned.toInstant().toEpochMilli()
+        Log.d(TAG, "End of today (Epoch Millis): $endOfTodayMillis")
+
+        return endOfTodayMillis
+    }
+
+
+
+
+
     /**
      * ---------------------------------------------------------------------------------------------
      * This method returns the number of milliseconds (UTC time) for today's date at midnight in

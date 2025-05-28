@@ -50,6 +50,7 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.seconda
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.Fredoka
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
+import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getEndOfTodayEpochMillis
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getPreviousDayEndOfDayDate
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
@@ -85,9 +86,8 @@ fun MainScreen(
     val foodListUiState by mainViewModel.foodListUiState.collectAsState()
 
 
-    // TODO : define get previous/next day fun
     LaunchedEffect(Unit) {
-        mainViewModel.getFoodExpiringToday(getPreviousDayEndOfDayDate().)
+        mainViewModel.getFoodExpiringToday(getPreviousDayEndOfDayDate(),getEndOfTodayEpochMillis())
     }
 
     // handling loading food list from db
