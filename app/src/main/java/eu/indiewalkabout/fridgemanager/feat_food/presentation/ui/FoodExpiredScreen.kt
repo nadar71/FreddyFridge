@@ -72,10 +72,10 @@ fun FoodExpiredScreen(
                 Log.e(TAG, "Error recovering foodList from db")
                 foodListLoaded = true
             }
-            FoodListUiState.Idle -> {
+            is FoodListUiState.Idle -> {
                 showProgressBar = false
             }
-            FoodListUiState.Loading -> {
+            is FoodListUiState.Loading -> {
                 showProgressBar = true
             }
         }

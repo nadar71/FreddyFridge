@@ -29,6 +29,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -64,13 +66,17 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.seconda
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getLocalDateFormat
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.NumberPickerWithTitle
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.util.VoiceRecognitionManager
 import java.time.LocalDate
+import androidx.compose.runtime.getValue
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
 
 
 @Composable
 fun InsertFoodBottomSheetContent(
     insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
+    onSave: () -> Unit,
     descriptionText: String,
     onDescriptionChange: (String) -> Unit
 ) {
@@ -91,8 +97,39 @@ fun InsertFoodBottomSheetContent(
 
     var isBtnEnabled = localeDateShownText.isNotEmpty() && descriptionText.isNotEmpty()
 
+    var foodInserted by remember { mutableStateOf(false) }
+    var showProgressBar by remember { mutableStateOf(false) }
+
 
     // ------------------------------------- LOGIC -------------------------------------------------
+    val unitUiState by insertFoodViewModel.unitUiState.collectAsState()
+
+    LaunchedEffect(unitUiState) {
+        when (unitUiState) {
+            is FoodUiState.Success -> {
+                showProgressBar = false
+                foodInserted = true
+                /*localeDateText = null
+                localeDateShownText = ""
+                descriptionText = ""
+                quantityNumText = "1"*/
+                Toast.makeText(context, "Food inserted successfully!", Toast.LENGTH_SHORT).show()
+                onSave()
+            }
+            is FoodUiState.Error -> {
+                showProgressBar = false
+                Log.e(TAG, "Error inserting food in db")
+            }
+            is FoodUiState.Loading -> {
+                showProgressBar = true
+            }
+            is FoodUiState.Idle -> {
+                showProgressBar = false
+            }
+        }
+    }
+
+    // setup voice manager
     val voiceManager = remember {
         if (!IS_IN_PREVIEW) {
             VoiceRecognitionManager(
@@ -420,5 +457,6 @@ fun InsertFoodBottomSheetContentPreview() {
     InsertFoodBottomSheetContent(
         descriptionText = "",
         onDescriptionChange = {},
+        onSave = {}
     )
 }
