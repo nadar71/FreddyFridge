@@ -8,8 +8,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -28,6 +32,7 @@ import eu.indiewalkabout.fridgemanager.core.presentation.components.AdBannerPlac
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
 import eu.indiewalkabout.fridgemanager.core.presentation.components.ProductListCard
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
@@ -36,6 +41,7 @@ import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
 import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FoodExpiringScreen(
     foodExpiringViewModel: FoodExpiringViewModel = hiltViewModel(),
@@ -43,6 +49,13 @@ fun FoodExpiringScreen(
     val TAG = "FoodExpiringScreen"
     val colors = LocalAppColors.current
 
+    var loadDataFromDdb by remember { mutableStateOf(true) }
+    var showBottomSheet by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
+
+    var descriptionText by remember { mutableStateOf("") }
     var expiringFoodList by remember { mutableStateOf<List<FoodEntry>>(emptyList()) }
     var foodListLoaded by remember { mutableStateOf(false) }
     var showProgressBar by remember { mutableStateOf(false) }
@@ -53,8 +66,12 @@ fun FoodExpiringScreen(
     val foodListUiState by foodExpiringViewModel.foodListUiState.collectAsState()
 
 
-    LaunchedEffect(Unit) {
-        foodExpiringViewModel.getExpiringFood(getPreviousDayEndOfDayDate())
+    LaunchedEffect(loadDataFromDdb) {
+        if (loadDataFromDdb) {
+            loadDataFromDdb = false
+            foodListLoaded = false
+            foodExpiringViewModel.getExpiringFood(getPreviousDayEndOfDayDate())
+        }
     }
 
     // handling loading food list from db
@@ -85,7 +102,12 @@ fun FoodExpiringScreen(
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(stringResource(R.string.menu_expiring_label_item))
+            BottomNavigationBar(
+                stringResource(R.string.menu_expiring_label_item),
+                onNewItemClicked = {
+                    showBottomSheet = true
+                }
+                )
         },
         containerColor = colors.primaryColor
     ) {
@@ -140,6 +162,25 @@ fun FoodExpiringScreen(
                         .height(50.dp) // change fixed height to test
                 )
 
+            }
+        }
+
+        if (showBottomSheet) {
+            ModalBottomSheet(
+                shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+                modifier = Modifier,
+                onDismissRequest = { showBottomSheet = false },
+                sheetState = sheetState,
+                containerColor = primaryColor,
+            ) {
+                InsertFoodBottomSheetContent(
+                    descriptionText = descriptionText,
+                    onDescriptionChange = { descriptionText = it },
+                    onSave = {
+                        showBottomSheet = false
+                        loadDataFromDdb = true // force food list refresh
+                    },
+                )
             }
         }
     }

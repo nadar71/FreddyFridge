@@ -67,7 +67,9 @@ fun MainScreen(
     mainViewModel: MainViewModel = hiltViewModel(),
 ) {
     val TAG = "MainScreen"
+    var loadDataFromDdb by remember { mutableStateOf(true) }
     var showOnBoarding by remember { mutableStateOf(false) }
+
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true
@@ -86,8 +88,12 @@ fun MainScreen(
     val foodListUiState by mainViewModel.foodListUiState.collectAsState()
 
 
-    LaunchedEffect(Unit) {
-        mainViewModel.getFoodExpiringToday(getPreviousDayEndOfDayDate(),getEndOfTodayEpochMillis())
+    LaunchedEffect(loadDataFromDdb) {
+        if (loadDataFromDdb) {
+            loadDataFromDdb = false
+            foodListLoaded = false
+            mainViewModel.getFoodExpiringToday(getPreviousDayEndOfDayDate(),getEndOfTodayEpochMillis())
+        }
     }
 
     // handling loading food list from db
@@ -126,7 +132,7 @@ fun MainScreen(
         bottomBar = {
             BottomNavigationBar(
                 stringResource(R.string.menu_home_item),
-                onAddClicked = {
+                onNewItemClicked = {
                     showBottomSheet = true
                 }
             )
@@ -247,6 +253,7 @@ fun MainScreen(
                     onDescriptionChange = { descriptionText = it },
                     onSave = {
                         showBottomSheet = false
+                        loadDataFromDdb = true // force food list refresh
                     },
                 )
             }

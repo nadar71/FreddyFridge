@@ -1,7 +1,5 @@
 package eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components
 
-import android.R.attr.label
-import android.R.attr.onClick
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -12,16 +10,14 @@ import androidx.compose.ui.res.stringResource
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_12
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_14
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppDestinationRoutes
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation.navigate
-import okhttp3.Interceptor.Companion.invoke
 
 
 @Composable
 fun BottomNavigationBar(
     itemLabelSelected: String,
-    onAddClicked: (() -> Unit)? = null
+    onNewItemClicked: (() -> Unit)? = null
 ) {
     val colors = LocalAppColors.current
     var activeIndex = 3
@@ -122,7 +118,7 @@ fun BottomNavigationBar(
             selected = false,
             onClick = {
                 // navigate(AppDestinationRoutes.InsertFoodScreen.route)
-                onAddClicked?.invoke()
+                onNewItemClicked?.invoke()
                       },
             icon = {
                 Icon(

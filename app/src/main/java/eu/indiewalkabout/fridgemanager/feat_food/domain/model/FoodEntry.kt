@@ -19,7 +19,7 @@ data class FoodEntry (
     @ColumnInfo(name = "EXPIRING_AT") @TypeConverters(DateConverter::class)
     var expiringAt: LocalDate? = null, // localDate converted Long/milliseconds by typeConverter
     var quantity: Int = 1,
-    var done: Int = 0,
+    var done: Int = 0, // 1: food consumed, 0: food not consumed yet
     )
 
 
