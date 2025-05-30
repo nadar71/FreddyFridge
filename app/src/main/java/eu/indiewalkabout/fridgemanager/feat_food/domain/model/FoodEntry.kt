@@ -17,7 +17,10 @@ data class FoodEntry (
     var id: Int = 0,
     var name: String? = null,
     @ColumnInfo(name = "EXPIRING_AT") @TypeConverters(DateConverter::class)
-    var expiringAt: LocalDate? = null, // localDate converted Long/milliseconds by typeConverter
+    var expiringAt: LocalDate? = null, // localDate -> Long/milliseconds to db by typeConverter
+    @ColumnInfo(name = "CONSUMED_AT") @TypeConverters(DateConverter::class)
+    var consumedAt: LocalDate? = null, // localDate -> Long/milliseconds to db by typeConverter
+    var timezone: String? = null,      // store timezone string like "Europe/Rome"
     var quantity: Int = 1,
     var done: Int = 0, // 1: food consumed, 0: food not consumed yet
     )
