@@ -56,7 +56,7 @@ abstract class FoodDatabase : RoomDatabase() {
                 )
                 database.execSQL(
                     "ALTER TABLE FOODLIST " +
-                            "ADD COLUMN timezone TEXT NOT NULL DEFAULT 1"
+                            "ADD COLUMN timezone TEXT NOT NULL DEFAULT 'UTC'"
                 )
             }
         }
