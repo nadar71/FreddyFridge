@@ -31,7 +31,7 @@ android {
 
     flavorDimensions "FreddyFridge"
 
-    productFlavors {
+    /*productFlavors {
         production {
             dimension "FreddyFridge"
             resValue "string", "app_name", "FreddyFridge !"
@@ -42,7 +42,7 @@ android {
             resValue "string", "app_name", "FreddyFridge Test !"
             applicationIdSuffix ".testing"
         }
-    }
+    }*/
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17

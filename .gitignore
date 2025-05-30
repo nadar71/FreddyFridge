@@ -65,3 +65,5 @@ unity-ads/build/.transforms/
 *.jar
 
 *.java
+
+*.dex
