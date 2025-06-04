@@ -1,11 +1,8 @@
-package eu.indiewalkabout.fridgemanager.core.presentation.components
+package eu.indiewalkabout.fridgemanager.feat_food.presentation.components
 
-import android.R.attr.name
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,23 +15,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
-import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntryUI
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.toFoodEntryUI
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.FoodCard
-import java.time.LocalDate
 
 @Composable
 fun ProductListCard(
     modifier: Modifier = Modifier,
     foods: List<FoodEntry> = emptyList(),
-    onCheckChanged: (FoodEntryUI, Boolean) -> Unit = { _, _ -> },
-    onDelete: (FoodEntryUI) -> Unit = {},
+    onCheckChanged: () -> Unit = {},
+    onDelete: () -> Unit = {},
+    onUpdate: () -> Unit = {},
+    isUpdatable: Boolean = false,
     message: String = stringResource(R.string.no_food_todays)
 ) {
     val colors = LocalAppColors.current
@@ -67,8 +61,10 @@ fun ProductListCard(
                     val food = foodEntry.toFoodEntryUI()
                     FoodCard(
                         food = food,
-                        onCheckChanged = { checked -> onCheckChanged(food, checked) },
-                        onDelete = { onDelete(food) }
+                        onCheckChanged = { onCheckChanged() },
+                        onDelete = { onDelete() },
+                        onUpdate = { onUpdate() },
+                        isUpdatable = isUpdatable
                     )
                 }
             }
@@ -78,6 +74,7 @@ fun ProductListCard(
 
 
 
+/*
 @Preview(showBackground = true)
 @Composable
 fun PreviewProductListCardWithFoods() {
@@ -97,4 +94,4 @@ fun PreviewProductListCardWithFoods() {
             onDelete = {}
         )
     }
-}
+}*/

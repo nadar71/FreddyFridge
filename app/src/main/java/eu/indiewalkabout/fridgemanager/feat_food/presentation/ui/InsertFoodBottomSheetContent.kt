@@ -109,10 +109,6 @@ fun InsertFoodBottomSheetContent(
             is FoodUiState.Success -> {
                 showProgressBar = false
                 foodInserted = true
-                /*localeDateText = null
-                localeDateShownText = ""
-                descriptionText = ""
-                quantityNumText = "1"*/
                 Toast.makeText(context, "Food inserted successfully!", Toast.LENGTH_SHORT).show()
                 onSave()
             }
@@ -417,10 +413,9 @@ fun InsertFoodBottomSheetContent(
                         }
                 )
             }
-
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Continue/End Button
+            // Save Button
             RoundedCornerButton(
                 modifier = Modifier
                     .padding(16.dp)

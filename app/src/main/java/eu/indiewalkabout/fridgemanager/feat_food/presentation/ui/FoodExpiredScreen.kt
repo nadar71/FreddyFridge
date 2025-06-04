@@ -31,7 +31,7 @@ import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.components.AdBannerPlaceholder
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
 import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
-import eu.indiewalkabout.fridgemanager.core.presentation.components.ProductListCard
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.ProductListCard
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
@@ -140,7 +140,13 @@ fun FoodExpiredScreen(
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp)
                             .weight(1f),
-                        message = stringResource(R.string.foodExpired_message)
+                        message = stringResource(R.string.foodExpired_message),
+                        onDelete = {
+                            loadDataFromDdb = true
+                        },
+                        onCheckChanged = {
+                            loadDataFromDdb = true
+                        }
                     )
                 }
 

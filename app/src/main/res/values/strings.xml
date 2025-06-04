@@ -6,6 +6,7 @@
     <string name="generic_ok">Ok</string>
     <string name="generic_cancel">Cancel</string>
     <string name="generic_save_label">Save</string>
+    <string name="generic_confirm_label">Confirm</string>
     <string name="update_btn_label">Update</string>
     <string name="no_food_in_list">"No products here… "</string>
     <string name="delete_food_entry_btn_hint">Delete Product entry btn</string>
@@ -157,6 +158,8 @@
     <string name="content_menu_expiring_label_item">Icon Expiring food</string>
     <string name="content_menu_add_label_item">Icon ADD food</string>
     <string name="content_delete_food_icon">Icon delete food card</string>
+    <string name="content_expiring_date_icon">Icon for expiring date</string>
+    <string name="content_consumed_food_check_icon">Icon consumed food check</string>
 
 
     <!-- - - - - - - - - - - - - - - - - -  ERRORS MSG - - - - - - - - - - - - - - - - - - - - - -->

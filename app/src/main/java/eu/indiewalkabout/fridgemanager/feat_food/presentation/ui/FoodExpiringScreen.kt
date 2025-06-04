@@ -30,7 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.components.AdBannerPlaceholder
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
-import eu.indiewalkabout.fridgemanager.core.presentation.components.ProductListCard
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.ProductListCard
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
@@ -139,7 +139,17 @@ fun FoodExpiringScreen(
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp)
                             .weight(1f),
-                        message = stringResource(R.string.foodExpiring_message)
+                        message = stringResource(R.string.foodExpiring_message),
+                        onDelete = {
+                            loadDataFromDdb = true
+                        },
+                        onUpdate = {
+                            loadDataFromDdb = true
+                        },
+                        isUpdatable = true,
+                        onCheckChanged = {
+                            loadDataFromDdb = true
+                        }
                     )
                 }
 

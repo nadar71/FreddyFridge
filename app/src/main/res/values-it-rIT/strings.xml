@@ -7,6 +7,7 @@
     <string name="generic_ok">Ok</string>
     <string name="generic_cancel">Annulla</string>
     <string name="generic_save_label">Salva</string>
+    <string name="generic_confirm_label">Conferma</string>
     <string name="update_btn_label">Aggiorna</string>
     <string name="no_food_in_list">Non vedo prodotti qua…</string>
     <string name="delete_food_entry_btn_hint">Cancella</string>
@@ -111,6 +112,10 @@
     <string name="content_menu_expiring_label_item">Icona Cibo In Scadenza</string>
     <string name="content_menu_add_label_item">Icona AGGIUNGI Cibo</string>
     <string name="content_delete_food_icon">Icona elimina scheda cibo</string>
+    <string name="content_expiring_date_icon">Icona data scadenza</string>
+    <string name="content_consumed_food_check_icon">Icona spunta cibo consumato</string>
+
+
 
     <!-- - - - - - - - - - - - - - - - - - - - ERRORS MSG - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="db_error_deleting_food_table">Errore durante l\'eliminazione della tabella degli alimenti</string>

@@ -28,10 +28,14 @@ data class FoodEntry (
 
 fun FoodEntry.toFoodEntryUI(): FoodEntryUI {
     return FoodEntryUI (
+        id = id,
         name = name,
         expiringAtLocalDate = expiringAt,
         expiringAtUI = expiringAt?.format(getLocalDateFormat()) ?: "",
+        consumedAtLocalDate = consumedAt,
+        consumedAtUI = consumedAt?.format(getLocalDateFormat()) ?: "",
         quantity = quantity,
+        timezone = timezone,
         done = done,
     )
 }
