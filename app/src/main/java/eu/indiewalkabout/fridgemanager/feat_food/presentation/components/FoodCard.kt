@@ -218,41 +218,52 @@ fun FoodCard(
                     text = "n.${food.quantity}",
                     style = text_14(colorText_02, false)
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+                // Spacer(modifier = Modifier.width(8.dp))
             }
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_hourglass_empty_white),
-                    contentDescription = stringResource(R.string.content_expiring_date_icon),
-                    tint = brown,
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clickable { onDelete() }
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = food.expiringAtUI ?: "",
-                    style = text_14(colorText_02, false)
-                )
-                Spacer(modifier = Modifier.width(32.dp))
-                if (food.done == 1) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.weight(1f)
+                ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_check),
-                        contentDescription = stringResource(R.string.content_delete_food_icon),
+                        painter = painterResource(id = R.drawable.ic_hourglass_empty_white),
+                        contentDescription = stringResource(R.string.content_expiring_date_icon),
                         tint = brown,
                         modifier = Modifier
-                            .size(24.dp)
+                            .size(20.dp)
                             .clickable { onDelete() }
                     )
-                    if (food.consumedAtUI != null) {
-                        Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = food.expiringAtUI ?: "",
+                        style = text_14(colorText_02, false)
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(32.dp))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    // modifier = Modifier.weight(1f)
+                ){
+                    if (food.done == 1 && food.consumedAtUI != null) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_check),
+                            contentDescription = stringResource(R.string.content_delete_food_icon),
+                            tint = brown,
+                            modifier = Modifier
+                                .size(24.dp)
+                                .clickable { onDelete() }
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
                         Text(
                             text = food.consumedAtUI ?: "",
                             style = text_14(colorText_02, false)
                         )
+
                     }
                 }
             }
@@ -322,6 +333,15 @@ fun PreviewFoodCard() {
             expiringAtLocalDate = LocalDate.now().plusDays(3),
             expiringAtUI = LocalDate.now().plusDays(3).format(getLocalDateFormat()) ?: "",
             consumedAtUI = LocalDate.now().minusDays(4).format(getLocalDateFormat()) ?: "",
+            quantity = 5,
+            done = 1
+        ),
+        FoodEntryUI(
+            id = 7,
+            name = "Fresh Food Fresh Food Fresh Food Fresh Food Fresh Food Fresh Food Fresh ciao ",
+            expiringAtLocalDate = LocalDate.now().plusDays(3),
+            expiringAtUI = LocalDate.now().plusDays(3).format(getLocalDateFormat()) ?: "",
+            consumedAtUI = null,
             quantity = 5,
             done = 1
         )

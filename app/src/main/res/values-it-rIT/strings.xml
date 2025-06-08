@@ -20,6 +20,7 @@
     <string name="foodExpired_message">Nessun prodotto scaduto qui</string>
     <string name="foodConsumed_title">Prodotti consumati</string>
     <string name="foodConsumed_message">Nessun prodotto salvato qui</string>
+    <string name="permission_denied_title">Autorizzazione microfono negata</string>
 
     <!-- - - - - - - - - - - - - - - - INTRO STUFF  - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="intro_1_title">1 : Fai la tua spesa…</string>
@@ -51,6 +52,8 @@
     <string name="insert_food_inserted_confirm">Inserito correttamente !</string>
     <string name="insert_speak_btn_description">Premi e parla</string>
     <string name="insert_speech_not_recognized">Prova ancora</string>
+    <string name="insert_food_successfully">Cibo inserito con successo!</string>
+    <string name="update_food_successfully">Cibo aggiornato con successo!</string>
 
     <!-- - - - - - - - - - - - - - - - - - SETTINGS - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="settings_title">Impostazioni</string>

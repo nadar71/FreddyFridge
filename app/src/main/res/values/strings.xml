@@ -19,6 +19,8 @@
     <string name="foodExpired_message">No products expired here </string>
     <string name="foodConsumed_title">Products consumed</string>
     <string name="foodConsumed_message">No products consumed here </string>
+    <string name="permission_denied_title">Permission Microfone Denied</string>
+
 
 
 
@@ -55,6 +57,8 @@
     <string name="insert_food_inserted_confirm">Inserted successfully !</string>
     <string name="insert_speak_btn_description">Press and speak</string>
     <string name="insert_speech_not_recognized">Try again</string>
+    <string name="insert_food_successfully">Food inserted successfully!</string>
+    <string name="update_food_successfully">Food Updated successfully!</string>
 
 
     <!-- - - - - - - - - - - - - - - - - - SETTINGS - - - - - - - - - - - - - - - - - - - - - - - -->

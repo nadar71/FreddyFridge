@@ -71,6 +71,7 @@ import eu.indiewalkabout.fridgemanager.feat_food.presentation.util.VoiceRecognit
 import java.time.LocalDate
 import androidx.compose.runtime.getValue
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
+import java.util.TimeZone
 
 
 @Composable
@@ -109,7 +110,9 @@ fun InsertFoodBottomSheetContent(
             is FoodUiState.Success -> {
                 showProgressBar = false
                 foodInserted = true
-                Toast.makeText(context, "Food inserted successfully!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,
+                    context.getString(R.string.insert_food_successfully),
+                    Toast.LENGTH_SHORT).show()
                 onSave()
             }
             is FoodUiState.Error -> {
@@ -164,7 +167,9 @@ fun InsertFoodBottomSheetContent(
             voiceManager?.startListening()
             isListening = true
         } else {
-            Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,
+                context.getString(R.string.permission_denied_title),
+                Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -427,7 +432,8 @@ fun InsertFoodBottomSheetContent(
                                     FoodEntry(
                                         name = descriptionText,
                                         expiringAt = localeDateText,
-                                        quantity = quantityNumText.toInt()
+                                        quantity = quantityNumText.toInt(),
+                                        timezone = TimeZone.getDefault().id,
                                     )
                                 )
                             }

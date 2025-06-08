@@ -94,7 +94,7 @@ fun UpdateFoodOverlay(
     var showCalendarDialog by remember { mutableStateOf(false) }
     var showQuantityWheelPicker by remember { mutableStateOf(false) }
 
-    var localeDateText by remember { mutableStateOf<LocalDate?>(null) }
+    var localeDateText by remember { mutableStateOf<LocalDate?>(foodEntryUI.expiringAtLocalDate) }
     var localeDateShownText by remember { mutableStateOf(foodEntryUI.expiringAtUI ?: "") }
     var descriptionText by remember { mutableStateOf(foodEntryUI.name) }
     var quantityNumText by remember { mutableStateOf(foodEntryUI.quantity.toString()) }
@@ -113,11 +113,13 @@ fun UpdateFoodOverlay(
             is FoodUiState.Success -> {
                 showProgressBar = false
                 foodInserted = true
-                localeDateText = null
-                localeDateShownText = ""
-                descriptionText = ""
-                quantityNumText = "1"
-                Toast.makeText(context, "Food Updated successfully!", Toast.LENGTH_SHORT).show()
+                // localeDateText = null
+                // localeDateShownText = ""
+                // descriptionText = ""
+                // quantityNumText = "1"
+                Toast.makeText(context,
+                    context.getString(R.string.update_food_successfully),
+                    Toast.LENGTH_SHORT).show()
                 onSave()
             }
             is FoodUiState.Error -> {
@@ -172,7 +174,9 @@ fun UpdateFoodOverlay(
             voiceManager?.startListening()
             isListening = true
         } else {
-            Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,
+                context.getString(R.string.permission_denied_title),
+                Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -462,8 +466,6 @@ fun UpdateFoodOverlay(
                 )
             }
         }
-
-
     }
 }
 
