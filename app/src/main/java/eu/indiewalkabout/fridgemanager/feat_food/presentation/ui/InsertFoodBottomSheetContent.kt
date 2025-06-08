@@ -110,18 +110,23 @@ fun InsertFoodBottomSheetContent(
             is FoodUiState.Success -> {
                 showProgressBar = false
                 foodInserted = true
-                Toast.makeText(context,
+                Toast.makeText(
+                    context,
                     context.getString(R.string.insert_food_successfully),
-                    Toast.LENGTH_SHORT).show()
+                    Toast.LENGTH_SHORT
+                ).show()
                 onSave()
             }
+
             is FoodUiState.Error -> {
                 showProgressBar = false
                 Log.e(TAG, "Error inserting food in db")
             }
+
             is FoodUiState.Loading -> {
                 showProgressBar = true
             }
+
             is FoodUiState.Idle -> {
                 showProgressBar = false
             }
@@ -167,9 +172,11 @@ fun InsertFoodBottomSheetContent(
             voiceManager?.startListening()
             isListening = true
         } else {
-            Toast.makeText(context,
+            Toast.makeText(
+                context,
                 context.getString(R.string.permission_denied_title),
-                Toast.LENGTH_SHORT).show()
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -426,18 +433,18 @@ fun InsertFoodBottomSheetContent(
                     .padding(16.dp)
                     .align(Alignment.CenterHorizontally),
                 onClick = {
-                            if (!isBtnEnabled) return@RoundedCornerButton
-                            else {
-                                insertFoodViewModel.insertFood(
-                                    FoodEntry(
-                                        name = descriptionText,
-                                        expiringAt = localeDateText,
-                                        quantity = quantityNumText.toInt(),
-                                        timezone = TimeZone.getDefault().id,
-                                    )
-                                )
-                            }
-                          },
+                    if (!isBtnEnabled) return@RoundedCornerButton
+                    else {
+                        insertFoodViewModel.insertFood(
+                            FoodEntry(
+                                name = descriptionText,
+                                expiringAt = localeDateText,
+                                quantity = quantityNumText.toInt(),
+                                timezone = TimeZone.getDefault().id,
+                            )
+                        )
+                    }
+                },
                 shape = RoundedCornerShape(15.dp),
                 elevation = 0,
                 borderStroke = BorderStroke(1.dp, secondaryColor),
