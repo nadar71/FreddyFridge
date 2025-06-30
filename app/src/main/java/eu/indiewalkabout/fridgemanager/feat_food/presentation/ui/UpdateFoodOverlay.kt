@@ -84,7 +84,6 @@ fun UpdateFoodOverlay(
     onLeftButtonAction: (() -> Unit)? = null
 ) {
 
-
     var TAG = "UpdateFoodOverlay"
     val context = LocalContext.current
     var resultText by remember { mutableStateOf("") }
@@ -99,20 +98,21 @@ fun UpdateFoodOverlay(
     var descriptionText by remember { mutableStateOf(foodEntryUI.name) }
     var quantityNumText by remember { mutableStateOf(foodEntryUI.quantity.toString()) }
 
-    var isBtnEnabled = localeDateShownText.isNotEmpty() && descriptionText?.isNotEmpty() == true
-
     var foodInserted by remember { mutableStateOf(false) }
     var showProgressBar by remember { mutableStateOf(false) }
 
+    var isBtnEnabled = localeDateShownText.isNotEmpty() && descriptionText?.isNotEmpty() == true
+
 
     // ------------------------------------- LOGIC -------------------------------------------------
-    val unitUiState by foodViewModel.unitUiState.collectAsState()
+    val updateUiState by foodViewModel.updateUiState.collectAsState()
 
-    LaunchedEffect(unitUiState) {
-        when (unitUiState) {
+    LaunchedEffect(updateUiState) {
+        when (updateUiState) {
             is FoodUiState.Success -> {
                 showProgressBar = false
                 foodInserted = true
+                // unitUiState = FoodUiState.Idle
                 // localeDateText = null
                 // localeDateShownText = ""
                 // descriptionText = ""
@@ -121,10 +121,14 @@ fun UpdateFoodOverlay(
                     context.getString(R.string.update_food_successfully),
                     Toast.LENGTH_SHORT).show()
                 onSave()
+                // After Success or Error, reset updateUiState to Idle:
+                // LaunchedEffect doesn't re-trigger at dialog re-opening
+                foodViewModel.resetUpdateUiStateToIdle()
             }
             is FoodUiState.Error -> {
                 showProgressBar = false
                 Log.e(TAG, "Error inserting food in db")
+                foodViewModel.resetUpdateUiStateToIdle()
             }
             is FoodUiState.Loading -> {
                 showProgressBar = true
@@ -436,12 +440,13 @@ fun UpdateFoodOverlay(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Continue/End Button
+                // Save Button
                 RoundedCornerButton(
                     modifier = Modifier
                         .padding(16.dp)
                         .align(Alignment.CenterHorizontally),
                     onClick = {
+                        Log.d(TAG, "Save button clicked. isBtnEnabled: $isBtnEnabled")
                         if (!isBtnEnabled) return@RoundedCornerButton
                         else {
                             foodViewModel.updateFoodEntry(
@@ -450,7 +455,7 @@ fun UpdateFoodOverlay(
                                     name = descriptionText,
                                     expiringAt = localeDateText,
                                     consumedAt = foodEntryUI.consumedAtLocalDate,
-                                    timezone = foodEntryUI.timezone,
+                                    timezoneId = foodEntryUI.timezoneId,
                                     quantity = quantityNumText.toInt()
                                 )
                             )

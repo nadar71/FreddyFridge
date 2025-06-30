@@ -66,10 +66,8 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.seconda
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getLocalDateFormat
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.NumberPickerWithTitle
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.util.VoiceRecognitionManager
 import java.time.LocalDate
-import androidx.compose.runtime.getValue
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
 import java.util.TimeZone
 
@@ -440,7 +438,7 @@ fun InsertFoodBottomSheetContent(
                                 name = descriptionText,
                                 expiringAt = localeDateText,
                                 quantity = quantityNumText.toInt(),
-                                timezone = TimeZone.getDefault().id,
+                                timezoneId = TimeZone.getDefault().id,
                             )
                         )
                     }

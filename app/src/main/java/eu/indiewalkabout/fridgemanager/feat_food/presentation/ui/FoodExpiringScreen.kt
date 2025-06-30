@@ -61,10 +61,8 @@ fun FoodExpiringScreen(
     var showProgressBar by remember { mutableStateOf(false) }
 
 
-
     // ----------------------------- LOGIC ---------------------------------------------------------
     val foodListUiState by foodExpiringViewModel.foodListUiState.collectAsState()
-
 
     LaunchedEffect(loadDataFromDdb) {
         if (loadDataFromDdb) {
@@ -84,14 +82,17 @@ fun FoodExpiringScreen(
                 foodListLoaded = true
                 Log.d(TAG, "foodExpiringListLoaded : $expiringFoodList")
             }
+
             is FoodListUiState.Error -> {
                 showProgressBar = false
                 Log.e(TAG, "Error recovering foodList from db")
                 foodListLoaded = true
             }
+
             FoodListUiState.Idle -> {
                 showProgressBar = false
             }
+
             FoodListUiState.Loading -> {
                 showProgressBar = true
             }
@@ -107,7 +108,7 @@ fun FoodExpiringScreen(
                 onNewItemClicked = {
                     showBottomSheet = true
                 }
-                )
+            )
         },
         containerColor = colors.primaryColor
     ) {

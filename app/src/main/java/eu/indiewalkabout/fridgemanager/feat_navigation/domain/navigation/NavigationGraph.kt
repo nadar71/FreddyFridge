@@ -9,7 +9,6 @@ import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.credits.Cre
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodConsumedScreen
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodExpiredScreen
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodExpiringScreen
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodScreen
 import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain.MainScreen
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.SettingsScreen
 
@@ -38,10 +37,10 @@ fun NavigationGraph(
             IntroScreen()
         }*/
 
-        composable(route = AppDestinationRoutes.InsertFoodScreen.route) {
+        /*composable(route = AppDestinationRoutes.InsertFoodScreen.route) {
             Log.d("DEBUG_ROUTING", "NavigationGraph: go to InsertFoodScreen")
             InsertFoodScreen()
-        }
+        }*/
 
         composable(route = AppDestinationRoutes.FoodExpiringScreen.route) {
             Log.d("DEBUG_ROUTING", "NavigationGraph: go to FoodExpiringScreen")

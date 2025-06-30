@@ -11,7 +11,7 @@ import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 
 @Database(
     entities = [FoodEntry::class],
-    version = 5,
+    version = 6,
     exportSchema = false
 )
 @TypeConverters(DateConverter::class)
@@ -50,14 +50,15 @@ abstract class FoodDatabase : RoomDatabase() {
         // added consumedAt and timezone columns
         internal val MIGRATION_4_5: Migration = object : Migration(4, 5) {
             override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(
-                    "ALTER TABLE FOODLIST " +
-                            "ADD COLUMN CONSUMED_AT INTEGER DEFAULT 1"
-                )
-                database.execSQL(
-                    "ALTER TABLE FOODLIST " +
-                            "ADD COLUMN timezone TEXT DEFAULT 'UTC'"
-                )
+                database.execSQL("ALTER TABLE FOODLIST ADD COLUMN CONSUMED_AT INTEGER DEFAULT 1")
+                database.execSQL("ALTER TABLE FOODLIST ADD COLUMN timezone TEXT DEFAULT 'UTC'")
+            }
+        }
+
+        // change column name from timezone to timezoneId
+        internal val MIGRATION_5_6: Migration = object : Migration(5, 6) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE FOODLIST RENAME COLUMN timezone TO timezoneId")
             }
         }
 
@@ -67,7 +68,7 @@ abstract class FoodDatabase : RoomDatabase() {
                 FoodDatabase::class.java,
                 DBNAME
             )
-                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4,MIGRATION_4_5)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4,MIGRATION_4_5,MIGRATION_5_6)
                 .build()
         }
     }

@@ -7,9 +7,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getLocalDateFormat
 import eu.indiewalkabout.fridgemanager.feat_food.data.local.db.DateConverter
-import eu.indiewalkabout.fridgemanager.feat_food.data.local.db.DateConverter.toLocalDateFromLong
 import java.time.LocalDate
-import java.util.Date
 
 @Entity(tableName = "FOODLIST")
 data class FoodEntry (
@@ -20,9 +18,9 @@ data class FoodEntry (
     var expiringAt: LocalDate? = null, // localDate -> Long/milliseconds to db by typeConverter
     @ColumnInfo(name = "CONSUMED_AT") @TypeConverters(DateConverter::class)
     var consumedAt: LocalDate? = null, // localDate -> Long/milliseconds to db by typeConverter
-    var timezone: String? = null,      // store timezone string like "Europe/Rome"
+    var timezoneId: String? = null,    // store timezone id string like "Europe/Rome"
     var quantity: Int = 1,
-    var done: Int = 0, // 1: food consumed, 0: food not consumed yet
+    var done: Int = 0,                 // 1: food consumed, 0: food not consumed yet
     )
 
 
@@ -35,7 +33,7 @@ fun FoodEntry.toFoodEntryUI(): FoodEntryUI {
         consumedAtLocalDate = consumedAt,
         consumedAtUI = consumedAt?.format(getLocalDateFormat()) ?: "",
         quantity = quantity,
-        timezone = timezone,
+        timezoneId = this@toFoodEntryUI.timezoneId,
         done = done,
     )
 }
