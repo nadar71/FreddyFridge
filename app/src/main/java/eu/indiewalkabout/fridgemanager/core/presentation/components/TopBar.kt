@@ -29,7 +29,7 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_18
 fun TopBar(
     title: String = "",
     titleColor: Color = LocalAppColors.current.colorText,
-    drawableLeftIcon: Int? = null,
+    @DrawableRes drawableLeftIcon: Int? = null,
     @DrawableRes drawableRightIcon: Int? = null,
     leftIconColor: Color = LocalAppColors.current.iconColor,
     rightIconColor: Color = LocalAppColors.current.iconColor,

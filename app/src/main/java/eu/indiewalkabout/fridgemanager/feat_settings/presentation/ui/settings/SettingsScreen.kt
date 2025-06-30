@@ -20,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import eu.indiewalkabout.fridgemanager.R
+import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_DAYS_BEFORE_DEADLINE
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_DAILY_NOTIFICATIONS_NUMBER
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.support_email
@@ -33,7 +34,6 @@ import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.openAppStore
 import eu.indiewalkabout.fridgemanager.core.util.extensions.sendEmail
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.NumberPickerWithTitle
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppDestinationRoutes
-import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation.navigate
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components.SettingsGroupTitle
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components.SettingsItem
@@ -46,7 +46,7 @@ fun SettingsScreen() {
     val context = LocalContext.current
 
     var daysBefore by remember { mutableStateOf(0) }
-    var dailyNotificationNumber by remember { mutableStateOf(0) }
+    var dailyNotificationsNumber by remember { mutableStateOf(0) }
 
     var showDaysBeforeWheelPicker by remember { mutableStateOf(false) }
     var showNotificationNumEachDayWheelPicker by remember { mutableStateOf(false) }
@@ -58,6 +58,7 @@ fun SettingsScreen() {
             max = NUM_MAX_DAYS_BEFORE_DEADLINE,
             onItemSelected = {
                 daysBefore = it.toInt()
+                AppPreferences.days_before_deadline = daysBefore
                 Log.d(TAG, "Days before notification selected: $it")
                 showDaysBeforeWheelPicker = false
             },
@@ -73,7 +74,8 @@ fun SettingsScreen() {
             title = stringResource(R.string.settings_hours_label),
             max = NUM_MAX_DAILY_NOTIFICATIONS_NUMBER,
             onItemSelected = {
-                dailyNotificationNumber = it.toInt()
+                dailyNotificationsNumber = it.toInt()
+                AppPreferences.daily_notifications_number = dailyNotificationsNumber
                 Log.d(TAG, "Notifications number each day selected: $it")
                 showNotificationNumEachDayWheelPicker = false
             },
@@ -128,7 +130,7 @@ fun SettingsScreen() {
                 
                 SettingsItem(
                     title = stringResource(id = R.string.settings_how_many_hours_title),
-                    subtitle = dailyNotificationNumber.toString(),
+                    subtitle = dailyNotificationsNumber.toString(),
                     modifier = Modifier.clickable {
                         showNotificationNumEachDayWheelPicker = true
                     }
@@ -142,8 +144,8 @@ fun SettingsScreen() {
                 )
 
                 SettingsItem(
-                    title = stringResource(id = R.string.credits_btn_title),
-                    subtitle = stringResource(id = R.string.credits_btn_summary),
+                    title = stringResource(id = R.string.credits_title_label),
+                    subtitle = stringResource(id = R.string.credits_section_subtitle_summary),
                     modifier = Modifier.clickable {
                         navigate(AppDestinationRoutes.CreditsScreen.route)
                     }
@@ -177,7 +179,8 @@ fun SettingsScreen() {
 
                 SettingsItem(
                     title = stringResource(id = R.string.settings_support_btn_title),
-                    subtitle = stringResource(id = R.string.settings_support_btn_summary) + " " + support_email,
+                    subtitle = stringResource(id = R.string.settings_support_btn_summary)
+                            + " " + support_email,
                     modifier = Modifier.clickable {
                         sendEmail(context, support_email)
                     }

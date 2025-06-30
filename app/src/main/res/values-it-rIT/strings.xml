@@ -64,7 +64,7 @@
     <string name="settings_hours_label">Notifiche giornaliere</string>
     <string name="settings_how_many_days_before_title">Notifica cibo in scadenza tra giorni :</string>
     <string name="settings_how_many_days_before_label">Quanti GIORNI prima</string>
-    <string name="settings_how_many_hours_title">NUmero notifiche giornaliere :</string>
+    <string name="settings_how_many_hours_title">Numero notifiche giornaliere :</string>
     <string name="settings_how_many_hours_label">Con quale frequenza oraria giornaliera vuoi essere notificato? (di default è ogni 6 ore)</string>
     <string name="settings_notify_every_01">Notifica ogni </string>
     <string name="settings_notify_every_02"> ore</string>
@@ -104,8 +104,23 @@
     <string name="menu_add_label_item">NUOVO</string>
 
     <!-- - - - - - - - - - - - - - - - - -  CREDITS - - - - - - - - - - - - - - - - - - - - - - -->
-    <string name="credits_btn_title">Attribuzioni</string>
-    <string name="credits_btn_summary">Guarda le attribuzioni qua</string>
+    <string name="credits_title_label">Attribuzioni</string>
+    <string name="credits_section_subtitle_summary">Guarda le attribuzioni qua</string>
+    <string name="credits_idea_label">Idea</string>
+    <string name="credits_idea_Gil">Mia moglie, Gigliola Rocca</string>
+    <string name="credits_gil_instagram_link">https://www.instagram.com/gidy369/</string>
+    <string name="credits_dev_design_label">Sviluppo e Design</string>
+    <string name="credits_dev_design_SM">Simone Mapelli</string>
+    <string name="credits_attributions_title">Attribuzioni</string>
+    <string name="credits_alarm_icons_label">Icone di sveglia</string>
+    <string name="credits_alarm_icons_link">https://www.freepik.com/foto-vettoriali-gratuiti/ufficio</string>
+    <string name="credits_fridge_img_label">Immagine del frigorifero</string>
+    <string name="credits_fridge_img_link">https://www.freepik.com/foto-vettoriali-gratuiti/cibo</string>
+    <string name="credits_fruits_img_label">Immagini di frutta</string>
+    <string name="credits_fruits_img_link">https://vecteezy.com</string>
+    <string name="credits_background_label">Sfondo</string>
+    <string name="credits_background_link">https://www.freepik.com/foto-vettoriali-gratuiti/sfondo</string>
+
 
     <!-- - - - - - - - - - - - - Content description  - - - - - - - - - - - - - - - - - - - - - -->
     <string name="background_image">Immagine di sfondo</string>
@@ -122,7 +137,10 @@
     <string name="content_delete_food_icon">Icona elimina scheda cibo</string>
     <string name="content_expiring_date_icon">Icona data scadenza</string>
     <string name="content_consumed_food_check_icon">Icona spunta cibo consumato</string>
+    <string name="credits_devsubtitle_icon">Vai al sito icon</string>
+    <string name="credits_insta_icon">Vai all\'account instagram icon</string>
     <string name="settings_right_arrow">Freccia per apertura opzioni/contenuti</string>
+
 
 
 

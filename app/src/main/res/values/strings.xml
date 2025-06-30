@@ -120,34 +120,22 @@
 
 
     <!-- - - - - - - - - - - - - - - - - -  CREDITS - - - - - - - - - - - - - - - - - - - - - - -->
-    <string name="credits_btn_title">Credits</string>
-    <string name="credits_btn_summary">See credits and attributions here.</string>
-
-    <!-- - - - - - - - - - - - - Credits text   - - - - - - - - - - - - - - - - - - - - - - - -  -->
-    <string name="credits_text" translatable="false">
-        <b>CREDITS &amp; ATTRIBUTIONS</b>\n
-
-        <b>Idea</b>\n
-        Gigliola Rocca\n\n
-
-        <b>Development and Design</b>\n
-        Simone Mapelli\n
-        <a href='http://www.indie-walkabout.eu/'> www.indie-walkabout.eu </a>\n\n
-
-        <b>Attributions</b>\n\n
-
-        Alarm clock in icons :\n
-        <a href="https://www.freepik.com/free-photos-vectors/office">Office vector created by dooder - www.freepik.com</a>\n\n
-
-        Fridge image :\n
-        <a href="https://www.freepik.com/free-photos-vectors/food">Food vector created by freepik - www.freepik.com</a>\n\n
-
-        Fruits images :\n
-        <a href="https://vecteezy.com" rel="nofollow">Graphics Provided by www.Vecteezy.com</a>\n\n
-
-        Background : \n
-        <a href="https://www.freepik.com/free-photos-vectors/background">Background vector created by freepik - www.freepik.com</a>\n
-    </string>
+    <string name="credits_title_label">Credits</string>
+    <string name="credits_section_subtitle_summary">See credits and attributions here.</string>
+    <string name="credits_idea_label">Idea</string>
+    <string name="credits_idea_Gil">My wife, Gigliola Rocca</string>
+    <string name="credits_gil_instagram_link">https://www.instagram.com/gidy369/</string>
+    <string name="credits_dev_design_label">Development and Design</string>
+    <string name="credits_dev_design_SM">Simone Mapelli</string>
+    <string name="credits_attributions_title">Attributions</string>
+    <string name="credits_alarm_icons_label">Alarm clock in icons</string>
+    <string name="credits_alarm_icons_link">https://www.freepik.com/free-photos-vectors/office</string>
+    <string name="credits_fridge_img_label">Fridge image</string>
+    <string name="credits_fridge_img_link">https://www.freepik.com/free-photos-vectors/food</string>
+    <string name="credits_fruits_img_label">Fruits images</string>
+    <string name="credits_fruits_img_link">https://vecteezy.com</string>
+    <string name="credits_background_label">Background</string>
+    <string name="credits_background_link">https://www.freepik.com/free-photos-vectors/background</string>
 
 
 
@@ -167,6 +155,8 @@
     <string name="content_expiring_date_icon">Icon for expiring date</string>
     <string name="content_consumed_food_check_icon">Icon consumed food check</string>
     <string name="settings_right_arrow">Arrow to new content or options</string>
+    <string name="credits_devsubtitle_icon">Goto site icon</string>
+    <string name="credits_insta_icon">Goto instagram icon</string>
 
 
     <!-- - - - - - - - - - - - - - - - - -  ERRORS MSG - - - - - - - - - - - - - - - - - - - - - -->

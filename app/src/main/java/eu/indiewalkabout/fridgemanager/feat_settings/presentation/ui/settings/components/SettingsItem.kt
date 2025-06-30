@@ -1,8 +1,11 @@
 package eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -30,6 +33,8 @@ fun SettingsItem(
     titleStyle: TextStyle = text_16(LocalAppColors.current.colorText),
     subtitle: String,
     subTitleStyle: TextStyle = text_14(LocalAppColors.current.colorText.copy(alpha = 0.8f)),
+    @DrawableRes rightIcon: Int = R.drawable.ic_arrow_right,
+    iconDescription: String = stringResource(R.string.settings_right_arrow),
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier) {
@@ -54,14 +59,14 @@ fun SettingsItem(
                     fontFamily = Fredoka,
                     style = subTitleStyle,
                 )
+
             }
             Icon(
-                painter = painterResource(id = R.drawable.ic_arrow_right),
-                contentDescription = stringResource(R.string.insert_expiring_date_icon_description),
+                painter = painterResource(id = rightIcon),
+                contentDescription = iconDescription,
                 tint = secondaryColor,
                 modifier = Modifier
                     .size(24.dp)
-                // .weight(1f)
             )
         }
     }

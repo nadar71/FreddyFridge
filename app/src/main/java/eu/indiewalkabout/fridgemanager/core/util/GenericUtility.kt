@@ -11,6 +11,8 @@ import android.view.View
 import java.util.concurrent.ThreadLocalRandom
 import android.provider.Settings
 import android.widget.Toast
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalUriHandler
 
 
 object GenericUtility {
@@ -129,6 +131,17 @@ object GenericUtility {
             e.printStackTrace()
             Toast.makeText(context, "Could not open app settings.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    @Composable
+    fun openUrlInBrowser(url: String) {
+        val uriHandler = LocalUriHandler.current
+        uriHandler.openUri(url)
+    }
+
+    fun openUrlInBrowserNotCompose(context: Context, url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        context.startActivity(intent)
     }
 
 

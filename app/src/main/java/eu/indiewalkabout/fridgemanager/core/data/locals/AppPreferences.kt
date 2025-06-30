@@ -5,7 +5,7 @@ import com.chibatching.kotpref.KotprefModel
 
 object AppPreferences : KotprefModel() {
     var days_before_deadline by intPref(0)
-    var daily_notification_number by intPref(0)
+    var daily_notifications_number by intPref(0)
     var app_opening_counter by intPref(0)
 
     // old, retrocomptibility
