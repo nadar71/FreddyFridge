@@ -112,11 +112,6 @@ fun UpdateFoodOverlay(
             is FoodUiState.Success -> {
                 showProgressBar = false
                 foodInserted = true
-                // unitUiState = FoodUiState.Idle
-                // localeDateText = null
-                // localeDateShownText = ""
-                // descriptionText = ""
-                // quantityNumText = "1"
                 Toast.makeText(context,
                     context.getString(R.string.update_food_successfully),
                     Toast.LENGTH_SHORT).show()

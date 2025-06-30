@@ -60,9 +60,11 @@
     <string name="settings_menu_item">Impostazioni</string>
     <string name="settings_category_title">Impostazioni Notifiche</string>
     <string name="settings_category_help_title">Aiuto</string>
+    <string name="settings_days_label">Giorni</string>
+    <string name="settings_hours_label">Notifiche giornaliere</string>
     <string name="settings_how_many_days_before_title">Notifica cibo in scadenza tra giorni :</string>
     <string name="settings_how_many_days_before_label">Quanti GIORNI prima</string>
-    <string name="settings_how_many_hours_title">Frequenza notifiche orarie durante il giorno :</string>
+    <string name="settings_how_many_hours_title">NUmero notifiche giornaliere :</string>
     <string name="settings_how_many_hours_label">Con quale frequenza oraria giornaliera vuoi essere notificato? (di default è ogni 6 ore)</string>
     <string name="settings_notify_every_01">Notifica ogni </string>
     <string name="settings_notify_every_02"> ore</string>
@@ -78,8 +80,11 @@
     <string name="settings_review_btn_title">Recensione app</string>
     <string name="settings_myapps_btn_summary">Scopri tutte le altre mie app e giochi!</string>
     <string name="settings_myapps_btn_title">Altre app e giochi</string>
-    <string name="settings_support_btn_summary">Suggerimenti, bug, errori, qualsiasi cosa? Scrivimi pure qui : indie.walkabout.71@gmail.com </string>
+    <string name="settings_support_btn_summary">Suggerimenti, bug, errori, qualsiasi cosa? Scrivimi pure qui : </string>
     <string name="settings_support_btn_title">Supporto</string>
+    <string name="settings_support_choose_email_client_fallback_label">È necessario avere installata un\'app di posta elettronica</string>
+    <string name="settings_send_email_chooser_title">Invia email con…</string>
+
 
     <!-- - - - - - - - - - - - - Notifications   - - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="notification_nextdays_expiring_food_title">Hai cibo in scadenza nei PROSSIMI GIORNI</string>
@@ -117,6 +122,8 @@
     <string name="content_delete_food_icon">Icona elimina scheda cibo</string>
     <string name="content_expiring_date_icon">Icona data scadenza</string>
     <string name="content_consumed_food_check_icon">Icona spunta cibo consumato</string>
+    <string name="settings_right_arrow">Freccia per apertura opzioni/contenuti</string>
+
 
 
 

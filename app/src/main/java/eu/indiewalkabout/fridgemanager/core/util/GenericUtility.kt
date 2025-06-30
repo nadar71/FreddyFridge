@@ -2,9 +2,16 @@ package eu.indiewalkabout.fridgemanager.core.util
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import android.view.View
 import java.util.concurrent.ThreadLocalRandom
+import android.provider.Settings
+import android.widget.Toast
+
 
 object GenericUtility {
 
@@ -80,6 +87,48 @@ object GenericUtility {
     fun dpToPx(context: Context, dp: Int): Int {
         val density = context.resources.displayMetrics.density
         return (dp * density).toInt()
+    }
+
+    fun openAppStore(context: Context,appPackageName: String) {
+        val context = context
+        // val appPackageName = context.packageName
+        val marketUri_01 = Uri.parse("market://details?id=$appPackageName")
+        val marketUri_02 = Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+
+        try {
+            Log.d("openAppStore", "store uri: $marketUri_01")
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    marketUri_01
+                )
+            )
+        } catch (anfe: ActivityNotFoundException) {
+            try {
+                Log.d("openAppStore", "store uri: $marketUri_02")
+                context.startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        marketUri_02
+                    )
+                )
+            } catch (e: ActivityNotFoundException){
+                Log.e("OpenAppStore", "Error opening app store", e)
+            }
+        }
+    }
+
+
+    fun openAppSettings(context: Context) {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        val uri = Uri.fromParts("package", context.packageName, null)
+        intent.data = uri
+        try {
+            context.startActivity(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(context, "Could not open app settings.", Toast.LENGTH_SHORT).show()
+        }
     }
 
 

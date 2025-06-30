@@ -66,11 +66,12 @@
     <string name="settings_menu_item">Settings</string>
     <string name="settings_category_title">Notifications Setting</string>
     <string name="settings_category_help_title">Help</string>
-
+    <string name="settings_days_label">Days</string>
+    <string name="settings_hours_label">Daily notifications</string>
     <string name="settings_how_many_days_before_title">Days Before product-deadline notifications :</string>
     <string name="settings_how_many_days_before_label">How many DAYS \nBEFORE food expiration date want you to be notified ?
         (Default is 2 days before expiring date)</string>
-    <string name="settings_how_many_hours_title">Notifications Hours frequency during the day :</string>
+    <string name="settings_how_many_hours_title">Daily Notifications number :</string>
     <string name="settings_how_many_hours_label">With what HOURS FREQUENCY \n in a day want to be notified about food expiring?
         (Default is every 6 hours)</string>
     <string name="settings_notify_every_01">Notify every </string>
@@ -88,12 +89,13 @@
     <string name="settings_review_btn_title">App Review</string>
     <string name="settings_myapps_btn_summary">Discover all my other apps and games!</string>
     <string name="settings_myapps_btn_title">My Other apps and games</string>
-
+    <string name="settings_send_email_chooser_title">Send email via…</string>
     <string name="settings_support_btn_key" translatable="false">goto_support_btn_key</string>
-    <string name="settings_support_btn_summary">Suggestions, bugs, errors, whatever? drop a line  here please : indie.walkabout.71@gmail.com</string>
+    <string name="settings_support_btn_summary">Suggestions, bugs, errors, whatever? drop a line  here please :</string>
     <string name="settings_support_btn_title">Support</string>
     <string name="gdpr_btn_title">GDPR</string>
     <string name="gdpr_btn_summary">GDPR Consent</string>
+    <string name="settings_support_choose_email_client_fallback_label">You must have an email app installed</string>
 
     <!-- - - - - - - - - - - - - Notifications   - - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="notification_nextdays_expiring_food_title">NEXT DAYS Expiring Foods found, check. </string>
@@ -164,6 +166,7 @@
     <string name="content_delete_food_icon">Icon delete food card</string>
     <string name="content_expiring_date_icon">Icon for expiring date</string>
     <string name="content_consumed_food_check_icon">Icon consumed food check</string>
+    <string name="settings_right_arrow">Arrow to new content or options</string>
 
 
     <!-- - - - - - - - - - - - - - - - - -  ERRORS MSG - - - - - - - - - - - - - - - - - - - - - -->
