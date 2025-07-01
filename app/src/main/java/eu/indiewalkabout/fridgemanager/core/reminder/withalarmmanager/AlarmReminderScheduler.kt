@@ -7,6 +7,7 @@ import android.content.Intent
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp
+import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import java.util.Calendar
@@ -40,7 +41,8 @@ class AlarmReminderScheduler @Inject constructor(
 
 
     fun setRepeatingAlarm() {
-        val hoursFrequency = PreferenceUtility.getHoursCount(context)
+        val hoursFrequency = AppPreferences.daily_notifications_number // PreferenceUtility.getHoursCount(context)
+        // TODO : now is the number of notitifcations: must divide and calculate  frequency
         val minutesPeriodicity = hoursFrequency * 60
 
         // TODO: not working

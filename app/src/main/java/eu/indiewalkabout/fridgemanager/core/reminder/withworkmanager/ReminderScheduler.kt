@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import java.util.concurrent.TimeUnit
@@ -22,7 +23,8 @@ object ReminderScheduler {
     fun scheduleChargingReminder(context: Context) {
 
         // get frequency of daily reminder from preferences
-        val hoursFrequency = PreferenceUtility.getHoursCount(context)
+        val hoursFrequency = AppPreferences.daily_notifications_number // PreferenceUtility.getHoursCount(context)
+        // TODO : now is the number of notitifcations: must divide and calculate  frequency
         periodicity = TimeUnit.HOURS.toSeconds(hoursFrequency.toLong())
 
         // TODO : comment debug frequency BEFORE RELEASE!!

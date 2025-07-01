@@ -6,6 +6,7 @@ import android.content.Intent
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp
+import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
 import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
@@ -25,7 +26,7 @@ class AlarmReceiver @Inject constructor(
 ) : BroadcastReceiver() {
 
     // for real :
-    private val days = PreferenceUtility.getDaysCount(context)
+    private val days = AppPreferences.days_before_deadline // PreferenceUtility.getDaysCount(context)
     private val DAYS_BEFORE = TimeUnit.DAYS.toSeconds(days.toLong()).toInt()
 
     // get repository

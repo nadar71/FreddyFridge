@@ -9,6 +9,7 @@ import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.qualifiers.ApplicationContext
+import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
 import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
@@ -43,7 +44,7 @@ class FoodReminderWorker @Inject constructor(
         // final int DAYS_BEFORE = (int) (TimeUnit.DAYS.toSeconds(2))*1000;
 
         // for real :
-        val days = PreferenceUtility.getDaysCount(context)
+        val days = AppPreferences.days_before_deadline // PreferenceUtility.getDaysCount(context)
         val DAYS_BEFORE = TimeUnit.DAYS.toSeconds(days.toLong()).toInt()
 
         // -----------------------------------------------------------------------------------------
