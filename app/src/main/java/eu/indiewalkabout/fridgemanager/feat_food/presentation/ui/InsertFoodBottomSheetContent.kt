@@ -1,6 +1,8 @@
 package eu.indiewalkabout.fridgemanager.feat_food.presentation.ui
 
 import android.Manifest
+import android.R.attr.scaleX
+import android.R.attr.scaleY
 import android.speech.SpeechRecognizer
 import android.util.Log
 import android.widget.Toast
@@ -437,7 +439,7 @@ fun InsertFoodBottomSheetContent(
                             FoodEntry(
                                 name = descriptionText,
                                 expiringAt = localeDateText,
-                                quantity = quantityNumText.toInt(),
+                                order_number = quantityNumText.toInt(),
                                 timezoneId = TimeZone.getDefault().id,
                             )
                         )

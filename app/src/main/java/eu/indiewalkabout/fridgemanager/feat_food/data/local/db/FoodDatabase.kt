@@ -62,10 +62,10 @@ abstract class FoodDatabase : RoomDatabase() {
             }
         }
 
-        // change column name from quantity to num_ord
+        // change column name from quantity to order_number
         internal val MIGRATION_6_7: Migration = object : Migration(6, 7) {
             override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE FOODLIST RENAME COLUMN quantity TO num_ord")
+                database.execSQL("ALTER TABLE FOODLIST RENAME COLUMN quantity TO order_number")
             }
         }
 

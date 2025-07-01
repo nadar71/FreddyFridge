@@ -1,9 +1,5 @@
 package eu.indiewalkabout.fridgemanager.feat_food.presentation.components
 
-import android.R.attr.bottom
-import android.R.attr.end
-import android.R.attr.top
-import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -32,7 +28,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.Dimension.Companion.fillToConstraints
 import androidx.hilt.navigation.compose.hiltViewModel
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.components.GeneralModalDialog
@@ -56,7 +51,6 @@ import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntryUI
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.toFoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodViewModel
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.UpdateFoodOverlay
-import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
@@ -215,7 +209,7 @@ fun FoodCard(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "n.${food.quantity}",
+                    text = "n.${food.order_number}",
                     style = text_14(colorText_02, false)
                 )
                 // Spacer(modifier = Modifier.width(8.dp))
@@ -297,35 +291,35 @@ fun PreviewFoodCard() {
             expiringAtLocalDate = LocalDate.now().minusDays(1),
             expiringAtUI = LocalDate.now().minusDays(1).format(getLocalDateFormat()) ?: "",
             consumedAtUI = LocalDate.now().minusDays(3).format(getLocalDateFormat()) ?: "",
-            quantity = 1
+            order_number = 1
         ),
         FoodEntryUI(
             id = 2,
             name = "Expires Today",
             expiringAtLocalDate = LocalDate.now(),
             expiringAtUI = LocalDate.now().format(getLocalDateFormat()) ?: "",
-            quantity = 2
+            order_number = 2
         ),
         FoodEntryUI(
             id = 3,
             name = "Expires Tomorrow",
             expiringAtLocalDate = LocalDate.now().plusDays(1),
             expiringAtUI = LocalDate.now().plusDays(1).format(getLocalDateFormat()) ?: "",
-            quantity = 3
+            order_number = 3
         ),
         FoodEntryUI(
             id = 4,
             name = "Expires in 2 Days",
             expiringAtLocalDate = LocalDate.now().plusDays(2),
             expiringAtUI = LocalDate.now().plusDays(2).format(getLocalDateFormat()) ?: "",
-            quantity = 4
+            order_number = 4
         ),
         FoodEntryUI(
             id = 5,
             name = "Fresh Food",
             expiringAtLocalDate = LocalDate.now().plusDays(3),
             expiringAtUI = LocalDate.now().plusDays(3).format(getLocalDateFormat()) ?: "",
-            quantity = 5
+            order_number = 5
         ),
         FoodEntryUI(
             id = 6,
@@ -333,7 +327,7 @@ fun PreviewFoodCard() {
             expiringAtLocalDate = LocalDate.now().plusDays(3),
             expiringAtUI = LocalDate.now().plusDays(3).format(getLocalDateFormat()) ?: "",
             consumedAtUI = LocalDate.now().minusDays(4).format(getLocalDateFormat()) ?: "",
-            quantity = 5,
+            order_number = 5,
             done = 1
         ),
         FoodEntryUI(
@@ -342,7 +336,7 @@ fun PreviewFoodCard() {
             expiringAtLocalDate = LocalDate.now().plusDays(3),
             expiringAtUI = LocalDate.now().plusDays(3).format(getLocalDateFormat()) ?: "",
             consumedAtUI = null,
-            quantity = 5,
+            order_number = 5,
             done = 1
         )
     )

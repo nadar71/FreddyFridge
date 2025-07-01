@@ -96,7 +96,7 @@ fun UpdateFoodOverlay(
     var localeDateText by remember { mutableStateOf<LocalDate?>(foodEntryUI.expiringAtLocalDate) }
     var localeDateShownText by remember { mutableStateOf(foodEntryUI.expiringAtUI ?: "") }
     var descriptionText by remember { mutableStateOf(foodEntryUI.name) }
-    var quantityNumText by remember { mutableStateOf(foodEntryUI.quantity.toString()) }
+    var quantityNumText by remember { mutableStateOf(foodEntryUI.order_number.toString()) }
 
     var foodInserted by remember { mutableStateOf(false) }
     var showProgressBar by remember { mutableStateOf(false) }
@@ -451,7 +451,7 @@ fun UpdateFoodOverlay(
                                     expiringAt = localeDateText,
                                     consumedAt = foodEntryUI.consumedAtLocalDate,
                                     timezoneId = foodEntryUI.timezoneId,
-                                    quantity = quantityNumText.toInt()
+                                    order_number = quantityNumText.toInt()
                                 )
                             )
                         }
@@ -480,7 +480,7 @@ fun UpdateFoodOverlayPreview() {
                 name = "Expired Food",
                 expiringAtLocalDate = LocalDate.now().minusDays(1),
                 expiringAtUI = LocalDate.now().minusDays(1).format(getLocalDateFormat()) ?: "",
-                quantity = 1
+                order_number = 1
             ),
             onSave = {},
             onLeftButtonAction = {}
