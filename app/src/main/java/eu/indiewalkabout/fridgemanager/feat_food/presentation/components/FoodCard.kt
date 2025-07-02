@@ -193,7 +193,7 @@ fun FoodCard(
                 ),
             )
 
-        // Content
+        // Food name and order number
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -207,12 +207,13 @@ fun FoodCard(
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "n.${food.order_number}",
-                    style = text_14(colorText_02, false)
-                )
-                // Spacer(modifier = Modifier.width(8.dp))
+                if (food.order_number > 0) {
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "n.${food.order_number}",
+                        style = text_14(colorText_02, false)
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -246,7 +247,7 @@ fun FoodCard(
                     if (food.done == 1 && food.consumedAtUI != null) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_check),
-                            contentDescription = stringResource(R.string.content_delete_food_icon),
+                            contentDescription = stringResource(R.string.content_consumed_date_icon),
                             tint = brown,
                             modifier = Modifier
                                 .size(24.dp)

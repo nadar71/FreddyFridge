@@ -1,5 +1,7 @@
 <resources>
 
+    <string name="app_name">FreddyFridge</string>
+
     <!-- - - - - - - - - - - - - - - - - - COMMONS - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="generic_yes">Yes</string>
     <string name="generic_no">No</string>
@@ -153,7 +155,7 @@
     <string name="content_menu_add_label_item">Icon ADD food</string>
     <string name="content_delete_food_icon">Icon delete food card</string>
     <string name="content_expiring_date_icon">Icon for expiring date</string>
-    <string name="content_consumed_food_check_icon">Icon consumed food check</string>
+    <string name="content_consumed_date_icon">Icon consumed food check</string>
     <string name="settings_right_arrow">Arrow to new content or options</string>
     <string name="credits_devsubtitle_icon">Goto site icon</string>
     <string name="credits_insta_icon">Goto instagram icon</string>

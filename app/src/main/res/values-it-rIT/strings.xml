@@ -2,6 +2,7 @@
 <resources>
 
     <!-- - - - - - - - - - - - - - - - - - COMMONS - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="app_name">FreddyFridge</string>
     <string name="generic_yes">Sì</string>
     <string name="generic_no">No</string>
     <string name="generic_ok">Ok</string>
@@ -136,7 +137,7 @@
     <string name="content_menu_add_label_item">Icona AGGIUNGI Cibo</string>
     <string name="content_delete_food_icon">Icona elimina scheda cibo</string>
     <string name="content_expiring_date_icon">Icona data scadenza</string>
-    <string name="content_consumed_food_check_icon">Icona spunta cibo consumato</string>
+    <string name="content_consumed_date_icon">Icona spunta cibo consumato</string>
     <string name="credits_devsubtitle_icon">Vai al sito icon</string>
     <string name="credits_insta_icon">Vai all\'account instagram icon</string>
     <string name="settings_right_arrow">Freccia per apertura opzioni/contenuti</string>

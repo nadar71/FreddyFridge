@@ -73,11 +73,13 @@ import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.SimpleT
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.util.VoiceRecognitionManager
 import java.time.LocalDate
+import java.util.TimeZone
 
 
 @Composable
 fun UpdateFoodOverlay(
     foodViewModel: FoodViewModel = hiltViewModel(),
+    insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
     foodEntryUI: FoodEntryUI,
     onSave: () -> Unit,
     cancelable: Boolean = true,
@@ -96,7 +98,7 @@ fun UpdateFoodOverlay(
     var localeDateText by remember { mutableStateOf<LocalDate?>(foodEntryUI.expiringAtLocalDate) }
     var localeDateShownText by remember { mutableStateOf(foodEntryUI.expiringAtUI ?: "") }
     var descriptionText by remember { mutableStateOf(foodEntryUI.name) }
-    var quantityNumText by remember { mutableStateOf(foodEntryUI.order_number.toString()) }
+    var quantityNumText by remember { mutableStateOf("1") } // always 1
 
     var foodInserted by remember { mutableStateOf(false) }
     var showProgressBar by remember { mutableStateOf(false) }
@@ -454,6 +456,45 @@ fun UpdateFoodOverlay(
                                     order_number = quantityNumText.toInt()
                                 )
                             )
+                        }
+                        if (!isBtnEnabled) return@RoundedCornerButton
+                        else {
+                            var quantity = quantityNumText.toInt()
+                            if ( quantity <= 1 ) {
+                                foodViewModel.updateFoodEntry(
+                                    FoodEntry(
+                                        name = descriptionText,
+                                        expiringAt = localeDateText,
+                                        consumedAt = foodEntryUI.consumedAtLocalDate,
+                                        timezoneId = TimeZone.getDefault().id,
+                                        order_number = 0
+                                    )
+                                )
+                            } else { // a quantity greater then 1 is selected
+                                var count = 1
+                                // first is updated
+                                FoodEntry(
+                                    name = descriptionText,
+                                    expiringAt = localeDateText,
+                                    consumedAt = foodEntryUI.consumedAtLocalDate,
+                                    timezoneId = TimeZone.getDefault().id,
+                                    order_number = foodEntryUI.order_number
+                                )
+                                // others exceeding 1 are inserted as new
+                                while (quantity > 1) {
+                                    insertFoodViewModel.insertFood(
+                                        FoodEntry(
+                                            name = descriptionText,
+                                            expiringAt = localeDateText,
+                                            consumedAt = foodEntryUI.consumedAtLocalDate,
+                                            timezoneId = TimeZone.getDefault().id,
+                                            order_number = count
+                                        )
+                                    )
+                                    count++
+                                    quantity--
+                                }
+                            }
                         }
                     },
                     shape = RoundedCornerShape(15.dp),

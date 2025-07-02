@@ -19,7 +19,7 @@ data class FoodEntry (
     @ColumnInfo(name = "CONSUMED_AT") @TypeConverters(DateConverter::class)
     var consumedAt: LocalDate? = null, // localDate -> Long/milliseconds to db by typeConverter
     var timezoneId: String? = null,    // store timezone id string like "Europe/Rome"
-    var order_number: Int = 1,
+    var order_number: Int = 0,
     var done: Int = 0,                 // 1: food consumed, 0: food not consumed yet
     )
 

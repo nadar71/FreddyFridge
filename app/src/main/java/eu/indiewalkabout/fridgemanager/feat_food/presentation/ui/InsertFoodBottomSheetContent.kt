@@ -3,6 +3,7 @@ package eu.indiewalkabout.fridgemanager.feat_food.presentation.ui
 import android.Manifest
 import android.R.attr.scaleX
 import android.R.attr.scaleY
+import android.R.attr.text
 import android.speech.SpeechRecognizer
 import android.util.Log
 import android.widget.Toast
@@ -28,6 +29,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.SegmentedButtonDefaults.borderStroke
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -435,14 +437,30 @@ fun InsertFoodBottomSheetContent(
                 onClick = {
                     if (!isBtnEnabled) return@RoundedCornerButton
                     else {
-                        insertFoodViewModel.insertFood(
-                            FoodEntry(
-                                name = descriptionText,
-                                expiringAt = localeDateText,
-                                order_number = quantityNumText.toInt(),
-                                timezoneId = TimeZone.getDefault().id,
+                        var quantity = quantityNumText.toInt()
+                        if ( quantity <= 1 ) {
+                            insertFoodViewModel.insertFood(
+                                FoodEntry(
+                                    name = descriptionText,
+                                    expiringAt = localeDateText,
+                                    timezoneId = TimeZone.getDefault().id,
+                                )
                             )
-                        )
+                        } else {
+                            var count = 1
+                            while (quantity > 0) {
+                                insertFoodViewModel.insertFood(
+                                    FoodEntry(
+                                        name = descriptionText,
+                                        expiringAt = localeDateText,
+                                        timezoneId = TimeZone.getDefault().id,
+                                        order_number = count
+                                    )
+                                )
+                                count++
+                                quantity--
+                            }
+                        }
                     }
                 },
                 shape = RoundedCornerShape(15.dp),

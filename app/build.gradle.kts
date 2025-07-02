@@ -10,6 +10,7 @@ android {
     namespace = "eu.indiewalkabout.fridgemanager"
     compileSdk = 35
 
+
     defaultConfig {
         applicationId = "eu.indiewalkabout.fridgemanager"
         minSdk = 26
