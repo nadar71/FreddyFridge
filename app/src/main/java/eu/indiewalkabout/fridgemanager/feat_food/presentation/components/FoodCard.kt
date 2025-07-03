@@ -274,7 +274,6 @@ fun FoodCard(
             modifier = Modifier
                 .size(24.dp)
                 .clickable {
-                    onDelete()
                     showDeleteConfirmDialog = true
                 }
         )
