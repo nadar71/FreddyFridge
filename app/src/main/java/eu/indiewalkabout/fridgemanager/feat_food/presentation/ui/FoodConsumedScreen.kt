@@ -136,6 +136,7 @@ fun FoodConsumedScreen(
                 if (foodListLoaded) {
                     ProductListCard(
                         foods = consumedFoodList,
+                        sharingTitle = stringResource(R.string.settings_saved_food_list_subject),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp)

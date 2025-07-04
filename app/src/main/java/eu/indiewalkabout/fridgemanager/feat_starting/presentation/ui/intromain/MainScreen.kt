@@ -210,6 +210,7 @@ fun MainScreen(
                 if (foodListLoaded) {
                     ProductListCard(
                         foods = expiringTodayFoodList,
+                        sharingTitle = stringResource(R.string.settings_share_today_title),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp)

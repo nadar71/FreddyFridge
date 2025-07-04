@@ -21,6 +21,8 @@
     <string name="foodExpired_message">No products expired here </string>
     <string name="foodConsumed_title">Products consumed</string>
     <string name="foodConsumed_message">No products consumed here </string>
+    <string name="food_expiring_date_label">Expiring</string>
+    <string name="food_open_label">Opened</string>
     <string name="permission_denied_title">Permission Microfone Denied</string>
 
 
@@ -90,8 +92,8 @@
     <string name="settings_goto_system_app_settings_title">App Settings</string>
     <string name="settings_share_today_title">"Products expiring TODAY : "</string>
     <string name="settings_expiring_food_list_subject">"Expiring Products global list : "</string>
-    <string name="settings_saved_food_list_subject">"Saved Products till now : "</string>
-    <string name="settings_wasted_food_list_subject">"WASTED Products till now : "</string>
+    <string name="settings_saved_food_list_subject">"Consumed Products till now : "</string>
+    <string name="settings_wasted_food_list_subject">"Expired Products till now : "</string>
     <string name="settings_review_btn_summary">Like this app? Left a review please !</string>
     <string name="settings_review_btn_title">App Review</string>
     <string name="settings_myapps_btn_summary">Discover all my other apps and games!</string>

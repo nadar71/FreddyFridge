@@ -136,6 +136,7 @@ fun FoodExpiredScreen(
                 if (foodListLoaded) {
                     ProductListCard(
                         foods = expiredFoodList,
+                        sharingTitle = stringResource(R.string.settings_wasted_food_list_subject),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp)
