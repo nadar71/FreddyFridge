@@ -296,7 +296,7 @@ fun FoodCard(
                     modifier = Modifier.weight(1f)
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_hourglass_empty_white),
+                        painter = painterResource(id = R.drawable.ic_hourglass),
                         contentDescription = stringResource(R.string.content_expiring_date_icon),
                         tint = brown,
                         modifier = Modifier

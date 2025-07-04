@@ -325,7 +325,7 @@ fun AnimatedFoodBox() {
 
         // Fridge Background (Middle)
         Image(
-            painter = painterResource(id = R.drawable.fridge_background_white),
+            painter = painterResource(id = R.drawable.fridge_background),
             contentDescription = "Fridge Background",
             modifier = Modifier
                 .fillMaxSize()
