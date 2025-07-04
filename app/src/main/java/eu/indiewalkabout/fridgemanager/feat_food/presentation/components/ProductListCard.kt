@@ -2,21 +2,25 @@ package eu.indiewalkabout.fridgemanager.feat_food.presentation.components
 
 import android.content.Context
 import android.content.Intent
+import androidx.compose.animation.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
@@ -24,6 +28,7 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.seconda
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.toFoodEntryUI
+import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 
 
@@ -41,74 +46,94 @@ fun ProductListCard(
 ) {
     val context = LocalContext.current
     val colors = LocalAppColors.current
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+    var isFabVisible by remember { mutableStateOf(true) }
+    
+    // Show FAB when scrolling stops, hide when scrolling
+    LaunchedEffect(listState) {
+        snapshotFlow { listState.isScrollInProgress }
+            .collect { isScrolling ->
+                isFabVisible = !isScrolling
+            }
+    }
 
-    Box(modifier = modifier) {
-        Card(
-            modifier = Modifier.fillMaxSize(),
-            shape = RoundedCornerShape(10.dp),
-            colors = CardDefaults.cardColors(containerColor = colors.lightGreyVeryTransparent)
-        ) {
-            if (foods.isEmpty()) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = message,
-                        color = colors.lightWhiteSemitransparent,
-                        textAlign = TextAlign.Center
+    Box(
+        modifier = modifier
+            .clip(RoundedCornerShape(10.dp))
+            .background(colors.lightGreyVeryTransparent)
+    ) {
+        if (foods.isEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = message,
+                    color = colors.lightWhiteSemitransparent,
+                    textAlign = TextAlign.Center
+                )
+            }
+        } else {
+            LazyColumn(
+                state = listState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            ) {
+                items(foods) { foodEntry ->
+                    val food = foodEntry.toFoodEntryUI()
+                    FoodCard(
+                        food = food,
+                        onCheckChanged = { onCheckChanged() },
+                        onDelete = { onDelete() },
+                        onUpdate = { onUpdate() },
+                        isUpdatable = isUpdatable
                     )
-                }
-            } else {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp)
-                ) {
-                    items(foods) { foodEntry ->
-                        val food = foodEntry.toFoodEntryUI()
-                        FoodCard(
-                            food = food,
-                            onCheckChanged = { onCheckChanged() },
-                            onDelete = { onDelete() },
-                            onUpdate = { onUpdate() },
-                            isUpdatable = isUpdatable
-                        )
-                    }
                 }
             }
         }
 
-        if (foods.isNotEmpty()) {
+        // FAB positioned half outside the card
+        AnimatedVisibility(
+            visible = foods.isNotEmpty() && isFabVisible,
+            enter = fadeIn(), // + slideIn(initialOffset = { IntOffset(0, 20) }),
+            exit = fadeOut(), //+ slideOut(targetOffset = { IntOffset(0, 20) }),
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                // .offset(x = 10.dp, y = (-10).dp)
+        ) {
             FloatingActionButton(
                 onClick = {
-                    val shareText = formatFoodListForSharing(
-                        context,
-                        sharingTitle,
-                        foods
-                    )
-                    val sendIntent = Intent().apply {
-                        action = Intent.ACTION_SEND
-                        putExtra(Intent.EXTRA_TEXT, shareText)
-                        type = "text/plain"
+                    coroutineScope.launch {
+                        val shareText = formatFoodListForSharing(
+                            context,
+                            sharingTitle,
+                            foods
+                        )
+                        val sendIntent = Intent().apply {
+                            action = Intent.ACTION_SEND
+                            putExtra(Intent.EXTRA_TEXT, shareText)
+                            type = "text/plain"
+                        }
+                        val shareIntent = Intent.createChooser(sendIntent, null)
+                        context.startActivity(shareIntent)
                     }
-                    val shareIntent = Intent.createChooser(sendIntent, null)
-                    context.startActivity(shareIntent)
                 },
                 modifier = Modifier
-                    //.padding(16.dp)
-                    .align(Alignment.BottomEnd)
-                    .size(40.dp),
+                    .size(40.dp)
+                    .padding(4.dp),
                 shape = CircleShape,
                 containerColor = primaryColor,
-                contentColor = secondaryColor
+                contentColor = secondaryColor,
+                elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 4.dp)
             ) {
                 Icon(
-                    // imageVector = Icons.Default.Share,
                     painter = painterResource(id = R.drawable.ic_share),
-                    contentDescription = sharingTitle
+                    contentDescription = sharingTitle,
+                    modifier = Modifier.size(20.dp)
                 )
             }
         }

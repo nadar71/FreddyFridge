@@ -215,6 +215,16 @@ fun MainScreen(
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp)
                             .weight(1f),
+                        onDelete = {
+                            loadDataFromDdb = true
+                        },
+                        onUpdate = {
+                            loadDataFromDdb = true
+                        },
+                        isUpdatable = true,
+                        onCheckChanged = {
+                            loadDataFromDdb = true
+                        },
                         message = stringResource(R.string.foodExpiring_message)
                     )
                 }

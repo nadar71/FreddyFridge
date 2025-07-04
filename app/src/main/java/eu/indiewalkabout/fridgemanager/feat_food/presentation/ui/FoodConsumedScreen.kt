@@ -145,9 +145,13 @@ fun FoodConsumedScreen(
                         onDelete = {
                             loadDataFromDdb = true
                         },
+                        onUpdate = {
+                            loadDataFromDdb = true
+                        },
+                        isUpdatable = true,
                         onCheckChanged = {
                             loadDataFromDdb = true
-                        }
+                        },
                     )
                 }
 
