@@ -38,7 +38,7 @@
     <string name="main_subtitle">Zero Sprechi !</string>
     <string name="no_food_todays">Nessun prodotto in scadenza per oggi!</string>
 
-    <!-- - - - - - - - - - - - - - - -  INSERT FOOD - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - - - - -  INSERT,UPDATE FOOD - - - - - - - - - - - - - - - - - - - -->
     <string name="insert_food_title">Inserisci il nuovo prodotto</string>
     <string name="insert_food_name_tv">Inserisci una descrizione : </string>
     <string name="insert_food_description_hint">Descrizione</string>
@@ -53,8 +53,13 @@
     <string name="insert_food_inserted_confirm">Inserito correttamente !</string>
     <string name="insert_speak_btn_description">Premi e parla</string>
     <string name="insert_speech_not_recognized">Prova ancora</string>
-    <string name="insert_food_successfully">Cibo inserito con successo!</string>
-    <string name="update_food_successfully">Cibo aggiornato con successo!</string>
+    <string name="insert_food_successfully">Prodotto inserito con successo!</string>
+    <string name="update_food_successfully">Prodotto aggiornato con successo!</string>
+    <string name="update_food_label">Aggiorna il prodotto</string>
+    <string name="open_food_label">Apri il prodotto</string>
+    <string name="close_food_label">Chiudi il prodotto</string>
+    <string name="delete_food_label">Cancella il prodotto</string>
+
 
     <!-- - - - - - - - - - - - - - - - - - SETTINGS - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="settings_title">Impostazioni</string>
@@ -130,14 +135,15 @@
     <string name="app_logo">Logo app</string>
     <string name="settings_icon">Icona impostazioni</string>
     <string name="help_icon">Icona Help</string>
-    <string name="content_menu_home_label_item">Icona Cibo Home</string>
-    <string name="content_menu_expired_label_item">Icona Cibo Scaduto</string>
-    <string name="content_menu_consumed_label_item">Icona Cibo Consumato</string>
-    <string name="content_menu_expiring_label_item">Icona Cibo In Scadenza</string>
-    <string name="content_menu_add_label_item">Icona AGGIUNGI Cibo</string>
-    <string name="content_delete_food_icon">Icona elimina scheda cibo</string>
+    <string name="content_menu_home_label_item">Icona Prodotto Home</string>
+    <string name="content_menu_expired_label_item">Icona Prodotto Scaduto</string>
+    <string name="content_menu_consumed_label_item">Icona Prodotto Consumato</string>
+    <string name="content_menu_expiring_label_item">Icona Prodotto In Scadenza</string>
+    <string name="content_menu_add_label_item">Icona AGGIUNGI Prodotto</string>
+    <string name="content_delete_food_icon">Icona elimina scheda prodotto</string>
     <string name="content_expiring_date_icon">Icona data scadenza</string>
-    <string name="content_consumed_date_icon">Icona spunta cibo consumato</string>
+    <string name="content_consumed_date_icon">Icona spunta prodotto consumato</string>
+    <string name="content_isopen_product_icon">Icona il prodotto è aperto</string>
     <string name="credits_devsubtitle_icon">Vai al sito icon</string>
     <string name="credits_insta_icon">Vai all\'account instagram icon</string>
     <string name="settings_right_arrow">Freccia per apertura opzioni/contenuti</string>
@@ -153,11 +159,11 @@
     <string name="db_error_loading_all_food">Errore durante il caricamento di tutti gli alimenti</string>
     <string name="db_error_loading_consumed_food">Errore durante il caricamento degli alimenti consumati</string>
     <string name="db_error_loading_expired_food">Errore durante il caricamento degli alimenti scaduti</string>
-    <string name="db_error_loading_expiring_food">Errore durante il caricamento del cibo in scadenza</string>
-    <string name="db_error_loading_food">Errore durante il caricamento del cibo in scadenza</string>
-    <string name="db_error_loading_expiring_today_food">Errore durante il caricamento del cibo in scadenza</string>
-    <string name="db_error_updating_done_food_entry">Errore durante l\'aggiornamento del cibo</string>
-    <string name="db_error_updating_food_entry">Errore durante l\'aggiornamento del cibo</string>
+    <string name="db_error_loading_expiring_food">Errore durante il caricamento del prodotto in scadenza</string>
+    <string name="db_error_loading_food">Errore durante il caricamento del prodotto in scadenza</string>
+    <string name="db_error_loading_expiring_today_food">Errore durante il caricamento del prodotto in scadenza</string>
+    <string name="db_error_updating_done_food_entry">Errore durante l\'aggiornamento del prodotto</string>
+    <string name="db_error_updating_food_entry">Errore durante l\'aggiornamento del prodotto</string>
 
 
     <!-- 🧹 DUPLICATES & UNUSED KEYS -->

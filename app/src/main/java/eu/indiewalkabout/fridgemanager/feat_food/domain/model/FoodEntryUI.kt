@@ -11,6 +11,7 @@ data class FoodEntryUI(
     var consumedAtUI: String? = null,
     var order_number: Int = 1,
     var timezoneId: String? = null,
+    var isProductOpen: Boolean = false,
     var done: Int = 0,
     )
 
@@ -22,6 +23,7 @@ fun FoodEntryUI.toFoodEntry(): FoodEntry {
         expiringAt = expiringAtLocalDate,
         consumedAt = consumedAtLocalDate,
         timezoneId = timezoneId,
+        isProductOpen = isProductOpen,
         order_number = order_number,
         done = done,
     )

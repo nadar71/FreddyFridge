@@ -11,7 +11,7 @@ import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 
 @Database(
     entities = [FoodEntry::class],
-    version = 7,
+    version = 8,
     exportSchema = false
 )
 @TypeConverters(DateConverter::class)
@@ -69,6 +69,16 @@ abstract class FoodDatabase : RoomDatabase() {
             }
         }
 
+        // added isProductOpen column
+        internal val MIGRATION_7_8: Migration = object : Migration(7, 8) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(
+                    "ALTER TABLE FOODLIST " +
+                            "ADD COLUMN isProductOpen INTEGER NOT NULL DEFAULT 0"
+                )
+            }
+        }
+
         fun getDbInstance(context: Context): FoodDatabase {
             return Room.databaseBuilder(
                 context.applicationContext,
@@ -81,7 +91,8 @@ abstract class FoodDatabase : RoomDatabase() {
                     MIGRATION_3_4,
                     MIGRATION_4_5,
                     MIGRATION_5_6,
-                    MIGRATION_6_7
+                    MIGRATION_6_7,
+                    MIGRATION_7_8
                 )
                 .build()
         }

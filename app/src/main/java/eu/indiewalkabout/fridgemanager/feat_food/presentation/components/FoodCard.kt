@@ -1,5 +1,7 @@
 package eu.indiewalkabout.fridgemanager.feat_food.presentation.components
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -17,12 +19,15 @@ import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -47,8 +52,10 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_14
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_20
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getLocalDateFormat
+import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntryUI
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.toFoodEntry
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodViewModel
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.UpdateFoodOverlay
 import java.time.LocalDate
@@ -64,27 +71,63 @@ fun FoodCard(
     foodViewModel: FoodViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
+    val TAG = "FoodCard"
     val today = LocalDate.now()
+    val context = LocalContext.current
     val daysUntilExpiry = food.expiringAtLocalDate?.let {
         ChronoUnit.DAYS.between(today, it).toInt()
     }
     var isChecked by remember { mutableStateOf(food.done == 1) }
+    var foodInserted by remember { mutableStateOf(false) }
 
     val backgroundColor = when {
         daysUntilExpiry == null -> foodGray
-        daysUntilExpiry < 0 -> foodGray
-        daysUntilExpiry == 0 -> foodRed
+        daysUntilExpiry  < 0 -> foodGray
+        daysUntilExpiry == 0 || food.isProductOpen-> foodRed
         daysUntilExpiry == 1 -> foodOrange
         daysUntilExpiry == 2 -> foodYellow
         else -> foodGreen
     }
 
+    var showActionDialog by remember { mutableStateOf(false) }
     var showDeleteConfirmDialog by remember { mutableStateOf(false) }
     var showCheckConfirmDialog by remember { mutableStateOf(false) }
     var showUpdateDialog by remember { mutableStateOf(false) }
+    var showProgressBar by remember { mutableStateOf(false) }
+
 
 
     // ------------------------------ DIALOG -------------------------------------------------------
+    if (showActionDialog) {
+        ListActionDialog(
+                onUpdate = {
+                    showUpdateDialog = true
+                    showActionDialog = false
+                },
+                onOpen = {
+                    foodViewModel.updateFoodEntry(
+                        FoodEntry(
+                            id = food.id,
+                            name = food.name,
+                            expiringAt = food.expiringAtLocalDate,
+                            consumedAt = food.consumedAtLocalDate,
+                            timezoneId = food.timezoneId,
+                            isProductOpen = !food.isProductOpen,
+                            order_number = food.order_number.toInt()
+                        )
+                    )
+                    showActionDialog = false
+                },
+                onDelete = {
+                    showDeleteConfirmDialog = true
+                    showActionDialog = false
+                },
+                onDismiss = {
+                   showActionDialog = false
+                },
+            )
+    }
+
     if (showDeleteConfirmDialog){
         GeneralModalDialog(
             backgroundColor = primaryColorSemitransparent,
@@ -159,6 +202,35 @@ fun FoodCard(
         )
     }
 
+    // ------------------------------ LOGIC --------------------------------------------------------
+    val updateUiState by foodViewModel.updateUiState.collectAsState()
+
+    LaunchedEffect(updateUiState) {
+        when (updateUiState) {
+            is FoodUiState.Success -> {
+                showProgressBar = false
+                foodInserted = true
+                Toast.makeText(context,
+                    context.getString(R.string.update_food_successfully),
+                    Toast.LENGTH_SHORT).show()
+                onUpdate() // refresh the list
+                // After Success or Error, reset updateUiState to Idle:
+                // LaunchedEffect doesn't re-trigger at dialog re-opening
+                foodViewModel.resetUpdateUiStateToIdle()
+            }
+            is FoodUiState.Error -> {
+                showProgressBar = false
+                Log.e(TAG, "Error inserting food in db")
+                foodViewModel.resetUpdateUiStateToIdle()
+            }
+            is FoodUiState.Loading -> {
+                showProgressBar = true
+            }
+            is FoodUiState.Idle -> {
+                showProgressBar = false
+            }
+        }
+    }
     // ------------------------------ UI -----------------------------------------------------------
 
     Row(
@@ -175,7 +247,7 @@ fun FoodCard(
             .padding(2.dp, 8.dp, 10.dp, 8.dp)
             .clickable {
                 if (isUpdatable) {
-                    showUpdateDialog = true
+                    showActionDialog = true
                 }
             }
     ) {
@@ -267,16 +339,18 @@ fun FoodCard(
         Spacer(modifier = Modifier.width(8.dp))
 
         // Delete
-        Icon(
-            painter = painterResource(id = R.drawable.ic_bin),
-            contentDescription = stringResource(R.string.content_delete_food_icon),
-            tint = brown,
-            modifier = Modifier
-                .size(24.dp)
-                .clickable {
-                    showDeleteConfirmDialog = true
-                }
-        )
+        if (food.isProductOpen) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_unlock),
+                contentDescription = stringResource(R.string.content_delete_food_icon),
+                tint = brown,
+                modifier = Modifier
+                    .size(24.dp)
+                    .clickable {
+                        showActionDialog = true
+                    }
+            )
+        }
     }
 }
 

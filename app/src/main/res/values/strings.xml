@@ -44,7 +44,7 @@
     <string name="no_food_todays">No products expiring for today !</string>
 
 
-    <!-- - - - - - - - - - - - - - - -  INSERT FOOD - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - - - - -  INSERT,UPDATE FOOD - - - - - - - - - - - - - - - - - - - -->
     <string name="insert_food_title">Insert Product</string>
     <string name="insert_food_name_tv">Product description :</string>
     <string name="insert_food_description_hint">Description</string>
@@ -59,8 +59,13 @@
     <string name="insert_food_inserted_confirm">Inserted successfully !</string>
     <string name="insert_speak_btn_description">Press and speak</string>
     <string name="insert_speech_not_recognized">Try again</string>
-    <string name="insert_food_successfully">Food inserted successfully!</string>
-    <string name="update_food_successfully">Food Updated successfully!</string>
+    <string name="insert_food_successfully">Product inserted successfully!</string>
+    <string name="update_food_successfully">Product Updated successfully!</string>
+    <string name="update_food_label">Update Product</string>
+    <string name="open_food_label">Open product</string>
+    <string name="close_food_label">Close product</string>
+    <string name="delete_food_label">Delete product</string>
+
 
 
     <!-- - - - - - - - - - - - - - - - - - SETTINGS - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -71,10 +76,10 @@
     <string name="settings_days_label">Days</string>
     <string name="settings_hours_label">Daily notifications</string>
     <string name="settings_how_many_days_before_title">Days Before product-deadline notifications :</string>
-    <string name="settings_how_many_days_before_label">How many DAYS \nBEFORE food expiration date want you to be notified ?
+    <string name="settings_how_many_days_before_label">How many DAYS \nBEFORE product expiration date want you to be notified ?
         (Default is 2 days before expiring date)</string>
     <string name="settings_how_many_hours_title">Daily Notifications number :</string>
-    <string name="settings_how_many_hours_label">With what HOURS FREQUENCY \n in a day want to be notified about food expiring?
+    <string name="settings_how_many_hours_label">With what HOURS FREQUENCY \n in a day want to be notified about product expiring?
         (Default is every 6 hours)</string>
     <string name="settings_notify_every_01">Notify every </string>
     <string name="settings_notify_every_02"> hours </string>
@@ -100,7 +105,7 @@
     <string name="settings_support_choose_email_client_fallback_label">You must have an email app installed</string>
 
     <!-- - - - - - - - - - - - - Notifications   - - - - - - - - - - - - - - - - - - - - - - - - -->
-    <string name="notification_nextdays_expiring_food_title">NEXT DAYS Expiring Foods found, check. </string>
+    <string name="notification_nextdays_expiring_food_title">NEXT DAYS Expiring Product found, check. </string>
     <string name="notification_nextdays_expiring_body">Click below for complete list</string>
     <string name="notification_nextdays_expiring_channel_name" translatable="false">next-days-expiring-food  notifications</string>
 
@@ -149,30 +154,31 @@
     <string name="settings_icon">settings icon</string>
     <string name="help_icon">help icon</string>
     <string name="content_menu_home_label_item">Icon Home</string>
-    <string name="content_menu_expired_label_item">Icon Expired food</string>
-    <string name="content_menu_consumed_label_item">Icon Consumed food</string>
-    <string name="content_menu_expiring_label_item">Icon Expiring food</string>
-    <string name="content_menu_add_label_item">Icon ADD food</string>
-    <string name="content_delete_food_icon">Icon delete food card</string>
+    <string name="content_menu_expired_label_item">Icon Expired product</string>
+    <string name="content_menu_consumed_label_item">Icon Consumed product</string>
+    <string name="content_menu_expiring_label_item">Icon Expiring product</string>
+    <string name="content_menu_add_label_item">Icon ADD product</string>
+    <string name="content_delete_food_icon">Icon delete product card</string>
     <string name="content_expiring_date_icon">Icon for expiring date</string>
-    <string name="content_consumed_date_icon">Icon consumed food check</string>
+    <string name="content_consumed_date_icon">Icon consumed product check</string>
+    <string name="content_isopen_product_icon">Icon is open product</string>
     <string name="settings_right_arrow">Arrow to new content or options</string>
     <string name="credits_devsubtitle_icon">Goto site icon</string>
     <string name="credits_insta_icon">Goto instagram icon</string>
 
 
     <!-- - - - - - - - - - - - - - - - - -  ERRORS MSG - - - - - - - - - - - - - - - - - - - - - -->
-    <string name="db_error_deleting_food_table">Error deleting food table</string>
-    <string name="db_error_deleting_food_entry">Error deleting food</string>
-    <string name="db_error_inserting_food_entry">Error inserting food</string>
-    <string name="db_error_loading_all_food">Error loading all food</string>
-    <string name="db_error_loading_consumed_food">Error loading consumed food</string>
-    <string name="db_error_loading_expired_food">Error loading expired food</string>
-    <string name="db_error_loading_expiring_food">Error loading expiring food</string>
-    <string name="db_error_loading_food">Error loading food</string>
-    <string name="db_error_loading_expiring_today_food">Error loading expiring food</string>
-    <string name="db_error_updating_done_food_entry">Error updating food</string>
-    <string name="db_error_updating_food_entry">Error updating food</string>
+    <string name="db_error_deleting_food_table">Error deleting product table</string>
+    <string name="db_error_deleting_food_entry">Error deleting product</string>
+    <string name="db_error_inserting_food_entry">Error inserting product</string>
+    <string name="db_error_loading_all_food">Error loading all product</string>
+    <string name="db_error_loading_consumed_food">Error loading consumed product</string>
+    <string name="db_error_loading_expired_food">Error loading expired product</string>
+    <string name="db_error_loading_expiring_food">Error loading expiring product</string>
+    <string name="db_error_loading_food">Error loading product</string>
+    <string name="db_error_loading_expiring_today_food">Error loading expiring product</string>
+    <string name="db_error_updating_done_food_entry">Error updating product</string>
+    <string name="db_error_updating_food_entry">Error updating product</string>
 
 
 
