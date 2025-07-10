@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
@@ -16,11 +17,11 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+@AndroidEntryPoint
+class AlarmReceiver @Inject constructor() : BroadcastReceiver() {
 
-class AlarmReceiver @Inject constructor(
-    private val repository: FridgeManagerRepository,
-    @ApplicationContext private val context: Context
-) : BroadcastReceiver() {
+    @Inject
+    lateinit var repository: FridgeManagerRepository
 
     // for real :
     private val days = AppPreferences.days_before_deadline // PreferenceUtility.getDaysCount(context)

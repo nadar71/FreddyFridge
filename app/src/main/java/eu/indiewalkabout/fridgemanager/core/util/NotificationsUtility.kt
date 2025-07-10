@@ -176,9 +176,10 @@ object NotificationsUtility {
                 context,
                 ACTION_IGNORE_PENDING_INTENT_ID,
                 ignoreReminderIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT)
+                PendingIntent.FLAG_UPDATE_CURRENT  or PendingIntent.FLAG_IMMUTABLE
+        )
 
-        return NotificationCompat.Action(R.drawable.ic_warning_green_24dp,
+        return NotificationCompat.Action(R.drawable.ic_warning,
                 context.getString(R.string.notification_dismiss_action_title),
                 ignoreReminderPendingIntent)
     }
@@ -231,13 +232,14 @@ object NotificationsUtility {
                 context,
                 FOOD_NEXTDAYS_DEADLINE_PENDING_INTENT_ID,
                 startActivityIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT)
+                PendingIntent.FLAG_UPDATE_CURRENT  or PendingIntent.FLAG_IMMUTABLE
+        )
     }
 
     private fun largeIcon(context: Context): Bitmap {
         val res = context.resources
         // return BitmapFactory.decodeResource(res, R.drawable.ic_warning_green_24dp)
-        return (ResourcesCompat.getDrawable(res, R.drawable.ic_warning_green_24dp, null)
+        return (ResourcesCompat.getDrawable(res, R.drawable.ic_warning, null)
                 as VectorDrawable).toBitmap()
     }
 
