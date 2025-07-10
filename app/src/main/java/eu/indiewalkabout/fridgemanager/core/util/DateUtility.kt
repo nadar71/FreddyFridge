@@ -201,36 +201,18 @@ object DateUtility {
     }
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * This method will return the local time midnight for the provided normalized UTC date.
-     *
-     * @param normalizedUtcDate UTC time at midnight for a given date
-     * @return The local date corresponding to the given normalized UTC date
-     * ---------------------------------------------------------------------------------------------
-     */
+    // This method will return the local time midnight for the provided normalized UTC date.
     fun getLocalMidnightFromNormalizedUtcDate(normalizedUtcDate: Long): Long {
-        /* The timeZone object will provide us the current user's time zone offset */
+        // The timeZone object will provide us the current user's time zone offset */
         val timeZone = TimeZone.getDefault()
-        /*
-         * This offset, in milliseconds, when added to a UTC date time, will produce the local
-         * time.
-         */
+        // This offset, in milliseconds, when added to a UTC date time, will produce the local time.
         val gmtOffset = timeZone.getOffset(normalizedUtcDate).toLong()
         return normalizedUtcDate - gmtOffset
     }
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Returns a date string in the format specified, which shows an abbreviated date without a
-     * year.
-     *
-     * @param context      Used by DateUtils to format the date in the current locale
-     * @param timeInMillis Time in milliseconds since the epoch (local time)
-     * @return The formatted date string
-     * ---------------------------------------------------------------------------------------------
-     */
+    // Returns a date string in the format specified, which shows an abbreviated date without a year.
+
     private fun getReadableDateString(context: Context, timeInMillis: Long): String {
         val flags = (DateUtils.FORMAT_SHOW_DATE
                 or DateUtils.FORMAT_NO_YEAR

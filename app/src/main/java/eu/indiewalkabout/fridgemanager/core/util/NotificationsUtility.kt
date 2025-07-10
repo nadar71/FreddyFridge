@@ -108,7 +108,8 @@ object NotificationsUtility {
     // Food deadline reminder notification
     fun remindTodayExpiringFood(context: Context, foodEntries: List<FoodEntry>) {
 
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         createNotificationsChannel(
             FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID,
