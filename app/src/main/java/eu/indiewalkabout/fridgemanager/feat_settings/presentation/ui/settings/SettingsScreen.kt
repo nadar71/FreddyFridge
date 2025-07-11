@@ -45,7 +45,7 @@ fun SettingsScreen() {
     val colors = LocalAppColors.current
     val context = LocalContext.current
 
-    var daysBefore by remember { mutableStateOf(0) }
+    var daysBefore by remember { mutableStateOf(AppPreferences.days_before_deadline) }
     var dailyNotificationsNumber by remember { mutableStateOf(0) }
 
     var showDaysBeforeWheelPicker by remember { mutableStateOf(false) }

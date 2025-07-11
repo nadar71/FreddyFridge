@@ -2,17 +2,12 @@ package eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager
 
 import android.content.Context
 import android.util.Log
-import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
-import androidx.work.Worker
 import androidx.work.WorkerParameters
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.qualifiers.ApplicationContext
 import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
 import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
-import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import eu.indiewalkabout.fridgemanager.feat_food.domain.repository.FridgeManagerRepository
 import kotlinx.coroutines.CoroutineScope
@@ -60,7 +55,7 @@ class FoodReminderWorker @Inject constructor(
 
         CoroutineScope(IO).launch {
             Log.i(TAG, "Workmanager, doWork: check food expiring in the next days")
-            val foodEntriesNextDays = repository.loadAllFoodExpiring_no_livedata(expiringDateToBeNotified)
+            val foodEntriesNextDays = repository.loadAllFoodExpiring(expiringDateToBeNotified)
             foodEntriesNextDays.let {
                 if (foodEntriesNextDays.size > 0) {
                     NotificationsUtility.remindNextDaysExpiringFood(context, it)
@@ -82,7 +77,7 @@ class FoodReminderWorker @Inject constructor(
 
         CoroutineScope(IO).launch {
             Log.i(TAG, "Workmanager, doWork: check food expiring in today")
-            val foodEntriesToDay = repository!!.loadFoodExpiringToday_no_livedata(previousDayDate, nextDayDate)
+            val foodEntriesToDay = repository!!.loadFoodExpiringToday(previousDayDate, nextDayDate)
 
             foodEntriesToDay.let {
                 if (foodEntriesToDay.size > 0) {

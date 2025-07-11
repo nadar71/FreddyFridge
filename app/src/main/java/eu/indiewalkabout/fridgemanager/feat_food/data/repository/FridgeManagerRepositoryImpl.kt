@@ -12,32 +12,32 @@ class FridgeManagerRepositoryImpl @Inject constructor(
 
     //----------------------------------- QUERY ----------------------------------------------------
     // retrieve ALL KIND OF FOOD  without regarding expiring date
-    override suspend fun loadAllFood_no_livedata(): MutableList<FoodEntry> {
-        return foodDbDao.loadAllFood_no_livedata()
+    override suspend fun loadAllFood(): MutableList<FoodEntry> {
+        return foodDbDao.loadAllFood()
     }
 
     // retrieve EXPIRING FOOD no livedata
-    override suspend fun loadAllFoodExpiring_no_livedata(date: Long?): MutableList<FoodEntry> {
-        return foodDbDao.loadAllFoodExpiring_no_livedata(date)
+    override suspend fun loadAllFoodExpiring(date: Long?): MutableList<FoodEntry> {
+        return foodDbDao.loadAllFoodExpiring(date)
     }
 
     // retrieve EXPIRING FOOD TODAY no LiveData
-    override suspend fun loadFoodExpiringToday_no_livedata(daybefore: Long?, dayafter: Long?): MutableList<FoodEntry> {
-        return foodDbDao.loadFoodExpiringToday_no_livedata(daybefore, dayafter)
+    override suspend fun loadFoodExpiringToday(daybefore: Long?, dayafter: Long?): MutableList<FoodEntry> {
+        return foodDbDao.loadFoodExpiringToday(daybefore, dayafter)
     }
 
     // retrieve DEAD/EXPIRED FOOD
-    override suspend fun loadAllFoodDead_no_livedata(date: Long?): MutableList<FoodEntry> {
-        return foodDbDao.loadAllFoodDead_no_livedata(date)
+    override suspend fun loadAllFoodDead(date: Long?): MutableList<FoodEntry> {
+        return foodDbDao.loadAllFoodDead(date)
     }
 
     // retrieve DONE/CONSUMED FOOD
-    override suspend fun loadAllFoodSaved_no_livedata(): MutableList<FoodEntry> {
-        return foodDbDao.loadAllFoodSaved_no_livedata()
+    override suspend fun loadAllFoodSaved(): MutableList<FoodEntry> {
+        return foodDbDao.loadAllFoodSaved()
     }
 
-    override suspend fun loadFoodById_no_livedata(id: Int): FoodEntry {
-        return foodDbDao.loadFoodById_no_livedata(id)
+    override suspend fun loadFoodById(id: Int): FoodEntry {
+        return foodDbDao.loadFoodById(id)
     }
 
 

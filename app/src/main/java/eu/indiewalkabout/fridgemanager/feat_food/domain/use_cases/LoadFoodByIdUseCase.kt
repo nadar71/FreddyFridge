@@ -17,7 +17,7 @@ class LoadFoodByIdUseCase @Inject constructor(
     private val context = context
     suspend operator fun invoke(id: Int): DbResponse<FoodEntry> {
         return try {
-            val result = repository.loadFoodById_no_livedata(id)
+            val result = repository.loadFoodById(id)
             DbResponse.Success(result)
         } catch (e: Exception) {
             Log.e("LoadFoodByIdUseCase", e.localizedMessage ?:

@@ -17,7 +17,7 @@ class LoadFoodExpiringTodayUseCase @Inject constructor(
     private val context = context
     suspend operator fun invoke(dayBefore: Long?, dayAfter: Long?): DbResponse<List<FoodEntry>> {
         return try {
-            val result = repository.loadFoodExpiringToday_no_livedata(dayBefore, dayAfter)
+            val result = repository.loadFoodExpiringToday(dayBefore, dayAfter)
             DbResponse.Success(result)
         } catch (e: Exception) {
             Log.e("LoadFoodExpiringTodayUseCase", e.localizedMessage ?:

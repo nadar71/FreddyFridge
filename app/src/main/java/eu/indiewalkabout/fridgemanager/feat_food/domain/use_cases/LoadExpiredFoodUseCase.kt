@@ -17,7 +17,7 @@ class LoadExpiredFoodUseCase @Inject constructor(
     private val context = context
     suspend operator fun invoke(date: Long?): DbResponse<List<FoodEntry>> {
         return try {
-            val result = repository.loadAllFoodDead_no_livedata(date)
+            val result = repository.loadAllFoodDead(date)
             DbResponse.Success(result)
         } catch (e: Exception) {
             Log.e("LoadExpiredFoodUseCase", e.localizedMessage ?:
