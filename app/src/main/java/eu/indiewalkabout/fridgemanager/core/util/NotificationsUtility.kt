@@ -255,7 +255,7 @@ object NotificationsUtility {
 
         Log.i(TAG, "SHOW notification for showFoodExpiringTodayAction")
         return NotificationCompat.Action(
-            R.drawable.ic_notifications_today_small,
+            R.drawable.ic_notifications_today_large,
             context.getString(R.string.notification_show_food_expiring_today_action_title),
             foodReminderPendingIntent
         )
@@ -283,7 +283,7 @@ object NotificationsUtility {
     private fun largeIconToday(context: Context): Bitmap {
         val res = context.resources
         // return BitmapFactory.decodeResource(res, R.drawable.ic_warning_green_24dp)
-        return (ResourcesCompat.getDrawable(res, R.drawable.ic_notifications_today_small, null)
+        return (ResourcesCompat.getDrawable(res, R.drawable.ic_notifications_today_large, null)
                 as VectorDrawable).toBitmap()
     }
 

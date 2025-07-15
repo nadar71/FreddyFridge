@@ -5,7 +5,7 @@
     android:viewportWidth="2886.9"
     android:viewportHeight="3410.2">
 
-    <path
+    <!--<path
         android:fillColor="#FF000000"
         android:pathData="M1805.8,7196.7h92.5v88.8h-92.5z" />
 
@@ -91,8 +91,15 @@
 
     <path
         android:fillColor="#FF000000"
-        android:pathData="M1871.9,-191.3h139.8v56.9h-139.8z" />
+        android:pathData="M1871.9,-191.3h139.8v56.9h-139.8z" />-->
 
+    <!-- Adjust scale to make the icon smaller, creating padding.
+         Pivot around the center of the viewport (12,12 for a 24x24 viewport). -->
+    <group
+        android:pivotX="810"
+        android:pivotY="1267"
+        android:scaleX="0.5"
+        android:scaleY="0.5">
     <path
         android:fillColor="#ff0000"
         android:fillType="nonZero"
@@ -256,5 +263,6 @@
         android:fillType="evenOdd"
         android:pathData="M1386.9,2889.7L1429.6,2889.7A7.4,5 90,0 0,1434.6 2882.3L1434.6,2621.2A7.4,5 90,0 0,1429.6 2613.8L1386.9,2613.8A7.4,5 90,0 0,1381.9 2621.2L1381.9,2882.3A7.4,5 90,0 0,1386.9 2889.7z"
         android:strokeWidth="0.607203" />
+    </group>
 
 </vector>
