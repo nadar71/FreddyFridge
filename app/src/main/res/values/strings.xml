@@ -117,6 +117,7 @@
 
     <string name="notification_show_food_expiring_action_title">Show me expiring products</string>
     <string name="notification_show_food_expiring_today_action_title">Show me TODAY expiring products</string>
+    <string name="notification_show_food_expiring_action_label">Show me</string>
     <string name="notification_dismiss_action_title">Got it</string>
 
     <!-- - - - - - - - - - - - - - - - MENU LABEL   - - - - - - - - - - - - - - - - - - - - - - - -->

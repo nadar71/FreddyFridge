@@ -101,6 +101,7 @@
     <string name="notification_today_expiring_body">Usa il link sotto per vedere la lista completa</string>
     <string name="notification_show_food_expiring_action_title">Mostrami i prodotti in scadenza</string>
     <string name="notification_show_food_expiring_today_action_title">Mostrami i prodotti che scadono OGGI</string>
+    <string name="notification_show_food_expiring_action_label">Mostrameli</string>
     <string name="notification_dismiss_action_title">Ok</string>
 
     <!-- - - - - - - - - - - - - - - - MENU LABEL   - - - - - - - - - - - - - - - - - - - - - - - -->

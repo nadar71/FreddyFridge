@@ -64,7 +64,9 @@ import java.time.temporal.ChronoUnit
 @Composable
 fun FoodCard(
     food: FoodEntryUI,
-    isUpdatable: Boolean = false,
+    isUpdatable: Boolean = true,
+    isDeletable: Boolean = true,
+    isOpenable: Boolean = true,
     onCheckChanged: () -> Unit,
     onDelete: () -> Unit = {},
     onUpdate: () -> Unit = {},
@@ -99,22 +101,27 @@ fun FoodCard(
 
     // ------------------------------ DIALOG -------------------------------------------------------
     if (showActionDialog) {
+        val foodEntry = FoodEntry(
+            id = food.id,
+            name = food.name,
+            expiringAt = food.expiringAtLocalDate,
+            consumedAt = food.consumedAtLocalDate,
+            timezoneId = food.timezoneId,
+            isProductOpen = food.isProductOpen,
+            order_number = food.order_number.toInt()
+        )
         ListActionDialog(
+                food = foodEntry,
+                isUpdatable = isUpdatable,
+                isDeletable = isDeletable,
+                isOpenable = isOpenable,
                 onUpdate = {
                     showUpdateDialog = true
                     showActionDialog = false
                 },
                 onOpen = {
                     foodViewModel.updateFoodEntry(
-                        FoodEntry(
-                            id = food.id,
-                            name = food.name,
-                            expiringAt = food.expiringAtLocalDate,
-                            consumedAt = food.consumedAtLocalDate,
-                            timezoneId = food.timezoneId,
-                            isProductOpen = !food.isProductOpen,
-                            order_number = food.order_number.toInt()
-                        )
+                        foodEntry.copy(isProductOpen = !foodEntry.isProductOpen)
                     )
                     showActionDialog = false
                 },
@@ -231,8 +238,8 @@ fun FoodCard(
             }
         }
     }
-    // ------------------------------ UI -----------------------------------------------------------
 
+    // ------------------------------ UI -----------------------------------------------------------
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
@@ -338,11 +345,11 @@ fun FoodCard(
 
         Spacer(modifier = Modifier.width(8.dp))
 
-        // Delete
+        // Show product open icon
         if (food.isProductOpen) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_unlock),
-                contentDescription = stringResource(R.string.content_delete_food_icon),
+                contentDescription = stringResource(R.string.content_isopen_product_icon),
                 tint = brown,
                 modifier = Modifier
                     .size(24.dp)

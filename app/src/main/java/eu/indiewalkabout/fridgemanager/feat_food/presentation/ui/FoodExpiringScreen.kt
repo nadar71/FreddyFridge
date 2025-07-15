@@ -39,6 +39,7 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getPreviousDayEndOfDayDate
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.util.sortedByOpenStatus
 import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -77,8 +78,9 @@ fun FoodExpiringScreen(
         when (foodListUiState) {
             is FoodListUiState.Success -> {
                 showProgressBar = false
-                expiringFoodList = (foodListUiState
-                        as FoodListUiState.Success<List<FoodEntry>>).data
+                expiringFoodList = (foodListUiState as FoodListUiState.Success<List<FoodEntry>>)
+                    .data
+                    .sortedByOpenStatus()
                 foodListLoaded = true
                 Log.d(TAG, "foodExpiringListLoaded : $expiringFoodList")
             }
@@ -136,6 +138,9 @@ fun FoodExpiringScreen(
                 if (foodListLoaded) {
                     ProductListCard(
                         foods = expiringFoodList,
+                        isUpdatable = true,
+                        isDeletable = true,
+                        isOpenable = true,
                         sharingTitle = stringResource(R.string.settings_expiring_food_list_subject),
                         modifier = Modifier
                             .fillMaxWidth()
@@ -148,7 +153,6 @@ fun FoodExpiringScreen(
                         onUpdate = {
                             loadDataFromDdb = true
                         },
-                        isUpdatable = true,
                         onCheckChanged = {
                             loadDataFromDdb = true
                         }

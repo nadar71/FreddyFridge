@@ -31,6 +31,8 @@ object AppColors {
     val foodYellow = Color(0xFFFCC742)
     val foodOrange = Color(0xFFEC8405)
     val foodRed = Color(0xFFE9F33D4D)
+    val alertNextDays = Color(0xFF07F802)
+    val alertTodays = Color(0xFFE9F33D4D)
 }
 
 

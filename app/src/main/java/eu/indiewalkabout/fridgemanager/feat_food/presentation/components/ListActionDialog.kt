@@ -29,11 +29,19 @@ import androidx.compose.ui.window.Dialog
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
+import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
+import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntryUI
+import java.time.LocalDate
+import java.util.TimeZone
+import kotlin.random.Random
 
 
 @Composable
 fun ListActionDialog(
-    isProductOpen: Boolean = false,
+    food: FoodEntry,
+    isUpdatable: Boolean = false,
+    isDeletable: Boolean = false,
+    isOpenable: Boolean = false,
     onUpdate: () -> Unit,
     onOpen: () -> Unit,
     onDelete: () -> Unit,
@@ -47,8 +55,7 @@ fun ListActionDialog(
     Dialog(
         onDismissRequest = {
             onDismiss()
-        })
-    {
+        }) {
         Card(
             shape = RoundedCornerShape(16.dp),
             border = BorderStroke(1.dp, secondaryColor),
@@ -65,55 +72,43 @@ fun ListActionDialog(
 
 
                 // Update product
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                        .clickable {
-                            onUpdate()
-                        },
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_update),
-                        contentDescription = "Update product Icon",
-                        modifier = Modifier.size(24.dp),
-                        tint = secondaryColor
-                    )
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Text(
-                        text = stringResource(id = R.string.update_food_label),
-                        fontSize = 16.sp,
-                        color = secondaryColor
-                    )
+                if (isUpdatable) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                            .clickable {
+                                onUpdate()
+                            }, verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_update),
+                            contentDescription = "Update product Icon",
+                            modifier = Modifier.size(24.dp),
+                            tint = secondaryColor
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = stringResource(id = R.string.update_food_label),
+                            fontSize = 16.sp,
+                            color = secondaryColor
+                        )
+                    }
+
+                    HorizontalDivider(color = secondaryColor, thickness = 1.dp)
                 }
 
-                HorizontalDivider(color = secondaryColor, thickness = 1.dp)
-
                 // Open product
+                if (isOpenable) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp)
                             .clickable {
                                 onOpen()
-                            },
-                        verticalAlignment = Alignment.CenterVertically
+                            }, verticalAlignment = Alignment.CenterVertically
                     ) {
-                        if (!isProductOpen) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_unlock),
-                                contentDescription = "Open product Icon",
-                                modifier = Modifier.size(24.dp),
-                                tint = secondaryColor
-                            )
-                            Spacer(modifier = Modifier.width(16.dp))
-                            Text(
-                                text = stringResource(id = R.string.open_food_label),
-                                fontSize = 16.sp,
-                                color = secondaryColor
-                            )
-                        } else {
+                        if (food.isProductOpen) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_lock),
                                 contentDescription = "Open product Icon",
@@ -126,34 +121,49 @@ fun ListActionDialog(
                                 fontSize = 16.sp,
                                 color = secondaryColor
                             )
+                        } else {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_unlock),
+                                contentDescription = "Open product Icon",
+                                modifier = Modifier.size(24.dp),
+                                tint = secondaryColor
+                            )
+                            Spacer(modifier = Modifier.width(16.dp))
+                            Text(
+                                text = stringResource(id = R.string.open_food_label),
+                                fontSize = 16.sp,
+                                color = secondaryColor
+                            )
                         }
                     }
 
-                HorizontalDivider(color = secondaryColor, thickness = 1.dp)
+                    HorizontalDivider(color = secondaryColor, thickness = 1.dp)
+                }
 
 
                 // Delete product
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                        .clickable {
-                            onDelete()
-                        },
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_bin),
-                        contentDescription = "Delete product Icon",
-                        modifier = Modifier.size(24.dp),
-                        tint = secondaryColor
-                    )
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Text(
-                        text = stringResource(id = R.string.delete_food_label),
-                        fontSize = 16.sp,
-                        color = secondaryColor
-                    )
+                if (isDeletable) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                            .clickable {
+                                onDelete()
+                            }, verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_bin),
+                            contentDescription = "Delete product Icon",
+                            modifier = Modifier.size(24.dp),
+                            tint = secondaryColor
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = stringResource(id = R.string.delete_food_label),
+                            fontSize = 16.sp,
+                            color = secondaryColor
+                        )
+                    }
                 }
 
 
@@ -169,9 +179,13 @@ fun ListActionDialog(
 @Composable
 fun PreviewListActionDialog() {
     ListActionDialog(
-        onUpdate = {},
-        onOpen = {},
-        onDelete = {},
-        onDismiss = {}
-    )
+        food = FoodEntry(
+        id = Random.nextInt(),
+        name = "${Random.nextInt(1000)}-product",
+        expiringAt = LocalDate.now().plusDays(Random.nextInt(100000000).toLong()),
+        consumedAt = null,
+        timezoneId = TimeZone.getDefault().id,
+        isProductOpen = false,
+        order_number = Random.nextInt(100)
+    ), onUpdate = {}, onOpen = {}, onDelete = {}, onDismiss = {})
 }

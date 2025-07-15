@@ -37,11 +37,13 @@ import java.time.format.DateTimeFormatter
 fun ProductListCard(
     modifier: Modifier = Modifier,
     foods: List<FoodEntry> = emptyList(),
+    isUpdatable: Boolean = false,
+    isDeletable: Boolean = false,
+    isOpenable: Boolean = false,
     sharingTitle: String = "",
     onCheckChanged: () -> Unit = {},
     onDelete: () -> Unit = {},
     onUpdate: () -> Unit = {},
-    isUpdatable: Boolean = false,
     message: String = stringResource(R.string.no_food_todays)
 ) {
     val context = LocalContext.current
@@ -87,10 +89,12 @@ fun ProductListCard(
                     val food = foodEntry.toFoodEntryUI()
                     FoodCard(
                         food = food,
+                        isUpdatable = isUpdatable,
+                        isDeletable = isDeletable,
+                        isOpenable = isOpenable,
                         onCheckChanged = { onCheckChanged() },
                         onDelete = { onDelete() },
                         onUpdate = { onUpdate() },
-                        isUpdatable = isUpdatable
                     )
                 }
             }

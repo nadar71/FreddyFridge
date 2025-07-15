@@ -1,6 +1,7 @@
 package eu.indiewalkabout.fridgemanager.feat_food.presentation.ui
 
 
+import android.R.id.message
 import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -136,6 +137,9 @@ fun FoodConsumedScreen(
                 if (foodListLoaded) {
                     ProductListCard(
                         foods = consumedFoodList,
+                        isUpdatable = true,
+                        isDeletable = true,
+                        isOpenable = false,
                         sharingTitle = stringResource(R.string.settings_saved_food_list_subject),
                         modifier = Modifier
                             .fillMaxWidth()
@@ -148,7 +152,6 @@ fun FoodConsumedScreen(
                         onUpdate = {
                             loadDataFromDdb = true
                         },
-                        isUpdatable = true,
                         onCheckChanged = {
                             loadDataFromDdb = true
                         },
