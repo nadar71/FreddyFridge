@@ -17,7 +17,6 @@ import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.NavigationScreenConstants
-import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.withworkmanager_to_del.ReminderScheduler
 import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain.MainActivity
 
 // TODO : All the part commented here is to be refactored to use workmanager
@@ -76,7 +75,7 @@ object NotificationsUtility {
                 .setAutoCancel(true)
 
         // Show notification
-        Log.i(ReminderScheduler.TAG, "Create notification for remindNextDaysExpiringFood")
+        Log.i(TAG, "Create notification for remindNextDaysExpiringFood")
         notificationManager.notify(
             FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_ID,
             notificationBuilder.build()
@@ -119,7 +118,7 @@ object NotificationsUtility {
                 .setAutoCancel(true)
 
         // Show notification
-        Log.i(ReminderScheduler.TAG, "Create notification for remindTodayExpiringFood")
+        Log.i(TAG, "Create notification for remindTodayExpiringFood")
         notificationManager.notify(FOOD_TODAY_DEADLINE_NOTIFICATION_ID, notificationBuilder.build())
     }
 

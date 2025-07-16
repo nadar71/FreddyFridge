@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.withalarmmanager
+package eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder
 
 import android.content.BroadcastReceiver
 import android.content.Context

@@ -17,7 +17,7 @@ import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderSc
 import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_OPENINGS
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
-import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.withalarmmanager.AlarmReminderScheduler
+import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.AlarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.RequestExactAlarmPermissionDialog
 import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.canScheduleExactAlarms
 import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.needsExactAlarmPermissionCheck

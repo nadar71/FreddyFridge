@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.withalarmmanager
+package eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder
 
 import android.app.AlarmManager
 import android.app.PendingIntent

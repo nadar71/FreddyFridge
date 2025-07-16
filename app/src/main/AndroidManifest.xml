@@ -45,11 +45,8 @@
         </activity>
 
         <!-- Used for notifications -->
-        <service
-            android:name=".core.reminder.FoodReminderIntentService"
-            android:exported="false" />
         <receiver
-            android:name=".feat_notifications.domain.reminder.withalarmmanager.AlarmReceiver"
+            android:name=".feat_notifications.domain.reminder.AlarmReceiver"
             android:enabled="true"
             android:exported="true">
         </receiver>

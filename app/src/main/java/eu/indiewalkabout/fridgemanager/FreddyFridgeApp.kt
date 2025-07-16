@@ -1,22 +1,13 @@
 package eu.indiewalkabout.fridgemanager
 
 import android.app.Application
-import android.util.Log
-import androidx.work.Configuration
-import androidx.work.WorkerFactory
 import dagger.hilt.android.HiltAndroidApp
 import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
-import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.withalarmmanager.AlarmReminderScheduler
-import javax.inject.Inject
+import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.AlarmReminderScheduler
 
 
-// Class used for access singletons and application context wherever in the app
-// NB : register in manifest in <Application android:name=".App">... </Application>
 @HiltAndroidApp
-class FreddyFridgeApp : Application(), Configuration.Provider {
-
-    @Inject
-    lateinit var workerFactory: WorkerFactory
+class FreddyFridgeApp : Application() {
 
     companion object {
         // global variables
@@ -40,14 +31,6 @@ class FreddyFridgeApp : Application(), Configuration.Provider {
 
     }
 
-
-
-    // Assign the injected factory in order to let it manage your Workers.
-    override val workManagerConfiguration: Configuration
-        get() = Configuration.Builder()
-            .setWorkerFactory(workerFactory)
-            .setMinimumLoggingLevel(Log.VERBOSE)
-            .build()
 
     // unity ads init complete
     /*override fun onInitializationComplete() {
