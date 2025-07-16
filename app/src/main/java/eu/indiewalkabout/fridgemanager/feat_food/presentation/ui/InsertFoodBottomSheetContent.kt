@@ -52,6 +52,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_14
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
@@ -107,6 +108,7 @@ fun InsertFoodBottomSheetContent(
     // ------------------------------------- LOGIC -------------------------------------------------
     val unitUiState by insertFoodViewModel.unitUiState.collectAsState()
 
+    // Handle insert food response
     LaunchedEffect(unitUiState) {
         when (unitUiState) {
             is FoodUiState.Success -> {
@@ -117,6 +119,8 @@ fun InsertFoodBottomSheetContent(
                     context.getString(R.string.insert_food_successfully),
                     Toast.LENGTH_SHORT
                 ).show()
+                // refresh scheduler for expiring notifications on new product inserted
+                alarmReminderScheduler.setRepeatingAlarm()
                 onSave()
             }
 

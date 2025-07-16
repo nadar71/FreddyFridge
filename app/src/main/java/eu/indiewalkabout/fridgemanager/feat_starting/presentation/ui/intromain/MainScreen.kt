@@ -222,6 +222,8 @@ fun MainScreen(
                             loadDataFromDdb = true
                         },
                         isUpdatable = true,
+                        isDeletable = true,
+                        isOpenable = true,
                         onCheckChanged = {
                             loadDataFromDdb = true
                         },

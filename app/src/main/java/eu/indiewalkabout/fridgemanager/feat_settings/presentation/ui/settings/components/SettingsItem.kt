@@ -51,7 +51,7 @@ fun SettingsItem(
                     text = title,
                     fontFamily = Fredoka,
                     style = titleStyle,
-                    maxLines = 2,
+                    maxLines = 3,
                     fontWeight = FontWeight.Medium
                 )
                 Text(

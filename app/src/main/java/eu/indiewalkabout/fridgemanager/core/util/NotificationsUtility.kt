@@ -14,9 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.core.reminder.FoodReminderIntentService
-import eu.indiewalkabout.fridgemanager.core.reminder.ReminderOps
-import eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager.ReminderScheduler
+import eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager_to_del.ReminderScheduler
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.NavigationScreenConstants
@@ -167,7 +165,7 @@ object NotificationsUtility {
 
 
     // User Action Ignore notification
-    private fun ignoreNotificationAction(context: Context): NotificationCompat.Action {
+    /*private fun ignoreNotificationAction(context: Context): NotificationCompat.Action {
         val ignoreReminderIntent = Intent(context, FoodReminderIntentService::class.java)
         ignoreReminderIntent.action = ReminderOps.ACTION_DISMISS_NOTIFICATION
 
@@ -183,7 +181,7 @@ object NotificationsUtility {
             context.getString(R.string.notification_dismiss_action_title),
             ignoreReminderPendingIntent
         )
-    }
+    }*/
 
 
     // User Action Show list of expiring food in the next days opening app on expiring list activity

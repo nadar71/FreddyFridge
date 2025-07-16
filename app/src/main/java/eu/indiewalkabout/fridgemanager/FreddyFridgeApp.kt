@@ -17,11 +17,13 @@ import javax.inject.Inject
 // NB : register in manifest in <Application android:name=".App">... </Application>
 @HiltAndroidApp
 class FreddyFridgeApp : Application(), Configuration.Provider {
-    lateinit var alarmReminderScheduler: AlarmReminderScheduler
+
     @Inject
     lateinit var workerFactory: WorkerFactory
 
     companion object {
+        // global variables
+        lateinit var alarmReminderScheduler: AlarmReminderScheduler
         /*// Implement a function to display an ad if the surfacing is ready:
         fun displayUnityInterstitialAd(activity: Activity, surfacingId: String) {
             if (UnityAds.isReady(surfacingId)) {
@@ -34,9 +36,9 @@ class FreddyFridgeApp : Application(), Configuration.Provider {
         super.onCreate()
         // unityId = applicationContext.getString(R.string.unityads_id)
 
-        // start scheduler for notifications reminder
+        /*// start scheduler for notifications reminder
         alarmReminderScheduler = AlarmReminderScheduler(this)
-        alarmReminderScheduler.setRepeatingAlarm()
+        alarmReminderScheduler.setRepeatingAlarm()*/
 
         // Initialize Unity SDK:
         /*UnityAds.initialize(applicationContext,

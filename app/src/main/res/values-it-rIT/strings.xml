@@ -72,7 +72,7 @@
     <string name="settings_hours_label">Notifiche giornaliere</string>
     <string name="settings_how_many_days_before_title">Notifica cibo in scadenza tra giorni :</string>
     <string name="settings_how_many_days_before_label">Quanti GIORNI prima</string>
-    <string name="settings_how_many_hours_title">Numero notifiche giornaliere :</string>
+    <string name="settings_how_many_hours_title">Numero notifiche giornaliere (dalle ore 8:00 alle ore 21:00 max):</string>
     <string name="settings_how_many_hours_label">Con quale frequenza oraria giornaliera vuoi essere notificato? (di default è ogni 6 ore)</string>
     <string name="settings_notify_every_01">Notifica ogni </string>
     <string name="settings_notify_every_02"> ore</string>

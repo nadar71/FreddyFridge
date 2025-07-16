@@ -7,7 +7,7 @@ object Constants {
     const val DEFAULT_COUNT = 0
     const val NUM_MAX_OPENINGS = 2
     const val NUM_MAX_DAYS_BEFORE_DEADLINE = 30
-    const val NUM_MAX_DAILY_NOTIFICATIONS_NUMBER = 12
+    const val NUM_MAX_DAILY_NOTIFICATIONS_NUMBER = 13 // from 8 to 21:00
 
 
     // DATE

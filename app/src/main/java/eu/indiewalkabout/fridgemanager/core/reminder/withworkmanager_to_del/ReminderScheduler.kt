@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager
+package eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager_to_del
 
 import android.content.Context
 import android.util.Log
@@ -6,7 +6,6 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
-import eu.indiewalkabout.fridgemanager.core.util.PreferenceUtility
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import java.util.concurrent.TimeUnit
 

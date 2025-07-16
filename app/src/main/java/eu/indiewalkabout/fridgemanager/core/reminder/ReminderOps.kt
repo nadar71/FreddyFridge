@@ -10,7 +10,7 @@ Static class for executing different type of actions about notifications
 */
 
 // TODO : can be removed calling directly the notifications method
-object ReminderOps {
+object ReminderOps_to_del {
 
     val ACTION_REMIND_NEXT_DAYS_EXPIRING_FOOD = "notify-next-days-expiring-food"
     val ACTION_REMIND_TODAY_EXPIRING_FOOD = "notify-today-expiring-food"

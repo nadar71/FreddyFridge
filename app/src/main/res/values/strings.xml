@@ -80,7 +80,7 @@
     <string name="settings_how_many_days_before_title">Days Before product-deadline notifications :</string>
     <string name="settings_how_many_days_before_label">How many DAYS \nBEFORE product expiration date want you to be notified ?
         (Default is 2 days before expiring date)</string>
-    <string name="settings_how_many_hours_title">Daily Notifications number :</string>
+    <string name="settings_how_many_hours_title">Daily Notifications number ( from 8:00 to 21:00 o\'clock) :</string>
     <string name="settings_how_many_hours_label">With what HOURS FREQUENCY \n in a day want to be notified about product expiring?
         (Default is every 6 hours)</string>
     <string name="settings_notify_every_01">Notify every </string>

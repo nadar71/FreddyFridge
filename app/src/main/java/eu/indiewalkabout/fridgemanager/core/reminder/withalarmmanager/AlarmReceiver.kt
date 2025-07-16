@@ -31,15 +31,9 @@ class AlarmReceiver @Inject constructor() : BroadcastReceiver() {
 
         // -----------------------------------------------------------------------------------------
         // 1 - check for food expiring in the next x days (DAYS_BEFORE), and show notification in case
-        // TODO : a user wants a notification for expiring food DAYS_BEFORE_IN_MILLIS food expiring day,
-        //        so the val dateBefore = dataNormalizedAtMidnight - DAYS_BEFORE couldn't be :
-        //        val dateBefore = dataNormalizedAtMidnight + DAYS_BEFORE ? now fixed, must check
-
         val dateNormalizedAtMidnight = DateUtility
             .getLocalMidnightFromNormalizedUtcDate(DateUtility.normalizedUtcMsForToday)
         val expiringDateToBeNotified = dateNormalizedAtMidnight + DAYS_BEFORE_IN_MILLIS
-        // 1549926000000 - 172800000 = 1549753200000
-
         CoroutineScope(Dispatchers.IO).launch {
             Log.i(TAG, "AlarmReceiver : check food expiring in the next days")
             val foodEntriesNextDays = repository.loadAllFoodExpiring(expiringDateToBeNotified)
@@ -55,17 +49,14 @@ class AlarmReceiver @Inject constructor() : BroadcastReceiver() {
 
         // -----------------------------------------------------------------------------------------
         // 2 - check for food expiring today, and show notification in case
-
         val previousDayDate = dateNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS
         val nextDayDate = dateNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS
-
-
         CoroutineScope(Dispatchers.IO).launch {
             Log.i(TAG, "AlarmReceiver : check food expiring in today")
-            val foodEntriesToDay = repository!!.loadFoodExpiringToday(previousDayDate, nextDayDate)
+            val foodEntriesToDay = repository.loadFoodExpiringToday(previousDayDate, nextDayDate)
 
             foodEntriesToDay.let {
-                if (foodEntriesToDay.size > 0) {
+                if (foodEntriesToDay.isNotEmpty()) {
                     NotificationsUtility.remindTodayExpiringFood(context, it)
                     Log.i(TAG, "AlarmReceiver : check food expiring  TODAY, notification sent")
                 }
