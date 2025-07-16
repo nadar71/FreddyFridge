@@ -4,11 +4,13 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_DAILY_NOTIFICATIONS_NUMBER
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
+import eu.indiewalkabout.fridgemanager.core.util.extensions.companion.alarmManager
 import java.util.Calendar
 import javax.inject.Inject
 
@@ -60,7 +62,7 @@ class AlarmReminderScheduler @Inject constructor(
         Log.i(TAG, " AlarmReminderScheduler : repeating alarm set every ${hoursFrequency} hours. ")
     }*/
 
-    fun setRepeatingAlarm() {
+    /*fun setRepeatingAlarm() {
         // Delete any existing alarms
         cancelAllAlarms()
 
@@ -102,7 +104,7 @@ class AlarmReminderScheduler @Inject constructor(
                     PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
                 )
 
-                alarmManager?.setRepeating(
+                alarmManager.setRepeating(
                     AlarmManager.RTC_WAKEUP,
                     alarmCalendar.timeInMillis,
                     AlarmManager.INTERVAL_DAY,
@@ -110,6 +112,70 @@ class AlarmReminderScheduler @Inject constructor(
                 )
 
                 Log.d(TAG, "Scheduled alarm at ${alarmCalendar.time}")
+            }
+        }
+    }*/
+
+    fun setRepeatingAlarm() {
+        cancelAllAlarms()
+        val dailyNotificationsNumber = AppPreferences.daily_notifications_number
+        if (dailyNotificationsNumber <= 0) return
+
+        // current time
+        val now = Calendar.getInstance()
+
+        // Create a calendar for the start of today's notification window (8:00 AM)
+        val calendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, 8)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+
+            // If it's already past 9 PM, start from tomorrow
+            if (get(Calendar.HOUR_OF_DAY) >= 21) {
+                add(Calendar.DAY_OF_YEAR, 1)
+            }
+        }
+
+        val totalHours = 13 // 8:00 to 21:00 is 13 hours
+        val intervalHours = totalHours / dailyNotificationsNumber.toDouble()
+
+        for (i in 0 until dailyNotificationsNumber) {
+            val alarmCalendar = Calendar.getInstance().apply {
+                timeInMillis = calendar.timeInMillis
+                add(Calendar.MINUTE, (i * intervalHours * 60).toInt())
+            }
+
+            // Only schedule if the alarm time is in the future or within a 30' window in the past
+            val timeDiff = alarmCalendar.timeInMillis - now.timeInMillis
+            if (timeDiff > -30 * 60 * 1000) { // withou window : alarmCalendar.after(now)
+                val requestCode = ALARM_REQUEST_CODE_BASE + i
+                val pendingIntent = PendingIntent.getBroadcast(
+                    context,
+                    requestCode,
+                    Intent(context, AlarmReceiver::class.java),
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+                    alarmManager.canScheduleExactAlarms()) {
+                    alarmManager.setExactAndAllowWhileIdle(
+                        AlarmManager.RTC_WAKEUP,
+                        alarmCalendar.timeInMillis,
+                        pendingIntent
+                    )
+                    Log.d(TAG, "Scheduled EXACT alarm at ${alarmCalendar.time}")
+                } else {
+                    alarmManager.setWindow(
+                        AlarmManager.RTC_WAKEUP,
+                        alarmCalendar.timeInMillis,
+                        60 * 60 * 1000, // 1 hour window
+                        pendingIntent
+                    )
+                    Log.d(TAG, "Scheduled WINDOW alarm at ${alarmCalendar.time}")
+                }
+            } else {
+                Log.d(TAG, "Skipping alarm at ${alarmCalendar.time} as it's too far in the past")
             }
         }
     }
@@ -125,7 +191,7 @@ class AlarmReminderScheduler @Inject constructor(
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
-            alarmManager?.cancel(pendingIntent)
+            alarmManager.cancel(pendingIntent)
         }
     }
 

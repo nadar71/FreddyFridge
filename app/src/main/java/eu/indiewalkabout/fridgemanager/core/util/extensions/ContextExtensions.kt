@@ -37,7 +37,7 @@ fun RequestExactAlarmPermissionDialog(
     onPermissionGranted: () -> Unit = {}
 ) {
     val context = LocalContext.current
-    val showDialog = remember { mutableStateOf(needsExactAlarmPermission(context)) }
+    val showDialog = remember { mutableStateOf(needsExactAlarmPermissionCheck()) }
 
     if (showDialog.value) {
         ExactAlarmPermissionDialog(
@@ -46,7 +46,7 @@ fun RequestExactAlarmPermissionDialog(
                 onDismiss()
             },
             onConfirm = {
-                openAlarmSettings(context)
+                context.openAlarmSettings()
                 showDialog.value = false
                 onPermissionGranted()
             }
@@ -54,23 +54,49 @@ fun RequestExactAlarmPermissionDialog(
     }
 }
 
-fun Context.checkAndRequestExactAlarmPermission() {
+/*fun Context.checkAndRequestExactAlarmPermission() {
     if (needsExactAlarmPermission(this)) {
         openAlarmSettings(this)
     }
+}*/
+
+
+fun needsExactAlarmPermissionCheck(): Boolean {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
 }
 
-fun needsExactAlarmPermission(context: Context): Boolean {
+
+/*fun needsExactAlarmPermission(context: Context): Boolean {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return false
 
     alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     return !alarmManager.canScheduleExactAlarms()
+}*/
+
+
+// This function actually checks the permission status
+fun Context.canScheduleExactAlarms(): Boolean {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.canScheduleExactAlarms()
+    } else {
+        true // On older versions, we don't need to check
+    }
 }
 
-
-private fun openAlarmSettings(context: Context) {
+/*private fun openAlarmSettings(context: Context) {
     val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK
     }
     context.startActivity(intent)
+}*/
+
+// Function to open alarm settings
+fun Context.openAlarmSettings() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+        startActivity(intent)
+    }
 }

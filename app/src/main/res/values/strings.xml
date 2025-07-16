@@ -41,7 +41,7 @@
 
     <!-- - - - - - - - - - - - - - - - PERMISSIONS - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="exact_alarm_permission_title">Exact Alarms Permission Needed</string>
-    <string name="exact_alarm_permission_message">To ensure you receive timely notifications about your food expiration dates, FreddyFridge needs permission to schedule exact alarms. This allows the app to notify you precisely when your food items are about to expire.\n\nPlease grant this permission to get the best experience.</string>
+    <string name="exact_alarm_permission_message">To ensure you receive timely notifications about your food expiration dates, %1$s needs permission to schedule exact alarms. This allows the app to notify you precisely when your food items are about to expire.\n\nPlease grant this permission to get the best experience.</string>
     <string name="continue_text">Continue</string>
     <string name="not_now">Not Now</string>
     <string name="go_to_settings">Open Settings</string>

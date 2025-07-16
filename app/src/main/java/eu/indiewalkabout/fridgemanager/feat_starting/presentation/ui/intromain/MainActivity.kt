@@ -2,22 +2,25 @@ package eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import eu.indiewalkabout.fridgemanager.core.util.extensions.needsExactAlarmPermission
 import androidx.compose.ui.platform.LocalContext
 import dagger.hilt.android.AndroidEntryPoint
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.core.util.extensions.RequestExactAlarmPermissionDialog
-import eu.indiewalkabout.fridgemanager.core.util.extensions.checkAndRequestExactAlarmPermission
+import eu.indiewalkabout.fridgemanager.core.util.extensions.canScheduleExactAlarms
+import eu.indiewalkabout.fridgemanager.core.util.extensions.needsExactAlarmPermissionCheck
+import eu.indiewalkabout.fridgemanager.core.util.extensions.openAlarmSettings
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.NavigationGraph
 
@@ -39,9 +42,12 @@ class MainActivity: AppCompatActivity()  {
         setContent {
             FreddyFridgeTheme {
                 val context = LocalContext.current
-                var showPermissionDialog by remember { mutableStateOf(needsExactAlarmPermission(context)) }
+                // var showPermissionDialog by remember { mutableStateOf(needsExactAlarmPermission(context)) }
+                var showPermissionDialog by remember {
+                    mutableStateOf(needsExactAlarmPermissionCheck() && !context.canScheduleExactAlarms())
+                }
 
-                if (showPermissionDialog) {
+                /*if (showPermissionDialog) {
                     RequestExactAlarmPermissionDialog(
                         onDismiss = { showPermissionDialog = false },
                         onPermissionGranted = {
@@ -52,6 +58,30 @@ class MainActivity: AppCompatActivity()  {
                             }
                         }
                     )
+                }*/
+
+                if (showPermissionDialog) {
+                    RequestExactAlarmPermissionDialog(
+                        onDismiss = {
+                            showPermissionDialog = false
+                            // Schedule alarms anyway, they'll be inexact
+                            alarmReminderScheduler.setRepeatingAlarm()
+                        },
+                        onPermissionGranted = {
+                            // Only open settings if we're on Android S+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                                context.openAlarmSettings()
+                            }
+                            // Schedule alarms, they'll be exact if permission was granted
+                            alarmReminderScheduler.setRepeatingAlarm()
+                            showPermissionDialog = false
+                        }
+                    )
+                } else {
+                    // If we don't need to show the dialog, just schedule the alarms
+                    LaunchedEffect(Unit) {
+                        alarmReminderScheduler.setRepeatingAlarm()
+                    }
                 }
 
                 AppNavigation.NavigationInit()
@@ -87,7 +117,7 @@ class MainActivity: AppCompatActivity()  {
 
     override fun onResume() {
         super.onResume()
-        checkAndRequestExactAlarmPermission()
+        // checkAndRequestExactAlarmPermission()
         alarmReminderScheduler.setRepeatingAlarm()
     }
 }

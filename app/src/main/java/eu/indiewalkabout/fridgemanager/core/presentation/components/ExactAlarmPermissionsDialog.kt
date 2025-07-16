@@ -14,8 +14,6 @@ fun ExactAlarmPermissionDialog(
     onDismiss: () -> Unit,
     onConfirm: () -> Unit
 ) {
-    val context = LocalContext.current
-
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
@@ -26,7 +24,7 @@ fun ExactAlarmPermissionDialog(
         },
         text = {
             Text(
-                text = stringResource(R.string.exact_alarm_permission_message),
+                text = stringResource(R.string.exact_alarm_permission_message,R.string.app_name),
                 style = MaterialTheme.typography.bodyMedium
             )
         },

@@ -69,7 +69,6 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.lightGr
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getLocalDateFormat
-import eu.indiewalkabout.fridgemanager.core.util.extensions.checkAndRequestExactAlarmPermission
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.NumberPickerWithTitle
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.util.VoiceRecognitionManager
@@ -121,7 +120,7 @@ fun InsertFoodBottomSheetContent(
                     Toast.LENGTH_SHORT
                 ).show()
                 // refresh scheduler for expiring notifications on new product inserted
-                context.checkAndRequestExactAlarmPermission()
+                // context.checkAndRequestExactAlarmPermission()
                 alarmReminderScheduler.setRepeatingAlarm()
                 onSave()
             }
