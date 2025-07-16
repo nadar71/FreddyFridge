@@ -17,7 +17,7 @@ class AlarmReminderScheduler @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
 
-    private var alarmManager: AlarmManager? = null
+    // private var alarmManager: AlarmManager? = null
     private var alarmIntent: PendingIntent
     private val firstAllowedAlarmTime: Calendar
     private var ALARM_REQUEST_CODE_BASE = 0

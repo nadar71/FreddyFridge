@@ -9,6 +9,17 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />  <!--For speech to text-->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" android:maxSdkVersion="31" />
+    <!--
+    about setting USE_EXACT_ALARM" android:maxSdkVersion="31":
+    - In Android 12, Google introduced the USE_EXACT_ALARM permission
+    - In Android 13, they changed the permission model to use SCHEDULE_EXACT_ALARM instead
+    - The maxSdkVersion="31" ensures you're not requesting a deprecated permission on newer Android versions
+    without  maxSdkVersion:
+    - On Android 13+, the system would show a warning that you're requesting a deprecated permission
+    - Your app might be rejected from the Play Store for requesting unnecessary permissions
+    -->
 
 
     <application

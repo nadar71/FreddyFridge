@@ -1,14 +1,23 @@
 package eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import eu.indiewalkabout.fridgemanager.core.util.extensions.needsExactAlarmPermission
+import androidx.compose.ui.platform.LocalContext
 import dagger.hilt.android.AndroidEntryPoint
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmReminderScheduler
+import eu.indiewalkabout.fridgemanager.core.util.extensions.RequestExactAlarmPermissionDialog
+import eu.indiewalkabout.fridgemanager.core.util.extensions.checkAndRequestExactAlarmPermission
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.NavigationGraph
 
@@ -20,6 +29,7 @@ class MainActivity: AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate: Main_activity created")
+
         // start scheduler for notifications reminder
         alarmReminderScheduler = AlarmReminderScheduler(this)
 
@@ -28,6 +38,22 @@ class MainActivity: AppCompatActivity()  {
 
         setContent {
             FreddyFridgeTheme {
+                val context = LocalContext.current
+                var showPermissionDialog by remember { mutableStateOf(needsExactAlarmPermission(context)) }
+
+                if (showPermissionDialog) {
+                    RequestExactAlarmPermissionDialog(
+                        onDismiss = { showPermissionDialog = false },
+                        onPermissionGranted = {
+                            // Recheck permission after user returns from settings
+                            showPermissionDialog = needsExactAlarmPermission(context)
+                            if (!showPermissionDialog) {
+                                alarmReminderScheduler.setRepeatingAlarm()
+                            }
+                        }
+                    )
+                }
+
                 AppNavigation.NavigationInit()
                 NavigationGraph(AppNavigation.appNavHostController)
             }
@@ -61,6 +87,7 @@ class MainActivity: AppCompatActivity()  {
 
     override fun onResume() {
         super.onResume()
+        checkAndRequestExactAlarmPermission()
         alarmReminderScheduler.setRepeatingAlarm()
     }
 }

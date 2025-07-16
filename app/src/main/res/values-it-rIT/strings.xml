@@ -35,6 +35,14 @@
     <string name="intro_3_title">3 : Controlla la data di scadenza</string>
     <string name="intro_3_subtitle">e verrai avvisato prima : mai più prodotti sprecati!</string>
 
+
+    <!-- - - - - - - - - - - - - - - - PERMISSIONS - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="exact_alarm_permission_title">Autorizzazione necessaria per gli allarmi esatti</string>
+    <string name="exact_alarm_permission_message">Per assicurarti di ricevere notifiche tempestive sulle date di scadenza dei tuoi alimenti, FreddyFridge necessita dell\'autorizzazione per programmare allarmi esatti. Questo consente all\'app di avvisarti con precisione quando i tuoi alimenti stanno per scadere.\n\nConcedi questa autorizzazione per ottenere la migliore esperienza.</string>
+    <string name="continue_text">Continua</string>
+    <string name="not_now">Non ora</string>
+    <string name="go_to_settings">Apri Impostazioni</string>
+
     <!-- - - - - - - - - - - - - - - -  MAIN SCREENS - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="main_list_title">Prodotti in scadenza oggi :</string>
     <string name="main_subtitle">Zero Sprechi !</string>
