@@ -1,11 +1,11 @@
-package eu.indiewalkabout.fridgemanager.core.presentation.components
+package eu.indiewalkabout.fridgemanager.feat_notifications.presentation.components
 
+import android.R.attr.text
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import eu.indiewalkabout.fridgemanager.R
 
@@ -23,8 +23,9 @@ fun ExactAlarmPermissionDialog(
             )
         },
         text = {
+            val appName = stringResource(R.string.app_name)
             Text(
-                text = stringResource(R.string.exact_alarm_permission_message,R.string.app_name),
+                text = stringResource(R.string.exact_alarm_permission_message,appName),
                 style = MaterialTheme.typography.bodyMedium
             )
         },

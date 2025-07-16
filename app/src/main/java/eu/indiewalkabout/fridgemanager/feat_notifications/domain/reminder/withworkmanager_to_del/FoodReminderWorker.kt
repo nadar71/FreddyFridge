@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager_to_del
+package eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.withworkmanager_to_del
 
 import android.content.Context
 import android.util.Log
@@ -7,7 +7,7 @@ import androidx.work.WorkerParameters
 import dagger.hilt.android.qualifiers.ApplicationContext
 import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
-import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
+import eu.indiewalkabout.fridgemanager.feat_notifications.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import eu.indiewalkabout.fridgemanager.feat_food.domain.repository.FridgeManagerRepository
 import kotlinx.coroutines.CoroutineScope

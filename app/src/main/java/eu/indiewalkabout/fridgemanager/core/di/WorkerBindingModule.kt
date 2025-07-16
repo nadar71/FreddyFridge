@@ -5,7 +5,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager_to_del.FoodReminderWorkerFactory
+import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.withworkmanager_to_del.FoodReminderWorkerFactory
 import javax.inject.Singleton
 
 // Bind the custom worker factory with the Hilt scope

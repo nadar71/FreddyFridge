@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager_to_del
+package eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.withworkmanager_to_del
 
 import android.content.Context
 import android.util.Log

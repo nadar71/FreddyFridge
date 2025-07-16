@@ -7,6 +7,7 @@ object AppPreferences : KotprefModel() {
     var days_before_deadline by intPref(2)
     var daily_notifications_number by intPref(1)
     var app_opening_counter by intPref(0)
+    var dontask_again_notification_permissions by booleanPref(false)
 
     // old, retrocomptibility
     var todays_howmany_each_hours by intPref(0)

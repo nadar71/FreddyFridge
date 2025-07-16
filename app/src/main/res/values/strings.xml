@@ -23,8 +23,6 @@
     <string name="foodConsumed_message">No products consumed here </string>
     <string name="food_expiring_date_label">Expiring</string>
     <string name="food_open_label">Opened</string>
-    <string name="permission_denied_title">Permission Microfone Denied</string>
-
 
 
 
@@ -42,9 +40,19 @@
     <!-- - - - - - - - - - - - - - - - PERMISSIONS - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="exact_alarm_permission_title">Exact Alarms Permission Needed</string>
     <string name="exact_alarm_permission_message">To ensure you receive timely notifications about your food expiration dates, %1$s needs permission to schedule exact alarms. This allows the app to notify you precisely when your food items are about to expire.\n\nPlease grant this permission to get the best experience.</string>
+    <string name="exact_alarm_permission_settings_title">Exact Alarms Permission </string>
+    <string name="exact_alarm_permission_settings_message">Allow permission to schedule exact alarms to ensure receiving timely notifications about expiration dates</string>
+    <string name="notification_permission_title">Allow Notifications</string>
+    <string name="notification_permission_message">To receive expiration alerts for your products, allow notification permissions.</string>
+    <string name="notification_permission_rationale">Notifications help you stay up-to-date on your food expirations. Enable them in your device settings.</string>
+    <string name="permission_denied_title">Permission Microfone Denied</string>
+    <string name="allow">Allow</string>
+    <string name="dont_ask_again">Don\'t ask again</string>
+    <string name="retry">Retry</string>
     <string name="continue_text">Continue</string>
     <string name="not_now">Not Now</string>
-    <string name="go_to_settings">Open Settings</string>
+    <string name="notification_permission_go_to_settings">Open Settings</string>
+
 
     <!-- - - - - - - - - - - - - - - -  MAIN SCREENS - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="main_list_title">Expiring Products today : </string>

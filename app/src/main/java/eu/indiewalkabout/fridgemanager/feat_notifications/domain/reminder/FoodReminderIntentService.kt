@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.core.reminder
+package eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder
 
 import android.app.IntentService
 import android.content.Intent

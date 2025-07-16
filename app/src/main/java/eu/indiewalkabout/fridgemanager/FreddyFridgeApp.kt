@@ -1,15 +1,12 @@
 package eu.indiewalkabout.fridgemanager
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
-import androidx.multidex.MultiDex
-import androidx.multidex.MultiDexApplication
 import androidx.work.Configuration
 import androidx.work.WorkerFactory
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
-import eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmReminderScheduler
+import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
+import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.withalarmmanager.AlarmReminderScheduler
 import javax.inject.Inject
 
 
@@ -34,11 +31,8 @@ class FreddyFridgeApp : Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
+        AppPreferences.app_opening_counter = AppPreferences.app_opening_counter + 1
         // unityId = applicationContext.getString(R.string.unityads_id)
-
-        /*// start scheduler for notifications reminder
-        alarmReminderScheduler = AlarmReminderScheduler(this)
-        alarmReminderScheduler.setRepeatingAlarm()*/
 
         // Initialize Unity SDK:
         /*UnityAds.initialize(applicationContext,

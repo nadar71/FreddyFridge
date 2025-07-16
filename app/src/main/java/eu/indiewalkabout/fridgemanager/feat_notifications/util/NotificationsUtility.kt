@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.core.util
+package eu.indiewalkabout.fridgemanager.feat_notifications.util
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -14,13 +14,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.core.reminder.withworkmanager_to_del.ReminderScheduler
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.NavigationScreenConstants
+import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.withworkmanager_to_del.ReminderScheduler
 import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain.MainActivity
-import kotlin.jvm.java
-
 
 // TODO : All the part commented here is to be refactored to use workmanager
 object NotificationsUtility {

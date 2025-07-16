@@ -40,12 +40,14 @@ import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.openAppSettings
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.openAppStore
-import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
+import eu.indiewalkabout.fridgemanager.feat_notifications.util.NotificationsUtility
+import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.openAlarmSettings
 import eu.indiewalkabout.fridgemanager.core.util.extensions.sendEmail
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.NumberPickerWithTitle
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppDestinationRoutes
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation.navigate
+import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.openAppSettings
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components.SettingsGroupTitle
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components.SettingsItem
 import java.time.LocalDate
@@ -151,6 +153,22 @@ fun SettingsScreen() {
                     }
                 )
 
+                SettingsItem(
+                    title = stringResource(id = R.string.exact_alarm_permission_settings_title),
+                    subtitle = stringResource(id = R.string.exact_alarm_permission_settings_message),
+                    modifier = Modifier.clickable {
+                        context.openAlarmSettings()
+                    }
+                )
+
+                SettingsItem(
+                    title = stringResource(id = R.string.notification_permission_title),
+                    subtitle = stringResource(id = R.string.notification_permission_message),
+                    modifier = Modifier.clickable {
+                        context.openAppSettings()
+                    }
+                )
+
                 Spacer(modifier = Modifier.height(32.dp))
 
                 SettingsGroupTitle(
@@ -203,7 +221,7 @@ fun SettingsScreen() {
 
 
                 // Test Notifications Section
-                Text(
+                /*Text(
                     text = "Test Notifications",
                     style = MaterialTheme.typography.titleMedium,
                     color = primaryColor,
@@ -272,7 +290,7 @@ fun SettingsScreen() {
                     Text("Test Next Days Notification")
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))*/
             }
         }
     }

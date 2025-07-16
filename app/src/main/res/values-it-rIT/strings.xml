@@ -23,7 +23,6 @@
     <string name="foodConsumed_message">Nessun prodotto salvato qui</string>
     <string name="food_expiring_date_label">Scadenza</string>
     <string name="food_open_label">Aperto</string>
-    <string name="permission_denied_title">Autorizzazione microfono negata</string>
 
     <!-- - - - - - - - - - - - - - - - INTRO STUFF  - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="intro_1_title">1 : Fai la tua spesa…</string>
@@ -39,9 +38,19 @@
     <!-- - - - - - - - - - - - - - - - PERMISSIONS - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="exact_alarm_permission_title">Autorizzazione necessaria per gli allarmi esatti</string>
     <string name="exact_alarm_permission_message">Per assicurarti di ricevere notifiche tempestive sulle date di scadenza dei tuoi alimenti, %1$s necessita dell\'autorizzazione per programmare allarmi esatti. Questo consente all\'app di avvisarti con precisione quando i tuoi alimenti stanno per scadere.\n\nConcedi questa autorizzazione per ottenere la migliore esperienza.</string>
+    <string name="exact_alarm_permission_settings_title">Autorizzazione allarmi esatti</string>
+    <string name="exact_alarm_permission_settings_message">Consenti l\'autorizzazione a pianificare allarmi esatti per garantire la ricezione di notifiche tempestive sulle date di scadenza</string>
+    <string name="notification_permission_title">Consenti notifiche</string>
+    <string name="notification_permission_message">Per ricevere alert sulla scadenza dei tuoi prodotti, autorizza le notifiche.</string>
+    <string name="notification_permission_rationale">Le notifiche ti aiutano a rimanere aggiornato sulle scadenze dei tuoi alimenti. Abilitale nelle impostazioni del tuo dispositivo.</string>
+    <string name="dont_ask_again">Don\'t ask again</string>
+    <string name="allow">Concedi</string>
+    <string name="retry">Riprova</string>
     <string name="continue_text">Continua</string>
     <string name="not_now">Non ora</string>
-    <string name="go_to_settings">Apri Impostazioni</string>
+    <string name="notification_permission_go_to_settings">Apri Impostazioni</string>
+    <string name="permission_denied_title">Autorizzazione microfono negata</string>
+
 
     <!-- - - - - - - - - - - - - - - -  MAIN SCREENS - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="main_list_title">Prodotti in scadenza oggi :</string>

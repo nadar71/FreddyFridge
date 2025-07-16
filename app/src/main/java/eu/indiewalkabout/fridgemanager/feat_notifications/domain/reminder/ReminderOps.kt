@@ -1,9 +1,9 @@
-package eu.indiewalkabout.fridgemanager.core.reminder
+package eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder
 
 import android.content.Context
 
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
-import eu.indiewalkabout.fridgemanager.core.util.NotificationsUtility
+import eu.indiewalkabout.fridgemanager.feat_notifications.util.NotificationsUtility
 
 /*
 Static class for executing different type of actions about notifications

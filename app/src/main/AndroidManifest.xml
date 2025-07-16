@@ -49,7 +49,7 @@
             android:name=".core.reminder.FoodReminderIntentService"
             android:exported="false" />
         <receiver
-            android:name=".core.reminder.withalarmmanager.AlarmReceiver"
+            android:name=".feat_notifications.domain.reminder.withalarmmanager.AlarmReceiver"
             android:enabled="true"
             android:exported="true">
         </receiver>

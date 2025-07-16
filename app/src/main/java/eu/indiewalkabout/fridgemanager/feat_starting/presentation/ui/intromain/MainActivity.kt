@@ -1,6 +1,5 @@
 package eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain
 
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -15,14 +14,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import dagger.hilt.android.AndroidEntryPoint
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
+import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
+import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_OPENINGS
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
-import eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmReminderScheduler
-import eu.indiewalkabout.fridgemanager.core.util.extensions.RequestExactAlarmPermissionDialog
-import eu.indiewalkabout.fridgemanager.core.util.extensions.canScheduleExactAlarms
-import eu.indiewalkabout.fridgemanager.core.util.extensions.needsExactAlarmPermissionCheck
-import eu.indiewalkabout.fridgemanager.core.util.extensions.openAlarmSettings
+import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.withalarmmanager.AlarmReminderScheduler
+import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.RequestExactAlarmPermissionDialog
+import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.canScheduleExactAlarms
+import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.needsExactAlarmPermissionCheck
+import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.openAlarmSettings
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.NavigationGraph
+import eu.indiewalkabout.fridgemanager.feat_notifications.presentation.components.NotificationPermissionDialog
 
 
 @AndroidEntryPoint
@@ -42,29 +44,36 @@ class MainActivity: AppCompatActivity()  {
         setContent {
             FreddyFridgeTheme {
                 val context = LocalContext.current
-                // var showPermissionDialog by remember { mutableStateOf(needsExactAlarmPermission(context)) }
-                var showPermissionDialog by remember {
+                var showNotificationPermissionDialog by remember { mutableStateOf(true) }
+                var askForExactAlarmPermission by remember { mutableStateOf(false) }
+                var showExactAlarmPermissionDialog by remember {
                     mutableStateOf(needsExactAlarmPermissionCheck() && !context.canScheduleExactAlarms())
                 }
 
-                /*if (showPermissionDialog) {
-                    RequestExactAlarmPermissionDialog(
-                        onDismiss = { showPermissionDialog = false },
+                if (showNotificationPermissionDialog &&
+                    AppPreferences.app_opening_counter < NUM_MAX_OPENINGS &&
+                    !AppPreferences.dontask_again_notification_permissions) {
+                    NotificationPermissionDialog(
+                        onDismiss = {
+                            showNotificationPermissionDialog = false
+                            askForExactAlarmPermission = true
+                                    },
                         onPermissionGranted = {
-                            // Recheck permission after user returns from settings
-                            showPermissionDialog = needsExactAlarmPermission(context)
-                            if (!showPermissionDialog) {
-                                alarmReminderScheduler.setRepeatingAlarm()
-                            }
+                            showNotificationPermissionDialog = false
+                            askForExactAlarmPermission = true
                         }
                     )
-                }*/
+                } else {
+                    askForExactAlarmPermission = true
+                }
 
-                if (showPermissionDialog) {
+                if (askForExactAlarmPermission &&
+                    showExactAlarmPermissionDialog &&
+                    AppPreferences.app_opening_counter < NUM_MAX_OPENINGS) {
                     RequestExactAlarmPermissionDialog(
                         onDismiss = {
-                            showPermissionDialog = false
-                            // Schedule alarms anyway, they'll be inexact
+                            showExactAlarmPermissionDialog = false
+                            // Schedule alarms anyway, even if inexact
                             alarmReminderScheduler.setRepeatingAlarm()
                         },
                         onPermissionGranted = {
@@ -74,7 +83,7 @@ class MainActivity: AppCompatActivity()  {
                             }
                             // Schedule alarms, they'll be exact if permission was granted
                             alarmReminderScheduler.setRepeatingAlarm()
-                            showPermissionDialog = false
+                            showExactAlarmPermissionDialog = false
                         }
                     )
                 } else {
@@ -117,7 +126,6 @@ class MainActivity: AppCompatActivity()  {
 
     override fun onResume() {
         super.onResume()
-        // checkAndRequestExactAlarmPermission()
         alarmReminderScheduler.setRepeatingAlarm()
     }
 }

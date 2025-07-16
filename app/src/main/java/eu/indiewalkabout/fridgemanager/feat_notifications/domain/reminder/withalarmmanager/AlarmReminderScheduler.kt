@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager
+package eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.withalarmmanager
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -10,7 +10,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_DAILY_NOTIFICATIONS_NUMBER
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
-import eu.indiewalkabout.fridgemanager.core.util.extensions.companion.alarmManager
+import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.companion.alarmManager
 import java.util.Calendar
 import javax.inject.Inject
 
