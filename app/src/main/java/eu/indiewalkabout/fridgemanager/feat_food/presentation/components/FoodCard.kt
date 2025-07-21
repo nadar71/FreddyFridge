@@ -253,7 +253,7 @@ fun FoodCard(
             )
             .padding(2.dp, 8.dp, 10.dp, 8.dp)
             .clickable {
-                if (isUpdatable) {
+                if (isUpdatable || isDeletable) {
                     showActionDialog = true
                 }
             }
