@@ -68,8 +68,8 @@ fun FoodCard(
     isDeletable: Boolean = true,
     isOpenable: Boolean = true,
     onCheckChanged: () -> Unit,
-    onDelete: () -> Unit = {},
-    onUpdate: () -> Unit = {},
+    /*onDelete: () -> Unit = {},
+    onUpdate: () -> Unit = {},*/
     foodViewModel: FoodViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
@@ -108,7 +108,7 @@ fun FoodCard(
             consumedAt = food.consumedAtLocalDate,
             timezoneId = food.timezoneId,
             isProductOpen = food.isProductOpen,
-            order_number = food.order_number.toInt()
+            //order_number = food.order_number.toInt()
         )
         ListActionDialog(
                 food = foodEntry,
@@ -156,7 +156,7 @@ fun FoodCard(
             onRightButtonAction = {
                 foodViewModel.deleteFoodEntry(food.toFoodEntry())
                 showDeleteConfirmDialog = false
-                onDelete()
+                // onDelete()
             }
         )
     }
@@ -203,7 +203,7 @@ fun FoodCard(
             },
             onSave = {
                 showUpdateDialog = false
-                onUpdate()
+                // onUpdate()
             }
         )
     }
@@ -294,13 +294,13 @@ fun FoodCard(
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
-                if (food.order_number > 0) {
+                /*if (food.order_number > 0) {
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = "n.${food.order_number}",
                         style = text_14(colorText_02, false)
                     )
-                }
+                }*/
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -316,7 +316,6 @@ fun FoodCard(
                         tint = brown,
                         modifier = Modifier
                             .size(20.dp)
-                            .clickable { onDelete() }
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
@@ -338,7 +337,6 @@ fun FoodCard(
                             tint = brown,
                             modifier = Modifier
                                 .size(24.dp)
-                                .clickable { onDelete() }
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
@@ -380,35 +378,35 @@ fun PreviewFoodCard() {
             expiringAtLocalDate = LocalDate.now().minusDays(1),
             expiringAtUI = LocalDate.now().minusDays(1).format(getLocalDateFormat()) ?: "",
             consumedAtUI = LocalDate.now().minusDays(3).format(getLocalDateFormat()) ?: "",
-            order_number = 1
+            // order_number = 1
         ),
         FoodEntryUI(
             id = 2,
             name = "Expires Today",
             expiringAtLocalDate = LocalDate.now(),
             expiringAtUI = LocalDate.now().format(getLocalDateFormat()) ?: "",
-            order_number = 2
+            // order_number = 2
         ),
         FoodEntryUI(
             id = 3,
             name = "Expires Tomorrow",
             expiringAtLocalDate = LocalDate.now().plusDays(1),
             expiringAtUI = LocalDate.now().plusDays(1).format(getLocalDateFormat()) ?: "",
-            order_number = 3
+            // order_number = 3
         ),
         FoodEntryUI(
             id = 4,
             name = "Expires in 2 Days",
             expiringAtLocalDate = LocalDate.now().plusDays(2),
             expiringAtUI = LocalDate.now().plusDays(2).format(getLocalDateFormat()) ?: "",
-            order_number = 4
+            // order_number = 4
         ),
         FoodEntryUI(
             id = 5,
             name = "Fresh Food",
             expiringAtLocalDate = LocalDate.now().plusDays(3),
             expiringAtUI = LocalDate.now().plusDays(3).format(getLocalDateFormat()) ?: "",
-            order_number = 5
+            // order_number = 5
         ),
         FoodEntryUI(
             id = 6,
@@ -416,7 +414,7 @@ fun PreviewFoodCard() {
             expiringAtLocalDate = LocalDate.now().plusDays(3),
             expiringAtUI = LocalDate.now().plusDays(3).format(getLocalDateFormat()) ?: "",
             consumedAtUI = LocalDate.now().minusDays(4).format(getLocalDateFormat()) ?: "",
-            order_number = 5,
+            // order_number = 5,
             done = 1
         ),
         FoodEntryUI(
@@ -425,7 +423,7 @@ fun PreviewFoodCard() {
             expiringAtLocalDate = LocalDate.now().plusDays(3),
             expiringAtUI = LocalDate.now().plusDays(3).format(getLocalDateFormat()) ?: "",
             consumedAtUI = null,
-            order_number = 5,
+            // order_number = 5,
             done = 1
         )
     )
@@ -440,7 +438,6 @@ fun PreviewFoodCard() {
             FoodCard(
                 food = food,
                 onCheckChanged = {},
-                onDelete = {}
             )
         }
     }

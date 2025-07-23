@@ -1,6 +1,7 @@
 package eu.indiewalkabout.fridgemanager.feat_food.presentation.ui
 
 import android.Manifest
+import android.R.attr.name
 import android.speech.SpeechRecognizer
 import android.util.Log
 import android.widget.Toast
@@ -185,9 +186,11 @@ fun UpdateFoodOverlay(
             voiceManager?.startListening()
             isListening = true
         } else {
-            Toast.makeText(context,
+            Toast.makeText(
+                context,
                 context.getString(R.string.permission_denied_title),
-                Toast.LENGTH_SHORT).show()
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -356,7 +359,10 @@ fun UpdateFoodOverlay(
                     )
 
                     val animatedMicScale by animateFloatAsState(
-                        targetValue = if (isListening) 1f + (rmsDb / 10f).coerceIn(0f, 0.5f) else 1f,
+                        targetValue = if (isListening) 1f + (rmsDb / 10f).coerceIn(
+                            0f,
+                            0.5f
+                        ) else 1f,
                         animationSpec = tween(durationMillis = 500)
                     )
 
@@ -470,26 +476,30 @@ fun UpdateFoodOverlay(
                         if (!isBtnEnabled) return@RoundedCornerButton
                         else {
                             var quantity = quantityNumText.toInt()
-                            if ( quantity <= 1 ) {
-                                // NB : response detected in parent ( FoodCard )
+                            if (quantity <= 1) {
+                                // NB : response detected in parent ( screen list )
                                 foodViewModel.updateFoodEntry(
                                     FoodEntry(
+                                        id = foodEntryUI.id,
                                         name = descriptionText,
                                         expiringAt = localeDateText,
                                         consumedAt = foodEntryUI.consumedAtLocalDate,
                                         timezoneId = TimeZone.getDefault().id,
-                                        order_number = 0
+                                        // order_number = 1
                                     )
                                 )
                             } else { // a quantity greater then 1 is selected
-                                var count = 1
+                                // var count = 1
                                 // first is updated
-                                FoodEntry(
-                                    name = descriptionText,
-                                    expiringAt = localeDateText,
-                                    consumedAt = foodEntryUI.consumedAtLocalDate,
-                                    timezoneId = TimeZone.getDefault().id,
-                                    order_number = foodEntryUI.order_number
+                                foodViewModel.updateFoodEntry(
+                                    FoodEntry(
+                                        id = foodEntryUI.id,
+                                        name = descriptionText,
+                                        expiringAt = localeDateText,
+                                        consumedAt = foodEntryUI.consumedAtLocalDate,
+                                        timezoneId = TimeZone.getDefault().id,
+                                        // order_number = count //foodEntryUI.order_number
+                                    )
                                 )
                                 // others exceeding 1 are inserted as new
                                 while (quantity > 1) {
@@ -499,10 +509,10 @@ fun UpdateFoodOverlay(
                                             expiringAt = localeDateText,
                                             consumedAt = foodEntryUI.consumedAtLocalDate,
                                             timezoneId = TimeZone.getDefault().id,
-                                            order_number = count
+                                            // order_number = count
                                         )
                                     )
-                                    count++
+                                    // count++
                                     quantity--
                                 }
                             }
@@ -532,7 +542,7 @@ fun UpdateFoodOverlayPreview() {
                 name = "Expired Food",
                 expiringAtLocalDate = LocalDate.now().minusDays(1),
                 expiringAtUI = LocalDate.now().minusDays(1).format(getLocalDateFormat()) ?: "",
-                order_number = 1
+                // order_number = 1
             ),
             onSave = {},
             onLeftButtonAction = {}

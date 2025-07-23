@@ -289,12 +289,12 @@ fun MainScreen(
                         isUpdatable = true,
                         isDeletable = true,
                         isOpenable = true,
-                        onDelete = {
+                        /*onDelete = {
                             loadDataFromDdb = true
                         },
                         onUpdate = {
                             loadDataFromDdb = true
-                        },
+                        },*/
                         onCheckChanged = {
                             loadDataFromDdb = true
                         },

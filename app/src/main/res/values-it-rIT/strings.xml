@@ -36,7 +36,7 @@
 
 
     <!-- - - - - - - - - - - - - - - - PERMISSIONS - - - - - - - - - - - - - - - - - - - - - - - -->
-    <string name="exact_alarm_permission_title">Autorizzazione necessaria per gli allarmi esatti</string>
+    <string name="exact_alarm_permission_title">Autorizzazione necessaria per promemoria ad orari esatti</string>
     <string name="exact_alarm_permission_message">Per assicurarti di ricevere notifiche tempestive sulle date di scadenza dei tuoi alimenti, %1$s necessita dell\'autorizzazione per programmare allarmi esatti. Questo consente all\'app di avvisarti con precisione quando i tuoi alimenti stanno per scadere.\n\nConcedi questa autorizzazione per ottenere la migliore esperienza.</string>
     <string name="exact_alarm_permission_settings_title">Autorizzazione allarmi esatti</string>
     <string name="exact_alarm_permission_settings_message">Consenti l\'autorizzazione a pianificare allarmi esatti per garantire la ricezione di notifiche tempestive sulle date di scadenza</string>

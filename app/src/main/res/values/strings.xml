@@ -38,7 +38,7 @@
 
 
     <!-- - - - - - - - - - - - - - - - PERMISSIONS - - - - - - - - - - - - - - - - - - - - - - - -->
-    <string name="exact_alarm_permission_title">Exact Alarms Permission Needed</string>
+    <string name="exact_alarm_permission_title">Exact Time Memo Alarms Permission Needed</string>
     <string name="exact_alarm_permission_message">To ensure you receive timely notifications about your food expiration dates, %1$s needs permission to schedule exact alarms. This allows the app to notify you precisely when your food items are about to expire.\n\nPlease grant this permission to get the best experience.</string>
     <string name="exact_alarm_permission_settings_title">Exact Alarms Permission </string>
     <string name="exact_alarm_permission_settings_message">Allow permission to schedule exact alarms to ensure receiving timely notifications about expiration dates</string>

@@ -20,7 +20,7 @@ data class FoodEntry (
     var consumedAt: LocalDate? = null, // localDate -> Long/milliseconds to db by typeConverter
     var timezoneId: String? = null,    // store timezone id string like "Europe/Rome"
     var isProductOpen: Boolean = false,
-    var order_number: Int = 0,
+    // var order_number: Int = 0,
     var done: Int = 0,                 // 1: food consumed, 0: food not consumed yet
     )
 
@@ -33,7 +33,7 @@ fun FoodEntry.toFoodEntryUI(): FoodEntryUI {
         expiringAtUI = expiringAt?.format(getLocalDateFormat()) ?: "",
         consumedAtLocalDate = consumedAt,
         consumedAtUI = consumedAt?.format(getLocalDateFormat()) ?: "",
-        order_number = this@toFoodEntryUI.order_number,
+        // order_number = this@toFoodEntryUI.order_number,
         timezoneId = this@toFoodEntryUI.timezoneId,
         isProductOpen = this@toFoodEntryUI.isProductOpen,
         done = done,

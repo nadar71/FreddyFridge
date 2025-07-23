@@ -218,12 +218,12 @@ fun FoodExpiringScreen(
                             .padding(horizontal = 16.dp)
                             .weight(1f),
                         message = stringResource(R.string.foodExpiring_message),
-                        onDelete = {
+                        /*onDelete = {
                             loadDataFromDdb = true
                         },
                         onUpdate = {
                             loadDataFromDdb = true
-                        },
+                        },*/
                         onCheckChanged = {
                             loadDataFromDdb = true
                         }

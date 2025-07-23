@@ -39,12 +39,12 @@ interface FoodDbDao {
     suspend fun loadFoodById(id: Int): FoodEntry
 
     //----------------------------------------- INSERT ---------------------------------------------
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFoodEntry(foodEntry: FoodEntry)
 
 
     //------------------------------------------ UPDATE---------------------------------------------
-    @Update(onConflict = OnConflictStrategy.REPLACE)
+    @Update
     suspend fun updateFoodEntry(foodEntry: FoodEntry)
 
     @Query("UPDATE FOODLIST SET done=:done WHERE id = :id")

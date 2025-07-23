@@ -451,20 +451,21 @@ fun InsertFoodBottomSheetContent(
                                     name = descriptionText,
                                     expiringAt = localeDateText,
                                     timezoneId = TimeZone.getDefault().id,
+                                    // order_number = 1
                                 )
                             )
                         } else {
-                            var count = 1
-                            while (quantity > 0) {
+                            // var count = 1
+                            while (quantity > 1) {
                                 insertFoodViewModel.insertFood(
                                     FoodEntry(
                                         name = descriptionText,
                                         expiringAt = localeDateText,
                                         timezoneId = TimeZone.getDefault().id,
-                                        order_number = count
+                                        // order_number = count
                                     )
                                 )
-                                count++
+                                // count++
                                 quantity--
                             }
                         }

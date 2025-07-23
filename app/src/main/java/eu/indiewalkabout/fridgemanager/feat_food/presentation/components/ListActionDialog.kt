@@ -186,6 +186,6 @@ fun PreviewListActionDialog() {
         consumedAt = null,
         timezoneId = TimeZone.getDefault().id,
         isProductOpen = false,
-        order_number = Random.nextInt(100)
+        // order_number = Random.nextInt(100)
     ), onUpdate = {}, onOpen = {}, onDelete = {}, onDismiss = {})
 }
