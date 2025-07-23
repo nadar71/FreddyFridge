@@ -68,19 +68,15 @@ fun FoodCard(
     isDeletable: Boolean = true,
     isOpenable: Boolean = true,
     onCheckChanged: () -> Unit,
-    /*onDelete: () -> Unit = {},
-    onUpdate: () -> Unit = {},*/
     foodViewModel: FoodViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
     val TAG = "FoodCard"
     val today = LocalDate.now()
-    val context = LocalContext.current
     val daysUntilExpiry = food.expiringAtLocalDate?.let {
         ChronoUnit.DAYS.between(today, it).toInt()
     }
     var isChecked by remember { mutableStateOf(food.done == 1) }
-    // var foodUpdated by remember { mutableStateOf(false) }
 
     val backgroundColor = when {
         daysUntilExpiry == null -> foodGray
@@ -95,7 +91,6 @@ fun FoodCard(
     var showDeleteConfirmDialog by remember { mutableStateOf(false) }
     var showCheckConfirmDialog by remember { mutableStateOf(false) }
     var showUpdateDialog by remember { mutableStateOf(false) }
-    var showProgressBar by remember { mutableStateOf(false) }
 
 
 
@@ -156,7 +151,6 @@ fun FoodCard(
             onRightButtonAction = {
                 foodViewModel.deleteFoodEntry(food.toFoodEntry())
                 showDeleteConfirmDialog = false
-                // onDelete()
             }
         )
     }
@@ -200,52 +194,11 @@ fun FoodCard(
             cancelable = true,
             onLeftButtonAction = {
                 showUpdateDialog = false
-            },
-            onSave = {
-                showUpdateDialog = false
-                // onUpdate()
             }
         )
     }
 
     // ------------------------------ LOGIC --------------------------------------------------------
-    /*val updateUiState by foodViewModel.updateUiState.collectAsState()
-    Log.d(TAG, "OUT: updateUiState changed to: $updateUiState")
-
-    // handle update, open delete changes
-    LaunchedEffect(updateUiState) {
-        when (updateUiState) {
-            is FoodUpdateUiState.Success -> {
-                Log.d(TAG, "IN: updateUiState changed to: $updateUiState")
-                showProgressBar = false
-                foodUpdated = true
-                // After Success/Error, reset updateUiState to Idle doesn't re-trigger dialog re-opening
-                foodViewModel.resetUpdateUiStateToIdle()
-                onUpdate() // refresh the list
-            }
-            is FoodUpdateUiState.Error -> {
-                showProgressBar = false
-                Log.e(TAG, "Error updating food in db")
-                foodViewModel.resetUpdateUiStateToIdle()
-            }
-            is FoodUpdateUiState.Loading -> {
-                showProgressBar = true
-            }
-            is FoodUpdateUiState.Idle -> {
-                showProgressBar = false
-            }
-        }
-    }
-
-    // show toast in case of food updated successfully
-    LaunchedEffect(foodUpdated) {
-        if (foodUpdated == true) {
-            Toast.makeText(context,
-                context.getString(R.string.update_food_successfully),
-                Toast.LENGTH_SHORT).show()
-            foodUpdated = false
-        }
-    }*/
 
     // ------------------------------ UI -----------------------------------------------------------
     Row(

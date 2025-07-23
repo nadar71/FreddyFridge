@@ -42,8 +42,6 @@ fun ProductListCard(
     isOpenable: Boolean = false,
     sharingTitle: String = "",
     onCheckChanged: () -> Unit = {},
-    /*onDelete: () -> Unit = {},
-    onUpdate: () -> Unit = {},*/
     message: String = stringResource(R.string.no_food_todays)
 ) {
     val context = LocalContext.current
@@ -93,8 +91,6 @@ fun ProductListCard(
                         isDeletable = isDeletable,
                         isOpenable = isOpenable,
                         onCheckChanged = { onCheckChanged() },
-                        /*onDelete = { onDelete() },
-                        onUpdate = { onUpdate() },*/
                     )
                 }
             }

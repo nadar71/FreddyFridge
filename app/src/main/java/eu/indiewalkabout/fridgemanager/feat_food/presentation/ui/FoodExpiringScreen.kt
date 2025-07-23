@@ -64,7 +64,6 @@ fun FoodExpiringScreen(
         skipPartiallyExpanded = true
     )
 
-    var descriptionText by remember { mutableStateOf("") }
     var expiringFoodList by remember { mutableStateOf<List<FoodEntry>>(emptyList()) }
     var foodListLoaded by remember { mutableStateOf(false) }
     var showProgressBar by remember { mutableStateOf(false) }
@@ -218,12 +217,6 @@ fun FoodExpiringScreen(
                             .padding(horizontal = 16.dp)
                             .weight(1f),
                         message = stringResource(R.string.foodExpiring_message),
-                        /*onDelete = {
-                            loadDataFromDdb = true
-                        },
-                        onUpdate = {
-                            loadDataFromDdb = true
-                        },*/
                         onCheckChanged = {
                             loadDataFromDdb = true
                         }
@@ -260,14 +253,7 @@ fun FoodExpiringScreen(
                 sheetState = sheetState,
                 containerColor = primaryColor,
             ) {
-                InsertFoodBottomSheetContent(
-                    descriptionText = descriptionText,
-                    onDescriptionChange = { descriptionText = it },
-                    onSave = {
-                        showBottomSheet = false
-                        loadDataFromDdb = true // force food list refresh
-                    },
-                )
+                InsertFoodBottomSheetContent()
             }
         }
     }

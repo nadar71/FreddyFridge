@@ -37,18 +37,8 @@ abstract class FoodDatabase : RoomDatabase() {
             }
         }
 
-        // added quantity column
-        /*internal val MIGRATION_3_4: Migration = object : Migration(3, 4) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(
-                    "ALTER TABLE FOODLIST " +
-                            "ADD COLUMN quantity INTEGER NOT NULL DEFAULT 1"
-                )
-            }
-        }*/
-
         // added consumedAt and timezone columns
-        internal val MIGRATION_3_4: Migration = object : Migration(4, 5) {
+        internal val MIGRATION_3_4: Migration = object : Migration(3, 4) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("ALTER TABLE FOODLIST ADD COLUMN CONSUMED_AT INTEGER DEFAULT 1")
                 database.execSQL("ALTER TABLE FOODLIST ADD COLUMN timezone TEXT DEFAULT 'UTC'")
@@ -56,21 +46,14 @@ abstract class FoodDatabase : RoomDatabase() {
         }
 
         // change column name from timezone to timezoneId
-        internal val MIGRATION_4_5: Migration = object : Migration(5, 6) {
+        internal val MIGRATION_4_5: Migration = object : Migration(4, 5) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("ALTER TABLE FOODLIST RENAME COLUMN timezone TO timezoneId")
             }
         }
 
-        // change column name from quantity to order_number
-        /*internal val MIGRATION_6_7: Migration = object : Migration(6, 7) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE FOODLIST RENAME COLUMN quantity TO order_number")
-            }
-        }*/
-
         // added isProductOpen column
-        internal val MIGRATION_5_6: Migration = object : Migration(7, 8) {
+        internal val MIGRATION_5_6: Migration = object : Migration(5, 6) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(
                     "ALTER TABLE FOODLIST " +
@@ -91,8 +74,6 @@ abstract class FoodDatabase : RoomDatabase() {
                     MIGRATION_3_4,
                     MIGRATION_4_5,
                     MIGRATION_5_6,
-                    /*MIGRATION_6_7,
-                    MIGRATION_7_8*/
                 )
                 .build()
         }

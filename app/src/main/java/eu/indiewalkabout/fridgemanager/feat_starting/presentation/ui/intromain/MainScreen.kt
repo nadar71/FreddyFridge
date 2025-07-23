@@ -86,10 +86,6 @@ fun MainScreen(
         skipPartiallyExpanded = true
     )
 
-    var expiringDateText by remember { mutableStateOf("") }
-    var descriptionText by remember { mutableStateOf("") }
-    var quantityText by remember { mutableStateOf("") }
-
     var expiringTodayFoodList by remember { mutableStateOf<List<FoodEntry>>(emptyList()) }
     var foodListLoaded by remember { mutableStateOf(false) }
     var showProgressBar by remember { mutableStateOf(false) }
@@ -289,12 +285,6 @@ fun MainScreen(
                         isUpdatable = true,
                         isDeletable = true,
                         isOpenable = true,
-                        /*onDelete = {
-                            loadDataFromDdb = true
-                        },
-                        onUpdate = {
-                            loadDataFromDdb = true
-                        },*/
                         onCheckChanged = {
                             loadDataFromDdb = true
                         },
@@ -332,14 +322,7 @@ fun MainScreen(
                 sheetState = sheetState,
                 containerColor = primaryColor,
             ) {
-                InsertFoodBottomSheetContent(
-                    descriptionText = descriptionText,
-                    onDescriptionChange = { descriptionText = it },
-                    onSave = {
-                        showBottomSheet = false
-                        loadDataFromDdb = true // force food list refresh
-                    },
-                )
+                InsertFoodBottomSheetContent()
             }
         }
     }

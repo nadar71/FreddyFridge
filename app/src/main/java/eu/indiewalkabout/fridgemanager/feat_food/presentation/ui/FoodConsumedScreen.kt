@@ -64,7 +64,6 @@ fun FoodConsumedScreen(
         skipPartiallyExpanded = true
     )
 
-    var descriptionText by remember { mutableStateOf("") }
     var consumedFoodList by remember { mutableStateOf<List<FoodEntry>>(emptyList()) }
     var foodListLoaded by remember { mutableStateOf(false) }
     var showProgressBar by remember { mutableStateOf(false) }
@@ -215,12 +214,6 @@ fun FoodConsumedScreen(
                             .padding(horizontal = 16.dp)
                             .weight(1f),
                         message = stringResource(R.string.foodConsumed_message),
-                        /*onDelete = {
-                            loadDataFromDdb = true
-                        },
-                        onUpdate = {
-                            loadDataFromDdb = true
-                        },*/
                         onCheckChanged = {
                             loadDataFromDdb = true
                         },
@@ -258,14 +251,7 @@ fun FoodConsumedScreen(
                 sheetState = sheetState,
                 containerColor = primaryColor,
             ) {
-                InsertFoodBottomSheetContent(
-                    descriptionText = descriptionText,
-                    onDescriptionChange = { descriptionText = it },
-                    onSave = {
-                        showBottomSheet = false
-                        loadDataFromDdb = true // force food list refresh
-                    },
-                )
+                InsertFoodBottomSheetContent()
             }
         }
     }

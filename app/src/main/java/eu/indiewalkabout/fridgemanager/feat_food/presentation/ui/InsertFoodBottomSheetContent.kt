@@ -80,9 +80,6 @@ import java.util.TimeZone
 @Composable
 fun InsertFoodBottomSheetContent(
     insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
-    onSave: () -> Unit,
-    descriptionText: String,
-    onDescriptionChange: (String) -> Unit
 ) {
 
     var TAG = "InsertFoodBottomSheetContent"
@@ -101,46 +98,8 @@ fun InsertFoodBottomSheetContent(
 
     var isBtnEnabled = localeDateShownText.isNotEmpty() && descriptionText.isNotEmpty()
 
-    // var foodInserted by remember { mutableStateOf(false) }
-    var showProgressBar by remember { mutableStateOf(false) }
-
 
     // ------------------------------------- LOGIC -------------------------------------------------
-    /*val unitUiState by insertFoodViewModel.unitUiState.collectAsState()
-
-    // Handle insert food response
-    LaunchedEffect(unitUiState) {
-        when (unitUiState) {
-            is FoodUiState.Success -> {
-                showProgressBar = false
-                // foodInserted = true
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.insert_food_successfully),
-                    Toast.LENGTH_SHORT
-                ).show()
-                // refresh scheduler for expiring notifications on new product inserted
-                alarmReminderScheduler.setRepeatingAlarm()
-                // After Success/Error, reset updateUiState to Idle doesn't re-trigger dialog re-opening
-                insertFoodViewModel.resetUpdateUiStateToIdle()
-                onSave()
-            }
-
-            is FoodUiState.Error -> {
-                showProgressBar = false
-                Log.e(TAG, "Error inserting food in db")
-                insertFoodViewModel.resetUpdateUiStateToIdle()
-            }
-
-            is FoodUiState.Loading -> {
-                showProgressBar = true
-            }
-
-            is FoodUiState.Idle -> {
-                showProgressBar = false
-            }
-        }
-    }*/
 
     // setup voice manager
     val voiceManager = remember {
@@ -488,9 +447,5 @@ fun InsertFoodBottomSheetContent(
 @Composable
 fun InsertFoodBottomSheetContentPreview() {
     IS_IN_PREVIEW = true
-    InsertFoodBottomSheetContent(
-        descriptionText = "",
-        onDescriptionChange = {},
-        onSave = {}
-    )
+    InsertFoodBottomSheetContent()
 }

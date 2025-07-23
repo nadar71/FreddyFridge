@@ -1,7 +1,6 @@
 package eu.indiewalkabout.fridgemanager.feat_food.presentation.ui
 
 import android.Manifest
-import android.R.attr.name
 import android.speech.SpeechRecognizer
 import android.util.Log
 import android.widget.Toast
@@ -30,8 +29,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -71,7 +68,6 @@ import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntryUI
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.NumberPickerWithTitle
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.SimpleTextField
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.util.VoiceRecognitionManager
 import java.time.LocalDate
 import java.util.TimeZone
@@ -82,7 +78,6 @@ fun UpdateFoodOverlay(
     foodViewModel: FoodViewModel = hiltViewModel(),
     insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
     foodEntryUI: FoodEntryUI,
-    onSave: () -> Unit,
     cancelable: Boolean = true,
     onLeftButtonAction: (() -> Unit)? = null
 ) {
@@ -99,53 +94,13 @@ fun UpdateFoodOverlay(
     var localeDateText by remember { mutableStateOf<LocalDate?>(foodEntryUI.expiringAtLocalDate) }
     var localeDateShownText by remember { mutableStateOf(foodEntryUI.expiringAtUI ?: "") }
     var descriptionText by remember { mutableStateOf(foodEntryUI.name) }
-    var quantityNumText by remember { mutableStateOf("1") } // always 1
-
-    var foodUpdated by remember { mutableStateOf(false) }
-    var showProgressBar by remember { mutableStateOf(false) }
+    var quantityNumText by remember { mutableStateOf("1") }
 
     var isBtnEnabled = localeDateShownText.isNotEmpty() && descriptionText?.isNotEmpty() == true
 
 
     // ------------------------------------- LOGIC -------------------------------------------------
-    /*val updateUiState by foodViewModel.updateUiState.collectAsState()
 
-    LaunchedEffect(updateUiState) {
-        when (updateUiState) {
-            is FoodUpdateUiState.Success -> {
-                showProgressBar = false
-                // foodUpdated = true
-                Toast.makeText(context,
-                context.getString(R.string.update_food_successfully),
-                Toast.LENGTH_SHORT).show()
-            foodUpdated = false
-                // After Success/Error, reset updateUiState to Idle doesn't re-trigger dialog re-opening
-                foodViewModel.resetUpdateUiStateToIdle()
-                onSave()
-            }
-            is FoodUpdateUiState.Error -> {
-                showProgressBar = false
-                Log.e(TAG, "Error updating food in db")
-                foodViewModel.resetUpdateUiStateToIdle()
-            }
-            is FoodUpdateUiState.Loading -> {
-                showProgressBar = true
-            }
-            is FoodUpdateUiState.Idle -> {
-                showProgressBar = false
-            }
-        }
-    }*/
-
-    // show toast in case of food updated successfully
-    /*LaunchedEffect(foodUpdated) {
-        if (foodUpdated == true) {
-            Toast.makeText(context,
-                context.getString(R.string.update_food_successfully),
-                Toast.LENGTH_SHORT).show()
-            foodUpdated = false
-        }
-    }*/
 
     // setup voice manager
     val voiceManager = remember {
@@ -459,20 +414,6 @@ fun UpdateFoodOverlay(
                         .align(Alignment.CenterHorizontally),
                     onClick = {
                         Log.d(TAG, "Save button clicked. isBtnEnabled: $isBtnEnabled")
-                        /*if (!isBtnEnabled) return@RoundedCornerButton
-                        else {
-                            // NB : response detected in parent ( FoodCard )
-                            foodViewModel.updateFoodEntry(
-                                FoodEntry(
-                                    id = foodEntryUI.id,
-                                    name = descriptionText,
-                                    expiringAt = localeDateText,
-                                    consumedAt = foodEntryUI.consumedAtLocalDate,
-                                    timezoneId = foodEntryUI.timezoneId,
-                                    order_number = quantityNumText.toInt()
-                                )
-                            )
-                        }*/
                         if (!isBtnEnabled) return@RoundedCornerButton
                         else {
                             var quantity = quantityNumText.toInt()
@@ -544,7 +485,6 @@ fun UpdateFoodOverlayPreview() {
                 expiringAtUI = LocalDate.now().minusDays(1).format(getLocalDateFormat()) ?: "",
                 // order_number = 1
             ),
-            onSave = {},
             onLeftButtonAction = {}
         )
     }

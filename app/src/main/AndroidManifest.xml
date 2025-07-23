@@ -24,16 +24,15 @@
 
     <application
         android:name=".FreddyFridgeApp"
-        android:allowBackup="false"
+        android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="true"
         tools:targetApi="31">
-
-
-
+        
         <activity
             android:name=".feat_starting.presentation.ui.intromain.MainActivity"
             android:exported="true"
