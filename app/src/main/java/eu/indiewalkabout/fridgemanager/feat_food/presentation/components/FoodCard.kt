@@ -55,7 +55,7 @@ import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getLocalDateFormat
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntryUI
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.toFoodEntry
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodViewModel
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.UpdateFoodOverlay
 import java.time.LocalDate
@@ -80,7 +80,7 @@ fun FoodCard(
         ChronoUnit.DAYS.between(today, it).toInt()
     }
     var isChecked by remember { mutableStateOf(food.done == 1) }
-    var foodInserted by remember { mutableStateOf(false) }
+    // var foodUpdated by remember { mutableStateOf(false) }
 
     val backgroundColor = when {
         daysUntilExpiry == null -> foodGray
@@ -194,7 +194,6 @@ fun FoodCard(
         )
     }
 
-
     if (showUpdateDialog) {
         UpdateFoodOverlay(
             foodEntryUI = food,
@@ -210,34 +209,43 @@ fun FoodCard(
     }
 
     // ------------------------------ LOGIC --------------------------------------------------------
-    val updateUiState by foodViewModel.updateUiState.collectAsState()
+    /*val updateUiState by foodViewModel.updateUiState.collectAsState()
+    Log.d(TAG, "OUT: updateUiState changed to: $updateUiState")
 
+    // handle update, open delete changes
     LaunchedEffect(updateUiState) {
         when (updateUiState) {
-            is FoodUiState.Success -> {
+            is FoodUpdateUiState.Success -> {
+                Log.d(TAG, "IN: updateUiState changed to: $updateUiState")
                 showProgressBar = false
-                foodInserted = true
-                Toast.makeText(context,
-                    context.getString(R.string.update_food_successfully),
-                    Toast.LENGTH_SHORT).show()
+                foodUpdated = true
+                // After Success/Error, reset updateUiState to Idle doesn't re-trigger dialog re-opening
+                foodViewModel.resetUpdateUiStateToIdle()
                 onUpdate() // refresh the list
-                // After Success or Error, reset updateUiState to Idle:
-                // LaunchedEffect doesn't re-trigger at dialog re-opening
-                foodViewModel.resetUpdateUiStateToIdle()
             }
-            is FoodUiState.Error -> {
+            is FoodUpdateUiState.Error -> {
                 showProgressBar = false
-                Log.e(TAG, "Error inserting food in db")
+                Log.e(TAG, "Error updating food in db")
                 foodViewModel.resetUpdateUiStateToIdle()
             }
-            is FoodUiState.Loading -> {
+            is FoodUpdateUiState.Loading -> {
                 showProgressBar = true
             }
-            is FoodUiState.Idle -> {
+            is FoodUpdateUiState.Idle -> {
                 showProgressBar = false
             }
         }
     }
+
+    // show toast in case of food updated successfully
+    LaunchedEffect(foodUpdated) {
+        if (foodUpdated == true) {
+            Toast.makeText(context,
+                context.getString(R.string.update_food_successfully),
+                Toast.LENGTH_SHORT).show()
+            foodUpdated = false
+        }
+    }*/
 
     // ------------------------------ UI -----------------------------------------------------------
     Row(

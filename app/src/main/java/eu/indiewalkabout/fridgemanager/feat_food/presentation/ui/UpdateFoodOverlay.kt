@@ -70,7 +70,7 @@ import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntryUI
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.NumberPickerWithTitle
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.SimpleTextField
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.util.VoiceRecognitionManager
 import java.time.LocalDate
 import java.util.TimeZone
@@ -100,41 +100,51 @@ fun UpdateFoodOverlay(
     var descriptionText by remember { mutableStateOf(foodEntryUI.name) }
     var quantityNumText by remember { mutableStateOf("1") } // always 1
 
-    var foodInserted by remember { mutableStateOf(false) }
+    var foodUpdated by remember { mutableStateOf(false) }
     var showProgressBar by remember { mutableStateOf(false) }
 
     var isBtnEnabled = localeDateShownText.isNotEmpty() && descriptionText?.isNotEmpty() == true
 
 
     // ------------------------------------- LOGIC -------------------------------------------------
-    val updateUiState by foodViewModel.updateUiState.collectAsState()
+    /*val updateUiState by foodViewModel.updateUiState.collectAsState()
 
     LaunchedEffect(updateUiState) {
         when (updateUiState) {
-            is FoodUiState.Success -> {
+            is FoodUpdateUiState.Success -> {
                 showProgressBar = false
-                foodInserted = true
+                // foodUpdated = true
                 Toast.makeText(context,
-                    context.getString(R.string.update_food_successfully),
-                    Toast.LENGTH_SHORT).show()
+                context.getString(R.string.update_food_successfully),
+                Toast.LENGTH_SHORT).show()
+            foodUpdated = false
+                // After Success/Error, reset updateUiState to Idle doesn't re-trigger dialog re-opening
+                foodViewModel.resetUpdateUiStateToIdle()
                 onSave()
-                // After Success or Error, reset updateUiState to Idle:
-                // LaunchedEffect doesn't re-trigger at dialog re-opening
-                foodViewModel.resetUpdateUiStateToIdle()
             }
-            is FoodUiState.Error -> {
+            is FoodUpdateUiState.Error -> {
                 showProgressBar = false
-                Log.e(TAG, "Error inserting food in db")
+                Log.e(TAG, "Error updating food in db")
                 foodViewModel.resetUpdateUiStateToIdle()
             }
-            is FoodUiState.Loading -> {
+            is FoodUpdateUiState.Loading -> {
                 showProgressBar = true
             }
-            is FoodUiState.Idle -> {
+            is FoodUpdateUiState.Idle -> {
                 showProgressBar = false
             }
         }
-    }
+    }*/
+
+    // show toast in case of food updated successfully
+    /*LaunchedEffect(foodUpdated) {
+        if (foodUpdated == true) {
+            Toast.makeText(context,
+                context.getString(R.string.update_food_successfully),
+                Toast.LENGTH_SHORT).show()
+            foodUpdated = false
+        }
+    }*/
 
     // setup voice manager
     val voiceManager = remember {
@@ -182,7 +192,6 @@ fun UpdateFoodOverlay(
     }
 
     // ------------------------------------- DIALOG ------------------------------------------------
-
     // Calendar widget
     if (showCalendarDialog) { // TODO: define different date format based on localization
         ComposeCalendar(
@@ -444,8 +453,9 @@ fun UpdateFoodOverlay(
                         .align(Alignment.CenterHorizontally),
                     onClick = {
                         Log.d(TAG, "Save button clicked. isBtnEnabled: $isBtnEnabled")
-                        if (!isBtnEnabled) return@RoundedCornerButton
+                        /*if (!isBtnEnabled) return@RoundedCornerButton
                         else {
+                            // NB : response detected in parent ( FoodCard )
                             foodViewModel.updateFoodEntry(
                                 FoodEntry(
                                     id = foodEntryUI.id,
@@ -456,11 +466,12 @@ fun UpdateFoodOverlay(
                                     order_number = quantityNumText.toInt()
                                 )
                             )
-                        }
+                        }*/
                         if (!isBtnEnabled) return@RoundedCornerButton
                         else {
                             var quantity = quantityNumText.toInt()
                             if ( quantity <= 1 ) {
+                                // NB : response detected in parent ( FoodCard )
                                 foodViewModel.updateFoodEntry(
                                     FoodEntry(
                                         name = descriptionText,

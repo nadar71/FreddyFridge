@@ -1,6 +1,7 @@
 package eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -31,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -39,6 +41,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.components.AdBannerPlaceholder
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
@@ -49,12 +52,17 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primary
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.Fredoka
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getEndOfTodayEpochMillis
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getPreviousDayEndOfDayDate
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodViewModel
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodBottomSheetContent
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodViewModel
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppDestinationRoutes
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
 import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
@@ -65,8 +73,11 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen(
     mainViewModel: MainViewModel = hiltViewModel(),
+    insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
+    foodViewModel: FoodViewModel = hiltViewModel()
 ) {
     val TAG = "MainScreen"
+    val context = LocalContext.current
     var loadDataFromDdb by remember { mutableStateOf(true) }
     var showOnBoarding by remember { mutableStateOf(false) }
 
@@ -78,7 +89,6 @@ fun MainScreen(
     var expiringDateText by remember { mutableStateOf("") }
     var descriptionText by remember { mutableStateOf("") }
     var quantityText by remember { mutableStateOf("") }
-    // TODO : put others
 
     var expiringTodayFoodList by remember { mutableStateOf<List<FoodEntry>>(emptyList()) }
     var foodListLoaded by remember { mutableStateOf(false) }
@@ -86,6 +96,8 @@ fun MainScreen(
 
     // ----------------------------- LOGIC ---------------------------------------------------------
     val foodListUiState by mainViewModel.foodListUiState.collectAsState()
+    val unitUiState by insertFoodViewModel.unitUiState.collectAsState()
+    val updateUiState by foodViewModel.updateUiState.collectAsState()
 
 
     LaunchedEffect(loadDataFromDdb) {
@@ -116,6 +128,66 @@ fun MainScreen(
             }
             FoodListUiState.Loading -> {
                 showProgressBar = true
+            }
+        }
+    }
+
+    // Handle update food response
+    LaunchedEffect(updateUiState) {
+        when (updateUiState) {
+            is FoodUpdateUiState.Success -> {
+                showProgressBar = false
+                Toast.makeText(context,
+                    context.getString(R.string.update_food_successfully),
+                    Toast.LENGTH_SHORT).show()
+                // After Success/Error, reset updateUiState to Idle doesn't re-trigger dialog re-opening
+                foodViewModel.resetUpdateUiStateToIdle()
+                loadDataFromDdb = true // force food list refresh
+            }
+            is FoodUpdateUiState.Error -> {
+                showProgressBar = false
+                Log.e(TAG, "Error updating food in db")
+                foodViewModel.resetUpdateUiStateToIdle()
+            }
+            is FoodUpdateUiState.Loading -> {
+                showProgressBar = true
+            }
+            is FoodUpdateUiState.Idle -> {
+                showProgressBar = false
+            }
+        }
+    }
+
+    // Handle insert food response
+    LaunchedEffect(unitUiState) {
+        when (unitUiState) {
+            is FoodUiState.Success -> {
+                showProgressBar = false
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.insert_food_successfully),
+                    Toast.LENGTH_SHORT
+                ).show()
+                // refresh scheduler for expiring notifications on new product inserted
+                alarmReminderScheduler.setRepeatingAlarm()
+                // After Success/Error, reset updateUiState to Idle doesn't re-trigger dialog re-opening
+                insertFoodViewModel.resetUpdateUiStateToIdle()
+                showBottomSheet = false
+                loadDataFromDdb = true // force food list refresh
+            }
+
+            is FoodUiState.Error -> {
+                showProgressBar = false
+                Log.e(TAG, "Error inserting food in db")
+                insertFoodViewModel.resetUpdateUiStateToIdle()
+            }
+
+            is FoodUiState.Loading -> {
+                showProgressBar = true
+            }
+
+            is FoodUiState.Idle -> {
+                showProgressBar = false
             }
         }
     }
@@ -162,7 +234,6 @@ fun MainScreen(
                         .padding(vertical = 8.dp, horizontal = 16.dp)
                         .clickable(onClick = {
                             Log.d(TAG, "MainScreen: settings icon pressed")
-                            // navigate(AppDestinationRoutes.SettingsScreen.route)
                             AppNavigation.appNavHostController.navigate(AppDestinationRoutes.SettingsScreen.route)
                         })
                 )
@@ -215,15 +286,15 @@ fun MainScreen(
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp)
                             .weight(1f),
+                        isUpdatable = true,
+                        isDeletable = true,
+                        isOpenable = true,
                         onDelete = {
                             loadDataFromDdb = true
                         },
                         onUpdate = {
                             loadDataFromDdb = true
                         },
-                        isUpdatable = true,
-                        isDeletable = true,
-                        isOpenable = true,
                         onCheckChanged = {
                             loadDataFromDdb = true
                         },

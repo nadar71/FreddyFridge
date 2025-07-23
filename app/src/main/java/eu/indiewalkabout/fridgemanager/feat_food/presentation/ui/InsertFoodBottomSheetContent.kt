@@ -101,33 +101,35 @@ fun InsertFoodBottomSheetContent(
 
     var isBtnEnabled = localeDateShownText.isNotEmpty() && descriptionText.isNotEmpty()
 
-    var foodInserted by remember { mutableStateOf(false) }
+    // var foodInserted by remember { mutableStateOf(false) }
     var showProgressBar by remember { mutableStateOf(false) }
 
 
     // ------------------------------------- LOGIC -------------------------------------------------
-    val unitUiState by insertFoodViewModel.unitUiState.collectAsState()
+    /*val unitUiState by insertFoodViewModel.unitUiState.collectAsState()
 
     // Handle insert food response
     LaunchedEffect(unitUiState) {
         when (unitUiState) {
             is FoodUiState.Success -> {
                 showProgressBar = false
-                foodInserted = true
+                // foodInserted = true
                 Toast.makeText(
                     context,
                     context.getString(R.string.insert_food_successfully),
                     Toast.LENGTH_SHORT
                 ).show()
                 // refresh scheduler for expiring notifications on new product inserted
-                // context.checkAndRequestExactAlarmPermission()
                 alarmReminderScheduler.setRepeatingAlarm()
+                // After Success/Error, reset updateUiState to Idle doesn't re-trigger dialog re-opening
+                insertFoodViewModel.resetUpdateUiStateToIdle()
                 onSave()
             }
 
             is FoodUiState.Error -> {
                 showProgressBar = false
                 Log.e(TAG, "Error inserting food in db")
+                insertFoodViewModel.resetUpdateUiStateToIdle()
             }
 
             is FoodUiState.Loading -> {
@@ -138,7 +140,7 @@ fun InsertFoodBottomSheetContent(
                 showProgressBar = false
             }
         }
-    }
+    }*/
 
     // setup voice manager
     val voiceManager = remember {
