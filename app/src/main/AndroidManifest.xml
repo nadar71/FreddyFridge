@@ -32,7 +32,7 @@
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="true"
         tools:targetApi="31">
-        
+
         <activity
             android:name=".feat_starting.presentation.ui.intromain.MainActivity"
             android:exported="true"

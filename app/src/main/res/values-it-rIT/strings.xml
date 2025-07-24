@@ -101,11 +101,11 @@
     <string name="settings_expiring_food_list_subject">Tutti prodotti in scadenza : </string>
     <string name="settings_saved_food_list_subject">Prodotti consumati finora :</string>
     <string name="settings_wasted_food_list_subject">Prodotti scaduti finora : </string>
-    <string name="settings_review_btn_summary">Ti piace l\'app? Lascia una recensione se vuoi :)</string>
+    <string name="settings_review_btn_summary">Ti piace l\'app? Lascia una recensione :)</string>
     <string name="settings_review_btn_title">Recensione app</string>
     <string name="settings_myapps_btn_summary">Scopri tutte le altre mie app e giochi!</string>
     <string name="settings_myapps_btn_title">Altre app e giochi</string>
-    <string name="settings_support_btn_summary">Suggerimenti, bug, errori, qualsiasi cosa? Scrivimi pure qui : </string>
+    <string name="settings_support_btn_summary">Suggerimenti, bug, errori, qualsiasi cosa? Scrivi pure : </string>
     <string name="settings_support_btn_title">Supporto</string>
     <string name="settings_support_choose_email_client_fallback_label">È necessario avere installata un\'app di posta elettronica</string>
     <string name="settings_send_email_chooser_title">Invia email con…</string>
@@ -131,7 +131,7 @@
 
     <!-- - - - - - - - - - - - - - - - - -  CREDITS - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="credits_title_label">Attribuzioni</string>
-    <string name="credits_section_subtitle_summary">Guarda le attribuzioni qua</string>
+    <string name="credits_section_subtitle_summary">Guarda le attribuzioni</string>
     <string name="credits_idea_label">Idea</string>
     <string name="credits_idea_Gil">Mia moglie, Gigliola Rocca</string>
     <string name="credits_gil_instagram_link">https://www.instagram.com/gidy369/</string>

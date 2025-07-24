@@ -108,13 +108,13 @@
     <string name="settings_expiring_food_list_subject">"Expiring Products global list : "</string>
     <string name="settings_saved_food_list_subject">"Consumed Products till now : "</string>
     <string name="settings_wasted_food_list_subject">"Expired Products till now : "</string>
-    <string name="settings_review_btn_summary">Like this app? Left a review please !</string>
+    <string name="settings_review_btn_summary">Like this app? Put a review please !</string>
     <string name="settings_review_btn_title">App Review</string>
     <string name="settings_myapps_btn_summary">Discover all my other apps and games!</string>
     <string name="settings_myapps_btn_title">My Other apps and games</string>
     <string name="settings_send_email_chooser_title">Send email via…</string>
     <string name="settings_support_btn_key" translatable="false">goto_support_btn_key</string>
-    <string name="settings_support_btn_summary">Suggestions, bugs, errors, whatever? drop a line  here please :</string>
+    <string name="settings_support_btn_summary">Suggestions, bugs, errors, whatever? Drop a line here please :</string>
     <string name="settings_support_btn_title">Support</string>
     <string name="gdpr_btn_title">GDPR</string>
     <string name="gdpr_btn_summary">GDPR Consent</string>
