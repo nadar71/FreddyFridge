@@ -112,6 +112,9 @@ dependencies {
     // WorkManager
     implementation(libs.androidx.work.runtime.ktx)
 
+    // Ad mob
+    implementation(libs.playservices.ads)
+
     // Unity
     implementation(libs.unity.ads)
 
