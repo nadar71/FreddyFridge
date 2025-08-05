@@ -27,11 +27,3 @@ object DatabaseModule {
 
 }
 
-
-/*
-Inject sample :
-
-class MyViewModel
- @Inject constructor(@ApplicationContext private val context: Context)
-: ViewModel() { ... }
- */

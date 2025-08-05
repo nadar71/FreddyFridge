@@ -14,38 +14,37 @@ interface FoodDbDao {
 
     //------------------------------------  QUERY --------------------------------------------------
 
-    // no live data : TODO : to be renamed after deleting live data ones
     @Query("SELECT * FROM FOODLIST WHERE done == 0 ORDER BY EXPIRING_AT")
-    suspend fun loadAllFood_no_livedata(): MutableList<FoodEntry>
+    suspend fun loadAllFood(): MutableList<FoodEntry>
 
-    // get EXPIRING FOOD no livedata
+    // get EXPIRING FOOD
     @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT >= :date and done == 0 ORDER BY EXPIRING_AT")
-    suspend fun loadAllFoodExpiring_no_livedata(date: Long?): MutableList<FoodEntry>
+    suspend fun loadAllFoodExpiring(date: Long?): MutableList<FoodEntry>
 
-    // get EXPIRING FOOD TODAY no LiveData
+    // get EXPIRING FOOD TODAY
     @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT > :daybefore AND EXPIRING_AT < :dayafter " +
             " and done == 0 ORDER BY EXPIRING_AT")
-    suspend fun loadFoodExpiringToday_no_livedata(daybefore: Long?, dayafter: Long?): MutableList<FoodEntry>
+    suspend fun loadFoodExpiringToday(daybefore: Long?, dayafter: Long?): MutableList<FoodEntry>
 
     // get DEAD/EXPIRED FOOD
     @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT < :date and done == 0 ORDER BY EXPIRING_AT")
-    suspend fun loadAllFoodDead_no_livedata(date: Long?): MutableList<FoodEntry>
+    suspend fun loadAllFoodDead(date: Long?): MutableList<FoodEntry>
 
     // get DONE/CONSUMED FOOD
     @Query("SELECT * FROM FOODLIST WHERE done == 1 ORDER BY EXPIRING_AT")
-    suspend fun loadAllFoodSaved_no_livedata(): MutableList<FoodEntry>
+    suspend fun loadAllFoodSaved(): MutableList<FoodEntry>
 
     // get single record by id
     @Query("SELECT * FROM FOODLIST WHERE id = :id")
-    suspend fun loadFoodById_no_livedata(id: Int): FoodEntry
+    suspend fun loadFoodById(id: Int): FoodEntry
 
     //----------------------------------------- INSERT ---------------------------------------------
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFoodEntry(foodEntry: FoodEntry)
 
 
     //------------------------------------------ UPDATE---------------------------------------------
-    @Update(onConflict = OnConflictStrategy.REPLACE)
+    @Update
     suspend fun updateFoodEntry(foodEntry: FoodEntry)
 
     @Query("UPDATE FOODLIST SET done=:done WHERE id = :id")

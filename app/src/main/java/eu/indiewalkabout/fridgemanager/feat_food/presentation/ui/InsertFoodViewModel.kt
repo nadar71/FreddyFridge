@@ -23,6 +23,11 @@ class InsertFoodViewModel @Inject constructor(
     private val _unitUiState = MutableStateFlow<FoodUiState<Unit>>(FoodUiState.Idle)
     val unitUiState: StateFlow<FoodUiState<Unit>> = _unitUiState.asStateFlow()
 
+    // Reset updateUiState to idle
+    fun resetUpdateUiStateToIdle() {
+        _unitUiState.value = FoodUiState.Idle
+    }
+
     // Insert food entry
     fun insertFood(foodEntry: FoodEntry) {
         viewModelScope.launch {
@@ -40,8 +45,5 @@ class InsertFoodViewModel @Inject constructor(
             }
         }
     }
-
-
-
 
 }

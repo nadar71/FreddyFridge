@@ -1,0 +1,255 @@
+package eu.indiewalkabout.fridgemanager.feat_notifications.util
+
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.VectorDrawable
+import android.util.Log
+import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
+import eu.indiewalkabout.fridgemanager.R
+import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
+import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
+import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.NavigationScreenConstants
+import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain.MainActivity
+
+// TODO : All the part commented here is to be refactored to use workmanager
+object NotificationsUtility {
+
+    private const val FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_ID = 1000    // Unique Id to Refer to notification when displayed
+    private const val FOOD_NEXTDAYS_DEADLINE_PENDING_INTENT_ID = 1100  // Reference to notification pendingitent
+    private const val FOOD_TODAY_DEADLINE_NOTIFICATION_ID = 2000       // Unique Id to Refer to notification when displayed
+    private val FOOD_TODAY_DEADLINE_PENDING_INTENT_ID = 2100           // Reference to notification pendingitent
+
+    // This notification channel and its action for sdk >= 26 (Oreo)
+    private const val FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_CHANNEL_ID = "food_deadline_notification_channel"
+    private const val FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID =    "food_today_deadline_notification_channel"
+
+    private const val ACTION_SHOW_NEXTDAYS_PENDING_INTENT_ID = 10
+    private const val ACTION_SHOW_TODAY_PENDING_INTENT_ID = 10
+    private const val ACTION_IGNORE_PENDING_INTENT_ID = 20
+
+
+    fun clearAllNotifications(context: Context) {
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancelAll()
+    }
+
+    // Food deadline reminder notification
+    fun remindNextDaysExpiringFood(context: Context, foodEntries: List<FoodEntry>) {
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        createNotificationsChannel(
+            FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_CHANNEL_ID,
+            context.getString(R.string.notification_nextdays_expiring_channel_name),
+            context.getString(R.string.notification_nextdays_expiring_channel_name),
+            notificationManager
+        )
+
+        // create data visualization string
+        val notificationsText = formatForNextdays(context, foodEntries)
+
+        val notificationBuilder =
+            NotificationCompat.Builder(context, FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_CHANNEL_ID)
+                .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                .setSmallIcon(R.drawable.ic_notifications_next_days_small) // appears in the status bar, shaded monochrome
+                .setLargeIcon(largeIconNextDays(context)) // appears in the notification when it's expanded
+                .setContentTitle(context.getString(R.string.notification_nextdays_expiring_food_title))
+                .setContentText(notificationsText)
+                .setStyle(
+                    NotificationCompat.BigTextStyle().bigText(
+                        context.getString(R.string.notification_nextdays_expiring_body)
+                    )
+                )
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setContentIntent(contentIntent(context)) // link a pending intent to notification
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .addAction(showFoodExpiringNextDaysAction(context))
+                .setAutoCancel(true)
+
+        // Show notification
+        Log.i(TAG, "Create notification for remindNextDaysExpiringFood")
+        notificationManager.notify(
+            FOOD_NEXTDAYS_DEADLINE_NOTIFICATION_ID,
+            notificationBuilder.build()
+        )
+    }
+
+
+    // Food deadline reminder notification
+    fun remindTodayExpiringFood(context: Context, foodEntries: List<FoodEntry>) {
+
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        createNotificationsChannel(
+            FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID,
+            context.getString(R.string.notification_today_expiring_channel_name),
+            context.getString(R.string.notification_today_expiring_channel_name),
+            notificationManager
+        )
+
+        // create data visualization string
+        val notificationsText = formatForToday(context, foodEntries)
+
+        val notificationBuilder =
+            NotificationCompat.Builder(context, FOOD_TODAY_DEADLINE_NOTIFICATION_CHANNEL_ID)
+                .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                .setSmallIcon(R.drawable.ic_notifications_today_small)
+                .setLargeIcon(largeIconToday(context))
+                .setContentTitle(context.getString(R.string.notification_today_expiring_food_title))
+                .setContentText(notificationsText)
+                .setStyle(
+                    NotificationCompat.BigTextStyle().bigText(
+                        context.getString(R.string.notification_today_expiring_body)
+                    )
+                )
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setContentIntent(contentIntent(context))  // link a pending intent to notification
+                .addAction(showFoodExpiringTodayAction(context))
+                // .addAction(ignoreNotificationAction(context))
+                .setAutoCancel(true)
+
+        // Show notification
+        Log.i(TAG, "Create notification for remindTodayExpiringFood")
+        notificationManager.notify(FOOD_TODAY_DEADLINE_NOTIFICATION_ID, notificationBuilder.build())
+    }
+
+
+    private fun createNotificationsChannel(
+        id: String, name: String, channelDescription: String,
+        notificationManager: NotificationManager
+    ) {
+        val importance: Int = NotificationManager.IMPORTANCE_HIGH
+        val channel: NotificationChannel = NotificationChannel(id, name, importance).apply {
+            description = channelDescription
+        }
+        notificationManager.createNotificationChannel(channel)
+    }
+
+    // Format Next days Expiring Food list for notification alert
+    private fun formatForNextdays(context: Context, todayList: List<FoodEntry>): String {
+        var listString = ""
+        if (todayList.isNotEmpty()) {
+            for (item in todayList) {
+                listString += item.name + ", "
+            }
+        } else {
+            listString = context.getString(R.string.notification_nextdays_expiring_body)
+        }
+        return listString
+    }
+
+    // Format Today Expiring Food list for todays notification alert
+    private fun formatForToday(context: Context, todayList: List<FoodEntry>): String {
+        var listString = ""
+        if (todayList.size > 0) {
+            for (item in todayList) {
+                listString += item.name + ", "
+            }
+        } else {
+            listString = context.getString(R.string.notification_today_expiring_body)
+        }
+        return listString
+    }
+
+
+    // User Action Ignore notification
+    /*private fun ignoreNotificationAction(context: Context): NotificationCompat.Action {
+        val ignoreReminderIntent = Intent(context, FoodReminderIntentService::class.java)
+        ignoreReminderIntent.action = ReminderOps.ACTION_DISMISS_NOTIFICATION
+
+        val ignoreReminderPendingIntent = PendingIntent.getService(
+            context,
+            ACTION_IGNORE_PENDING_INTENT_ID,
+            ignoreReminderIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        return NotificationCompat.Action(
+            R.drawable.ic_warning_green,
+            context.getString(R.string.notification_dismiss_action_title),
+            ignoreReminderPendingIntent
+        )
+    }*/
+
+
+    // User Action Show list of expiring food in the next days opening app on expiring list activity
+    private fun showFoodExpiringNextDaysAction(context: Context): NotificationCompat.Action {
+        val showExpiringFoodIntent = Intent(context, MainActivity::class.java)
+        showExpiringFoodIntent.putExtra(
+            "destination",
+            NavigationScreenConstants.FOOD_EXPIRING_SCREEN
+        )
+
+        val foodReminderPendingIntent = PendingIntent.getActivity(
+            context,
+            ACTION_SHOW_NEXTDAYS_PENDING_INTENT_ID,
+            showExpiringFoodIntent,
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        Log.i(TAG, "SHOW notification for showFoodExpiringNextDaysAction")
+        return NotificationCompat.Action(
+            R.drawable.ic_notifications_next_days_large,
+            context.getString(R.string.notification_show_food_expiring_action_title),
+            foodReminderPendingIntent
+        )
+    }
+
+
+    // User Action Show list of TODAY expiring food opening app on main activity
+    private fun showFoodExpiringTodayAction(context: Context): NotificationCompat.Action {
+        val showExpiringFoodTodayIntent = Intent(context, MainActivity::class.java)
+        showExpiringFoodTodayIntent.putExtra("destination", NavigationScreenConstants.MAIN_SCREEN)
+
+        val foodReminderPendingIntent = PendingIntent.getActivity(
+            context,
+            ACTION_SHOW_TODAY_PENDING_INTENT_ID,
+            showExpiringFoodTodayIntent,
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        Log.i(TAG, "SHOW notification for showFoodExpiringTodayAction")
+        return NotificationCompat.Action(
+            R.drawable.ic_notifications_today_large,
+            context.getString(R.string.notification_show_food_expiring_today_action_title),
+            foodReminderPendingIntent
+        )
+    }
+
+
+    // Pending item about reminder notification, call the MainActivity
+    private fun contentIntent(context: Context): PendingIntent {
+        val startActivityIntent = Intent(context, MainActivity::class.java)
+        return PendingIntent.getActivity(
+            context,
+            FOOD_NEXTDAYS_DEADLINE_PENDING_INTENT_ID,
+            startActivityIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+    }
+
+    private fun largeIconNextDays(context: Context): Bitmap {
+        val res = context.resources
+        // return BitmapFactory.decodeResource(res, R.drawable.ic_warning_green_24dp)
+        return (ResourcesCompat.getDrawable(res, R.drawable.ic_notifications_next_days_large, null)
+                as VectorDrawable).toBitmap()
+    }
+
+    private fun largeIconToday(context: Context): Bitmap {
+        val res = context.resources
+        // return BitmapFactory.decodeResource(res, R.drawable.ic_warning_green_24dp)
+        return (ResourcesCompat.getDrawable(res, R.drawable.ic_notifications_today_large, null)
+                as VectorDrawable).toBitmap()
+    }
+
+
+}

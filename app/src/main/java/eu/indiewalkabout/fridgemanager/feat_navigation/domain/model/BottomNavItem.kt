@@ -26,14 +26,14 @@ sealed class BottomNavItem(
 
     object Expiring : BottomNavItem(
         route = "food_expiring",
-        icon = R.drawable.ic_hourglass_empty_white,
+        icon = R.drawable.ic_hourglass,
         label = R.string.menu_expiring_label_item,
         contentDescription = R.string.content_menu_expiring_label_item
     )
 
     object Add : BottomNavItem(
         route = "insert_food",
-        icon = R.drawable.ic_add_box_white,
+        icon = R.drawable.ic_add_box,
         label = R.string.menu_add_label_item,
         contentDescription = R.string.content_menu_add_label_item
     )

@@ -2,6 +2,7 @@
 <resources>
 
     <!-- - - - - - - - - - - - - - - - - - COMMONS - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="app_name">FreddyFridge</string>
     <string name="generic_yes">Sì</string>
     <string name="generic_no">No</string>
     <string name="generic_ok">Ok</string>
@@ -20,7 +21,8 @@
     <string name="foodExpired_message">Nessun prodotto scaduto qui</string>
     <string name="foodConsumed_title">Prodotti consumati</string>
     <string name="foodConsumed_message">Nessun prodotto salvato qui</string>
-    <string name="permission_denied_title">Autorizzazione microfono negata</string>
+    <string name="food_expiring_date_label">Scadenza</string>
+    <string name="food_open_label">Aperto</string>
 
     <!-- - - - - - - - - - - - - - - - INTRO STUFF  - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="intro_1_title">1 : Fai la tua spesa…</string>
@@ -32,12 +34,30 @@
     <string name="intro_3_title">3 : Controlla la data di scadenza</string>
     <string name="intro_3_subtitle">e verrai avvisato prima : mai più prodotti sprecati!</string>
 
+
+    <!-- - - - - - - - - - - - - - - - PERMISSIONS - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="exact_alarm_permission_title">Autorizzazione necessaria per promemoria ad orari esatti</string>
+    <string name="exact_alarm_permission_message">Per assicurarti di ricevere notifiche tempestive sulle date di scadenza dei tuoi alimenti, %1$s necessita dell\'autorizzazione per programmare allarmi esatti. Questo consente all\'app di avvisarti con precisione quando i tuoi alimenti stanno per scadere.\n\nConcedi questa autorizzazione per ottenere la migliore esperienza.</string>
+    <string name="exact_alarm_permission_settings_title">Autorizzazione allarmi esatti</string>
+    <string name="exact_alarm_permission_settings_message">Consenti l\'autorizzazione a pianificare allarmi esatti per garantire la ricezione di notifiche tempestive sulle date di scadenza</string>
+    <string name="notification_permission_title">Consenti notifiche</string>
+    <string name="notification_permission_message">Per ricevere alert sulla scadenza dei tuoi prodotti, autorizza le notifiche.</string>
+    <string name="notification_permission_rationale">Le notifiche ti aiutano a rimanere aggiornato sulle scadenze dei tuoi alimenti. Abilitale nelle impostazioni del tuo dispositivo.</string>
+    <string name="dont_ask_again">Don\'t ask again</string>
+    <string name="allow">Concedi</string>
+    <string name="retry">Riprova</string>
+    <string name="continue_text">Continua</string>
+    <string name="not_now">Non ora</string>
+    <string name="notification_permission_go_to_settings">Apri Impostazioni</string>
+    <string name="permission_denied_title">Autorizzazione microfono negata</string>
+
+
     <!-- - - - - - - - - - - - - - - -  MAIN SCREENS - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="main_list_title">Prodotti in scadenza oggi :</string>
     <string name="main_subtitle">Zero Sprechi !</string>
     <string name="no_food_todays">Nessun prodotto in scadenza per oggi!</string>
 
-    <!-- - - - - - - - - - - - - - - -  INSERT FOOD - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - - - - -  INSERT,UPDATE FOOD - - - - - - - - - - - - - - - - - - - -->
     <string name="insert_food_title">Inserisci il nuovo prodotto</string>
     <string name="insert_food_name_tv">Inserisci una descrizione : </string>
     <string name="insert_food_description_hint">Descrizione</string>
@@ -52,8 +72,13 @@
     <string name="insert_food_inserted_confirm">Inserito correttamente !</string>
     <string name="insert_speak_btn_description">Premi e parla</string>
     <string name="insert_speech_not_recognized">Prova ancora</string>
-    <string name="insert_food_successfully">Cibo inserito con successo!</string>
-    <string name="update_food_successfully">Cibo aggiornato con successo!</string>
+    <string name="insert_food_successfully">Prodotto inserito con successo!</string>
+    <string name="update_food_successfully">Prodotto aggiornato con successo!</string>
+    <string name="update_food_label">Aggiorna il prodotto</string>
+    <string name="open_food_label">Apri il prodotto</string>
+    <string name="close_food_label">Chiudi il prodotto</string>
+    <string name="delete_food_label">Cancella il prodotto</string>
+
 
     <!-- - - - - - - - - - - - - - - - - - SETTINGS - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="settings_title">Impostazioni</string>
@@ -64,7 +89,7 @@
     <string name="settings_hours_label">Notifiche giornaliere</string>
     <string name="settings_how_many_days_before_title">Notifica cibo in scadenza tra giorni :</string>
     <string name="settings_how_many_days_before_label">Quanti GIORNI prima</string>
-    <string name="settings_how_many_hours_title">Numero notifiche giornaliere :</string>
+    <string name="settings_how_many_hours_title">Numero notifiche giornaliere (dalle ore 8:00 alle ore 21:00 max):</string>
     <string name="settings_how_many_hours_label">Con quale frequenza oraria giornaliera vuoi essere notificato? (di default è ogni 6 ore)</string>
     <string name="settings_notify_every_01">Notifica ogni </string>
     <string name="settings_notify_every_02"> ore</string>
@@ -75,12 +100,12 @@
     <string name="settings_share_today_title">Prodotti in scadenza OGGI : </string>
     <string name="settings_expiring_food_list_subject">Tutti prodotti in scadenza : </string>
     <string name="settings_saved_food_list_subject">Prodotti consumati finora :</string>
-    <string name="settings_wasted_food_list_subject">Prodotti sprecati finora : </string>
-    <string name="settings_review_btn_summary">Ti piace l\'app? Lasciami una recensione se vuoi :)</string>
+    <string name="settings_wasted_food_list_subject">Prodotti scaduti finora : </string>
+    <string name="settings_review_btn_summary">Ti piace l\'app? Lascia una recensione :)</string>
     <string name="settings_review_btn_title">Recensione app</string>
     <string name="settings_myapps_btn_summary">Scopri tutte le altre mie app e giochi!</string>
     <string name="settings_myapps_btn_title">Altre app e giochi</string>
-    <string name="settings_support_btn_summary">Suggerimenti, bug, errori, qualsiasi cosa? Scrivimi pure qui : </string>
+    <string name="settings_support_btn_summary">Suggerimenti, bug, errori, qualsiasi cosa? Scrivi pure : </string>
     <string name="settings_support_btn_title">Supporto</string>
     <string name="settings_support_choose_email_client_fallback_label">È necessario avere installata un\'app di posta elettronica</string>
     <string name="settings_send_email_chooser_title">Invia email con…</string>
@@ -93,6 +118,7 @@
     <string name="notification_today_expiring_body">Usa il link sotto per vedere la lista completa</string>
     <string name="notification_show_food_expiring_action_title">Mostrami i prodotti in scadenza</string>
     <string name="notification_show_food_expiring_today_action_title">Mostrami i prodotti che scadono OGGI</string>
+    <string name="notification_show_food_expiring_action_label">Mostrameli</string>
     <string name="notification_dismiss_action_title">Ok</string>
 
     <!-- - - - - - - - - - - - - - - - MENU LABEL   - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -105,7 +131,7 @@
 
     <!-- - - - - - - - - - - - - - - - - -  CREDITS - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="credits_title_label">Attribuzioni</string>
-    <string name="credits_section_subtitle_summary">Guarda le attribuzioni qua</string>
+    <string name="credits_section_subtitle_summary">Guarda le attribuzioni</string>
     <string name="credits_idea_label">Idea</string>
     <string name="credits_idea_Gil">Mia moglie, Gigliola Rocca</string>
     <string name="credits_gil_instagram_link">https://www.instagram.com/gidy369/</string>
@@ -129,14 +155,15 @@
     <string name="app_logo">Logo app</string>
     <string name="settings_icon">Icona impostazioni</string>
     <string name="help_icon">Icona Help</string>
-    <string name="content_menu_home_label_item">Icona Cibo Home</string>
-    <string name="content_menu_expired_label_item">Icona Cibo Scaduto</string>
-    <string name="content_menu_consumed_label_item">Icona Cibo Consumato</string>
-    <string name="content_menu_expiring_label_item">Icona Cibo In Scadenza</string>
-    <string name="content_menu_add_label_item">Icona AGGIUNGI Cibo</string>
-    <string name="content_delete_food_icon">Icona elimina scheda cibo</string>
+    <string name="content_menu_home_label_item">Icona Prodotto Home</string>
+    <string name="content_menu_expired_label_item">Icona Prodotto Scaduto</string>
+    <string name="content_menu_consumed_label_item">Icona Prodotto Consumato</string>
+    <string name="content_menu_expiring_label_item">Icona Prodotto In Scadenza</string>
+    <string name="content_menu_add_label_item">Icona AGGIUNGI Prodotto</string>
+    <string name="content_delete_food_icon">Icona elimina scheda prodotto</string>
     <string name="content_expiring_date_icon">Icona data scadenza</string>
-    <string name="content_consumed_food_check_icon">Icona spunta cibo consumato</string>
+    <string name="content_consumed_date_icon">Icona spunta prodotto consumato</string>
+    <string name="content_isopen_product_icon">Icona il prodotto è aperto</string>
     <string name="credits_devsubtitle_icon">Vai al sito icon</string>
     <string name="credits_insta_icon">Vai all\'account instagram icon</string>
     <string name="settings_right_arrow">Freccia per apertura opzioni/contenuti</string>
@@ -152,11 +179,11 @@
     <string name="db_error_loading_all_food">Errore durante il caricamento di tutti gli alimenti</string>
     <string name="db_error_loading_consumed_food">Errore durante il caricamento degli alimenti consumati</string>
     <string name="db_error_loading_expired_food">Errore durante il caricamento degli alimenti scaduti</string>
-    <string name="db_error_loading_expiring_food">Errore durante il caricamento del cibo in scadenza</string>
-    <string name="db_error_loading_food">Errore durante il caricamento del cibo in scadenza</string>
-    <string name="db_error_loading_expiring_today_food">Errore durante il caricamento del cibo in scadenza</string>
-    <string name="db_error_updating_done_food_entry">Errore durante l\'aggiornamento del cibo</string>
-    <string name="db_error_updating_food_entry">Errore durante l\'aggiornamento del cibo</string>
+    <string name="db_error_loading_expiring_food">Errore durante il caricamento del prodotto in scadenza</string>
+    <string name="db_error_loading_food">Errore durante il caricamento del prodotto in scadenza</string>
+    <string name="db_error_loading_expiring_today_food">Errore durante il caricamento del prodotto in scadenza</string>
+    <string name="db_error_updating_done_food_entry">Errore durante l\'aggiornamento del prodotto</string>
+    <string name="db_error_updating_food_entry">Errore durante l\'aggiornamento del prodotto</string>
 
 
     <!-- 🧹 DUPLICATES & UNUSED KEYS -->

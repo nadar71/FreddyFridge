@@ -1,6 +1,9 @@
 package eu.indiewalkabout.fridgemanager.feat_food.presentation.ui
 
 import android.Manifest
+import android.R.attr.scaleX
+import android.R.attr.scaleY
+import android.R.attr.text
 import android.speech.SpeechRecognizer
 import android.util.Log
 import android.widget.Toast
@@ -26,6 +29,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.SegmentedButtonDefaults.borderStroke
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -48,6 +52,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_14
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
@@ -75,9 +80,6 @@ import java.util.TimeZone
 @Composable
 fun InsertFoodBottomSheetContent(
     insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
-    onSave: () -> Unit,
-    descriptionText: String,
-    onDescriptionChange: (String) -> Unit
 ) {
 
     var TAG = "InsertFoodBottomSheetContent"
@@ -96,40 +98,8 @@ fun InsertFoodBottomSheetContent(
 
     var isBtnEnabled = localeDateShownText.isNotEmpty() && descriptionText.isNotEmpty()
 
-    var foodInserted by remember { mutableStateOf(false) }
-    var showProgressBar by remember { mutableStateOf(false) }
-
 
     // ------------------------------------- LOGIC -------------------------------------------------
-    val unitUiState by insertFoodViewModel.unitUiState.collectAsState()
-
-    LaunchedEffect(unitUiState) {
-        when (unitUiState) {
-            is FoodUiState.Success -> {
-                showProgressBar = false
-                foodInserted = true
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.insert_food_successfully),
-                    Toast.LENGTH_SHORT
-                ).show()
-                onSave()
-            }
-
-            is FoodUiState.Error -> {
-                showProgressBar = false
-                Log.e(TAG, "Error inserting food in db")
-            }
-
-            is FoodUiState.Loading -> {
-                showProgressBar = true
-            }
-
-            is FoodUiState.Idle -> {
-                showProgressBar = false
-            }
-        }
-    }
 
     // setup voice manager
     val voiceManager = remember {
@@ -433,14 +403,31 @@ fun InsertFoodBottomSheetContent(
                 onClick = {
                     if (!isBtnEnabled) return@RoundedCornerButton
                     else {
-                        insertFoodViewModel.insertFood(
-                            FoodEntry(
-                                name = descriptionText,
-                                expiringAt = localeDateText,
-                                quantity = quantityNumText.toInt(),
-                                timezoneId = TimeZone.getDefault().id,
+                        var quantity = quantityNumText.toInt()
+                        if ( quantity <= 1 ) {
+                            insertFoodViewModel.insertFood(
+                                FoodEntry(
+                                    name = descriptionText,
+                                    expiringAt = localeDateText,
+                                    timezoneId = TimeZone.getDefault().id,
+                                    // order_number = 1
+                                )
                             )
-                        )
+                        } else {
+                            // var count = 1
+                            while (quantity > 1) {
+                                insertFoodViewModel.insertFood(
+                                    FoodEntry(
+                                        name = descriptionText,
+                                        expiringAt = localeDateText,
+                                        timezoneId = TimeZone.getDefault().id,
+                                        // order_number = count
+                                    )
+                                )
+                                // count++
+                                quantity--
+                            }
+                        }
                     }
                 },
                 shape = RoundedCornerShape(15.dp),
@@ -460,9 +447,5 @@ fun InsertFoodBottomSheetContent(
 @Composable
 fun InsertFoodBottomSheetContentPreview() {
     IS_IN_PREVIEW = true
-    InsertFoodBottomSheetContent(
-        descriptionText = "",
-        onDescriptionChange = {},
-        onSave = {}
-    )
+    InsertFoodBottomSheetContent()
 }

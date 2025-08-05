@@ -19,7 +19,8 @@ data class FoodEntry (
     @ColumnInfo(name = "CONSUMED_AT") @TypeConverters(DateConverter::class)
     var consumedAt: LocalDate? = null, // localDate -> Long/milliseconds to db by typeConverter
     var timezoneId: String? = null,    // store timezone id string like "Europe/Rome"
-    var quantity: Int = 1,
+    var isProductOpen: Boolean = false,
+    // var order_number: Int = 0,
     var done: Int = 0,                 // 1: food consumed, 0: food not consumed yet
     )
 
@@ -32,8 +33,9 @@ fun FoodEntry.toFoodEntryUI(): FoodEntryUI {
         expiringAtUI = expiringAt?.format(getLocalDateFormat()) ?: "",
         consumedAtLocalDate = consumedAt,
         consumedAtUI = consumedAt?.format(getLocalDateFormat()) ?: "",
-        quantity = quantity,
+        // order_number = this@toFoodEntryUI.order_number,
         timezoneId = this@toFoodEntryUI.timezoneId,
+        isProductOpen = this@toFoodEntryUI.isProductOpen,
         done = done,
     )
 }

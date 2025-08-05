@@ -1,5 +1,6 @@
 package eu.indiewalkabout.fridgemanager.feat_food.presentation.ui
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,6 +15,7 @@ import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.UpdateDoneFiel
 import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.UpdateFoodEntryUseCase
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,27 +34,35 @@ class FoodViewModel @Inject constructor(
     private val loadAllFoodUseCase: LoadAllFoodUseCase,
 ) : ViewModel() {
 
+    private val TAG = "FoodViewModel"
+
     private val _foodListUiState = MutableStateFlow<FoodListUiState<List<FoodEntry>>>(FoodListUiState.Idle)
     val foodListUiState: StateFlow<FoodListUiState<List<FoodEntry>>> = _foodListUiState.asStateFlow()
 
     private val _foodUiState = MutableStateFlow<FoodUiState<FoodEntry>>(FoodUiState.Idle)
     val foodUiState: StateFlow<FoodUiState<FoodEntry>> = _foodUiState.asStateFlow()
 
-    private val _updateUiState = MutableStateFlow<FoodUiState<Unit>>(FoodUiState.Idle)
-    val updateUiState: StateFlow<FoodUiState<Unit>> = _updateUiState.asStateFlow()
+    private val _updateUiState = MutableStateFlow<FoodUpdateUiState<Unit>>(FoodUpdateUiState.Idle)
+    val updateUiState: StateFlow<FoodUpdateUiState<Unit>> = _updateUiState.asStateFlow()
+
+    // Reset updateUiState to idle
+    fun resetUpdateUiStateToIdle() {
+        _updateUiState.value = FoodUpdateUiState.Idle
+    }
 
     // Update food entry
     fun updateFoodEntry(foodEntry: FoodEntry) {
         viewModelScope.launch {
-            _updateUiState.value = FoodUiState.Loading
+            _updateUiState.value = FoodUpdateUiState.Loading
             try {
                 val result: DbResponse<Unit> = updateFoodEntryUseCase(foodEntry) // Assuming update returns DbResponse<Unit>
+                Log.d(TAG, "updateFoodEntry: $result from db operation")
                 _updateUiState.value = when (result) {
-                    is DbResponse.Success -> FoodUiState.Success(result.data) // result.data is Unit
-                    is DbResponse.Error -> FoodUiState.Error(result.error)
+                    is DbResponse.Success -> FoodUpdateUiState.Success(result.data) // result.data is Unit
+                    is DbResponse.Error -> FoodUpdateUiState.Error(result.error)
                 }
             } catch (e: Exception) {
-                _updateUiState.value = FoodUiState.Error(
+                _updateUiState.value = FoodUpdateUiState.Error(
                     ErrorResponse(0, emptyList(), e.message ?: "Unknown error")
                 )
             }
@@ -62,38 +72,35 @@ class FoodViewModel @Inject constructor(
     // Delete food entry
     fun deleteFoodEntry(foodEntry: FoodEntry) {
         viewModelScope.launch {
-            _updateUiState.value = FoodUiState.Loading
+            _updateUiState.value = FoodUpdateUiState.Loading
             try {
                 val result: DbResponse<Unit> = deleteFoodEntryUseCase(foodEntry) // Assuming delete returns DbResponse<Unit>
                 _updateUiState.value = when (result) {
-                    is DbResponse.Success -> FoodUiState.Success(result.data) // result.data is Unit
-                    is DbResponse.Error -> FoodUiState.Error(result.error)
+                    is DbResponse.Success -> FoodUpdateUiState.Success(result.data) // result.data is Unit
+                    is DbResponse.Error -> FoodUpdateUiState.Error(result.error)
                 }
             } catch (e: Exception) {
-                _updateUiState.value = FoodUiState.Error(
+                _updateUiState.value = FoodUpdateUiState.Error(
                     ErrorResponse(0, emptyList(), e.message ?: "Unknown error")
                 )
             }
         }
     }
 
-    // Reset updateUiState to idle
-    fun resetUpdateUiStateToIdle() {
-        _updateUiState.value = FoodUiState.Idle
-    }
+
 
     // Drop table
     fun dropTable() {
         viewModelScope.launch {
-            _updateUiState.value = FoodUiState.Loading
+            _updateUiState.value = FoodUpdateUiState.Loading
             try {
                 val result: DbResponse<Unit> = dropTableUseCase() // Assuming drop returns DbResponse<Unit>
                 _updateUiState.value = when (result) {
-                    is DbResponse.Success -> FoodUiState.Success(result.data) // result.data is Unit
-                    is DbResponse.Error -> FoodUiState.Error(result.error)
+                    is DbResponse.Success -> FoodUpdateUiState.Success(result.data) // result.data is Unit
+                    is DbResponse.Error -> FoodUpdateUiState.Error(result.error)
                 }
             } catch (e: Exception) {
-                _updateUiState.value = FoodUiState.Error(
+                _updateUiState.value = FoodUpdateUiState.Error(
                     ErrorResponse(0, emptyList(), e.message ?: "Unknown error")
                 )
             }
@@ -121,15 +128,15 @@ class FoodViewModel @Inject constructor(
     // Update done field
     fun updateDoneField(done: Int, id: Int) {
         viewModelScope.launch {
-            _updateUiState.value = FoodUiState.Loading
+            _updateUiState.value = FoodUpdateUiState.Loading
             try {
                 val result: DbResponse<Unit> = updateDoneFieldUseCase(done, id) // Assuming update done returns DbResponse<Unit>
                 _updateUiState.value = when (result) {
-                    is DbResponse.Success -> FoodUiState.Success(result.data)
-                    is DbResponse.Error -> FoodUiState.Error(result.error)
+                    is DbResponse.Success -> FoodUpdateUiState.Success(result.data)
+                    is DbResponse.Error -> FoodUpdateUiState.Error(result.error)
                 }
             } catch (e: Exception) {
-                _updateUiState.value = FoodUiState.Error(
+                _updateUiState.value = FoodUpdateUiState.Error(
                     ErrorResponse(0, emptyList(), e.message ?: "Unknown error")
                 )
             }

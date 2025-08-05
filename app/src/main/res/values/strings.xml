@@ -1,5 +1,7 @@
 <resources>
 
+    <string name="app_name">FreddyFridge</string>
+
     <!-- - - - - - - - - - - - - - - - - - COMMONS - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="generic_yes">Yes</string>
     <string name="generic_no">No</string>
@@ -19,8 +21,8 @@
     <string name="foodExpired_message">No products expired here </string>
     <string name="foodConsumed_title">Products consumed</string>
     <string name="foodConsumed_message">No products consumed here </string>
-    <string name="permission_denied_title">Permission Microfone Denied</string>
-
+    <string name="food_expiring_date_label">Expiring</string>
+    <string name="food_open_label">Opened</string>
 
 
 
@@ -35,6 +37,22 @@
     <string name="intro_3_subtitle">and be alerted before happens : no more products wasted!</string>
 
 
+    <!-- - - - - - - - - - - - - - - - PERMISSIONS - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="exact_alarm_permission_title">Exact Time Memo Alarms Permission Needed</string>
+    <string name="exact_alarm_permission_message">To ensure you receive timely notifications about your food expiration dates, %1$s needs permission to schedule exact alarms. This allows the app to notify you precisely when your food items are about to expire.\n\nPlease grant this permission to get the best experience.</string>
+    <string name="exact_alarm_permission_settings_title">Exact Alarms Permission </string>
+    <string name="exact_alarm_permission_settings_message">Allow permission to schedule exact alarms to ensure receiving timely notifications about expiration dates</string>
+    <string name="notification_permission_title">Allow Notifications</string>
+    <string name="notification_permission_message">To receive expiration alerts for your products, allow notification permissions.</string>
+    <string name="notification_permission_rationale">Notifications help you stay up-to-date on your food expirations. Enable them in your device settings.</string>
+    <string name="permission_denied_title">Permission Microfone Denied</string>
+    <string name="allow">Allow</string>
+    <string name="dont_ask_again">Don\'t ask again</string>
+    <string name="retry">Retry</string>
+    <string name="continue_text">Continue</string>
+    <string name="not_now">Not Now</string>
+    <string name="notification_permission_go_to_settings">Open Settings</string>
+
 
     <!-- - - - - - - - - - - - - - - -  MAIN SCREENS - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="main_list_title">Expiring Products today : </string>
@@ -42,7 +60,7 @@
     <string name="no_food_todays">No products expiring for today !</string>
 
 
-    <!-- - - - - - - - - - - - - - - -  INSERT FOOD - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - - - - -  INSERT,UPDATE FOOD - - - - - - - - - - - - - - - - - - - -->
     <string name="insert_food_title">Insert Product</string>
     <string name="insert_food_name_tv">Product description :</string>
     <string name="insert_food_description_hint">Description</string>
@@ -57,8 +75,13 @@
     <string name="insert_food_inserted_confirm">Inserted successfully !</string>
     <string name="insert_speak_btn_description">Press and speak</string>
     <string name="insert_speech_not_recognized">Try again</string>
-    <string name="insert_food_successfully">Food inserted successfully!</string>
-    <string name="update_food_successfully">Food Updated successfully!</string>
+    <string name="insert_food_successfully">Product inserted successfully!</string>
+    <string name="update_food_successfully">Product Updated successfully!</string>
+    <string name="update_food_label">Update Product</string>
+    <string name="open_food_label">Open product</string>
+    <string name="close_food_label">Close product</string>
+    <string name="delete_food_label">Delete product</string>
+
 
 
     <!-- - - - - - - - - - - - - - - - - - SETTINGS - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -69,10 +92,10 @@
     <string name="settings_days_label">Days</string>
     <string name="settings_hours_label">Daily notifications</string>
     <string name="settings_how_many_days_before_title">Days Before product-deadline notifications :</string>
-    <string name="settings_how_many_days_before_label">How many DAYS \nBEFORE food expiration date want you to be notified ?
+    <string name="settings_how_many_days_before_label">How many DAYS \nBEFORE product expiration date want you to be notified ?
         (Default is 2 days before expiring date)</string>
-    <string name="settings_how_many_hours_title">Daily Notifications number :</string>
-    <string name="settings_how_many_hours_label">With what HOURS FREQUENCY \n in a day want to be notified about food expiring?
+    <string name="settings_how_many_hours_title">Daily Notifications number ( from 8:00 to 21:00 o\'clock) :</string>
+    <string name="settings_how_many_hours_label">With what HOURS FREQUENCY \n in a day want to be notified about product expiring?
         (Default is every 6 hours)</string>
     <string name="settings_notify_every_01">Notify every </string>
     <string name="settings_notify_every_02"> hours </string>
@@ -83,22 +106,22 @@
     <string name="settings_goto_system_app_settings_title">App Settings</string>
     <string name="settings_share_today_title">"Products expiring TODAY : "</string>
     <string name="settings_expiring_food_list_subject">"Expiring Products global list : "</string>
-    <string name="settings_saved_food_list_subject">"Saved Products till now : "</string>
-    <string name="settings_wasted_food_list_subject">"WASTED Products till now : "</string>
-    <string name="settings_review_btn_summary">Like this app? Left a review please !</string>
+    <string name="settings_saved_food_list_subject">"Consumed Products till now : "</string>
+    <string name="settings_wasted_food_list_subject">"Expired Products till now : "</string>
+    <string name="settings_review_btn_summary">Like this app? Put a review please !</string>
     <string name="settings_review_btn_title">App Review</string>
     <string name="settings_myapps_btn_summary">Discover all my other apps and games!</string>
     <string name="settings_myapps_btn_title">My Other apps and games</string>
     <string name="settings_send_email_chooser_title">Send email via…</string>
     <string name="settings_support_btn_key" translatable="false">goto_support_btn_key</string>
-    <string name="settings_support_btn_summary">Suggestions, bugs, errors, whatever? drop a line  here please :</string>
+    <string name="settings_support_btn_summary">Suggestions, bugs, errors, whatever? Drop a line here please :</string>
     <string name="settings_support_btn_title">Support</string>
     <string name="gdpr_btn_title">GDPR</string>
     <string name="gdpr_btn_summary">GDPR Consent</string>
     <string name="settings_support_choose_email_client_fallback_label">You must have an email app installed</string>
 
     <!-- - - - - - - - - - - - - Notifications   - - - - - - - - - - - - - - - - - - - - - - - - -->
-    <string name="notification_nextdays_expiring_food_title">NEXT DAYS Expiring Foods found, check. </string>
+    <string name="notification_nextdays_expiring_food_title">NEXT DAYS Expiring Product found, check. </string>
     <string name="notification_nextdays_expiring_body">Click below for complete list</string>
     <string name="notification_nextdays_expiring_channel_name" translatable="false">next-days-expiring-food  notifications</string>
 
@@ -108,6 +131,7 @@
 
     <string name="notification_show_food_expiring_action_title">Show me expiring products</string>
     <string name="notification_show_food_expiring_today_action_title">Show me TODAY expiring products</string>
+    <string name="notification_show_food_expiring_action_label">Show me</string>
     <string name="notification_dismiss_action_title">Got it</string>
 
     <!-- - - - - - - - - - - - - - - - MENU LABEL   - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -147,30 +171,31 @@
     <string name="settings_icon">settings icon</string>
     <string name="help_icon">help icon</string>
     <string name="content_menu_home_label_item">Icon Home</string>
-    <string name="content_menu_expired_label_item">Icon Expired food</string>
-    <string name="content_menu_consumed_label_item">Icon Consumed food</string>
-    <string name="content_menu_expiring_label_item">Icon Expiring food</string>
-    <string name="content_menu_add_label_item">Icon ADD food</string>
-    <string name="content_delete_food_icon">Icon delete food card</string>
+    <string name="content_menu_expired_label_item">Icon Expired product</string>
+    <string name="content_menu_consumed_label_item">Icon Consumed product</string>
+    <string name="content_menu_expiring_label_item">Icon Expiring product</string>
+    <string name="content_menu_add_label_item">Icon ADD product</string>
+    <string name="content_delete_food_icon">Icon delete product card</string>
     <string name="content_expiring_date_icon">Icon for expiring date</string>
-    <string name="content_consumed_food_check_icon">Icon consumed food check</string>
+    <string name="content_consumed_date_icon">Icon consumed product check</string>
+    <string name="content_isopen_product_icon">Icon is open product</string>
     <string name="settings_right_arrow">Arrow to new content or options</string>
     <string name="credits_devsubtitle_icon">Goto site icon</string>
     <string name="credits_insta_icon">Goto instagram icon</string>
 
 
     <!-- - - - - - - - - - - - - - - - - -  ERRORS MSG - - - - - - - - - - - - - - - - - - - - - -->
-    <string name="db_error_deleting_food_table">Error deleting food table</string>
-    <string name="db_error_deleting_food_entry">Error deleting food</string>
-    <string name="db_error_inserting_food_entry">Error inserting food</string>
-    <string name="db_error_loading_all_food">Error loading all food</string>
-    <string name="db_error_loading_consumed_food">Error loading consumed food</string>
-    <string name="db_error_loading_expired_food">Error loading expired food</string>
-    <string name="db_error_loading_expiring_food">Error loading expiring food</string>
-    <string name="db_error_loading_food">Error loading food</string>
-    <string name="db_error_loading_expiring_today_food">Error loading expiring food</string>
-    <string name="db_error_updating_done_food_entry">Error updating food</string>
-    <string name="db_error_updating_food_entry">Error updating food</string>
+    <string name="db_error_deleting_food_table">Error deleting product table</string>
+    <string name="db_error_deleting_food_entry">Error deleting product</string>
+    <string name="db_error_inserting_food_entry">Error inserting product</string>
+    <string name="db_error_loading_all_food">Error loading all product</string>
+    <string name="db_error_loading_consumed_food">Error loading consumed product</string>
+    <string name="db_error_loading_expired_food">Error loading expired product</string>
+    <string name="db_error_loading_expiring_food">Error loading expiring product</string>
+    <string name="db_error_loading_food">Error loading product</string>
+    <string name="db_error_loading_expiring_today_food">Error loading expiring product</string>
+    <string name="db_error_updating_done_food_entry">Error updating product</string>
+    <string name="db_error_updating_food_entry">Error updating product</string>
 
 
 

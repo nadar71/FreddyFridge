@@ -82,7 +82,7 @@ fun BottomNavigationBar(
             onClick = { navigate(AppDestinationRoutes.MainScreen.route) },
             icon = {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_home_white_24dp),
+                    painter = painterResource(id = R.drawable.ic_home),
                     contentDescription = stringResource(R.string.menu_home_item),
                     tint = if (activeIndex == 3) colors.iconColor else colors.lightGreyVeryTransparent
                 )
@@ -101,7 +101,7 @@ fun BottomNavigationBar(
             onClick = { navigate(AppDestinationRoutes.FoodExpiringScreen.route) },
             icon = {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_hourglass_empty_white),
+                    painter = painterResource(id = R.drawable.ic_hourglass),
                     contentDescription = stringResource(R.string.content_menu_expiring_label_item),
                     tint = if (activeIndex == 4) colors.iconColor else colors.lightGreyVeryTransparent
                 )
@@ -122,7 +122,7 @@ fun BottomNavigationBar(
                       },
             icon = {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_add_box_white),
+                    painter = painterResource(id = R.drawable.ic_add_box),
                     contentDescription = stringResource(R.string.content_menu_add_label_item),
                     tint = if (activeIndex == 5) colors.iconColor else colors.lightGreyVeryTransparent
                 )

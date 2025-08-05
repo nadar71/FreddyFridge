@@ -1,120 +1,131 @@
 package eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.PreferenceManager
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import dagger.hilt.android.AndroidEntryPoint
-import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.APP_OPENING_COUNTER
-import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.DEFAULT_COUNT
+import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
+import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
+import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_OPENINGS
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
+import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.AlarmReminderScheduler
+import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.RequestExactAlarmPermissionDialog
+import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.canScheduleExactAlarms
+import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.needsExactAlarmPermissionCheck
+import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.openAlarmSettings
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.NavigationGraph
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
-import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.hideStatusNavBars
+import eu.indiewalkabout.fridgemanager.feat_notifications.presentation.components.NotificationPermissionDialog
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity()  {
+class MainActivity: AppCompatActivity()  {
     val TAG = "MainActivity"
-    private var numPrevOpenings = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate: Main_activity created")
 
-        // open intro only for the first 3 times
-        numPrevOpenings = appOpenings
+        // start scheduler for notifications reminder
+        alarmReminderScheduler = AlarmReminderScheduler(this)
+
+        // Handle deep link from notification
+        handleIntent(intent)
 
         setContent {
             FreddyFridgeTheme {
+                val context = LocalContext.current
+                var showNotificationPermissionDialog by remember { mutableStateOf(true) }
+                var askForExactAlarmPermission by remember { mutableStateOf(false) }
+                var showExactAlarmPermissionDialog by remember {
+                    mutableStateOf(needsExactAlarmPermissionCheck() && !context.canScheduleExactAlarms())
+                }
+
+                if (showNotificationPermissionDialog &&
+                    AppPreferences.app_opening_counter < NUM_MAX_OPENINGS &&
+                    !AppPreferences.dontask_again_notification_permissions) {
+                    NotificationPermissionDialog(
+                        onDismiss = {
+                            showNotificationPermissionDialog = false
+                            askForExactAlarmPermission = true
+                                    },
+                        onPermissionGranted = {
+                            showNotificationPermissionDialog = false
+                            askForExactAlarmPermission = true
+                        }
+                    )
+                } else {
+                    askForExactAlarmPermission = true
+                }
+
+                if (askForExactAlarmPermission &&
+                    showExactAlarmPermissionDialog &&
+                    AppPreferences.app_opening_counter < NUM_MAX_OPENINGS) {
+                    RequestExactAlarmPermissionDialog(
+                        onDismiss = {
+                            showExactAlarmPermissionDialog = false
+                            // Schedule alarms anyway, even if inexact
+                            alarmReminderScheduler.setRepeatingAlarm()
+                        },
+                        onPermissionGranted = {
+                            // Only open settings if we're on Android S+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                                context.openAlarmSettings()
+                            }
+                            // Schedule alarms, they'll be exact if permission was granted
+                            alarmReminderScheduler.setRepeatingAlarm()
+                            showExactAlarmPermissionDialog = false
+                        }
+                    )
+                } else {
+                    // If we don't need to show the dialog, just schedule the alarms
+                    LaunchedEffect(Unit) {
+                        alarmReminderScheduler.setRepeatingAlarm()
+                    }
+                }
+
                 AppNavigation.NavigationInit()
                 NavigationGraph(AppNavigation.appNavHostController)
             }
         }
-
-        // hideStatusNavBars(this)
-
-        // TODO : share button
-        // TODO : admob/unity ads
-        // TODO : go to insert with swipe?
-
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        intent.let { handleIntent(it) }
+    }
 
     override fun onStart() {
         super.onStart()
     }
 
-
-
-    // Get/Set the number of times the app has been opened
-    private var appOpenings: Int
-        get() {
-            val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-            return prefs.getInt(APP_OPENING_COUNTER, DEFAULT_COUNT)
-        }
-        set(count) {
-            val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-            val editor = prefs.edit()
-            editor.putInt(APP_OPENING_COUNTER, count)
-            editor.apply()
-        }
-
-
-
-    // DEBUG notifications
-    /*fun testNotification(view: View?) {
-        lateinit var foodEntriesNextDays: List<FoodEntry>
-        CoroutineScope(Dispatchers.Main).launch {
-            val repository = (eu.indiewalkabout.fridgemanager.FreddyFridgeApplication.getsContext() as eu.indiewalkabout.fridgemanager.FreddyFridgeApplication).repository
-            val dataNormalizedAtMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(
-                DateUtility.normalizedUtcMsForToday
-            )
-            val expiringDateToBeNotified =
-                dataNormalizedAtMidnight + TimeUnit.DAYS.toSeconds(1.toLong()).toInt()
-            val foodEntriesNextDays =
-                repository!!.loadAllFoodExpiring_no_livedata(expiringDateToBeNotified)
-
-            foodEntriesNextDays.let {
-                if (foodEntriesNextDays.size > 0) {
-                    NotificationsUtility.remindNextDaysExpiringFood(applicationContext, it)
+    private fun handleIntent(intent: Intent) {
+        val destination = intent.getStringExtra("destination")
+        destination?.let { route ->
+            Log.d(TAG, "handleIntent: Navigating to $route")
+            setContent {
+                AppNavigation.NavigationInit()
+                AppNavigation.appNavHostController.navigate(route) {
+                    // Clear the back stack and make this the start destination
+                    popUpTo(0) {
+                        inclusive = true
+                    }
                 }
             }
-
         }
-
     }
 
-    // DEBUG notifications
-    fun testTodayNotification(view: View?) {
-        lateinit var foodEntriesToDay: List<FoodEntry>
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val dataNormalizedAtMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(
-                DateUtility.normalizedUtcMsForToday
-            )
-            val previousDayDate = dataNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS
-            val nextDayDate = dataNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS
-            val repository = (eu.indiewalkabout.fridgemanager.FreddyFridgeApplication.getsContext() as eu.indiewalkabout.fridgemanager.FreddyFridgeApplication).repository
-            foodEntriesToDay =
-                repository!!.loadFoodExpiringToday_no_livedata(previousDayDate, nextDayDate)
-
-            foodEntriesToDay.let {
-                if (foodEntriesToDay.size > 0) {
-                    NotificationsUtility.remindTodayExpiringFood(applicationContext, it)
-                    Log.i(
-                        TAG,
-                        "Workmanager, doWork: check food expiring  TODAY, notification sent"
-                    )
-                }
-            }
-        }
-
-
-    }*/
-
-
-
-
+    override fun onResume() {
+        super.onResume()
+        alarmReminderScheduler.setRepeatingAlarm()
+    }
 }

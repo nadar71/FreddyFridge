@@ -29,8 +29,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -70,16 +68,16 @@ import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntryUI
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.NumberPickerWithTitle
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.SimpleTextField
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.util.VoiceRecognitionManager
 import java.time.LocalDate
+import java.util.TimeZone
 
 
 @Composable
 fun UpdateFoodOverlay(
     foodViewModel: FoodViewModel = hiltViewModel(),
+    insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
     foodEntryUI: FoodEntryUI,
-    onSave: () -> Unit,
     cancelable: Boolean = true,
     onLeftButtonAction: (() -> Unit)? = null
 ) {
@@ -96,43 +94,13 @@ fun UpdateFoodOverlay(
     var localeDateText by remember { mutableStateOf<LocalDate?>(foodEntryUI.expiringAtLocalDate) }
     var localeDateShownText by remember { mutableStateOf(foodEntryUI.expiringAtUI ?: "") }
     var descriptionText by remember { mutableStateOf(foodEntryUI.name) }
-    var quantityNumText by remember { mutableStateOf(foodEntryUI.quantity.toString()) }
-
-    var foodInserted by remember { mutableStateOf(false) }
-    var showProgressBar by remember { mutableStateOf(false) }
+    var quantityNumText by remember { mutableStateOf("1") }
 
     var isBtnEnabled = localeDateShownText.isNotEmpty() && descriptionText?.isNotEmpty() == true
 
 
     // ------------------------------------- LOGIC -------------------------------------------------
-    val updateUiState by foodViewModel.updateUiState.collectAsState()
 
-    LaunchedEffect(updateUiState) {
-        when (updateUiState) {
-            is FoodUiState.Success -> {
-                showProgressBar = false
-                foodInserted = true
-                Toast.makeText(context,
-                    context.getString(R.string.update_food_successfully),
-                    Toast.LENGTH_SHORT).show()
-                onSave()
-                // After Success or Error, reset updateUiState to Idle:
-                // LaunchedEffect doesn't re-trigger at dialog re-opening
-                foodViewModel.resetUpdateUiStateToIdle()
-            }
-            is FoodUiState.Error -> {
-                showProgressBar = false
-                Log.e(TAG, "Error inserting food in db")
-                foodViewModel.resetUpdateUiStateToIdle()
-            }
-            is FoodUiState.Loading -> {
-                showProgressBar = true
-            }
-            is FoodUiState.Idle -> {
-                showProgressBar = false
-            }
-        }
-    }
 
     // setup voice manager
     val voiceManager = remember {
@@ -173,14 +141,15 @@ fun UpdateFoodOverlay(
             voiceManager?.startListening()
             isListening = true
         } else {
-            Toast.makeText(context,
+            Toast.makeText(
+                context,
                 context.getString(R.string.permission_denied_title),
-                Toast.LENGTH_SHORT).show()
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
     // ------------------------------------- DIALOG ------------------------------------------------
-
     // Calendar widget
     if (showCalendarDialog) { // TODO: define different date format based on localization
         ComposeCalendar(
@@ -345,7 +314,10 @@ fun UpdateFoodOverlay(
                     )
 
                     val animatedMicScale by animateFloatAsState(
-                        targetValue = if (isListening) 1f + (rmsDb / 10f).coerceIn(0f, 0.5f) else 1f,
+                        targetValue = if (isListening) 1f + (rmsDb / 10f).coerceIn(
+                            0f,
+                            0.5f
+                        ) else 1f,
                         animationSpec = tween(durationMillis = 500)
                     )
 
@@ -444,16 +416,47 @@ fun UpdateFoodOverlay(
                         Log.d(TAG, "Save button clicked. isBtnEnabled: $isBtnEnabled")
                         if (!isBtnEnabled) return@RoundedCornerButton
                         else {
-                            foodViewModel.updateFoodEntry(
-                                FoodEntry(
-                                    id = foodEntryUI.id,
-                                    name = descriptionText,
-                                    expiringAt = localeDateText,
-                                    consumedAt = foodEntryUI.consumedAtLocalDate,
-                                    timezoneId = foodEntryUI.timezoneId,
-                                    quantity = quantityNumText.toInt()
+                            var quantity = quantityNumText.toInt()
+                            if (quantity <= 1) {
+                                // NB : response detected in parent ( screen list )
+                                foodViewModel.updateFoodEntry(
+                                    FoodEntry(
+                                        id = foodEntryUI.id,
+                                        name = descriptionText,
+                                        expiringAt = localeDateText,
+                                        consumedAt = foodEntryUI.consumedAtLocalDate,
+                                        timezoneId = TimeZone.getDefault().id,
+                                        // order_number = 1
+                                    )
                                 )
-                            )
+                            } else { // a quantity greater then 1 is selected
+                                // var count = 1
+                                // first is updated
+                                foodViewModel.updateFoodEntry(
+                                    FoodEntry(
+                                        id = foodEntryUI.id,
+                                        name = descriptionText,
+                                        expiringAt = localeDateText,
+                                        consumedAt = foodEntryUI.consumedAtLocalDate,
+                                        timezoneId = TimeZone.getDefault().id,
+                                        // order_number = count //foodEntryUI.order_number
+                                    )
+                                )
+                                // others exceeding 1 are inserted as new
+                                while (quantity > 1) {
+                                    insertFoodViewModel.insertFood(
+                                        FoodEntry(
+                                            name = descriptionText,
+                                            expiringAt = localeDateText,
+                                            consumedAt = foodEntryUI.consumedAtLocalDate,
+                                            timezoneId = TimeZone.getDefault().id,
+                                            // order_number = count
+                                        )
+                                    )
+                                    // count++
+                                    quantity--
+                                }
+                            }
                         }
                     },
                     shape = RoundedCornerShape(15.dp),
@@ -480,9 +483,8 @@ fun UpdateFoodOverlayPreview() {
                 name = "Expired Food",
                 expiringAtLocalDate = LocalDate.now().minusDays(1),
                 expiringAtUI = LocalDate.now().minusDays(1).format(getLocalDateFormat()) ?: "",
-                quantity = 1
+                // order_number = 1
             ),
-            onSave = {},
             onLeftButtonAction = {}
         )
     }

@@ -1,27 +1,17 @@
 package eu.indiewalkabout.fridgemanager
 
 import android.app.Application
-import android.content.Context
-import android.util.Log
-import androidx.multidex.MultiDex
-import androidx.multidex.MultiDexApplication
-import androidx.work.Configuration
-import androidx.work.WorkerFactory
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
-import eu.indiewalkabout.fridgemanager.core.reminder.withalarmmanager.AlarmReminderScheduler
-import javax.inject.Inject
+import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
+import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.AlarmReminderScheduler
 
 
-// Class used for access singletons and application context wherever in the app
-// NB : register in manifest in <Application android:name=".App">... </Application>
 @HiltAndroidApp
-class FreddyFridgeApp : Application(), Configuration.Provider {
-    lateinit var alarmReminderScheduler: AlarmReminderScheduler
-    @Inject
-    lateinit var workerFactory: WorkerFactory
+class FreddyFridgeApp : Application() {
 
     companion object {
+        // global variables
+        lateinit var alarmReminderScheduler: AlarmReminderScheduler
         /*// Implement a function to display an ad if the surfacing is ready:
         fun displayUnityInterstitialAd(activity: Activity, surfacingId: String) {
             if (UnityAds.isReady(surfacingId)) {
@@ -32,11 +22,8 @@ class FreddyFridgeApp : Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
+        AppPreferences.app_opening_counter = AppPreferences.app_opening_counter + 1
         // unityId = applicationContext.getString(R.string.unityads_id)
-
-        // start scheduler for notifications reminder
-        alarmReminderScheduler = AlarmReminderScheduler(this)
-        alarmReminderScheduler.setRepeatingAlarm()
 
         // Initialize Unity SDK:
         /*UnityAds.initialize(applicationContext,
@@ -44,14 +31,6 @@ class FreddyFridgeApp : Application(), Configuration.Provider {
 
     }
 
-
-
-    // Assign the injected factory in order to let it manage your Workers.
-    override val workManagerConfiguration: Configuration
-        get() = Configuration.Builder()
-            .setWorkerFactory(workerFactory)
-            .setMinimumLoggingLevel(Log.VERBOSE)
-            .build()
 
     // unity ads init complete
     /*override fun onInitializationComplete() {
