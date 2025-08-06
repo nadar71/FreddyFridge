@@ -1,6 +1,7 @@
 package eu.indiewalkabout.fridgemanager
 
 import android.app.Application
+import com.google.android.gms.ads.MobileAds
 import dagger.hilt.android.HiltAndroidApp
 import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.AlarmReminderScheduler
@@ -22,13 +23,14 @@ class FreddyFridgeApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        // init admob ads
+        MobileAds.initialize(this) {}
+        // init app opening counter
         AppPreferences.app_opening_counter = AppPreferences.app_opening_counter + 1
         // unityId = applicationContext.getString(R.string.unityads_id)
-
         // Initialize Unity SDK:
         /*UnityAds.initialize(applicationContext,
             applicationContext.getString(R.string.unityads_id), unityAdsTestMode, this)*/
-
     }
 
 

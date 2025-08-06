@@ -43,7 +43,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.core.presentation.components.AdBannerPlaceholder
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.ProductListCard
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
@@ -52,10 +51,10 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primary
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.Fredoka
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getEndOfTodayEpochMillis
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getPreviousDayEndOfDayDate
+import eu.indiewalkabout.fridgemanager.feat_ads.presentation.AdMobBannerView
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
@@ -305,10 +304,15 @@ fun MainScreen(
                 Spacer(modifier = Modifier.height(16.dp)) // Space between card and ad
 
                 // Ad Banner Placeholder
-                AdBannerPlaceholder(
+                /*AdBannerPlaceholder(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(50.dp) // change fixed height to test
+                )*/
+                AdMobBannerView(
+                    /*modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp)*/
                 )
 
             }
