@@ -1,5 +1,8 @@
 package eu.indiewalkabout.fridgemanager.feat_ads.presentation
 
+import android.app.Activity
+import android.content.Context
+import android.util.DisplayMetrics
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
@@ -21,10 +24,23 @@ fun AdMobBannerView(
         modifier = modifier,
         factory = { context ->
             AdView(context).apply {
-                setAdSize(AdSize.BANNER)
+                setAdSize(getAdaptiveBannerSize(context))
                 setAdUnitId(adUnitId)
                 loadAd(AdRequest.Builder().build())
             }
         }
     )
 }
+
+
+fun getAdaptiveBannerSize(context: Context): AdSize {
+    val display = (context as Activity).windowManager.defaultDisplay
+    val outMetrics = DisplayMetrics()
+    display.getMetrics(outMetrics)
+
+    val density = outMetrics.density
+    val adWidth = (outMetrics.widthPixels / density).toInt()
+
+    return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, adWidth)
+}
+

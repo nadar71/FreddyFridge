@@ -303,18 +303,13 @@ fun MainScreen(
 
                 Spacer(modifier = Modifier.height(16.dp)) // Space between card and ad
 
-                // Ad Banner Placeholder
+                // Ad Banner
                 /*AdBannerPlaceholder(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(50.dp) // change fixed height to test
                 )*/
-                AdMobBannerView(
-                    /*modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp)*/
-                )
-
+                AdMobBannerView()
             }
         }
 
