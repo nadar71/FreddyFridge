@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -29,6 +30,7 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_18
 fun TopBar(
     title: String = "",
     titleColor: Color = LocalAppColors.current.colorText,
+    titleStyle: TextStyle = text_18(titleColor, true),
     @DrawableRes drawableLeftIcon: Int? = null,
     @DrawableRes drawableRightIcon: Int? = null,
     leftIconColor: Color = LocalAppColors.current.iconColor,
@@ -70,7 +72,7 @@ fun TopBar(
         Text(
             text = title,
             fontFamily = Fredoka,
-            style = text_18(titleColor, true),
+            style = titleStyle,
             textAlign = TextAlign.Center,
             modifier = Modifier.weight(1f)
         )
