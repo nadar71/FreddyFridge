@@ -2,20 +2,17 @@ package eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings
 
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.android.ump.UserMessagingPlatform
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
@@ -37,23 +35,19 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_20
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.openAppSettings
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.openAppStore
-import eu.indiewalkabout.fridgemanager.feat_notifications.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.openAlarmSettings
 import eu.indiewalkabout.fridgemanager.core.util.extensions.sendEmail
 import eu.indiewalkabout.fridgemanager.feat_ads.presentation.AdMobBannerView
-import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
+import eu.indiewalkabout.fridgemanager.feat_ads.util.ConsentManager
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.NumberPickerWithTitle
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppDestinationRoutes
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation.navigate
 import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.openAppSettings
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components.SettingsGroupTitle
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components.SettingsItem
-import java.time.LocalDate
-import java.time.ZoneId
 
 @Composable
 fun SettingsScreen() {
@@ -61,6 +55,7 @@ fun SettingsScreen() {
     Log.d(TAG, "SettingsScreen: shown")
     val colors = LocalAppColors.current
     val context = LocalContext.current
+    val activity = LocalActivity.current
 
     var daysBefore by remember { mutableStateOf(AppPreferences.days_before_deadline) }
     var dailyNotificationsNumber by remember { mutableStateOf(AppPreferences.daily_notifications_number) }
@@ -197,6 +192,33 @@ fun SettingsScreen() {
                         title = stringResource(id = R.string.gdpr_btn_title),
                         subtitle = stringResource(id = R.string.gdpr_btn_summary)
                     )*/
+
+                    SettingsItem(
+                        title = stringResource(id = R.string.gdpr_btn_title),
+                        subtitle = stringResource(id = R.string.gdpr_btn_summary),
+                        modifier = Modifier.clickable {
+                            UserMessagingPlatform.getConsentInformation(context).reset()
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.gdpr_dialog_will_show_again),
+                                Toast.LENGTH_LONG
+                            ).show()
+
+                            // Trigger re-consent (optional)
+                            ConsentManager.requestConsent(
+                                context = context,
+                                activity = activity,
+                                onConsentReady = { canRequestAds ->
+                                    Toast.makeText(
+                                        context,
+                                        context.getString(R.string.gdpr_dialog_reset_done),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            )
+                        }
+                    )
+
 
                     SettingsItem(
                         title = stringResource(id = R.string.settings_goto_system_app_settings_title),

@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.implementation
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -114,6 +116,7 @@ dependencies {
 
     // Ad mob
     implementation(libs.playservices.ads)
+    implementation(libs.user.messaging.platform)
 
     // Unity
     implementation(libs.unity.ads)

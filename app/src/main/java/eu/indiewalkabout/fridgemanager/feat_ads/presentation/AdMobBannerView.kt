@@ -12,6 +12,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
+import eu.indiewalkabout.fridgemanager.FreddyFridgeApp
 
 @Composable
 fun AdMobBannerView(
@@ -20,16 +21,18 @@ fun AdMobBannerView(
         .height(60.dp),
     adUnitId: String = "ca-app-pub-3940256099942544/6300978111" // test unit by default
 ) {
-    AndroidView(
-        modifier = modifier,
-        factory = { context ->
-            AdView(context).apply {
-                setAdSize(getAdaptiveBannerSize(context))
-                setAdUnitId(adUnitId)
-                loadAd(AdRequest.Builder().build())
+    if (FreddyFridgeApp.canRequestAdsFlag) {
+        AndroidView(
+            modifier = modifier,
+            factory = { context ->
+                AdView(context).apply {
+                    setAdSize(getAdaptiveBannerSize(context))
+                    setAdUnitId(adUnitId)
+                    loadAd(AdRequest.Builder().build())
+                }
             }
-        }
-    )
+        )
+    }
 }
 
 

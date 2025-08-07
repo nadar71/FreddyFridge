@@ -116,9 +116,14 @@
     <string name="settings_support_btn_key" translatable="false">goto_support_btn_key</string>
     <string name="settings_support_btn_summary">Suggestions, bugs, errors, whatever? Drop a line here please :</string>
     <string name="settings_support_btn_title">Support</string>
-    <string name="gdpr_btn_title">GDPR</string>
-    <string name="gdpr_btn_summary">GDPR Consent</string>
     <string name="settings_support_choose_email_client_fallback_label">You must have an email app installed</string>
+
+    <string name="gdpr_btn_title">Privacy &amp; Ad Consent</string>
+    <string name="gdpr_btn_summary">Manage your ad personalization consent</string>
+    <string name="gdpr_dialog_will_show_again">Consent has been reset. You\'ll be asked again.</string>
+    <string name="gdpr_dialog_reset_done">Consent dialog handled.</string>
+
+
 
     <!-- - - - - - - - - - - - - Notifications   - - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="notification_nextdays_expiring_food_title">NEXT DAYS Expiring Product found, check. </string>

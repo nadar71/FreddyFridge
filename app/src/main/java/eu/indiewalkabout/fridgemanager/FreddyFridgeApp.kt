@@ -2,17 +2,20 @@ package eu.indiewalkabout.fridgemanager
 
 import android.app.Application
 import com.google.android.gms.ads.MobileAds
+import com.google.android.ump.ConsentInformation
+import com.google.android.ump.UserMessagingPlatform
 import dagger.hilt.android.HiltAndroidApp
 import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.AlarmReminderScheduler
 
 
 @HiltAndroidApp
-class FreddyFridgeApp : Application() {
+class FreddyFridgeApp() : Application() {
 
     companion object {
         // global variables
         lateinit var alarmReminderScheduler: AlarmReminderScheduler
+        var canRequestAdsFlag: Boolean = false
         /*// Implement a function to display an ad if the surfacing is ready:
         fun displayUnityInterstitialAd(activity: Activity, surfacingId: String) {
             if (UnityAds.isReady(surfacingId)) {
