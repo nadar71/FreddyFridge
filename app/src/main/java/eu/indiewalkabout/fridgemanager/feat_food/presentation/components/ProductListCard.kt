@@ -103,7 +103,6 @@ fun ProductListCard(
             exit = fadeOut(), //+ slideOut(targetOffset = { IntOffset(0, 20) }),
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                // .offset(x = 10.dp, y = (-10).dp)
         ) {
             FloatingActionButton(
                 onClick = {

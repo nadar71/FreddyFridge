@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
 import dagger.hilt.android.AndroidEntryPoint
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
@@ -20,6 +21,7 @@ import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_OPENINGS
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.feat_ads.util.ConsentManager
+import eu.indiewalkabout.fridgemanager.feat_ads.util.RequestConfigurationUtils
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.NavigationGraph
 import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.AlarmReminderScheduler
@@ -44,8 +46,12 @@ class MainActivity: AppCompatActivity()  {
         // Handle deep link from notification
         handleIntent(intent)
 
+        // Set your test devices.
+        RequestConfigurationUtils.setTestDeviceIds()
+
         // Check consent
         ConsentManager.requestConsent(this, this@MainActivity) { canRequestAds ->
+
             MobileAds.initialize(this)
             setContent {
                 FreddyFridgeApp.canRequestAdsFlag = canRequestAds
