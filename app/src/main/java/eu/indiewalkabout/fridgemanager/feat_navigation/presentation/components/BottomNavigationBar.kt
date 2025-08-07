@@ -1,5 +1,7 @@
 package eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components
 
+import android.R.attr.label
+import android.R.attr.onClick
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -24,6 +26,9 @@ fun BottomNavigationBar(
 
     NavigationBar(containerColor = colors.primaryColor) {
         when(itemLabelSelected) {
+            "" -> {
+                activeIndex = 0
+            }
             stringResource(R.string.menu_expired_label_item) -> {
                 activeIndex = 1
             }

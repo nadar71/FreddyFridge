@@ -60,6 +60,7 @@ import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.NumberP
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppDestinationRoutes
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation.navigate
+import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
 import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.openAppSettings
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components.SettingsGroupTitle
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components.SettingsItem
@@ -130,14 +131,13 @@ fun SettingsScreen() {
     // ------------------------------------ UI -----------------------------------------------------
     Scaffold(
         bottomBar = {
-            // BottomNavigationBar(AppNavigation.getNavController())
-            // BottomNavigationBar()
+            BottomNavigationBar( "")
         },
         containerColor = colors.primaryColor
     ) { paddingValues ->
-        Box( // for fab overly
+        /*Box( // for fab overly
             modifier = Modifier.fillMaxSize()
-        ){
+        ){*/
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -145,16 +145,10 @@ fun SettingsScreen() {
             ) {
                 BackgroundPattern()
 
-                Column {// Top Bar with back + settings
-                    TopBar(
-                        title = stringResource(id = R.string.settings_title),
-                        titleColor = colors.brown,
-                        titleStyle = text_20(colors.brown, true),
-                        paddingTop = 20.dp,
-                        paddingBottom = 8.dp,
-                    )
+                Column {
 
-                    AdMobBannerView()
+
+
 
                     Column(
                         modifier = Modifier
@@ -163,6 +157,13 @@ fun SettingsScreen() {
                             .verticalScroll(scrollState)
                     ) {
 
+                        TopBar(
+                            title = stringResource(id = R.string.settings_title),
+                            titleColor = colors.brown,
+                            titleStyle = text_20(colors.brown, true),
+                            paddingTop = 20.dp,
+                            paddingBottom = 8.dp,
+                        )
 
                         Spacer(modifier = Modifier.height(16.dp))
 
@@ -353,11 +354,18 @@ fun SettingsScreen() {
 
                         Spacer(modifier = Modifier.height(16.dp))*/
                     }
+
+                    Spacer(modifier = Modifier.height(4.dp))
+
+                    AdMobBannerView()
+
+                    Spacer(modifier = Modifier.height(4.dp))
+
                 }
             }
 
             // FAB for back home
-            AnimatedVisibility(
+            /*AnimatedVisibility(
                 visible =  isFabVisible,
                 enter = fadeIn(),
                 exit = fadeOut(),
@@ -383,8 +391,8 @@ fun SettingsScreen() {
                         modifier = Modifier.size(20.dp)
                     )
                 }
-            }
-        }
+            }*/
+        //}
     }
 }
 
