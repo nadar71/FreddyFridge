@@ -42,6 +42,7 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
+import eu.indiewalkabout.fridgemanager.feat_ads.presentation.AdMobBannerView
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
@@ -232,13 +233,8 @@ fun FoodConsumedScreen(
 
                 Spacer(modifier = Modifier.height(16.dp)) // Space between card and ad
 
-                // Ad Banner Placeholder
-                AdBannerPlaceholder(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp) // change fixed height to test
-                )
-
+                // Ad Banner
+                AdMobBannerView()
             }
         }
 

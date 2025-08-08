@@ -110,6 +110,11 @@
     <string name="settings_support_choose_email_client_fallback_label">È necessario avere installata un\'app di posta elettronica</string>
     <string name="settings_send_email_chooser_title">Invia email con…</string>
 
+    <string name="gdpr_btn_title">Privacy e consenso per gli annunci</string>
+    <string name="gdpr_btn_summary">Gestisci il tuo consenso per la personalizzazione degli annunci</string>
+    <string name="gdpr_dialog_will_show_again">Il consenso è stato reimpostato. Ti verrà chiesto di nuovo.</string>
+    <string name="gdpr_dialog_reset_done">Finestra di dialogo per il consenso gestita.</string>
+
 
     <!-- - - - - - - - - - - - - Notifications   - - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="notification_nextdays_expiring_food_title">Hai cibo in scadenza nei PROSSIMI GIORNI</string>
@@ -184,67 +189,5 @@
     <string name="db_error_loading_expiring_today_food">Errore durante il caricamento del prodotto in scadenza</string>
     <string name="db_error_updating_done_food_entry">Errore durante l\'aggiornamento del prodotto</string>
     <string name="db_error_updating_food_entry">Errore durante l\'aggiornamento del prodotto</string>
-
-
-    <!-- 🧹 DUPLICATES & UNUSED KEYS -->
-    <string name="gdpr_btn_title">GDPR</string>
-    <string name="gdpr_btn_summary">Consenso GDPR</string>
-    <!--<string name="credits_text" translatable="false">
-        &lt;b&gt;CREDITS &amp; ATTRIBUTIONS&lt;/b&gt;\n
-        &lt;b&gt;Idea&lt;/b&gt;\nGigliola Rocca\n\n
-        &lt;b&gt;Development and Design&lt;/b&gt;\nSimone Mapelli\n
-        &lt;a href='http://www.indie-walkabout.eu/'&gt; www.indie-walkabout.eu &lt;/a&gt;\n\n
-        &lt;b&gt;Attributions&lt;/b&gt;\n\n
-        Alarm clock in icons:\n
-        &lt;a href="https://www.freepik.com/free-photos-vectors/office"&gt;Office vector created by dooder - www.freepik.com&lt;/a&gt;\n\n
-        Fridge image:\n
-        &lt;a href="https://www.freepik.com/free-photos-vectors/food"&gt;Food vector created by freepik - www.freepik.com&lt;/a&gt;\n\n
-        Fruits images:\n
-        &lt;a href="https://vecteezy.com" rel="nofollow"&gt;Graphics Provided by www.Vecteezy.com&lt;/a&gt;\n\n
-        Background:\n
-        &lt;a href="https://www.freepik.com/free-photos-vectors/background"&gt;Background vector created by freepik - www.freepik.com&lt;/a&gt;\n
-    </string>
-    <string name="settings_support_btn_key" translatable="false">goto_support_btn_key</string>
-    <string name="app_package" translatable="false">eu.indiewalkabout.fridgemanager</string>
-    <string name="gdpr_btn_key" translatable="false">gdpr_withdraw</string>
-    <string name="credits_btn_key" translatable="false">credits</string>
-    <string name="confirm_dialog_string_settings_icon" translatable="false">confirm dialog @string/settings_icon</string>
-    <string name="settings_days_before_deadline_count" translatable="false">days_before_deadline</string>
-    <string name="settings_days_before_default" translatable="false">2</string>
-    <string name="settings_btn_key" translatable="false">notifications_settings</string>
-    <string name="settings_hours_freq_today_deadline_count" translatable="false">todays_howmany_each_hours</string>
-    <string name="settings_review_btn_key" translatable="false">app_review_btn_key</string>
-    <string name="settings_myapps_btn_key" translatable="false">goto_myapps_btn_key</string>
-    <string name="settings_today_hours_repeat_default" translatable="false">@string/settings_6_hours_value</string>
-
-    &lt;!&ndash; Hour labels (1–12) &ndash;&gt;
-    <string name="settings_1_hours_label" translatable="false">1</string>
-    <string name="settings_2_hours_label" translatable="false">2</string>
-    <string name="settings_3_hours_label" translatable="false">3</string>
-    <string name="settings_4_hours_label" translatable="false">4</string>
-    <string name="settings_5_hours_label" translatable="false">5</string>
-    <string name="settings_6_hours_label" translatable="false">6</string>
-    <string name="settings_7_hours_label" translatable="false">7</string>
-    <string name="settings_8_hours_label" translatable="false">8</string>
-    <string name="settings_9_hours_label" translatable="false">9</string>
-    <string name="settings_10_hours_label" translatable="false">10</string>
-    <string name="settings_11_hours_label" translatable="false">11</string>
-    <string name="settings_12_hours_label" translatable="false">12</string>
-
-    &lt;!&ndash; Hour values (1–12) &ndash;&gt;
-    <string name="settings_1_hours_value" translatable="false">1</string>
-    <string name="settings_2_hours_value" translatable="false">2</string>
-    <string name="settings_3_hours_value" translatable="false">3</string>
-    <string name="settings_4_hours_value" translatable="false">4</string>
-    <string name="settings_5_hours_value" translatable="false">5</string>
-    <string name="settings_6_hours_value" translatable="false">6</string>
-    <string name="settings_7_hours_value" translatable="false">7</string>
-    <string name="settings_8_hours_value" translatable="false">8</string>
-    <string name="settings_9_hours_value" translatable="false">9</string>
-    <string name="settings_10_hours_value" translatable="false">10</string>
-    <string name="settings_11_hours_value" translatable="false">11</string>
-    <string name="settings_12_hours_value" translatable="false">12</string>
-
-    <string name="banner_ad_unit_id" translatable="false">YOUR_BANNER_AD_UNIT_ID</string>-->
 
 </resources>
