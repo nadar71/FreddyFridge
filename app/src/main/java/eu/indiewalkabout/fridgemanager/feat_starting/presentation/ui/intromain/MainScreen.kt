@@ -28,10 +28,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.boundsInParent
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -65,6 +69,7 @@ import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodViewM
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppDestinationRoutes
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
 import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
+import eu.indiewalkabout.fridgemanager.feat_starting.presentation.components.AnimatedFoodBox
 import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.tutorials.OnBoardingScreenOverlay
 import kotlinx.coroutines.launch
 
@@ -235,7 +240,7 @@ fun MainScreen(
                 Spacer(modifier = Modifier.height(8.dp))
                 TopBar(
                     title = stringResource(R.string.main_subtitle),
-                    drawableLeftIcon = R.drawable.ic_help_outline,
+                    // drawableLeftIcon = R.drawable.ic_help_outline,
                     drawableRightIcon = R.drawable.ic_flower_white,
                     paddingStart = 16.dp,
                     paddingEnd = 16.dp,
@@ -245,7 +250,6 @@ fun MainScreen(
                     },
                     onRightIconClick = {
                         Log.d(TAG, "MainScreen: settings icon pressed")
-                        // navigate(AppDestinationRoutes.SettingsScreen.route)
                         AppNavigation.appNavHostController.navigate(AppDestinationRoutes.SettingsScreen.route)
                     }
                 )
@@ -304,11 +308,6 @@ fun MainScreen(
                 Spacer(modifier = Modifier.height(16.dp)) // Space between card and ad
 
                 // Ad Banner
-                /*AdBannerPlaceholder(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp) // change fixed height to test
-                )*/
                 AdMobBannerView()
             }
         }
@@ -330,84 +329,9 @@ fun MainScreen(
 }
 
 
-@Composable
-fun AnimatedFoodBox() {
-    val foodLeftOffsetX = remember { Animatable(-350f) } // Start off-screen to the left
-    val foodRightOffsetX = remember { Animatable(350f) } // Start off-screen to the right
-
-    LaunchedEffect(key1 = true) {
-        // Launch both animations in parallel
-        launch {
-            foodLeftOffsetX.animateTo(
-                targetValue = -5f,
-                animationSpec = tween(
-                    durationMillis = 1500,
-                    easing = FastOutSlowInEasing
-                )
-            )
-        }
-
-        launch {
-            foodRightOffsetX.animateTo(
-                targetValue = 20f,
-                animationSpec = tween(
-                    durationMillis = 1500,
-                    easing = FastOutSlowInEasing
-                )
-            )
-        }
-    }
 
 
-    Box(
-        modifier = Modifier
-            .height(120.dp)
-            .padding(vertical = 12.dp)
-    ) {
 
-        // Food Left (Behind)
-        Image(
-            painter = painterResource(id = R.drawable.food_left),
-            contentDescription = "Food Left",
-            modifier = Modifier
-                .padding(end = 30.dp)
-                .height(80.dp)
-                .offset { IntOffset(foodLeftOffsetX.value.toInt(), 0) }
-                .align(Alignment.CenterStart),
-            contentScale = ContentScale.FillHeight
-        )
-
-        // Food Right (Behind)
-        Image(
-            painter = painterResource(id = R.drawable.food_right),
-            contentDescription = "Food Right",
-            modifier = Modifier
-                .padding(end = 20.dp)
-                .height(80.dp)
-                .offset { IntOffset(foodRightOffsetX.value.toInt(), 0) }
-                .align(Alignment.CenterEnd),
-            contentScale = ContentScale.FillHeight
-        )
-
-        // Fridge Background (Middle)
-        Image(
-            painter = painterResource(id = R.drawable.fridge_background),
-            contentDescription = "Fridge Background",
-            modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.Center)
-        )
-
-        // Fridge Foreground (Middle)
-        Image(
-            painter = painterResource(id = R.drawable.fridge_foreground),
-            contentDescription = "Fridge Foreground",
-            modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.Center)
-        )
-    }
-}
 
 @Preview
 @Composable
