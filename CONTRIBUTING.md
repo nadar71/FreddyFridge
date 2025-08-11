@@ -22,11 +22,6 @@ Pull requests are the greatest contributions, so be sure they are focused in sco
 - Push to the branch: `git push origin my-new-feature`
 - Submit a pull request with full remarks documenting your changes.
 
-## NOTES:
-Other then master, there are 2 main branches : JAVA_DEVELOP, KOTLIN_DEVELOP, I've decided to keep both languages, 
-(Java too for exercising, while Kotlin is still work in progress) : branch from one of the *_DEVELOP branches of the 2.
-Currently master is still in java.
-
 ## Testing
 Every time you write a test, remember to answer all the questions:
 

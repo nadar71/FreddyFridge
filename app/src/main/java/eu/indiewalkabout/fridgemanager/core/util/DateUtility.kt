@@ -3,24 +3,121 @@ package eu.indiewalkabout.fridgemanager.core.util
 
 import android.content.Context
 import android.text.format.DateUtils
+import android.util.Log
 
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 import java.util.TimeZone
 import java.util.concurrent.TimeUnit
 
 
-/**
- * ---------------------------------------------------------------------------------------------
- * Class for handling a bunch of date conversions.
- * ---------------------------------------------------------------------------------------------
- */
+
+
+// date conversions utils
+
 object DateUtility {
 
-    /* Milliseconds in a day */
+    val TAG = "DateUtility"
+    // Milliseconds in a day
     val DAY_IN_MILLIS = TimeUnit.DAYS.toMillis(1)
+
+    // get a local date Date formatter to current device local Date formatter
+    fun getLocalDateFormat(): DateTimeFormatter{
+        // get the default locale
+        val currentLocale = Locale.getDefault()
+
+        // Create a DateTimeFormatter for the localized date format
+        // Use FormatStyle.SHORT, MEDIUM, LONG, or FULL based on desired detail
+        val localizedFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+            .withLocale(currentLocale)
+
+        return localizedFormatter
+    }
+
+
+    // convert a locale date string to java.util.Date
+    fun localDateTextToDate(localeDateText: String): Date? {
+        return try {
+            val formatter = getLocalDateFormat() // get the local device date format
+            val localDate = LocalDate.parse(localeDateText, formatter) // convert to locale date
+
+            // Convert LocalDate -> Date (at start of day in system default timezone)
+            val zoneId = java.time.ZoneId.systemDefault()
+            val instant = localDate.atStartOfDay(zoneId).toInstant()
+            Date.from(instant)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+
+    // return the last possible moment of the previous day (i.e. yesterday ending at 23:59:59.999)
+    fun getPreviousDayEndOfDayDate(): Long {
+        // Get the system's default time zone
+        val systemDefaultZoneId: ZoneId = ZoneId.systemDefault()
+        Log.d(TAG, "getPreviousDayEndOfDayDate: Device's default time zone: $systemDefaultZoneId")
+
+        // --- Last possible moment of the previous day in device's time zone ---
+        // Get today's date in the system's default zone
+        val todayInSystemZone: LocalDate = LocalDate.now(systemDefaultZoneId)
+
+        // Get yesterday's date
+        val yesterdayInSystemZone: LocalDate = todayInSystemZone.minusDays(1)
+
+        // Define the time for the very end of the day
+        val endOfDayTime: LocalTime = LocalTime.MAX // 23:59:59.999999999
+
+        // Combine yesterday's date with the end-of-day time,
+        // then create a ZonedDateTime in the system's default zone.
+        val endOfYesterdayInSystemZone: ZonedDateTime =
+            LocalDateTime.of(yesterdayInSystemZone, endOfDayTime).atZone(systemDefaultZoneId)
+
+        Log.d(TAG, "Yesterday's date (in system zone): $yesterdayInSystemZone")
+        Log.d(TAG, "End of yesterday (23:59:59.999...) in system zone: $endOfYesterdayInSystemZone")
+
+
+        // formatting for display (optional) ---
+        // val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS Z VV")
+        // println("Formatted End of yesterday: ${endOfYesterdayInSystemZone.format(formatter)}")
+
+        val endOfYesterdayEpochMillis: Long = endOfYesterdayInSystemZone.toInstant().toEpochMilli()
+        Log.d(TAG, "End of yesterday (Epoch Millis): $endOfYesterdayEpochMillis")
+        return endOfYesterdayEpochMillis
+    }
+
+
+
+    // return the last possible moment of the current day (i.e. today ending at 23:59:59.999)
+    fun getEndOfTodayEpochMillis(): Long {
+        val zoneId: ZoneId = ZoneId.systemDefault()
+        Log.d(TAG, "getEndOfTodayEpochMillis: Device time zone: $zoneId")
+
+        val today: LocalDate = LocalDate.now(zoneId)
+        val endOfDay: LocalTime = LocalTime.MAX // 23:59:59.999999999
+
+        val endOfTodayZoned: ZonedDateTime = LocalDateTime.of(today, endOfDay).atZone(zoneId)
+
+        Log.d(TAG, "Today's date: $today")
+        Log.d(TAG, "End of today: $endOfTodayZoned")
+
+        val endOfTodayMillis: Long = endOfTodayZoned.toInstant().toEpochMilli()
+        Log.d(TAG, "End of today (Epoch Millis): $endOfTodayMillis")
+
+        return endOfTodayMillis
+    }
+
+
+
+
 
     /**
      * ---------------------------------------------------------------------------------------------
@@ -50,6 +147,7 @@ object DateUtility {
      * time zone
      * ---------------------------------------------------------------------------------------------
      */
+
     /*
          * This number represents the number of milliseconds that have elapsed since January
          * 1st, 1970 at midnight in the GMT time zone.
@@ -103,36 +201,18 @@ object DateUtility {
     }
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * This method will return the local time midnight for the provided normalized UTC date.
-     *
-     * @param normalizedUtcDate UTC time at midnight for a given date
-     * @return The local date corresponding to the given normalized UTC date
-     * ---------------------------------------------------------------------------------------------
-     */
+    // This method will return the local time midnight for the provided normalized UTC date.
     fun getLocalMidnightFromNormalizedUtcDate(normalizedUtcDate: Long): Long {
-        /* The timeZone object will provide us the current user's time zone offset */
+        // The timeZone object will provide us the current user's time zone offset */
         val timeZone = TimeZone.getDefault()
-        /*
-         * This offset, in milliseconds, when added to a UTC date time, will produce the local
-         * time.
-         */
+        // This offset, in milliseconds, when added to a UTC date time, will produce the local time.
         val gmtOffset = timeZone.getOffset(normalizedUtcDate).toLong()
         return normalizedUtcDate - gmtOffset
     }
 
 
-    /**
-     * ---------------------------------------------------------------------------------------------
-     * Returns a date string in the format specified, which shows an abbreviated date without a
-     * year.
-     *
-     * @param context      Used by DateUtils to format the date in the current locale
-     * @param timeInMillis Time in milliseconds since the epoch (local time)
-     * @return The formatted date string
-     * ---------------------------------------------------------------------------------------------
-     */
+    // Returns a date string in the format specified, which shows an abbreviated date without a year.
+
     private fun getReadableDateString(context: Context, timeInMillis: Long): String {
         val flags = (DateUtils.FORMAT_SHOW_DATE
                 or DateUtils.FORMAT_NO_YEAR

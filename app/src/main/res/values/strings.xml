@@ -1,62 +1,227 @@
 <resources>
-    <string name="app_name_subtitle">Zero waste!</string>
-    <string name="app_package" translatable="false">eu.indiewalkabout.fridgemanager</string>
 
+    <string name="app_name">FreddyFridge</string>
 
-    <!-- activity,titles and others labels  -->
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="foodExpiring_activity_title">Expiring Products List</string>
-    <string name="foodDead_activity_title">Wasted Products List</string>
-    <string name="foodSaved_activity_title">Products consumed</string>
-    <string name="insertFoodActivity_title">Insert Product</string>
-    <string name="mainSettingsActivity_title">Settings</string>
-
-    <string name="insert_food_name_tv">Product description :</string>
-    <string name="food_name_hint">Product description</string>
-    <string name="name_placeholder">Name</string>
-    <string name="choose_expiring_date_label">"Expiring Date : "</string>
-    <string name="save_btn_label">Save</string>
+    <!-- - - - - - - - - - - - - - - - - - COMMONS - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="generic_yes">Yes</string>
+    <string name="generic_no">No</string>
+    <string name="generic_ok">Ok</string>
+    <string name="generic_cancel">Cancel</string>
+    <string name="generic_save_label">Save</string>
+    <string name="generic_confirm_label">Confirm</string>
     <string name="update_btn_label">Update</string>
+    <string name="no_food_in_list">"No products here… "</string>
     <string name="delete_food_entry_btn_hint">Delete Product entry btn</string>
-    <string name="no_food_todays">"No products expiring for today ! "</string>
-    <string name="no_food_in_list">"No products here &#8230; "</string>
-    <string name="main_list_title">"Expiring Products today : "</string>
-
-    <string name="food_description_alert">Must Insert your product description &#8230;</string>
-    <string name="food_expdate_alert">Must choose a date &#8230;</string>
-    <string name="food_inserted_alert">"Inserted "</string>
-
-
-
-
-    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-    <!--                   String for Settings                       -->
-    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-
-    <!-- - - - - - - - - - - - - - - - - Category titles - - - - - - - - - - - - - - - - - - - - -->
-    <string name="category_settings_title">Settings</string>
-    <string name="category_help_title">Help</string>
+    <string name="dialog_confirm_if_consumed_text">Set Product as CONSUMED, are you sure ?</string>
+    <string name="dialog_confirm_if_not_consumed_text">Set Product as NOT CONSUMED, are you sure ?</string>
+    <string name="dialog_confirm_if_deleting_text">Are you sure you want to DELETE ?</string>
+    <string name="foodExpiring_title">Expiring Products</string>
+    <string name="foodExpiring_message">No products expiring here </string>
+    <string name="foodExpired_title">Expired Products</string>
+    <string name="foodExpired_message">No products expired here </string>
+    <string name="foodConsumed_title">Products consumed</string>
+    <string name="foodConsumed_message">No products consumed here </string>
+    <string name="food_expiring_date_label">Expiring</string>
+    <string name="food_open_label">Opened</string>
 
 
-    <!-- Settings menu item -->
-    <string name="main_settings_menu_item">Settings</string>
+
+    <!-- - - - - - - - - - - - - - - - INTRO STUFF  - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="intro_1_title">1 : Make your shopping…</string>
+    <string name="intro_1_subtitle">…and open FreddyFridge !</string>
+
+    <string name="intro_2_title">2 : Store your product and expiring date…</string>
+    <string name="intro_2_subtitle">…with the New button and Speech Recognition</string>
+
+    <string name="intro_3_title">3 : Check expiring date</string>
+    <string name="intro_3_subtitle">and be alerted before happens : no more products wasted!</string>
 
 
-    <!-- Strings for how many day before deadline notify users  -->
-    <string name="how_many_days_before_title">Days Before product-deadline notifications :</string>
-    <string name="how_many_days_before_label">How many DAYS \nBEFORE food expiration date want you to be notified ?
+    <!-- - - - - - - - - - - - - - - - PERMISSIONS - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="exact_alarm_permission_title">Exact Time Memo Alarms Permission Needed</string>
+    <string name="exact_alarm_permission_message">To ensure you receive timely notifications about your food expiration dates, %1$s needs permission to schedule exact alarms. This allows the app to notify you precisely when your food items are about to expire.\n\nPlease grant this permission to get the best experience.</string>
+    <string name="exact_alarm_permission_settings_title">Exact Alarms Permission </string>
+    <string name="exact_alarm_permission_settings_message">Allow permission to schedule exact alarms to ensure receiving timely notifications about expiration dates</string>
+    <string name="notification_permission_title">Allow Notifications</string>
+    <string name="notification_permission_message">To receive expiration alerts for your products, allow notification permissions.</string>
+    <string name="notification_permission_rationale">Notifications help you stay up-to-date on your food expirations. Enable them in your device settings.</string>
+    <string name="permission_denied_title">Permission Microfone Denied</string>
+    <string name="allow">Allow</string>
+    <string name="dont_ask_again">Don\'t ask again</string>
+    <string name="retry">Retry</string>
+    <string name="continue_text">Continue</string>
+    <string name="not_now">Not Now</string>
+    <string name="notification_permission_go_to_settings">Open Settings</string>
+
+
+    <!-- - - - - - - - - - - - - - - -  MAIN SCREENS - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="main_list_title">Expiring Products today : </string>
+    <string name="main_subtitle">Zero waste!</string>
+    <string name="no_food_todays">No products expiring for today !</string>
+
+
+    <!-- - - - - - - - - - - - - - - -  INSERT,UPDATE FOOD - - - - - - - - - - - - - - - - - - - -->
+    <string name="insert_food_title">Insert Product</string>
+    <string name="insert_food_name_tv">Product description :</string>
+    <string name="insert_food_description_hint">Description</string>
+    <string name="insert_name_placeholder">Name</string>
+    <string name="insert_expiring_date_label">Expiring</string>
+    <string name="insert_expiring_date_hint">Expiring Date</string>
+    <string name="insert_expiring_date_icon_description">Expiring Date Calendar Icon</string>
+    <string name="insert_quantity_label">Quantity</string>
+    <string name="insert_quantity_icon_description">Quantity Icon</string>
+    <string name="insert_food_description_msg">Must Insert your product description…</string>
+    <string name="insert_food_expiration_date_miss_msg">Must choose a date…</string>
+    <string name="insert_food_inserted_confirm">Inserted successfully !</string>
+    <string name="insert_speak_btn_description">Press and speak</string>
+    <string name="insert_speech_not_recognized">Try again</string>
+    <string name="insert_food_successfully">Product inserted successfully!</string>
+    <string name="update_food_successfully">Product Updated successfully!</string>
+    <string name="update_food_label">Update Product</string>
+    <string name="open_food_label">Open product</string>
+    <string name="close_food_label">Close product</string>
+    <string name="delete_food_label">Delete product</string>
+
+
+
+    <!-- - - - - - - - - - - - - - - - - - SETTINGS - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_category_title">Notifications Setting</string>
+    <string name="settings_category_help_title">Help</string>
+    <string name="settings_days_label">Days</string>
+    <string name="settings_hours_label">Daily notifications</string>
+    <string name="settings_how_many_days_before_title">Days Before product-deadline notifications :</string>
+    <string name="settings_how_many_days_before_label">How many DAYS \nBEFORE product expiration date want you to be notified ?
         (Default is 2 days before expiring date)</string>
-    <string name="days_before_deadline_count" translatable="false">days_before_deadline</string>
-    <string name="days_before_default" translatable="false">2</string>
-
-    <!-- Strings for how many hours a days for today deadline notify user -->
-    <string name="how_many_hours_title">Notifications Hours frequency during the day :</string>
-    <string name="how_many_hours_label">With what HOURS FREQUENCY \n in a day want to be notified about food expiring?
+    <string name="settings_how_many_hours_title">Daily Notifications number ( from 8:00 to 21:00 o\'clock) :</string>
+    <string name="settings_how_many_hours_label">With what HOURS FREQUENCY \n in a day want to be notified about product expiring?
         (Default is every 6 hours)</string>
-    <string name="hours_freq_today_deadline_count" translatable="false">todays_howmany_each_hours</string>
-    <string name="today_hours_repeat_default" translatable="false">@string/settings_6_hours_value</string>
+    <string name="settings_notify_every_01">Notify every </string>
+    <string name="settings_notify_every_02"> hours </string>
 
+    <string name="settings_days_alert_dialog_title">Days Alert</string>
+    <string name="settings_days_alert_dialog_msg">Days before alert value can\'t be empty</string>
+    <string name="settings_goto_system_app_settings_label">Go to system App Settings</string>
+    <string name="settings_goto_system_app_settings_title">App Settings</string>
+    <string name="settings_share_today_title">"Products expiring TODAY : "</string>
+    <string name="settings_expiring_food_list_subject">"Expiring Products global list : "</string>
+    <string name="settings_saved_food_list_subject">"Consumed Products till now : "</string>
+    <string name="settings_wasted_food_list_subject">"Expired Products till now : "</string>
+    <string name="settings_review_btn_summary">Like this app? Put a review please !</string>
+    <string name="settings_review_btn_title">App Review</string>
+    <string name="settings_myapps_btn_summary">Discover all my other apps and games!</string>
+    <string name="settings_myapps_btn_title">My Other apps and games</string>
+    <string name="settings_send_email_chooser_title">Send email via…</string>
+    <string name="settings_support_btn_key" translatable="false">goto_support_btn_key</string>
+    <string name="settings_support_btn_summary">Suggestions, bugs, errors, whatever? Drop a line here please :</string>
+    <string name="settings_support_btn_title">Support</string>
+    <string name="settings_support_choose_email_client_fallback_label">You must have an email app installed</string>
+
+    <string name="gdpr_btn_title">Privacy &amp; Ad Consent</string>
+    <string name="gdpr_btn_summary">Manage your ad personalization consent</string>
+    <string name="gdpr_dialog_will_show_again">Consent has been reset. You\'ll be asked again.</string>
+    <string name="gdpr_dialog_reset_done">Consent dialog handled.</string>
+
+
+
+    <!-- - - - - - - - - - - - - Notifications   - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="notification_nextdays_expiring_food_title">NEXT DAYS Expiring Product found, check. </string>
+    <string name="notification_nextdays_expiring_body">Click below for complete list</string>
+    <string name="notification_nextdays_expiring_channel_name" translatable="false">next-days-expiring-food  notifications</string>
+
+    <string name="notification_today_expiring_food_title">"TODAY Expiring Product FOUND, check ! "</string>
+    <string name="notification_today_expiring_body">Click below for complete list</string>
+    <string name="notification_today_expiring_channel_name" translatable="false">today-expiring-food notifications</string>
+
+    <string name="notification_show_food_expiring_action_title">Show me expiring products</string>
+    <string name="notification_show_food_expiring_today_action_title">Show me TODAY expiring products</string>
+    <string name="notification_show_food_expiring_action_label">Show me</string>
+    <string name="notification_dismiss_action_title">Got it</string>
+
+    <!-- - - - - - - - - - - - - - - - MENU LABEL   - - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="menu_home_label_item">Home</string>
+    <string name="menu_expired_label_item">Expired</string>
+    <string name="menu_consumed_label_item">Consumed</string>
+    <string name="menu_home_item">Home</string>
+    <string name="menu_expiring_label_item">Expiring</string>
+    <string name="menu_add_label_item">NEW</string>
+
+
+    <!-- - - - - - - - - - - - - - - - - -  CREDITS - - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="credits_title_label">Credits</string>
+    <string name="credits_section_subtitle_summary">See credits and attributions here.</string>
+    <string name="credits_idea_label">Idea</string>
+    <string name="credits_idea_Gil">My wife, Gigliola Rocca</string>
+    <string name="credits_gil_instagram_link">https://www.instagram.com/gidy369/</string>
+    <string name="credits_dev_design_label">Development and Design</string>
+    <string name="credits_dev_design_SM">Simone Mapelli</string>
+    <string name="credits_attributions_title">Attributions</string>
+    <string name="credits_alarm_icons_label">Alarm clock in icons</string>
+    <string name="credits_alarm_icons_link">https://www.freepik.com/free-photos-vectors/office</string>
+    <string name="credits_fridge_img_label">Fridge image</string>
+    <string name="credits_fridge_img_link">https://www.freepik.com/free-photos-vectors/food</string>
+    <string name="credits_fruits_img_label">Fruits images</string>
+    <string name="credits_fruits_img_link">https://vecteezy.com</string>
+    <string name="credits_background_label">Background</string>
+    <string name="credits_background_link">https://www.freepik.com/free-photos-vectors/background</string>
+
+
+
+    <!-- - - - - - - - - - - - - Content description  - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="background_image">background image</string>
+    <string name="app_logo_right">app logo right</string>
+    <string name="app_logo_left">app logo left</string>
+    <string name="app_logo">app logo</string>
+    <string name="settings_icon">settings icon</string>
+    <string name="help_icon">help icon</string>
+    <string name="content_menu_home_label_item">Icon Home</string>
+    <string name="content_menu_expired_label_item">Icon Expired product</string>
+    <string name="content_menu_consumed_label_item">Icon Consumed product</string>
+    <string name="content_menu_expiring_label_item">Icon Expiring product</string>
+    <string name="content_menu_add_label_item">Icon ADD product</string>
+    <string name="content_delete_food_icon">Icon delete product card</string>
+    <string name="content_expiring_date_icon">Icon for expiring date</string>
+    <string name="content_consumed_date_icon">Icon consumed product check</string>
+    <string name="content_isopen_product_icon">Icon is open product</string>
+    <string name="settings_right_arrow">Arrow to new content or options</string>
+    <string name="credits_devsubtitle_icon">Goto site icon</string>
+    <string name="credits_insta_icon">Goto instagram icon</string>
+
+
+    <!-- - - - - - - - - - - - - - - - - -  ERRORS MSG - - - - - - - - - - - - - - - - - - - - - -->
+    <string name="db_error_deleting_food_table">Error deleting product table</string>
+    <string name="db_error_deleting_food_entry">Error deleting product</string>
+    <string name="db_error_inserting_food_entry">Error inserting product</string>
+    <string name="db_error_loading_all_food">Error loading all product</string>
+    <string name="db_error_loading_consumed_food">Error loading consumed product</string>
+    <string name="db_error_loading_expired_food">Error loading expired product</string>
+    <string name="db_error_loading_expiring_food">Error loading expiring product</string>
+    <string name="db_error_loading_food">Error loading product</string>
+    <string name="db_error_loading_expiring_today_food">Error loading expiring product</string>
+    <string name="db_error_updating_done_food_entry">Error updating product</string>
+    <string name="db_error_updating_food_entry">Error updating product</string>
+
+
+
+
+
+
+
+
+    <!-- - - - - - - - - - - - - - -  NOT TRANSLATABLE - - - - - - - - - - - - - - - - - - - - - -->
+    <!--<string name="app_package" translatable="false">eu.indiewalkabout.fridgemanager</string>
+    <string name="gdpr_btn_key" translatable="false">gdpr_withdraw</string>
+    <string name="credits_btn_key" translatable="false">credits</string>
+    <string name="confirm_dialog_string_settings_icon" translatable="false">confirm dialog @string/settings_icon</string>
+    <string name="settings_days_before_deadline_count" translatable="false">days_before_deadline</string>
+    <string name="settings_days_before_default" translatable="false">2</string>
+    <string name="settings_btn_key" translatable="false">notifications_settings</string>
+    <string name="settings_hours_freq_today_deadline_count" translatable="false">todays_howmany_each_hours</string>
+    <string name="settings_review_btn_key" translatable="false">app_review_btn_key</string>
+    <string name="settings_myapps_btn_key" translatable="false">goto_myapps_btn_key</string>
+
+    <string name="settings_today_hours_repeat_default" translatable="false">@string/settings_6_hours_value</string>
     <string name="settings_1_hours_label" translatable="false">1</string>
     <string name="settings_2_hours_label" translatable="false">2</string>
     <string name="settings_3_hours_label" translatable="false">3</string>
@@ -82,125 +247,7 @@
     <string name="settings_9_hours_value" translatable="false">9</string>
     <string name="settings_10_hours_value" translatable="false">10</string>
     <string name="settings_11_hours_value" translatable="false">11</string>
-    <string name="settings_12_hours_value" translatable="false">12</string>
-
-    <!-- - - - - - - - - - - -  Help category for preferences  - - - - - - - - - - - - - - - - - -->
-    <string name="gdpr_btn_key"  translatable="false">gdpr_withdraw</string>
-    <string name="gdpr_btn_title">GDPR</string>
-    <string name="gdpr_btn_summary">GDPR Consent Withdraw.</string>
-
-
-    <string name="credits_btn_title">Credits</string>
-    <string name="credits_btn_key" translatable="false">credits</string>
-    <string name="credits_btn_summary">See credits and attributions here.</string>
-
-
-    <!-- - - - - - - - - - - - - Notifications   - - - - - - - - - - - - - - - - - - - - - - - - -->
-    <string name="nextdays_expiring_food_notification_title">NEXT DAYS Expiring Foods found, check. </string>
-    <string name="nextdays_expiring_notification_body">Click below for complete list</string>
-    <string name="nextdays_expiring_notification_channel_name" translatable="false">next-days-expiring-food  notifications</string>
-
-    <string name="today_expiring_food_notification_title">"TODAY Expiring Product FOUND, check ! "</string>
-    <string name="today_expiring_notification_body">Click below for complete list</string>
-    <string name="today_expiring_notification_channel_name" translatable="false">today-expiring-food notifications</string>
-
-    <string name="show_food_expiring_action_title">Show me expiring products</string>
-    <string name="show_food_expiring_today_action_title">Show me TODAY expiring products</string>
-    <string name="dismiss_notification_action_title">Got it</string>
-
-    <string name="settings_notify_every_01">Notify every </string>
-    <string name="settings_notify_every_02"> hours </string>
-
-
-
-    <!-- - - - - - - - - - - - - FAB menu label   - - - - - - - - - - - - - - - - - - - - - - - -->
-    <string name="home_label">Home</string>
-    <string name="wasted_label">Wasted</string>
-    <string name="consumed_label">Eaten</string>
-    <string name="expiring_label">Expiring</string>
-    <string name="add_label">NEW</string>
-
-
-    <!-- - - - - - - - - - - - - Content Descriptions   - - - - - - - - - - - - - - - - - - - - -->
-    <string name="speak_btn_description">Press and speak</string>
-    <string name="speech_not_recognized">Try again</string>
-
-
-
-    <!-- - - - - - - - - - - - - Credits text   - - - - - - - - - - - - - - - - - - - - - - - -  -->
-    <string name="credits_text" translatable="false">
-        <b>CREDITS &amp; ATTRIBUTIONS</b>\n
-
-        <b>Idea</b>\n
-        Gigliola Rocca\n\n
-
-        <b>Development and Design</b>\n
-        Simone Mapelli\n
-        <a href='http://www.indie-walkabout.eu/'> www.indie-walkabout.eu </a>\n\n
-
-        <b>Attributions</b>\n\n
-
-        Alarm clock in icons :\n
-        <a href="https://www.freepik.com/free-photos-vectors/office">Office vector created by dooder - www.freepik.com</a>\n\n
-
-        Fridge image :\n
-        <a href="https://www.freepik.com/free-photos-vectors/food">Food vector created by freepik - www.freepik.com</a>\n\n
-
-        Fruits images :\n
-        <a rel="nofollow" href="https://vecteezy.com">Graphics Provided by www.Vecteezy.com</a>\n\n
-
-        Background : \n
-        <a href="https://www.freepik.com/free-photos-vectors/background">Background vector created by freepik - www.freepik.com</a>\n
-    </string>
-
-
-    <!-- - - - - - - - - - - - - Confirm dialog  - - - - - - - - - - - - - - - - - - - - - - - - -->
-    <string name="confirm_if_consumed_text">Set Product as CONSUMED, are you sure ?</string>
-    <string name="confirm_if_not_consumed_text">Set Product as NOT CONSUMED, are you sure ?</string>
-    <string name="confirm_if_deleting_text">Are you sure you want to DELETE ?</string>
-
-    <!-- - - - - - - - - - - - - Content description  - - - - - - - - - - - - - - - - - - - - - -->
-    <string name="background_image">background image</string>
-    <string name="app_logo_right">app logo right</string>
-    <string name="app_logo_left">app logo left</string>
-    <string name="app_logo">app logo</string>
-    <string name="settings_icon">settings icon</string>
-    <string name="confirm_dialog_string_settings_icon" translatable="false">confirm dialog @string/settings_icon</string>
-
-
-    <!-- - - - - - - - - - - - - Intro stuff  - - - - - - - - - - - - - - - - - - - - - - - - -  -->
-
-    <string name="intro_1_title">1 : Make your shopping &#8230;</string>
-    <string name="intro_1_subtitle">&#8230; and open FreddyFridge !</string>
-
-    <string name="intro_2_title">2 : Store your product and expiring date &#8230;</string>
-    <string name="intro_2_subtitle">&#8230; with the New button and Speech Recognition</string>
-
-    <string name="intro_3_title">3 : Check expiring date</string>
-    <string name="intro_3_subtitle">and be alerted before happens : no more products wasted!</string>
-
-    <!-- - - - - - - - - - - - - Preferences - - - - - - - - - - - - - - - - - - - - - - - - -  -->
-    <string name="days_alert_dialog_title">Days Alert</string>
-    <string name="days_alert_dialog_msg">Days before alert value can\'t be empty</string>
-    <string name="app_settings_btn_key" translatable="false">notifications_settings</string>
-    <string name="goto_app_settings_description">Go to system App Settings</string>
-    <string name="goto_app_settings_title">App Settings</string>
-    <string name="share_today_title">"Products expiring TODAY : "</string>
-    <string name="expiring_food_list_subject">"Expiring Products global list : "</string>
-    <string name="saved_food_list_subject">"Saved Products till now : "</string>
-    <string name="wasted_food_list_subject">"WASTED Products till now : "</string>
-
-    <string name="review_btn_key"  translatable="false">app_review_btn_key</string>
-    <string name="review_btn_summary">Like this app? Left a review please !</string>
-    <string name="review_btn_title">App Review</string>
-
-    <string name="myapps_btn_key"  translatable="false">goto_myapps_btn_key</string>
-    <string name="myapps_btn_summary">Discover all my other apps and games!</string>
-    <string name="myapps_btn_title">My Other apps and games</string>
-
-    <string name="support_btn_key"  translatable="false">goto_support_btn_key</string>
-    <string name="support_btn_summary">Suggestions, bugs, errors, whatever? drop a line  here please : indie.walkabout.71@gmail.com</string>
-    <string name="support_btn_title">Support</string>
+    <string name="settings_12_hours_value" translatable="false">12</string>-->
 
 
 </resources>
