@@ -19,9 +19,9 @@ fun AdMobBannerView(
     modifier: Modifier = Modifier
         .fillMaxWidth()
         .height(60.dp),
-    adUnitId: String = "ca-app-pub-3940256099942544/6300978111" // test unit by default
+    adUnitId: String
 ) {
-    /*if (FreddyFridgeApp.canRequestAdsFlag) {
+    if (FreddyFridgeApp.canRequestAdsFlag) {
         AndroidView(
             modifier = modifier,
             factory = { context ->
@@ -32,7 +32,7 @@ fun AdMobBannerView(
                 }
             }
         )
-    }*/
+    }
 }
 
 
