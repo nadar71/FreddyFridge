@@ -27,8 +27,7 @@ Check out it on [Google Play](https://play.google.com/store/apps/details?id=eu.i
 
 - beautiful and relaxing graphic
 
-<<<<<<< HEAD
-=======
+
 **Screenshots** :
 
 Here's a glimpse of FreddyFridge in action:
@@ -45,7 +44,6 @@ Here's a glimpse of FreddyFridge in action:
   <img src="./screenshots/7.png" alt="Screenshot 7" width="200"/>
 </p>
 <br>
->>>>>>> develop
 
 
 
