@@ -308,7 +308,7 @@ fun MainScreen(
                 Spacer(modifier = Modifier.height(16.dp)) // Space between card and ad
 
                 // Ad Banner
-                AdMobBannerView()
+                AdMobBannerView(adUnitId = stringResource(R.string.admob_key_bottom_banner))
             }
         }
 
