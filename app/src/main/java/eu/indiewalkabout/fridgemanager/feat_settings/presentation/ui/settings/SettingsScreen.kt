@@ -349,7 +349,7 @@ fun SettingsScreen() {
 
                 Spacer(modifier = Modifier.height(4.dp))
 
-                AdMobBannerView()
+                AdMobBannerView(adUnitId = stringResource(R.string.admob_key_bottom_banner))
 
                 Spacer(modifier = Modifier.height(4.dp))
 

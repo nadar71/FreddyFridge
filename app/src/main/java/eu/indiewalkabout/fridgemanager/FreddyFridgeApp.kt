@@ -18,7 +18,7 @@ class FreddyFridgeApp() : Application() {
         lateinit var TEST_DEVICE_ID: String
         lateinit var appContext: Application
         lateinit var alarmReminderScheduler: AlarmReminderScheduler
-        var canRequestAdsFlag: Boolean = false
+        var canRequestAdsFlag: Boolean = true
         /*// Implement a function to display an ad if the surfacing is ready:
         fun displayUnityInterstitialAd(activity: Activity, surfacingId: String) {
             if (UnityAds.isReady(surfacingId)) {
