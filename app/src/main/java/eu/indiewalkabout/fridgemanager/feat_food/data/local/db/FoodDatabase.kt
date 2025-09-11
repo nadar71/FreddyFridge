@@ -12,10 +12,9 @@ import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 @Database(
     entities = [FoodEntry::class],
     version = 6,
-    exportSchema = false
+    exportSchema = true
 )
 @TypeConverters(DateConverter::class)
-
 abstract class FoodDatabase : RoomDatabase() {
     abstract fun foodDbDao(): FoodDbDao
 

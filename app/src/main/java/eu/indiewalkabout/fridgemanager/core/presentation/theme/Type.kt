@@ -75,7 +75,6 @@ val QuickSand = FontFamily(
 
 
 // text styles
-
 @Composable
 fun text_26(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
     color = color,
