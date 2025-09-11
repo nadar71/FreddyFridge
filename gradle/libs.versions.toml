@@ -2,6 +2,7 @@
 accompanistPager = "0.22.0-rc"
 accompanistPermissions = "0.31.2-alpha"
 agp = "8.9.1"
+appUpdateKtx = "2.1.0"
 coilCompose = "2.2.1"
 coilComposeVersion = "2.2.1"
 converterGson = "2.11.0"
@@ -39,6 +40,7 @@ constraintlayoutCompose = "1.1.1"
 playServicesAds = "24.5.0"
 preferenceKtx = "1.2.1"
 retrofit = "2.11.0"
+review = "2.0.2"
 roomKtx = "2.7.1"
 roomRuntime = "2.7.1"
 
@@ -63,6 +65,7 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-lifecycle-runtime-ktx-v251 = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtxVersion" }
 androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
 androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
+app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "appUpdateKtx" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
@@ -117,6 +120,7 @@ okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
 okhttp-urlconnection = { module = "com.squareup.okhttp3:okhttp-urlconnection", version.ref = "okhttpUrlconnection" }
 multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
+review = { module = "com.google.android.play:review", version.ref = "review" }
 unity-ads = { module = "com.unity3d.ads:unity-ads", version.ref = "unityAds" }
 androidx-hilt-common = { group = "androidx.hilt", name = "hilt-common", version.ref = "hiltCommon" }
 user-messaging-platform = { module = "com.google.android.ump:user-messaging-platform", version.ref = "userMessagingPlatform" }
