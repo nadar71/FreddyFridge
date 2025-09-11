@@ -20,6 +20,7 @@ import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderSc
 import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_OPENINGS
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
+import eu.indiewalkabout.fridgemanager.core.util.ReviewManagerUtil
 import eu.indiewalkabout.fridgemanager.feat_ads.util.ConsentManager
 import eu.indiewalkabout.fridgemanager.feat_ads.util.RequestConfigurationUtils
 import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
@@ -48,6 +49,9 @@ class MainActivity: AppCompatActivity()  {
 
         // Set your test devices.
         RequestConfigurationUtils.setTestDeviceIds()
+
+        // Request review
+        ReviewManagerUtil.requestReviewIfEligible(this)
 
         // Check consent
         ConsentManager.requestConsent(this, this@MainActivity) { canRequestAds ->

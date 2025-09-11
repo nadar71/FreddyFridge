@@ -50,6 +50,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
     implementation(libs.androidx.ui.test.android)
+    implementation(libs.review)
+    implementation(libs.app.update.ktx)
 
     // compose
     implementation(platform(libs.androidx.compose.bom))
@@ -119,7 +121,7 @@ dependencies {
     implementation(libs.user.messaging.platform)
 
     // Unity
-    implementation(libs.unity.ads)
+    // implementation(libs.unity.ads)
 
     // Preference
     implementation(libs.androidx.preference.ktx)
