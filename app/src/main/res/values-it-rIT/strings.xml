@@ -26,11 +26,6 @@
     <string name="food_open_label">Aperto</string>
 
     <!-- - - - - - - - - - - - - - - - INTRO STUFF  - - - - - - - - - - - - - - - - - - - - - - -->
-    <string-array name="splash_messages">
-        <item>Raffreddo i tuoi alimenti…</item>
-        <item>Sto preparando il frigo…</item>
-        <item>Quasi pronto…</item>
-    </string-array>
     <string name="intro_1_title">1 : Fai la tua spesa…</string>
     <string name="intro_1_subtitle">…e poi apri FreddyFridge !</string>
 
