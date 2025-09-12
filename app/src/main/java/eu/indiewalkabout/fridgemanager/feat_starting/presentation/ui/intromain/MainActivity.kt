@@ -33,7 +33,6 @@ import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.needsE
 import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.openAlarmSettings
 
 
-@AndroidEntryPoint
 class MainActivity: AppCompatActivity()  {
     val TAG = "MainActivity"
 
