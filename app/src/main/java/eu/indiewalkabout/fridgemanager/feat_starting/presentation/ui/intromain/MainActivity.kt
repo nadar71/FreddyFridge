@@ -115,63 +115,7 @@ class MainActivity: AppCompatActivity()  {
                 }
             }
         }
-
-        /*setContent {
-            FreddyFridgeTheme {
-                val context = LocalContext.current
-                var showNotificationPermissionDialog by remember { mutableStateOf(true) }
-                var askForExactAlarmPermission by remember { mutableStateOf(false) }
-                var showExactAlarmPermissionDialog by remember {
-                    mutableStateOf(needsExactAlarmPermissionCheck() && !context.canScheduleExactAlarms())
-                }
-
-                if (showNotificationPermissionDialog &&
-                    AppPreferences.app_opening_counter < NUM_MAX_OPENINGS &&
-                    !AppPreferences.dontask_again_notification_permissions) {
-                    NotificationPermissionDialog(
-                        onDismiss = {
-                            showNotificationPermissionDialog = false
-                            askForExactAlarmPermission = true
-                                    },
-                        onPermissionGranted = {
-                            showNotificationPermissionDialog = false
-                            askForExactAlarmPermission = true
-                        }
-                    )
-                } else {
-                    askForExactAlarmPermission = true
-                }
-
-                if (askForExactAlarmPermission &&
-                    showExactAlarmPermissionDialog &&
-                    AppPreferences.app_opening_counter < NUM_MAX_OPENINGS) {
-                    RequestExactAlarmPermissionDialog(
-                        onDismiss = {
-                            showExactAlarmPermissionDialog = false
-                            // Schedule alarms anyway, even if inexact
-                            alarmReminderScheduler.setRepeatingAlarm()
-                        },
-                        onPermissionGranted = {
-                            // Only open settings if we're on Android S+
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                                context.openAlarmSettings()
-                            }
-                            // Schedule alarms, they'll be exact if permission was granted
-                            alarmReminderScheduler.setRepeatingAlarm()
-                            showExactAlarmPermissionDialog = false
-                        }
-                    )
-                } else {
-                    // If we don't need to show the dialog, just schedule the alarms
-                    LaunchedEffect(Unit) {
-                        alarmReminderScheduler.setRepeatingAlarm()
-                    }
-                }
-
-                AppNavigation.NavigationInit()
-                NavigationGraph(AppNavigation.appNavHostController)
-            }
-        }*/
+        
     }
 
     override fun onNewIntent(intent: Intent) {

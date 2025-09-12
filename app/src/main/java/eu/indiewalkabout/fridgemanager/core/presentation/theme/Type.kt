@@ -78,7 +78,7 @@ val QuickSand = FontFamily(
 @Composable
 fun text_26(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
     color = color,
-    fontFamily = FontFamily.Default,
+    fontFamily = Fredoka,
     fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
     fontSize = 26.sp
 )
@@ -86,7 +86,7 @@ fun text_26(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
 @Composable
 fun text_24(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
     color = color,
-    fontFamily = FontFamily.Default,
+    fontFamily = Fredoka,
     fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
     fontSize = 24.sp
 )
@@ -94,7 +94,7 @@ fun text_24(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
 @Composable
 fun text_20(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
     color = color,
-    fontFamily = FontFamily.Default,
+    fontFamily = Fredoka,
     fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
     fontSize = 20.sp
 )
@@ -102,7 +102,7 @@ fun text_20(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
 @Composable
 fun text_18(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
     color = color,
-    fontFamily = FontFamily.Default,
+    fontFamily = Fredoka,
     fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
     fontSize = 18.sp
 )
@@ -110,7 +110,7 @@ fun text_18(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
 @Composable
 fun text_17(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
     color = color,
-    fontFamily = FontFamily.Default,
+    fontFamily = Fredoka,
     fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
     fontSize = 17.sp
 )
@@ -118,7 +118,7 @@ fun text_17(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
 @Composable
 fun text_16(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
     color = color,
-    fontFamily = FontFamily.Default,
+    fontFamily = Fredoka,
     fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
     fontSize = 16.sp
 )
@@ -126,7 +126,7 @@ fun text_16(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
 @Composable
 fun text_15(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
     color = color,
-    fontFamily = FontFamily.Default,
+    fontFamily = Fredoka,
     fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
     fontSize = 15.sp
 )
@@ -134,7 +134,7 @@ fun text_15(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
 @Composable
 fun text_14(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
     color = color,
-    fontFamily = FontFamily.Default,
+    fontFamily = Fredoka,
     fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
     fontSize = 14.sp
 )
@@ -142,7 +142,7 @@ fun text_14(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
 @Composable
 fun text_13(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
     color = color,
-    fontFamily = FontFamily.Default,
+    fontFamily = Fredoka,
     fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
     fontSize = 13.sp
 )
@@ -150,7 +150,7 @@ fun text_13(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
 @Composable
 fun text_12(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
     color = color,
-    fontFamily = FontFamily.Default,
+    fontFamily = Fredoka,
     fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
     fontSize = 12.sp
 )
@@ -158,7 +158,7 @@ fun text_12(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
 @Composable
 fun text_8(color: Color, isBold: Boolean = false): TextStyle = TextStyle(
     color = color,
-    fontFamily = FontFamily.Default,
+    fontFamily = Fredoka,
     fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
     fontSize = 8.sp
 )
