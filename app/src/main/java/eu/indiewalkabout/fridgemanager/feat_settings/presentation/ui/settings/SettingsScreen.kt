@@ -30,6 +30,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -43,10 +44,12 @@ import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_DAYS_B
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_DAILY_NOTIFICATIONS_NUMBER
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.support_email
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
+import eu.indiewalkabout.fridgemanager.core.presentation.components.GeneralModalDialog
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.alertRed
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_20
@@ -78,6 +81,7 @@ fun SettingsScreen() {
 
     val scrollState = rememberScrollState()
     var isFabVisible by remember { mutableStateOf(true) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
 
 
     var showDaysBeforeWheelPicker by remember { mutableStateOf(false) }
@@ -273,6 +277,14 @@ fun SettingsScreen() {
                         }
                     )
 
+                    SettingsItem(
+                        title = stringResource(id = R.string.settings_reset_btn_title),
+                        subtitle = stringResource(id = R.string.settings_reset_btn_description),
+                        modifier = Modifier.clickable {
+                            showDeleteDialog = true
+                        }
+                    )
+
 
                     // Test Notifications Section
                     /*Text(
@@ -357,6 +369,41 @@ fun SettingsScreen() {
         }
 
     }
+
+    // delete dialog
+    if (showDeleteDialog) {
+        GeneralModalDialog(
+            title = stringResource(id = R.string.settings_delete_confirm_title),
+            titleStyle = text_20(colors.brown, true),
+            message = stringResource(id = R.string.settings_delete_confirm_description),
+            messageStyle = text_16(colors.brown),
+            image = R.drawable.ic_warning_white,
+            buttonStrokeWidth = 1.dp,
+            buttonStrokeColor = secondaryColor,
+            leftButtonLabel = stringResource(id = R.string.generic_reset_label),
+            rightButtonLabel = stringResource(id = R.string.generic_cancel),
+            leftButtonBackgroundColor = alertRed,
+            rightButtonBackgroundColor = Color.Gray,
+            onLeftButtonAction = {
+                showDeleteDialog = false
+                AppPreferences.clear()
+                context.databaseList().forEach { dbName ->
+                    context.deleteDatabase(dbName)
+                }
+                context.cacheDir.deleteRecursively()
+                Toast.makeText(context, context.getString(R.string.settings_delete_end_description),
+                    Toast.LENGTH_LONG).show()
+                // activity?.recreate()
+            },
+            onRightButtonAction = {
+                showDeleteDialog = false
+            },
+            onDismissRequest = {
+                showDeleteDialog = false
+            }
+        )
+    }
+
 }
 
 @Preview

@@ -8,6 +8,7 @@
     <string name="generic_ok">Ok</string>
     <string name="generic_cancel">Annulla</string>
     <string name="generic_save_label">Salva</string>
+    <string name="generic_reset_label">Reset</string>
     <string name="generic_confirm_label">Conferma</string>
     <string name="update_btn_label">Aggiorna</string>
     <string name="no_food_in_list">Non vedo prodotti qua…</string>
@@ -109,7 +110,11 @@
     <string name="settings_support_btn_title">Supporto</string>
     <string name="settings_support_choose_email_client_fallback_label">È necessario avere installata un\'app di posta elettronica</string>
     <string name="settings_send_email_chooser_title">Invia email con…</string>
-
+    <string name="settings_reset_btn_title">Reset App</string>
+    <string name="settings_reset_btn_description">Fai clic qui per eliminare tutti i dati o in caso di problemi (anomalie post aggiornamento, dati non salvati e così via)\nQuesto cancellerà le preferenze, il database e la cache</string>
+    <string name="settings_delete_confirm_title">Reset App</string>
+    <string name="settings_delete_confirm_description">Confermi l\'operazione? Tutti i dati verranno cancellati senza possibilità di recupero.</string>
+    <string name="settings_delete_end_description">Tutti i dati sono stati cancellati.</string>
     <string name="gdpr_btn_title">Privacy e consenso per gli annunci</string>
     <string name="gdpr_btn_summary">Gestisci il tuo consenso per la personalizzazione degli annunci</string>
     <string name="gdpr_dialog_will_show_again">Il consenso è stato reimpostato. Ti verrà chiesto di nuovo.</string>
