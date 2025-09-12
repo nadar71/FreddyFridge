@@ -26,8 +26,12 @@
     <string name="food_open_label">Opened</string>
 
 
-
     <!-- - - - - - - - - - - - - - - - INTRO STUFF  - - - - - - - - - - - - - - - - - - - - - - -->
+    <string-array name="splash_messages">
+        <item>Cooling your groceries…</item>
+        <item>Getting things ready…</item>
+        <item>Almost there…</item>
+    </string-array>
     <string name="intro_1_title">1 : Make your shopping…</string>
     <string name="intro_1_subtitle">…and open FreddyFridge !</string>
 
@@ -84,7 +88,6 @@
     <string name="delete_food_label">Delete product</string>
 
 
-
     <!-- - - - - - - - - - - - - - - - - - SETTINGS - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="settings_title">Settings</string>
     <string name="settings_menu_item">Settings</string>
@@ -130,7 +133,6 @@
     <string name="gdpr_dialog_reset_done">Consent dialog handled.</string>
 
 
-
     <!-- - - - - - - - - - - - - Notifications   - - - - - - - - - - - - - - - - - - - - - - - - -->
     <string name="notification_nextdays_expiring_food_title">NEXT DAYS Expiring Product found, check. </string>
     <string name="notification_nextdays_expiring_body">Click below for complete list</string>
@@ -173,7 +175,6 @@
     <string name="credits_background_link">https://www.freepik.com/free-photos-vectors/background</string>
 
 
-
     <!-- - - - - - - - - - - - - Content description  - - - - - - - - - - - - - - - - - - - - - -->
     <string name="background_image">background image</string>
     <string name="app_logo_right">app logo right</string>
@@ -207,8 +208,7 @@
     <string name="db_error_loading_expiring_today_food">Error loading expiring product</string>
     <string name="db_error_updating_done_food_entry">Error updating product</string>
     <string name="db_error_updating_food_entry">Error updating product</string>
-
-
+    <string name="title_activity_splash">SplashActivity</string>
 
 
 </resources>
