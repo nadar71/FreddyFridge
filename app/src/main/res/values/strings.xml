@@ -8,6 +8,7 @@
     <string name="generic_ok">Ok</string>
     <string name="generic_cancel">Cancel</string>
     <string name="generic_save_label">Save</string>
+    <string name="generic_reset_label">Reset</string>
     <string name="generic_confirm_label">Confirm</string>
     <string name="update_btn_label">Update</string>
     <string name="no_food_in_list">"No products here… "</string>
@@ -117,6 +118,11 @@
     <string name="settings_support_btn_summary">Suggestions, bugs, errors, whatever? Drop a line here please :</string>
     <string name="settings_support_btn_title">Support</string>
     <string name="settings_support_choose_email_client_fallback_label">You must have an email app installed</string>
+    <string name="settings_reset_btn_title">Reset Data</string>
+    <string name="settings_reset_btn_description">Click this to delete all data or in case of problem ( issues after an update,data not saved and so on)\nThis will erase preferences, database, and cache</string>
+    <string name="settings_delete_confirm_title">Reset App</string>
+    <string name="settings_delete_confirm_description">Are you sure you want to delete this app? All data will be deleted beyond recovery.</string>
+    <string name="settings_delete_end_description">All data deleted.</string>
 
     <string name="gdpr_btn_title">Privacy &amp; Ad Consent</string>
     <string name="gdpr_btn_summary">Manage your ad personalization consent</string>
@@ -203,51 +209,6 @@
     <string name="db_error_updating_food_entry">Error updating product</string>
 
 
-
-
-
-
-
-
-    <!-- - - - - - - - - - - - - - -  NOT TRANSLATABLE - - - - - - - - - - - - - - - - - - - - - -->
-    <!--<string name="app_package" translatable="false">eu.indiewalkabout.fridgemanager</string>
-    <string name="gdpr_btn_key" translatable="false">gdpr_withdraw</string>
-    <string name="credits_btn_key" translatable="false">credits</string>
-    <string name="confirm_dialog_string_settings_icon" translatable="false">confirm dialog @string/settings_icon</string>
-    <string name="settings_days_before_deadline_count" translatable="false">days_before_deadline</string>
-    <string name="settings_days_before_default" translatable="false">2</string>
-    <string name="settings_btn_key" translatable="false">notifications_settings</string>
-    <string name="settings_hours_freq_today_deadline_count" translatable="false">todays_howmany_each_hours</string>
-    <string name="settings_review_btn_key" translatable="false">app_review_btn_key</string>
-    <string name="settings_myapps_btn_key" translatable="false">goto_myapps_btn_key</string>
-
-    <string name="settings_today_hours_repeat_default" translatable="false">@string/settings_6_hours_value</string>
-    <string name="settings_1_hours_label" translatable="false">1</string>
-    <string name="settings_2_hours_label" translatable="false">2</string>
-    <string name="settings_3_hours_label" translatable="false">3</string>
-    <string name="settings_4_hours_label" translatable="false">4</string>
-    <string name="settings_5_hours_label" translatable="false">5</string>
-    <string name="settings_6_hours_label" translatable="false">6</string>
-    <string name="settings_7_hours_label" translatable="false">7</string>
-    <string name="settings_8_hours_label" translatable="false">8</string>
-    <string name="settings_9_hours_label" translatable="false">9</string>
-    <string name="settings_10_hours_label" translatable="false">10</string>
-    <string name="settings_11_hours_label" translatable="false">11</string>
-    <string name="settings_12_hours_label" translatable="false">12</string>
-
-
-    <string name="settings_1_hours_value" translatable="false">1</string>
-    <string name="settings_2_hours_value" translatable="false">2</string>
-    <string name="settings_3_hours_value" translatable="false">3</string>
-    <string name="settings_4_hours_value" translatable="false">4</string>
-    <string name="settings_5_hours_value" translatable="false">5</string>
-    <string name="settings_6_hours_value" translatable="false">6</string>
-    <string name="settings_7_hours_value" translatable="false">7</string>
-    <string name="settings_8_hours_value" translatable="false">8</string>
-    <string name="settings_9_hours_value" translatable="false">9</string>
-    <string name="settings_10_hours_value" translatable="false">10</string>
-    <string name="settings_11_hours_value" translatable="false">11</string>
-    <string name="settings_12_hours_value" translatable="false">12</string>-->
 
 
 </resources>
