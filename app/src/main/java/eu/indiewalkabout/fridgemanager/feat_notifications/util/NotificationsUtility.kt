@@ -16,7 +16,7 @@ import androidx.core.graphics.drawable.toBitmap
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
-import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.NavigationScreenConstants
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.NavigationScreenConstants
 import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain.MainActivity
 
 // TODO : All the part commented here is to be refactored to use workmanager

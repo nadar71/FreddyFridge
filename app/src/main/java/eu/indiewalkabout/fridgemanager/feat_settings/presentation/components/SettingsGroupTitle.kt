@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components
+package eu.indiewalkabout.fridgemanager.feat_settings.presentation.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text

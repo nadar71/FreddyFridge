@@ -1,4 +1,4 @@
-package eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation
+package eu.indiewalkabout.fridgemanager.core.presentation.navigation
 
 sealed class AppDestinationRoutes(var name:String, var route:String) {
 

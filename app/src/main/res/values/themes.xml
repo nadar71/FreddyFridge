@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.FreddyFridge_StartingOver" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.MyApp.Splash" parent="Theme.SplashScreen">
+        <!-- Background -->
+        <item name="windowSplashScreenBackground">@color/background_lightgreen_semitransparent</item>
+        <!-- Keep the system splash background-only -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_transparent_icon</item>
+        <!-- After splash, apply main theme -->
+        <item name="postSplashScreenTheme">@style/AppTheme</item>
+    </style>
 </resources>
