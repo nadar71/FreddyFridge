@@ -1,7 +1,6 @@
 package eu.indiewalkabout.fridgemanager.feat_food.presentation.ui
 
 
-import android.R.id.message
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
@@ -33,9 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.core.presentation.components.AdBannerPlaceholder
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
-import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.components.BottomNavigationBar
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.ProductListCard
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors

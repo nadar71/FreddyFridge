@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidx.ui.test.android)
     implementation(libs.review)
     implementation(libs.app.update.ktx)
+    implementation(libs.androidx.core.splashscreen)
 
     // compose
     implementation(platform(libs.androidx.compose.bom))

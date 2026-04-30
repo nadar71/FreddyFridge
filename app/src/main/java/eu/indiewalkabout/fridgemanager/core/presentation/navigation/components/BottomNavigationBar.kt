@@ -1,7 +1,5 @@
-package eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components
+package eu.indiewalkabout.fridgemanager.core.presentation.navigation.components
 
-import android.R.attr.label
-import android.R.attr.onClick
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -10,10 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import eu.indiewalkabout.fridgemanager.R
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestinationRoutes
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppNavigation
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_12
-import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppDestinationRoutes
-import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation.navigate
 
 
 @Composable
@@ -48,7 +46,7 @@ fun BottomNavigationBar(
 
         NavigationBarItem(
             selected = false,
-            onClick = { navigate(AppDestinationRoutes.FoodExpiredScreen.route) },
+            onClick = { AppNavigation.navigate(AppDestinationRoutes.FoodExpiredScreen.route) },
             icon = {
                 Icon(
                 painter = painterResource(id = R.drawable.ic_ghost),
@@ -65,7 +63,7 @@ fun BottomNavigationBar(
         )
         NavigationBarItem(
             selected = false,
-            onClick = { navigate(AppDestinationRoutes.FoodConsumedScreen.route) },
+            onClick = { AppNavigation.navigate(AppDestinationRoutes.FoodConsumedScreen.route) },
             icon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_done_all_white),
@@ -84,7 +82,7 @@ fun BottomNavigationBar(
 
         NavigationBarItem(
             selected = false,
-            onClick = { navigate(AppDestinationRoutes.MainScreen.route) },
+            onClick = { AppNavigation.navigate(AppDestinationRoutes.MainScreen.route) },
             icon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_home),
@@ -103,7 +101,7 @@ fun BottomNavigationBar(
 
         NavigationBarItem(
             selected = false,
-            onClick = { navigate(AppDestinationRoutes.FoodExpiringScreen.route) },
+            onClick = { AppNavigation.navigate(AppDestinationRoutes.FoodExpiringScreen.route) },
             icon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_hourglass),

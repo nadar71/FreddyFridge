@@ -1,14 +1,15 @@
-package eu.indiewalkabout.fridgemanager.feat_navigation.domain.model
+package eu.indiewalkabout.fridgemanager.core.presentation.navigation.components
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import eu.indiewalkabout.fridgemanager.R // Make sure this points to your resources
 
+// * Not used, preferred other approach for changing color/showing text when selected
 sealed class BottomNavItem(
     val route: String,
     @DrawableRes val icon: Int,
     @StringRes val label: Int,
-    @StringRes val contentDescription: Int // Added for accessibility
+    @StringRes val contentDescription: Int // accessibility
 ) {
     object Expired : BottomNavItem(
         route = "food_expired",

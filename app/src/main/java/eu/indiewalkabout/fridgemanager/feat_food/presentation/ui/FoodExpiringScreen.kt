@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.core.presentation.components.AdBannerPlaceholder
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.ProductListCard
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
@@ -46,7 +45,7 @@ import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiSt
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.util.sortedByOpenStatus
-import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.components.BottomNavigationBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

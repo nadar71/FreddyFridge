@@ -36,7 +36,8 @@ class MainViewModel @Inject constructor(
             } catch (e: Exception) {
                 _foodListUiState.value = FoodListUiState.Error(
                     ErrorResponse(0, emptyList(), e.message ?: "Unknown error")
-                )            }
+                )
+            }
         }
     }
 

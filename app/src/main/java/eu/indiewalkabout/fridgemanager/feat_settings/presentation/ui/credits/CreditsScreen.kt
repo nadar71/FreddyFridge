@@ -8,33 +8,25 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.my_website
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.Fredoka
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_14
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.openUrlInBrowserNotCompose
-import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppDestinationRoutes
-import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation.navigate
-import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components.SettingsGroupTitle
-import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components.SettingsItem
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestinationRoutes
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppNavigation.navigate
+import eu.indiewalkabout.fridgemanager.feat_settings.presentation.components.SettingsGroupTitle
+import eu.indiewalkabout.fridgemanager.feat_settings.presentation.components.SettingsItem
 
 @Composable
 fun CreditsScreen() {

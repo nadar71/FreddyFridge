@@ -1,11 +1,9 @@
-package eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components
+package eu.indiewalkabout.fridgemanager.feat_settings.presentation.components
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -20,7 +18,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.Fredoka
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors

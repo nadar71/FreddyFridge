@@ -2,13 +2,9 @@ package eu.indiewalkabout.fridgemanager
 
 import android.app.Application
 import com.google.android.gms.ads.MobileAds
-import com.google.android.ump.ConsentInformation
-import com.google.android.ump.UserMessagingPlatform
 import dagger.hilt.android.HiltAndroidApp
-import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.util.ReviewManagerUtil
 import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.AlarmReminderScheduler
-import java.security.AccessController.getContext
 
 
 @HiltAndroidApp

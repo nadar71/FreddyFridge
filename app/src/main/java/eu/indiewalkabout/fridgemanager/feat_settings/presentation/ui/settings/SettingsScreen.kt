@@ -3,9 +3,6 @@ package eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.LocalActivity
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,26 +10,18 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.FloatingActionButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -50,7 +39,6 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.alertRed
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_20
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.openAppSettings
@@ -60,13 +48,12 @@ import eu.indiewalkabout.fridgemanager.core.util.extensions.sendEmail
 import eu.indiewalkabout.fridgemanager.feat_ads.presentation.AdMobBannerView
 import eu.indiewalkabout.fridgemanager.feat_ads.util.ConsentManager
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.NumberPickerWithTitle
-import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppDestinationRoutes
-import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation
-import eu.indiewalkabout.fridgemanager.feat_navigation.domain.navigation.AppNavigation.navigate
-import eu.indiewalkabout.fridgemanager.feat_navigation.presentation.components.BottomNavigationBar
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestinationRoutes
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppNavigation.navigate
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.components.BottomNavigationBar
 import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.openAppSettings
-import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components.SettingsGroupTitle
-import eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings.components.SettingsItem
+import eu.indiewalkabout.fridgemanager.feat_settings.presentation.components.SettingsGroupTitle
+import eu.indiewalkabout.fridgemanager.feat_settings.presentation.components.SettingsItem
 
 @Composable
 fun SettingsScreen() {
