@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.Image
@@ -28,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -55,6 +57,7 @@ import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.canSch
 import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.needsExactAlarmPermissionCheck
 import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.openAlarmSettings
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -65,15 +68,7 @@ class MainActivity: AppCompatActivity()  {
     private var pendingNavigationRoute by mutableStateOf<String?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen().setOnExitAnimationListener { splashScreenViewProvider ->
-            splashScreenViewProvider.view.animate()
-                .alpha(0f)
-                .setDuration(220L)
-                .withEndAction {
-                    splashScreenViewProvider.remove()
-                }
-                .start()
-        }
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate: Main_activity created")
 
@@ -139,14 +134,49 @@ private fun MainActivityContent(
     onPendingNavigationConsumed: () -> Unit,
 ) {
     var launchAnimationCompleted by remember { mutableStateOf(false) }
+    val appContentAlpha = remember { Animatable(0f) }
 
-    if (!isAppReady || !launchAnimationCompleted) {
-        BrandedLaunchFrame(
-            onAnimationCompleted = { launchAnimationCompleted = true }
-        )
-        return
+    Box(modifier = Modifier.fillMaxSize()) {
+        if (isAppReady) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .graphicsLayer {
+                        alpha = appContentAlpha.value
+                    }
+            ) {
+                MainAppContent(
+                    pendingNavigationRoute = pendingNavigationRoute,
+                    onPendingNavigationConsumed = onPendingNavigationConsumed,
+                    allowTransientDialogs = launchAnimationCompleted
+                )
+            }
+        }
+
+        if (!launchAnimationCompleted) {
+            BrandedLaunchFrame(
+                startReveal = isAppReady,
+                onUnderlyingContentReveal = {
+                    appContentAlpha.animateTo(
+                        targetValue = 1f,
+                        animationSpec = tween(
+                            durationMillis = 260,
+                            easing = LinearOutSlowInEasing
+                        )
+                    )
+                },
+                onAnimationCompleted = { launchAnimationCompleted = true }
+            )
+        }
     }
+}
 
+@Composable
+private fun MainAppContent(
+    pendingNavigationRoute: String?,
+    onPendingNavigationConsumed: () -> Unit,
+    allowTransientDialogs: Boolean,
+) {
     val context = LocalContext.current
     var showNotificationPermissionDialog by remember { mutableStateOf(true) }
     var askForExactAlarmPermission by remember { mutableStateOf(false) }
@@ -154,7 +184,8 @@ private fun MainActivityContent(
         mutableStateOf(needsExactAlarmPermissionCheck() && !context.canScheduleExactAlarms())
     }
 
-    if (showNotificationPermissionDialog &&
+    if (allowTransientDialogs &&
+        showNotificationPermissionDialog &&
         AppPreferences.app_opening_counter < NUM_MAX_OPENINGS &&
         !AppPreferences.dontask_again_notification_permissions) {
         NotificationPermissionDialog(
@@ -171,7 +202,8 @@ private fun MainActivityContent(
         askForExactAlarmPermission = true
     }
 
-    if (askForExactAlarmPermission &&
+    if (allowTransientDialogs &&
+        askForExactAlarmPermission &&
         showExactAlarmPermissionDialog &&
         AppPreferences.app_opening_counter < NUM_MAX_OPENINGS) {
         RequestExactAlarmPermissionDialog(
@@ -210,27 +242,66 @@ private fun MainActivityContent(
 
 @Composable
 private fun BrandedLaunchFrame(
+    startReveal: Boolean,
+    onUnderlyingContentReveal: suspend () -> Unit,
     onAnimationCompleted: () -> Unit,
 ) {
-    val logoScale = remember { Animatable(0.42f) }
-    val frameAlpha = remember { Animatable(1f) }
+    val logoScale = remember { Animatable(0.84f) }
+    val overlayAlpha = remember { Animatable(1f) }
+    val badgeAlpha = remember { Animatable(0f) }
 
-    LaunchedEffect(Unit) {
-        logoScale.animateTo(
-            targetValue = 0.78f,
-            animationSpec = tween(
-                durationMillis = 650,
-                easing = FastOutSlowInEasing
+    LaunchedEffect(startReveal) {
+        if (!startReveal) return@LaunchedEffect
+
+        val badgeJob = launch {
+            badgeAlpha.animateTo(
+                targetValue = 1f,
+                animationSpec = tween(
+                    durationMillis = 220,
+                    easing = LinearOutSlowInEasing
+                )
             )
-        )
-        delay(260)
-        frameAlpha.animateTo(
-            targetValue = 0f,
-            animationSpec = tween(
-                durationMillis = 320,
-                easing = LinearOutSlowInEasing
+        }
+        val logoJob = launch {
+            logoScale.animateTo(
+                targetValue = 1f,
+                animationSpec = spring(
+                    dampingRatio = 0.86f,
+                    stiffness = 210f
+                )
             )
-        )
+        }
+
+        badgeJob.join()
+        logoJob.join()
+
+        delay(220)
+
+        val revealJob = launch {
+            onUnderlyingContentReveal()
+        }
+        val fadeJob = launch {
+            overlayAlpha.animateTo(
+                targetValue = 0f,
+                animationSpec = tween(
+                    durationMillis = 340,
+                    easing = LinearOutSlowInEasing
+                )
+            )
+        }
+        val shrinkJob = launch {
+            logoScale.animateTo(
+                targetValue = 0.72f,
+                animationSpec = tween(
+                    durationMillis = 340,
+                    easing = LinearOutSlowInEasing
+                )
+            )
+        }
+
+        revealJob.join()
+        fadeJob.join()
+        shrinkJob.join()
         onAnimationCompleted()
     }
 
@@ -245,20 +316,34 @@ private fun BrandedLaunchFrame(
             modifier = Modifier
                 .fillMaxSize()
                 .graphicsLayer {
-                    alpha = frameAlpha.value
+                    alpha = overlayAlpha.value
+                }
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0x22000000))
+                .graphicsLayer {
+                    alpha = overlayAlpha.value
                 }
         )
         Box(
             modifier = Modifier
                 .align(Alignment.Center)
                 .size(148.dp)
+                .shadow(
+                    elevation = 10.dp,
+                    shape = CircleShape,
+                    ambientColor = Color(0x33FFFFFF),
+                    spotColor = Color(0x22000000)
+                )
                 .graphicsLayer {
-                    alpha = frameAlpha.value
+                    alpha = overlayAlpha.value * badgeAlpha.value
                     scaleX = logoScale.value
                     scaleY = logoScale.value
                 }
                 .clip(CircleShape)
-                .background(Color.White)
+                .background(Color(0xFFF7F4EE))
         )
         Image(
             painter = painterResource(id = R.drawable.fridge_foreground),
@@ -267,7 +352,7 @@ private fun BrandedLaunchFrame(
                 .align(Alignment.Center)
                 .size(88.dp)
                 .graphicsLayer {
-                    alpha = frameAlpha.value
+                    alpha = overlayAlpha.value * badgeAlpha.value
                     scaleX = logoScale.value
                     scaleY = logoScale.value
                 }

@@ -4,7 +4,7 @@
 
     <style name="Theme.MyApp.Splash" parent="Theme.SplashScreen">
         <!-- Background -->
-        <item name="windowSplashScreenBackground">@color/background_lightgreen_semitransparent</item>
+        <item name="windowSplashScreenBackground">@color/background_light_green</item>
         <!-- Keep the system splash background-only -->
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_transparent_icon</item>
         <!-- After splash, apply main theme -->
