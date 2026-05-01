@@ -11,9 +11,8 @@ import javax.inject.Inject
 
 class UpdateDoneFieldUseCase @Inject constructor(
     private val repository: FridgeManagerRepository,
-    @ApplicationContext context: Context
+    @ApplicationContext private val context: Context
 ) {
-    private val context = context
     suspend operator fun invoke(done: Int, id: Int): DbResponse<Unit> {
         return try {
             repository.updateDoneField(done, id)

@@ -71,7 +71,6 @@ fun MainScreen(
 ) {
     val TAG = "MainScreen"
     val context = LocalContext.current
-    var loadDataFromDdb by remember { mutableStateOf(true) }
     var showOnBoarding by remember { mutableStateOf(false) }
 
     var showBottomSheet by remember { mutableStateOf(false) }
@@ -88,13 +87,9 @@ fun MainScreen(
     val unitUiState by insertFoodViewModel.unitUiState.collectAsState()
     val updateUiState by foodViewModel.updateUiState.collectAsState()
 
-
-    LaunchedEffect(loadDataFromDdb) {
-        if (loadDataFromDdb) {
-            loadDataFromDdb = false
-            foodListLoaded = false
-            mainViewModel.getFoodExpiringToday(getPreviousDayEndOfDayDate(),getEndOfTodayEpochMillis())
-        }
+    LaunchedEffect(Unit) {
+        foodListLoaded = false
+        mainViewModel.getFoodExpiringToday(getPreviousDayEndOfDayDate(),getEndOfTodayEpochMillis())
     }
 
     // handling loading food list from db
@@ -129,9 +124,7 @@ fun MainScreen(
                 Toast.makeText(context,
                     context.getString(R.string.update_food_successfully),
                     Toast.LENGTH_SHORT).show()
-                // After Success/Error, reset updateUiState to Idle doesn't re-trigger dialog re-opening
                 foodViewModel.resetUpdateUiStateToIdle()
-                loadDataFromDdb = true // force food list refresh
             }
             is FoodUpdateUiState.Error -> {
                 showProgressBar = false
@@ -159,10 +152,8 @@ fun MainScreen(
                 ).show()
                 // refresh scheduler for expiring notifications on new product inserted
                 alarmReminderScheduler.setRepeatingAlarm()
-                // After Success/Error, reset updateUiState to Idle doesn't re-trigger dialog re-opening
                 insertFoodViewModel.resetUpdateUiStateToIdle()
                 showBottomSheet = false
-                loadDataFromDdb = true // force food list refresh
             }
 
             is FoodUiState.Error -> {
@@ -277,9 +268,7 @@ fun MainScreen(
                         isUpdatable = true,
                         isDeletable = true,
                         isOpenable = true,
-                        onCheckChanged = {
-                            loadDataFromDdb = true
-                        },
+                        onCheckChanged = {},
                         message = stringResource(R.string.foodExpiring_message)
                     )
                 }

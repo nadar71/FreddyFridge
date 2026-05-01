@@ -10,13 +10,10 @@ import eu.indiewalkabout.fridgemanager.feat_food.domain.repository.FridgeManager
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import javax.inject.Inject
 
-
-
 class LoadAllFoodUseCase @Inject constructor(
     private val repository: FridgeManagerRepository,
-    @ApplicationContext context: Context
+    @ApplicationContext private val context: Context
 ) {
-    private val context = context
     suspend operator fun invoke(): DbResponse<List<FoodEntry>> {
         return try {
             val result = repository.loadAllFood()

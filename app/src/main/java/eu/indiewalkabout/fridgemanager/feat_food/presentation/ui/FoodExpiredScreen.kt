@@ -58,7 +58,6 @@ fun FoodExpiredScreen(
     val context = LocalContext.current
     val colors = LocalAppColors.current
 
-    var loadDataFromDdb by remember { mutableStateOf(true) }
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true
@@ -74,13 +73,9 @@ fun FoodExpiredScreen(
     val unitUiState by insertFoodViewModel.unitUiState.collectAsState()
     val updateUiState by foodViewModel.updateUiState.collectAsState()
 
-
-    LaunchedEffect(loadDataFromDdb) {
-        if (loadDataFromDdb) {
-            loadDataFromDdb = false
-            foodListLoaded = false
-            foodExpiredViewModel.getExpiredFood(getPreviousDayEndOfDayDate())
-        }
+    LaunchedEffect(Unit) {
+        foodListLoaded = false
+        foodExpiredViewModel.getExpiredFood(getPreviousDayEndOfDayDate())
     }
 
     // handling loading food list from db
@@ -115,9 +110,7 @@ fun FoodExpiredScreen(
                 Toast.makeText(context,
                     context.getString(R.string.update_food_successfully),
                     Toast.LENGTH_SHORT).show()
-                // After Success/Error, reset updateUiState to Idle doesn't re-trigger dialog re-opening
                 foodViewModel.resetUpdateUiStateToIdle()
-                loadDataFromDdb = true // force food list refresh
             }
             is FoodUpdateUiState.Error -> {
                 showProgressBar = false
@@ -145,10 +138,8 @@ fun FoodExpiredScreen(
                 ).show()
                 // refresh scheduler for expiring notifications on new product inserted
                 alarmReminderScheduler.setRepeatingAlarm()
-                // After Success/Error, reset updateUiState to Idle doesn't re-trigger dialog re-opening
                 insertFoodViewModel.resetUpdateUiStateToIdle()
                 showBottomSheet = false
-                loadDataFromDdb = true // force food list refresh
             }
 
             is FoodUiState.Error -> {
@@ -214,9 +205,7 @@ fun FoodExpiredScreen(
                             .padding(horizontal = 16.dp)
                             .weight(1f),
                         message = stringResource(R.string.foodExpired_message),
-                        onCheckChanged = {
-                            loadDataFromDdb = true
-                        }
+                        onCheckChanged = {}
                     )
                 }
 

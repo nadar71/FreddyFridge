@@ -6,8 +6,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.indiewalkabout.fridgemanager.core.domain.model.DbResponse
 import eu.indiewalkabout.fridgemanager.core.domain.model.ErrorResponse
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
-import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.LoadConsumedFoodUseCase
+import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.ObserveAllFoodConsumedUseCase
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,20 +19,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FoodConsumedViewModel @Inject constructor(
-    private val loadConsumedFoodUseCase: LoadConsumedFoodUseCase,
+    private val observeAllFoodConsumedUseCase: ObserveAllFoodConsumedUseCase,
 ): ViewModel() {
 
     private val _foodListUiState = MutableStateFlow<FoodListUiState<List<FoodEntry>>>(FoodListUiState.Idle)
     val foodListUiState: StateFlow<FoodListUiState<List<FoodEntry>>> = _foodListUiState.asStateFlow()
+    private var observeJob: Job? = null
 
     fun getConsumedFood() {
-        viewModelScope.launch {
+        observeJob?.cancel()
+        observeJob = viewModelScope.launch {
             _foodListUiState.value = FoodListUiState.Loading
             try {
-                val result: DbResponse<List<FoodEntry>> = loadConsumedFoodUseCase()
-                _foodListUiState.value = when (result) {
-                    is DbResponse.Success -> FoodListUiState.Success(result.data) // result.data is List<FoodEntry>
-                    is DbResponse.Error -> FoodListUiState.Error(result.error)
+                observeAllFoodConsumedUseCase().collectLatest { result: DbResponse<List<FoodEntry>> ->
+                    _foodListUiState.value = when (result) {
+                        is DbResponse.Success -> FoodListUiState.Success(result.data)
+                        is DbResponse.Error -> FoodListUiState.Error(result.error)
+                    }
                 }
             } catch (e: Exception) {
                 _foodListUiState.value = FoodListUiState.Error(
