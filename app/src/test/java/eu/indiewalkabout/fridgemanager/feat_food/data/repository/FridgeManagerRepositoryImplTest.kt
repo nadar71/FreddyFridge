@@ -14,6 +14,56 @@ import java.time.LocalDate
 class FridgeManagerRepositoryImplTest {
 
     @Test
+    fun observeAllFood_emitsUpdatedListsFromDaoFlow() = runBlocking {
+        val initialItems = mutableListOf(
+            FoodEntry(id = 1, name = "Milk", expiringAt = LocalDate.of(2026, 5, 1))
+        )
+        val updatedItems = mutableListOf(
+            FoodEntry(id = 1, name = "Milk", expiringAt = LocalDate.of(2026, 5, 1)),
+            FoodEntry(id = 2, name = "Eggs", expiringAt = LocalDate.of(2026, 5, 2))
+        )
+        val dao = FakeFoodDbDao(allFoodFlow = MutableStateFlow(initialItems.toList()))
+        val repository = FridgeManagerRepositoryImpl(dao)
+
+        val emissions = mutableListOf<List<FoodEntry>>()
+        val collectJob = launch {
+            repository.observeAllFood().collect { emissions += it }
+        }
+
+        delay(10)
+        dao.allFoodFlow.value = updatedItems.toList()
+        delay(10)
+        collectJob.cancel()
+
+        assertEquals(listOf(initialItems, updatedItems), emissions)
+    }
+
+    @Test
+    fun observeAllFoodExpiring_emitsUpdatedListsFromDaoFlow() = runBlocking {
+        val initialItems = mutableListOf(
+            FoodEntry(id = 1, name = "Cheese", expiringAt = LocalDate.of(2026, 5, 3))
+        )
+        val updatedItems = mutableListOf(
+            FoodEntry(id = 1, name = "Cheese", expiringAt = LocalDate.of(2026, 5, 3)),
+            FoodEntry(id = 2, name = "Yogurt", expiringAt = LocalDate.of(2026, 5, 4))
+        )
+        val dao = FakeFoodDbDao(expiringFlow = MutableStateFlow(initialItems.toList()))
+        val repository = FridgeManagerRepositoryImpl(dao)
+
+        val emissions = mutableListOf<List<FoodEntry>>()
+        val collectJob = launch {
+            repository.observeAllFoodExpiring(date = 300L).collect { emissions += it }
+        }
+
+        delay(10)
+        dao.expiringFlow.value = updatedItems.toList()
+        delay(10)
+        collectJob.cancel()
+
+        assertEquals(listOf(initialItems, updatedItems), emissions)
+    }
+
+    @Test
     fun observeFoodExpiringToday_emitsUpdatedListsFromDaoFlow() = runBlocking {
         val initialItems = mutableListOf(
             FoodEntry(id = 1, name = "Milk", expiringAt = LocalDate.of(2026, 5, 1))
@@ -41,14 +91,68 @@ class FridgeManagerRepositoryImplTest {
         assertEquals(listOf(initialItems, updatedItems), emissions)
     }
 
+    @Test
+    fun observeAllFoodExpired_emitsUpdatedListsFromDaoFlow() = runBlocking {
+        val initialItems = mutableListOf(
+            FoodEntry(id = 1, name = "Salad", expiringAt = LocalDate.of(2026, 4, 30))
+        )
+        val updatedItems = mutableListOf(
+            FoodEntry(id = 1, name = "Salad", expiringAt = LocalDate.of(2026, 4, 30)),
+            FoodEntry(id = 2, name = "Ham", expiringAt = LocalDate.of(2026, 4, 29))
+        )
+        val dao = FakeFoodDbDao(expiredFlow = MutableStateFlow(initialItems.toList()))
+        val repository = FridgeManagerRepositoryImpl(dao)
+
+        val emissions = mutableListOf<List<FoodEntry>>()
+        val collectJob = launch {
+            repository.observeAllFoodExpired(date = 400L).collect { emissions += it }
+        }
+
+        delay(10)
+        dao.expiredFlow.value = updatedItems.toList()
+        delay(10)
+        collectJob.cancel()
+
+        assertEquals(listOf(initialItems, updatedItems), emissions)
+    }
+
+    @Test
+    fun observeAllFoodConsumed_emitsUpdatedListsFromDaoFlow() = runBlocking {
+        val initialItems = mutableListOf(
+            FoodEntry(id = 1, name = "Bread", consumedAt = LocalDate.of(2026, 5, 1))
+        )
+        val updatedItems = mutableListOf(
+            FoodEntry(id = 1, name = "Bread", consumedAt = LocalDate.of(2026, 5, 1)),
+            FoodEntry(id = 2, name = "Butter", consumedAt = LocalDate.of(2026, 5, 2))
+        )
+        val dao = FakeFoodDbDao(consumedFlow = MutableStateFlow(initialItems.toList()))
+        val repository = FridgeManagerRepositoryImpl(dao)
+
+        val emissions = mutableListOf<List<FoodEntry>>()
+        val collectJob = launch {
+            repository.observeAllFoodConsumed().collect { emissions += it }
+        }
+
+        delay(10)
+        dao.consumedFlow.value = updatedItems.toList()
+        delay(10)
+        collectJob.cancel()
+
+        assertEquals(listOf(initialItems, updatedItems), emissions)
+    }
+
     private class FakeFoodDbDao(
-        val expiringTodayFlow: MutableStateFlow<List<FoodEntry>>
+        val allFoodFlow: MutableStateFlow<List<FoodEntry>> = MutableStateFlow(emptyList()),
+        val expiringFlow: MutableStateFlow<List<FoodEntry>> = MutableStateFlow(emptyList()),
+        val expiringTodayFlow: MutableStateFlow<List<FoodEntry>> = MutableStateFlow(emptyList()),
+        val expiredFlow: MutableStateFlow<List<FoodEntry>> = MutableStateFlow(emptyList()),
+        val consumedFlow: MutableStateFlow<List<FoodEntry>> = MutableStateFlow(emptyList()),
     ) : FoodDbDao {
 
-        override fun observeAllFood(): Flow<List<FoodEntry>> = MutableStateFlow(emptyList())
+        override fun observeAllFood(): Flow<List<FoodEntry>> = allFoodFlow
 
         override fun observeAllFoodExpiring(date: Long?): Flow<List<FoodEntry>> =
-            MutableStateFlow(emptyList())
+            expiringFlow
 
         override fun observeFoodExpiringToday(
             daybefore: Long?,
@@ -56,10 +160,10 @@ class FridgeManagerRepositoryImplTest {
         ): Flow<List<FoodEntry>> = expiringTodayFlow
 
         override fun observeAllFoodExpired(date: Long?): Flow<List<FoodEntry>> =
-            MutableStateFlow(emptyList())
+            expiredFlow
 
         override fun observeAllFoodConsumed(): Flow<List<FoodEntry>> =
-            MutableStateFlow(emptyList())
+            consumedFlow
 
         override suspend fun loadAllFood(): MutableList<FoodEntry> = mutableListOf()
 
