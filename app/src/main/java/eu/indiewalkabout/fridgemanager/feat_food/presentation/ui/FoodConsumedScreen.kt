@@ -20,9 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -41,8 +38,6 @@ import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 import eu.indiewalkabout.fridgemanager.feat_ads.presentation.AdMobBannerView
-import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
 
@@ -57,101 +52,52 @@ fun FoodConsumedScreen(
     val context = LocalContext.current
     val colors = LocalAppColors.current
 
-    var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true
     )
 
-    var consumedFoodList by remember { mutableStateOf<List<FoodEntry>>(emptyList()) }
-    var foodListLoaded by remember { mutableStateOf(false) }
-    var showProgressBar by remember { mutableStateOf(false) }
-
     // ----------------------------- LOGIC ---------------------------------------------------------
-    val foodListUiState by foodConsumedViewModel.foodListUiState.collectAsState()
+    val uiState by foodConsumedViewModel.uiState.collectAsState()
     val unitUiState by insertFoodViewModel.unitUiState.collectAsState()
     val updateUiState by foodViewModel.updateUiState.collectAsState()
 
     LaunchedEffect(Unit) {
-        foodListLoaded = false
         foodConsumedViewModel.getConsumedFood()
-    }
-
-    // handling loading food list from db
-    LaunchedEffect(foodListUiState) {
-        when (foodListUiState) {
-            is FoodListUiState.Success -> {
-                showProgressBar = false
-                consumedFoodList = (foodListUiState
-                        as FoodListUiState.Success<List<FoodEntry>>).data
-                foodListLoaded = true
-                Log.d(TAG, "foodConsumedListLoaded : $consumedFoodList")
-            }
-            is FoodListUiState.Error -> {
-                showProgressBar = false
-                Log.e(TAG, "Error recovering foodList from db")
-                foodListLoaded = true
-            }
-            FoodListUiState.Idle -> {
-                showProgressBar = false
-            }
-            FoodListUiState.Loading -> {
-                showProgressBar = true
-            }
-        }
     }
 
     // Handle update food response
     LaunchedEffect(updateUiState) {
+        foodConsumedViewModel.handleUpdateState(updateUiState)
         when (updateUiState) {
-            is FoodUpdateUiState.Success -> {
-                showProgressBar = false
-                Toast.makeText(context,
-                    context.getString(R.string.update_food_successfully),
-                    Toast.LENGTH_SHORT).show()
-                foodViewModel.resetUpdateUiStateToIdle()
-            }
+            is FoodUpdateUiState.Success,
             is FoodUpdateUiState.Error -> {
-                showProgressBar = false
-                Log.e(TAG, "Error updating food in db")
                 foodViewModel.resetUpdateUiStateToIdle()
             }
-            is FoodUpdateUiState.Loading -> {
-                showProgressBar = true
-            }
-            is FoodUpdateUiState.Idle -> {
-                showProgressBar = false
-            }
+            else -> Unit
         }
     }
 
     // Handle insert food response
     LaunchedEffect(unitUiState) {
+        foodConsumedViewModel.handleInsertState(unitUiState)
         when (unitUiState) {
-            is FoodUiState.Success -> {
-                showProgressBar = false
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.insert_food_successfully),
-                    Toast.LENGTH_SHORT
-                ).show()
-                // refresh scheduler for expiring notifications on new product inserted
-                alarmReminderScheduler.setRepeatingAlarm()
-                insertFoodViewModel.resetUpdateUiStateToIdle()
-                showBottomSheet = false
-            }
-
+            is FoodUiState.Success,
             is FoodUiState.Error -> {
-                showProgressBar = false
-                Log.e(TAG, "Error inserting food in db")
                 insertFoodViewModel.resetUpdateUiStateToIdle()
             }
+            else -> Unit
+        }
+    }
 
-            is FoodUiState.Loading -> {
-                showProgressBar = true
-            }
-
-            is FoodUiState.Idle -> {
-                showProgressBar = false
+    LaunchedEffect(Unit) {
+        foodConsumedViewModel.events.collect { event ->
+            when (event) {
+                is FoodListScreenUiEvent.ShowToast -> {
+                    Toast.makeText(context, context.getString(event.messageResId), Toast.LENGTH_SHORT).show()
+                }
+                FoodListScreenUiEvent.RefreshExpiringNotifications -> {
+                    alarmReminderScheduler.setRepeatingAlarm()
+                }
             }
         }
     }
@@ -163,7 +109,7 @@ fun FoodConsumedScreen(
             BottomNavigationBar(
                 stringResource(R.string.menu_consumed_label_item),
                 onNewItemClicked = {
-                    showBottomSheet = true
+                    foodConsumedViewModel.setBottomSheetVisible(true)
                 }
             )
 
@@ -192,9 +138,9 @@ fun FoodConsumedScreen(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                if (foodListLoaded) {
+                if (uiState.hasLoadedFood) {
                     ProductListCard(
-                        foods = consumedFoodList,
+                        foods = uiState.foods,
                         isUpdatable = true,
                         isDeletable = true,
                         isOpenable = false,
@@ -209,7 +155,7 @@ fun FoodConsumedScreen(
                 }
 
                 // Show Progress Bar
-                if (showProgressBar) {
+                if (uiState.isLoading) {
                     Box(
                         modifier = Modifier,
                         contentAlignment = Alignment.Center
@@ -226,11 +172,11 @@ fun FoodConsumedScreen(
         }
 
 
-        if (showBottomSheet) {
+        if (uiState.isBottomSheetVisible) {
             ModalBottomSheet(
                 shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
                 modifier = Modifier,
-                onDismissRequest = { showBottomSheet = false },
+                onDismissRequest = { foodConsumedViewModel.setBottomSheetVisible(false) },
                 sheetState = sheetState,
                 containerColor = primaryColor,
             ) {
