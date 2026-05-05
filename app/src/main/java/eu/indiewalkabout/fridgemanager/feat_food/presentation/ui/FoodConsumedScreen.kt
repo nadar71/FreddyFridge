@@ -46,7 +46,7 @@ import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUi
 fun FoodConsumedScreen(
     foodConsumedViewModel: FoodConsumedViewModel = hiltViewModel(),
     insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
-    foodViewModel: FoodViewModel = hiltViewModel()
+    foodViewModel: FoodMutationViewModel = hiltViewModel()
 )  {
     val TAG = "FoodConsumedScreen"
     val context = LocalContext.current

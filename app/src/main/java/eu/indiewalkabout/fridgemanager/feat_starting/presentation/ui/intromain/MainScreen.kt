@@ -48,7 +48,7 @@ import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getPreviousDayEndOf
 import eu.indiewalkabout.fridgemanager.feat_ads.presentation.AdMobBannerView
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodViewModel
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodMutationViewModel
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodBottomSheetContent
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodViewModel
 import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestinationRoutes
@@ -62,7 +62,7 @@ import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.tutorials.O
 fun MainScreen(
     mainViewModel: MainViewModel = hiltViewModel(),
     insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
-    foodViewModel: FoodViewModel = hiltViewModel()
+    foodViewModel: FoodMutationViewModel = hiltViewModel()
 ) {
     val TAG = "MainScreen"
     val context = LocalContext.current

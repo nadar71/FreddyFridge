@@ -75,7 +75,7 @@ import java.util.TimeZone
 
 @Composable
 fun UpdateFoodOverlay(
-    foodViewModel: FoodViewModel = hiltViewModel(),
+    foodViewModel: FoodMutationViewModel = hiltViewModel(),
     insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
     foodEntryUI: FoodEntryUI,
     cancelable: Boolean = true,

@@ -46,7 +46,7 @@ import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUi
 @Composable
 fun FoodExpiredScreen(
     foodExpiredViewModel: FoodExpiredViewModel = hiltViewModel(),
-    foodViewModel: FoodViewModel = hiltViewModel(),
+    foodViewModel: FoodMutationViewModel = hiltViewModel(),
     insertFoodViewModel: InsertFoodViewModel = hiltViewModel()
 )  {
     val TAG = "FoodExpiredScreen"

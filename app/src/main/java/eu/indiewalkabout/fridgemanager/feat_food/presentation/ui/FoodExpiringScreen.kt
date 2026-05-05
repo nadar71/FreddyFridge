@@ -45,7 +45,7 @@ import eu.indiewalkabout.fridgemanager.core.presentation.navigation.components.B
 @Composable
 fun FoodExpiringScreen(
     foodExpiringViewModel: FoodExpiringViewModel = hiltViewModel(),
-    foodViewModel: FoodViewModel = hiltViewModel(),
+    foodViewModel: FoodMutationViewModel = hiltViewModel(),
     insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
 ) {
     val TAG = "FoodExpiringScreen"
