@@ -415,49 +415,25 @@ fun UpdateFoodOverlay(
                     onClick = {
                         Log.d(TAG, "Save button clicked. isBtnEnabled: $isBtnEnabled")
                         if (!isBtnEnabled) return@RoundedCornerButton
-                        else {
-                            var quantity = quantityNumText.toInt()
-                            if (quantity <= 1) {
-                                // NB : response detected in parent ( screen list )
-                                foodViewModel.updateFoodEntry(
-                                    FoodEntry(
-                                        id = foodEntryUI.id,
-                                        name = descriptionText,
-                                        expiringAt = localeDateText,
-                                        consumedAt = foodEntryUI.consumedAtLocalDate,
-                                        timezoneId = TimeZone.getDefault().id,
-                                        // order_number = 1
-                                    )
-                                )
-                            } else { // a quantity greater then 1 is selected
-                                // var count = 1
-                                // first is updated
-                                foodViewModel.updateFoodEntry(
-                                    FoodEntry(
-                                        id = foodEntryUI.id,
-                                        name = descriptionText,
-                                        expiringAt = localeDateText,
-                                        consumedAt = foodEntryUI.consumedAtLocalDate,
-                                        timezoneId = TimeZone.getDefault().id,
-                                        // order_number = count //foodEntryUI.order_number
-                                    )
-                                )
-                                // others exceeding 1 are inserted as new
-                                while (quantity > 1) {
-                                    insertFoodViewModel.insertFood(
-                                        FoodEntry(
-                                            name = descriptionText,
-                                            expiringAt = localeDateText,
-                                            consumedAt = foodEntryUI.consumedAtLocalDate,
-                                            timezoneId = TimeZone.getDefault().id,
-                                            // order_number = count
-                                        )
-                                    )
-                                    // count++
-                                    quantity--
-                                }
-                            }
-                        }
+
+                        val submission = FoodEntrySubmissionBuilder.buildUpdateSubmission(
+                            originalEntry = FoodEntry(
+                                id = foodEntryUI.id,
+                                name = foodEntryUI.name,
+                                expiringAt = foodEntryUI.expiringAtLocalDate,
+                                consumedAt = foodEntryUI.consumedAtLocalDate,
+                                timezoneId = foodEntryUI.timezoneId,
+                                isProductOpen = foodEntryUI.isProductOpen,
+                                done = foodEntryUI.done,
+                            ),
+                            updatedName = descriptionText.orEmpty(),
+                            updatedExpiringAt = localeDateText,
+                            timezoneId = TimeZone.getDefault().id,
+                            quantity = quantityNumText.toInt(),
+                        )
+
+                        foodViewModel.updateFoodEntry(submission.entryToUpdate)
+                        submission.additionalEntries.forEach(insertFoodViewModel::insertFood)
                     },
                     shape = RoundedCornerShape(15.dp),
                     elevation = 0,

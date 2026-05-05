@@ -165,8 +165,6 @@ class FridgeManagerRepositoryImplTest {
         override fun observeAllFoodConsumed(): Flow<List<FoodEntry>> =
             consumedFlow
 
-        override suspend fun loadAllFood(): MutableList<FoodEntry> = mutableListOf()
-
         override suspend fun loadAllFoodExpiring(date: Long?): MutableList<FoodEntry> = mutableListOf()
 
         override suspend fun loadFoodExpiringToday(
@@ -174,20 +172,10 @@ class FridgeManagerRepositoryImplTest {
             dayafter: Long?
         ): MutableList<FoodEntry> = mutableListOf()
 
-        override suspend fun loadAllFoodDead(date: Long?): MutableList<FoodEntry> = mutableListOf()
-
-        override suspend fun loadAllFoodSaved(): MutableList<FoodEntry> = mutableListOf()
-
-        override suspend fun loadFoodById(id: Int): FoodEntry = FoodEntry(id = id)
-
         override suspend fun insertFoodEntry(foodEntry: FoodEntry) = Unit
 
         override suspend fun updateFoodEntry(foodEntry: FoodEntry) = Unit
 
-        override suspend fun updateDoneField(done: Int, id: Int) = Unit
-
         override suspend fun deleteFoodEntry(foodEntry: FoodEntry) = Unit
-
-        override suspend fun dropTable() = Unit
     }
 }

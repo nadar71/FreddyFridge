@@ -38,11 +38,6 @@ class FridgeManagerRepositoryImpl @Inject constructor(
         return foodDbDao.observeAllFoodConsumed()
     }
 
-    // retrieve ALL KIND OF FOOD  without regarding expiring date
-    override suspend fun loadAllFood(): MutableList<FoodEntry> {
-        return foodDbDao.loadAllFood()
-    }
-
     // retrieve EXPIRING FOOD
     override suspend fun loadAllFoodExpiring(date: Long?): MutableList<FoodEntry> {
         return foodDbDao.loadAllFoodExpiring(date)
@@ -52,21 +47,6 @@ class FridgeManagerRepositoryImpl @Inject constructor(
     override suspend fun loadFoodExpiringToday(daybefore: Long?, dayafter: Long?): MutableList<FoodEntry> {
         return foodDbDao.loadFoodExpiringToday(daybefore, dayafter)
     }
-
-    // retrieve DEAD/EXPIRED FOOD
-    override suspend fun loadAllFoodDead(date: Long?): MutableList<FoodEntry> {
-        return foodDbDao.loadAllFoodDead(date)
-    }
-
-    // retrieve DONE/CONSUMED FOOD
-    override suspend fun loadAllFoodSaved(): MutableList<FoodEntry> {
-        return foodDbDao.loadAllFoodSaved()
-    }
-
-    override suspend fun loadFoodById(id: Int): FoodEntry {
-        return foodDbDao.loadFoodById(id)
-    }
-
 
     //----------------------------------------- INSERT ---------------------------------------------
     override suspend fun insertFoodEntry(foodEntry: FoodEntry) {
@@ -79,19 +59,8 @@ class FridgeManagerRepositoryImpl @Inject constructor(
         foodDbDao.updateFoodEntry(foodEntry)
     }
 
-    override suspend fun updateDoneField(done: Int, id: Int) {
-        foodDbDao.updateDoneField(done, id)
-    }
-
     // delete single record
     override suspend fun deleteFoodEntry(foodEntry: FoodEntry) {
         foodDbDao.deleteFoodEntry(foodEntry)
     }
-
-    //------------------------------------------- DROP TABLE ---------------------------------------
-    override suspend fun dropTable() {
-        foodDbDao.dropTable()
-    }
-
-
 }

@@ -19,10 +19,6 @@ interface FoodDbDao {
     @Query("SELECT * FROM FOODLIST WHERE done == 0 ORDER BY EXPIRING_AT")
     fun observeAllFood(): Flow<List<FoodEntry>>
 
-    // get ALL FOOD
-    @Query("SELECT * FROM FOODLIST WHERE done == 0 ORDER BY EXPIRING_AT")
-    suspend fun loadAllFood(): MutableList<FoodEntry>
-
     // detect EXPIRING FOOD changes
     @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT >= :date and done == 0 ORDER BY EXPIRING_AT")
     fun observeAllFoodExpiring(date: Long?): Flow<List<FoodEntry>>
@@ -46,20 +42,9 @@ interface FoodDbDao {
     fun observeAllFoodExpired(date: Long?): Flow<List<FoodEntry>>
 
     // get DEAD/EXPIRED FOOD
-    @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT < :date and done == 0 ORDER BY EXPIRING_AT")
-    suspend fun loadAllFoodDead(date: Long?): MutableList<FoodEntry>
-
     // detect DONE/CONSUMED FOOD changes
     @Query("SELECT * FROM FOODLIST WHERE done == 1 ORDER BY EXPIRING_AT")
     fun observeAllFoodConsumed(): Flow<List<FoodEntry>>
-
-    // get DONE/CONSUMED FOOD
-    @Query("SELECT * FROM FOODLIST WHERE done == 1 ORDER BY EXPIRING_AT")
-    suspend fun loadAllFoodSaved(): MutableList<FoodEntry>
-
-    // get single record by id
-    @Query("SELECT * FROM FOODLIST WHERE id = :id")
-    suspend fun loadFoodById(id: Int): FoodEntry
 
     //----------------------------------------- INSERT ---------------------------------------------
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -70,16 +55,7 @@ interface FoodDbDao {
     @Update
     suspend fun updateFoodEntry(foodEntry: FoodEntry)
 
-    @Query("UPDATE FOODLIST SET done=:done WHERE id = :id")
-    suspend fun updateDoneField(done: Int, id: Int)
-
     // delete single record
     @Delete
     suspend fun deleteFoodEntry(foodEntry: FoodEntry)
-
-
-    //------------------------------------------- DROP TABLE ---------------------------------------
-    // drop table
-    @Query("DELETE FROM FOODLIST")
-    suspend fun dropTable()
 }
