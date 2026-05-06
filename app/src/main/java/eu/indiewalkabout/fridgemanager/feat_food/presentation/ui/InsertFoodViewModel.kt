@@ -20,30 +20,42 @@ class InsertFoodViewModel @Inject constructor(
     private val insertFoodEntryUseCase: InsertFoodEntryUseCase,
     ): ViewModel() {
 
-    private val _unitUiState = MutableStateFlow<FoodUiState<Unit>>(FoodUiState.Idle)
-    val unitUiState: StateFlow<FoodUiState<Unit>> = _unitUiState.asStateFlow()
+    private val _insertUiState = MutableStateFlow<FoodUiState<Unit>>(FoodUiState.Idle)
+    val insertUiState: StateFlow<FoodUiState<Unit>> = _insertUiState.asStateFlow()
 
-    // Reset updateUiState to idle
-    fun resetUpdateUiStateToIdle() {
-        _unitUiState.value = FoodUiState.Idle
+    fun resetInsertUiStateToIdle() {
+        _insertUiState.value = FoodUiState.Idle
     }
 
-    // Insert food entry
     fun insertFood(foodEntry: FoodEntry) {
+        insertFoods(listOf(foodEntry))
+    }
+
+    fun insertFoods(foodEntries: List<FoodEntry>) {
         viewModelScope.launch {
-            _unitUiState.value = FoodUiState.Loading
+            _insertUiState.value = FoodUiState.Loading
             try {
-                val result: DbResponse<Unit> = insertFoodEntryUseCase(foodEntry) // Assuming insert returns DbResponse<Unit>
-                _unitUiState.value = when (result) {
-                    is DbResponse.Success -> FoodUiState.Success(result.data) // result.data is Unit
-                    is DbResponse.Error -> FoodUiState.Error(result.error)
+                var failure: DbResponse.Error? = null
+                for (foodEntry in foodEntries) {
+                    when (val result = insertFoodEntryUseCase(foodEntry)) {
+                        is DbResponse.Success -> Unit
+                        is DbResponse.Error -> {
+                            failure = result
+                            break
+                        }
+                    }
+                }
+
+                _insertUiState.value = if (failure != null) {
+                    FoodUiState.Error(failure.error)
+                } else {
+                    FoodUiState.Success(Unit)
                 }
             } catch (e: Exception) {
-                _unitUiState.value = FoodUiState.Error(
+                _insertUiState.value = FoodUiState.Error(
                     ErrorResponse(0, emptyList(), e.message ?: "Unknown error")
                 )
             }
         }
     }
-
 }

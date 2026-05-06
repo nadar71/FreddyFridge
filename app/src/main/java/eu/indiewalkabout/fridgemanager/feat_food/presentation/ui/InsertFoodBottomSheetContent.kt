@@ -397,12 +397,13 @@ fun InsertFoodBottomSheetContent(
                 onClick = {
                     if (!isBtnEnabled) return@RoundedCornerButton
 
-                    FoodEntrySubmissionBuilder.buildInsertEntries(
+                    val entries = FoodEntrySubmissionBuilder.buildInsertEntries(
                         name = descriptionText,
                         expiringAt = localeDateText,
                         timezoneId = TimeZone.getDefault().id,
                         quantity = quantityNumText.toInt(),
-                    ).forEach(insertFoodViewModel::insertFood)
+                    )
+                    insertFoodViewModel.insertFoods(entries)
                 },
                 shape = RoundedCornerShape(15.dp),
                 elevation = 0,

@@ -433,7 +433,7 @@ fun UpdateFoodOverlay(
                         )
 
                         foodViewModel.updateFoodEntry(submission.entryToUpdate)
-                        submission.additionalEntries.forEach(insertFoodViewModel::insertFood)
+                        insertFoodViewModel.insertFoods(submission.additionalEntries)
                     },
                     shape = RoundedCornerShape(15.dp),
                     elevation = 0,

@@ -58,7 +58,7 @@ fun FoodConsumedScreen(
 
     // ----------------------------- LOGIC ---------------------------------------------------------
     val uiState by foodConsumedViewModel.uiState.collectAsState()
-    val unitUiState by insertFoodViewModel.unitUiState.collectAsState()
+    val insertUiState by insertFoodViewModel.insertUiState.collectAsState()
     val updateUiState by foodViewModel.updateUiState.collectAsState()
 
     LaunchedEffect(Unit) {
@@ -78,12 +78,12 @@ fun FoodConsumedScreen(
     }
 
     // Handle insert food response
-    LaunchedEffect(unitUiState) {
-        foodConsumedViewModel.handleInsertState(unitUiState)
-        when (unitUiState) {
+    LaunchedEffect(insertUiState) {
+        foodConsumedViewModel.handleInsertState(insertUiState)
+        when (insertUiState) {
             is FoodUiState.Success,
             is FoodUiState.Error -> {
-                insertFoodViewModel.resetUpdateUiStateToIdle()
+                insertFoodViewModel.resetInsertUiStateToIdle()
             }
             else -> Unit
         }
