@@ -46,10 +46,10 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getEndOfTodayEpochMillis
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getPreviousDayEndOfDayDate
 import eu.indiewalkabout.fridgemanager.feat_ads.presentation.AdMobBannerView
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodMutationEvent
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodMutationViewModel
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodBottomSheetContent
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodEvent
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodViewModel
 import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestinationRoutes
 import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppNavigation
@@ -72,35 +72,38 @@ fun MainScreen(
 
     // ----------------------------- LOGIC ---------------------------------------------------------
     val uiState by mainViewModel.uiState.collectAsState()
-    val insertUiState by insertFoodViewModel.insertUiState.collectAsState()
-    val updateUiState by foodViewModel.updateUiState.collectAsState()
+    val isInserting by insertFoodViewModel.isInserting.collectAsState()
+    val isMutating by foodViewModel.isMutating.collectAsState()
 
     LaunchedEffect(Unit) {
         mainViewModel.getFoodExpiringToday(getPreviousDayEndOfDayDate(),getEndOfTodayEpochMillis())
     }
 
     // Handle update food response
-    LaunchedEffect(updateUiState) {
-        mainViewModel.handleUpdateState(updateUiState)
-        when (updateUiState) {
-            is FoodUpdateUiState.Success,
-            is FoodUpdateUiState.Error -> {
-                foodViewModel.resetUpdateUiStateToIdle()
+    LaunchedEffect(isMutating) {
+        mainViewModel.handleUpdateLoading(isMutating)
+    }
+
+    LaunchedEffect(Unit) {
+        foodViewModel.events.collect { event ->
+            when (event) {
+                FoodMutationEvent.Success -> mainViewModel.handleUpdateResult(true)
+                is FoodMutationEvent.Error -> mainViewModel.handleUpdateResult(false)
             }
-            else -> Unit
         }
     }
 
-    // Handle insert food response
-    LaunchedEffect(insertUiState) {
-        mainViewModel.handleInsertState(insertUiState)
-        when (insertUiState) {
-            is FoodUiState.Success,
-            is FoodUiState.Error -> {
-                insertFoodViewModel.resetInsertUiStateToIdle()
+    LaunchedEffect(Unit) {
+        insertFoodViewModel.events.collect { event ->
+            when (event) {
+                InsertFoodEvent.Success -> mainViewModel.handleInsertResult(true)
+                is InsertFoodEvent.Error -> mainViewModel.handleInsertResult(false)
             }
-            else -> Unit
         }
+    }
+
+    LaunchedEffect(isInserting) {
+        mainViewModel.handleInsertLoading(isInserting)
     }
 
     LaunchedEffect(Unit) {

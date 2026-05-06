@@ -38,8 +38,6 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getPreviousDayEndOfDayDate
 import eu.indiewalkabout.fridgemanager.feat_ads.presentation.AdMobBannerView
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,35 +57,38 @@ fun FoodExpiredScreen(
 
     // ----------------------------- LOGIC ---------------------------------------------------------
     val uiState by foodExpiredViewModel.uiState.collectAsState()
-    val insertUiState by insertFoodViewModel.insertUiState.collectAsState()
-    val updateUiState by foodViewModel.updateUiState.collectAsState()
+    val isInserting by insertFoodViewModel.isInserting.collectAsState()
+    val isMutating by foodViewModel.isMutating.collectAsState()
 
     LaunchedEffect(Unit) {
         foodExpiredViewModel.getExpiredFood(getPreviousDayEndOfDayDate())
     }
 
     // Handle update food response
-    LaunchedEffect(updateUiState) {
-        foodExpiredViewModel.handleUpdateState(updateUiState)
-        when (updateUiState) {
-            is FoodUpdateUiState.Success,
-            is FoodUpdateUiState.Error -> {
-                foodViewModel.resetUpdateUiStateToIdle()
+    LaunchedEffect(isMutating) {
+        foodExpiredViewModel.handleUpdateLoading(isMutating)
+    }
+
+    LaunchedEffect(Unit) {
+        foodViewModel.events.collect { event ->
+            when (event) {
+                FoodMutationEvent.Success -> foodExpiredViewModel.handleUpdateResult(true)
+                is FoodMutationEvent.Error -> foodExpiredViewModel.handleUpdateResult(false)
             }
-            else -> Unit
         }
     }
 
-    // Handle insert food response
-    LaunchedEffect(insertUiState) {
-        foodExpiredViewModel.handleInsertState(insertUiState)
-        when (insertUiState) {
-            is FoodUiState.Success,
-            is FoodUiState.Error -> {
-                insertFoodViewModel.resetInsertUiStateToIdle()
+    LaunchedEffect(Unit) {
+        insertFoodViewModel.events.collect { event ->
+            when (event) {
+                InsertFoodEvent.Success -> foodExpiredViewModel.handleInsertResult(true)
+                is InsertFoodEvent.Error -> foodExpiredViewModel.handleInsertResult(false)
             }
-            else -> Unit
         }
+    }
+
+    LaunchedEffect(isInserting) {
+        foodExpiredViewModel.handleInsertLoading(isInserting)
     }
 
     LaunchedEffect(Unit) {

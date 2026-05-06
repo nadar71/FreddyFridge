@@ -3,8 +3,6 @@ package eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
 
 object MainUiStateReducer {
 
@@ -28,20 +26,21 @@ object MainUiStateReducer {
         }
     }
 
-    fun reduceInsertState(
+    fun reduceInsertLoading(
         currentState: MainUiState,
-        insertState: FoodUiState<Unit>,
+        isLoading: Boolean,
     ): MainUiTransition {
-        return when (insertState) {
-            FoodUiState.Idle -> MainUiTransition(
-                state = currentState.copy(isOperationLoading = false)
-            )
+        return MainUiTransition(
+            state = currentState.copy(isOperationLoading = isLoading)
+        )
+    }
 
-            FoodUiState.Loading -> MainUiTransition(
-                state = currentState.copy(isOperationLoading = true)
-            )
-
-            is FoodUiState.Success -> MainUiTransition(
+    fun reduceInsertResult(
+        currentState: MainUiState,
+        isSuccess: Boolean,
+    ): MainUiTransition {
+        return if (isSuccess) {
+            MainUiTransition(
                 state = currentState.copy(
                     isOperationLoading = false,
                     isBottomSheetVisible = false,
@@ -51,32 +50,33 @@ object MainUiStateReducer {
                     MainUiEvent.RefreshExpiringNotifications,
                 ),
             )
-
-            is FoodUiState.Error -> MainUiTransition(
+        } else {
+            MainUiTransition(
                 state = currentState.copy(isOperationLoading = false)
             )
         }
     }
 
-    fun reduceUpdateState(
+    fun reduceUpdateLoading(
         currentState: MainUiState,
-        updateState: FoodUpdateUiState<Unit>,
+        isLoading: Boolean,
     ): MainUiTransition {
-        return when (updateState) {
-            FoodUpdateUiState.Idle -> MainUiTransition(
-                state = currentState.copy(isOperationLoading = false)
-            )
+        return MainUiTransition(
+            state = currentState.copy(isOperationLoading = isLoading)
+        )
+    }
 
-            FoodUpdateUiState.Loading -> MainUiTransition(
-                state = currentState.copy(isOperationLoading = true)
-            )
-
-            is FoodUpdateUiState.Success -> MainUiTransition(
+    fun reduceUpdateResult(
+        currentState: MainUiState,
+        isSuccess: Boolean,
+    ): MainUiTransition {
+        return if (isSuccess) {
+            MainUiTransition(
                 state = currentState.copy(isOperationLoading = false),
                 events = listOf(MainUiEvent.ShowToast(R.string.update_food_successfully)),
             )
-
-            is FoodUpdateUiState.Error -> MainUiTransition(
+        } else {
+            MainUiTransition(
                 state = currentState.copy(isOperationLoading = false)
             )
         }

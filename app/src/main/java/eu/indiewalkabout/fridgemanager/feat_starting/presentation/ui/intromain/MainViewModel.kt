@@ -8,8 +8,6 @@ import eu.indiewalkabout.fridgemanager.core.domain.model.ErrorResponse
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.ObserveFoodExpiringTodayUseCase
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -72,12 +70,20 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun handleInsertState(insertState: FoodUiState<Unit>) {
-        applyTransition(MainUiStateReducer.reduceInsertState(_uiState.value, insertState))
+    fun handleInsertLoading(isLoading: Boolean) {
+        applyTransition(MainUiStateReducer.reduceInsertLoading(_uiState.value, isLoading))
     }
 
-    fun handleUpdateState(updateState: FoodUpdateUiState<Unit>) {
-        applyTransition(MainUiStateReducer.reduceUpdateState(_uiState.value, updateState))
+    fun handleInsertResult(isSuccess: Boolean) {
+        applyTransition(MainUiStateReducer.reduceInsertResult(_uiState.value, isSuccess))
+    }
+
+    fun handleUpdateLoading(isLoading: Boolean) {
+        applyTransition(MainUiStateReducer.reduceUpdateLoading(_uiState.value, isLoading))
+    }
+
+    fun handleUpdateResult(isSuccess: Boolean) {
+        applyTransition(MainUiStateReducer.reduceUpdateResult(_uiState.value, isSuccess))
     }
 
     private fun applyTransition(transition: MainUiTransition) {

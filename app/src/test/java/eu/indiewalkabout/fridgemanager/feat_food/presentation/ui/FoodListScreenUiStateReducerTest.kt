@@ -1,11 +1,8 @@
 package eu.indiewalkabout.fridgemanager.feat_food.presentation.ui
 
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.core.domain.model.ErrorResponse
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -38,7 +35,7 @@ class FoodListScreenUiStateReducerTest {
 
         val result = FoodListScreenUiStateReducer.reduceFoodListState(
             initialState,
-            FoodListUiState.Error(ErrorResponse(0, emptyList(), "boom"))
+            FoodListUiState.Error(eu.indiewalkabout.fridgemanager.core.domain.model.ErrorResponse(0, emptyList(), "boom"))
         )
 
         assertEquals(foods, result.foods)
@@ -53,9 +50,9 @@ class FoodListScreenUiStateReducerTest {
             isBottomSheetVisible = true
         )
 
-        val transition = FoodListScreenUiStateReducer.reduceInsertState(
+        val transition = FoodListScreenUiStateReducer.reduceInsertResult(
             initialState,
-            FoodUiState.Success(Unit)
+            isSuccess = true
         )
 
         assertFalse(transition.state.isLoading)
@@ -73,9 +70,9 @@ class FoodListScreenUiStateReducerTest {
     fun `update success emits success toast and clears operation loading`() {
         val initialState = FoodListScreenUiState(isOperationLoading = true)
 
-        val transition = FoodListScreenUiStateReducer.reduceUpdateState(
+        val transition = FoodListScreenUiStateReducer.reduceUpdateResult(
             initialState,
-            FoodUpdateUiState.Success(Unit)
+            isSuccess = true
         )
 
         assertFalse(transition.state.isLoading)
@@ -89,13 +86,13 @@ class FoodListScreenUiStateReducerTest {
     fun `loading states set only operation loading`() {
         val initialState = FoodListScreenUiState(isBottomSheetVisible = true)
 
-        val insertTransition = FoodListScreenUiStateReducer.reduceInsertState(
+        val insertTransition = FoodListScreenUiStateReducer.reduceInsertLoading(
             initialState,
-            FoodUiState.Loading
+            isLoading = true
         )
-        val updateTransition = FoodListScreenUiStateReducer.reduceUpdateState(
+        val updateTransition = FoodListScreenUiStateReducer.reduceUpdateLoading(
             initialState,
-            FoodUpdateUiState.Loading
+            isLoading = true
         )
 
         assertTrue(insertTransition.state.isOperationLoading)

@@ -4,8 +4,6 @@ import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.domain.model.ErrorResponse
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -66,9 +64,9 @@ class MainUiStateReducerTest {
             isBottomSheetVisible = true
         )
 
-        val transition = MainUiStateReducer.reduceInsertState(
+        val transition = MainUiStateReducer.reduceInsertResult(
             initialState,
-            FoodUiState.Success(Unit)
+            isSuccess = true
         )
 
         assertFalse(transition.state.isLoading)
@@ -86,9 +84,9 @@ class MainUiStateReducerTest {
     fun `update success keeps ui stable and emits success toast`() {
         val initialState = MainUiState(isOperationLoading = true)
 
-        val transition = MainUiStateReducer.reduceUpdateState(
+        val transition = MainUiStateReducer.reduceUpdateResult(
             initialState,
-            FoodUpdateUiState.Success(Unit)
+            isSuccess = true
         )
 
         assertFalse(transition.state.isLoading)
@@ -100,16 +98,15 @@ class MainUiStateReducerTest {
 
     @Test
     fun `errors stop loading and emit no events`() {
-        val error = ErrorResponse(0, emptyList(), "boom")
         val initialState = MainUiState(isOperationLoading = true, isBottomSheetVisible = true)
 
-        val insertTransition = MainUiStateReducer.reduceInsertState(
+        val insertTransition = MainUiStateReducer.reduceInsertResult(
             initialState,
-            FoodUiState.Error(error)
+            isSuccess = false
         )
-        val updateTransition = MainUiStateReducer.reduceUpdateState(
+        val updateTransition = MainUiStateReducer.reduceUpdateResult(
             initialState,
-            FoodUpdateUiState.Error(error)
+            isSuccess = false
         )
 
         assertFalse(insertTransition.state.isLoading)
@@ -123,13 +120,13 @@ class MainUiStateReducerTest {
     fun `loading operation states only toggle loading and emit no events`() {
         val initialState = MainUiState(isBottomSheetVisible = true)
 
-        val insertTransition = MainUiStateReducer.reduceInsertState(
+        val insertTransition = MainUiStateReducer.reduceInsertLoading(
             initialState,
-            FoodUiState.Loading
+            isLoading = true
         )
-        val updateTransition = MainUiStateReducer.reduceUpdateState(
+        val updateTransition = MainUiStateReducer.reduceUpdateLoading(
             initialState,
-            FoodUpdateUiState.Loading
+            isLoading = true
         )
 
         assertTrue(insertTransition.state.isOperationLoading)

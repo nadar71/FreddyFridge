@@ -3,8 +3,6 @@ package eu.indiewalkabout.fridgemanager.feat_food.presentation.ui
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
 
 object FoodListScreenUiStateReducer {
 
@@ -28,20 +26,21 @@ object FoodListScreenUiStateReducer {
         }
     }
 
-    fun reduceInsertState(
+    fun reduceInsertLoading(
         currentState: FoodListScreenUiState,
-        insertState: FoodUiState<Unit>,
+        isLoading: Boolean,
     ): FoodListScreenUiTransition {
-        return when (insertState) {
-            FoodUiState.Idle -> FoodListScreenUiTransition(
-                state = currentState.copy(isOperationLoading = false)
-            )
+        return FoodListScreenUiTransition(
+            state = currentState.copy(isOperationLoading = isLoading)
+        )
+    }
 
-            FoodUiState.Loading -> FoodListScreenUiTransition(
-                state = currentState.copy(isOperationLoading = true)
-            )
-
-            is FoodUiState.Success -> FoodListScreenUiTransition(
+    fun reduceInsertResult(
+        currentState: FoodListScreenUiState,
+        isSuccess: Boolean,
+    ): FoodListScreenUiTransition {
+        return if (isSuccess) {
+            FoodListScreenUiTransition(
                 state = currentState.copy(
                     isOperationLoading = false,
                     isBottomSheetVisible = false,
@@ -51,32 +50,33 @@ object FoodListScreenUiStateReducer {
                     FoodListScreenUiEvent.RefreshExpiringNotifications,
                 ),
             )
-
-            is FoodUiState.Error -> FoodListScreenUiTransition(
+        } else {
+            FoodListScreenUiTransition(
                 state = currentState.copy(isOperationLoading = false)
             )
         }
     }
 
-    fun reduceUpdateState(
+    fun reduceUpdateLoading(
         currentState: FoodListScreenUiState,
-        updateState: FoodUpdateUiState<Unit>,
+        isLoading: Boolean,
     ): FoodListScreenUiTransition {
-        return when (updateState) {
-            FoodUpdateUiState.Idle -> FoodListScreenUiTransition(
-                state = currentState.copy(isOperationLoading = false)
-            )
+        return FoodListScreenUiTransition(
+            state = currentState.copy(isOperationLoading = isLoading)
+        )
+    }
 
-            FoodUpdateUiState.Loading -> FoodListScreenUiTransition(
-                state = currentState.copy(isOperationLoading = true)
-            )
-
-            is FoodUpdateUiState.Success -> FoodListScreenUiTransition(
+    fun reduceUpdateResult(
+        currentState: FoodListScreenUiState,
+        isSuccess: Boolean,
+    ): FoodListScreenUiTransition {
+        return if (isSuccess) {
+            FoodListScreenUiTransition(
                 state = currentState.copy(isOperationLoading = false),
                 events = listOf(FoodListScreenUiEvent.ShowToast(R.string.update_food_successfully)),
             )
-
-            is FoodUpdateUiState.Error -> FoodListScreenUiTransition(
+        } else {
+            FoodListScreenUiTransition(
                 state = currentState.copy(isOperationLoading = false)
             )
         }

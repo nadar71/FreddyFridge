@@ -9,12 +9,19 @@ import eu.indiewalkabout.fridgemanager.core.domain.model.ErrorResponse
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.DeleteFoodEntryUseCase
 import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.UpdateFoodEntryUseCase
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+sealed interface FoodMutationEvent {
+    data object Success : FoodMutationEvent
+    data class Error(val error: ErrorResponse) : FoodMutationEvent
+}
 
 @HiltViewModel
 class FoodMutationViewModel @Inject constructor(
@@ -24,44 +31,50 @@ class FoodMutationViewModel @Inject constructor(
 
     private val tag = "FoodMutationViewModel"
 
-    private val _updateUiState = MutableStateFlow<FoodUpdateUiState<Unit>>(FoodUpdateUiState.Idle)
-    val updateUiState: StateFlow<FoodUpdateUiState<Unit>> = _updateUiState.asStateFlow()
-
-    fun resetUpdateUiStateToIdle() {
-        _updateUiState.value = FoodUpdateUiState.Idle
-    }
+    private val _isMutating = MutableStateFlow(false)
+    val isMutating: StateFlow<Boolean> = _isMutating.asStateFlow()
+    private val _events = MutableSharedFlow<FoodMutationEvent>()
+    val events: SharedFlow<FoodMutationEvent> = _events.asSharedFlow()
 
     fun updateFoodEntry(foodEntry: FoodEntry) {
         viewModelScope.launch {
-            _updateUiState.value = FoodUpdateUiState.Loading
+            _isMutating.value = true
             try {
                 val result: DbResponse<Unit> = updateFoodEntryUseCase(foodEntry)
                 Log.d(tag, "updateFoodEntry: $result from db operation")
-                _updateUiState.value = when (result) {
-                    is DbResponse.Success -> FoodUpdateUiState.Success(result.data)
-                    is DbResponse.Error -> FoodUpdateUiState.Error(result.error)
+                when (result) {
+                    is DbResponse.Success -> _events.emit(FoodMutationEvent.Success)
+                    is DbResponse.Error -> _events.emit(FoodMutationEvent.Error(result.error))
                 }
             } catch (e: Exception) {
-                _updateUiState.value = FoodUpdateUiState.Error(
-                    ErrorResponse(0, emptyList(), e.message ?: "Unknown error")
+                _events.emit(
+                    FoodMutationEvent.Error(
+                        ErrorResponse(0, emptyList(), e.message ?: "Unknown error")
+                    )
                 )
+            } finally {
+                _isMutating.value = false
             }
         }
     }
 
     fun deleteFoodEntry(foodEntry: FoodEntry) {
         viewModelScope.launch {
-            _updateUiState.value = FoodUpdateUiState.Loading
+            _isMutating.value = true
             try {
                 val result: DbResponse<Unit> = deleteFoodEntryUseCase(foodEntry)
-                _updateUiState.value = when (result) {
-                    is DbResponse.Success -> FoodUpdateUiState.Success(result.data)
-                    is DbResponse.Error -> FoodUpdateUiState.Error(result.error)
+                when (result) {
+                    is DbResponse.Success -> _events.emit(FoodMutationEvent.Success)
+                    is DbResponse.Error -> _events.emit(FoodMutationEvent.Error(result.error))
                 }
             } catch (e: Exception) {
-                _updateUiState.value = FoodUpdateUiState.Error(
-                    ErrorResponse(0, emptyList(), e.message ?: "Unknown error")
+                _events.emit(
+                    FoodMutationEvent.Error(
+                        ErrorResponse(0, emptyList(), e.message ?: "Unknown error")
+                    )
                 )
+            } finally {
+                _isMutating.value = false
             }
         }
     }
