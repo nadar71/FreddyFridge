@@ -1,8 +1,6 @@
 package eu.indiewalkabout.fridgemanager.feat_food.presentation.ui
 
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -22,12 +20,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
 import eu.indiewalkabout.fridgemanager.core.presentation.navigation.components.BottomNavigationBar
@@ -46,8 +42,6 @@ fun FoodConsumedScreen(
     insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
     foodViewModel: FoodMutationViewModel = hiltViewModel()
 )  {
-    val TAG = "FoodConsumedScreen"
-    val context = LocalContext.current
     val colors = LocalAppColors.current
 
     val sheetState = rememberModalBottomSheetState(
@@ -63,45 +57,17 @@ fun FoodConsumedScreen(
         foodConsumedViewModel.getConsumedFood()
     }
 
-    // Handle update food response
-    LaunchedEffect(isMutating) {
-        foodConsumedViewModel.handleUpdateLoading(isMutating)
-    }
-
-    LaunchedEffect(Unit) {
-        foodViewModel.events.collect { event ->
-            when (event) {
-                FoodMutationEvent.Success -> foodConsumedViewModel.handleUpdateResult(true)
-                is FoodMutationEvent.Error -> foodConsumedViewModel.handleUpdateResult(false)
-            }
-        }
-    }
-
-    LaunchedEffect(Unit) {
-        insertFoodViewModel.events.collect { event ->
-            when (event) {
-                InsertFoodEvent.Success -> foodConsumedViewModel.handleInsertResult(true)
-                is InsertFoodEvent.Error -> foodConsumedViewModel.handleInsertResult(false)
-            }
-        }
-    }
-
-    LaunchedEffect(isInserting) {
-        foodConsumedViewModel.handleInsertLoading(isInserting)
-    }
-
-    LaunchedEffect(Unit) {
-        foodConsumedViewModel.events.collect { event ->
-            when (event) {
-                is FoodListScreenUiEvent.ShowToast -> {
-                    Toast.makeText(context, context.getString(event.messageResId), Toast.LENGTH_SHORT).show()
-                }
-                FoodListScreenUiEvent.RefreshExpiringNotifications -> {
-                    alarmReminderScheduler.setRepeatingAlarm()
-                }
-            }
-        }
-    }
+    FoodListScreenEffects(
+        isInserting = isInserting,
+        isMutating = isMutating,
+        insertEvents = insertFoodViewModel.events,
+        mutationEvents = foodViewModel.events,
+        screenEvents = foodConsumedViewModel.events,
+        onInsertLoading = foodConsumedViewModel::handleInsertLoading,
+        onInsertResult = foodConsumedViewModel::handleInsertResult,
+        onUpdateLoading = foodConsumedViewModel::handleUpdateLoading,
+        onUpdateResult = foodConsumedViewModel::handleUpdateResult,
+    )
 
 
     // ----------------------------- UI ---------------------------------------------------------
