@@ -1,8 +1,6 @@
 package eu.indiewalkabout.fridgemanager.feat_food.presentation.ui
 
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,17 +18,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
 import eu.indiewalkabout.fridgemanager.core.presentation.navigation.components.BottomNavigationBar
@@ -41,129 +34,40 @@ import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 import eu.indiewalkabout.fridgemanager.feat_ads.presentation.AdMobBannerView
-import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodListUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FoodConsumedScreen(
     foodConsumedViewModel: FoodConsumedViewModel = hiltViewModel(),
     insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
-    foodViewModel: FoodViewModel = hiltViewModel()
+    foodViewModel: FoodMutationViewModel = hiltViewModel()
 )  {
-    val TAG = "FoodConsumedScreen"
-    val context = LocalContext.current
     val colors = LocalAppColors.current
 
-    var loadDataFromDdb by remember { mutableStateOf(true) }
-    var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true
     )
 
-    var consumedFoodList by remember { mutableStateOf<List<FoodEntry>>(emptyList()) }
-    var foodListLoaded by remember { mutableStateOf(false) }
-    var showProgressBar by remember { mutableStateOf(false) }
-
     // ----------------------------- LOGIC ---------------------------------------------------------
-    val foodListUiState by foodConsumedViewModel.foodListUiState.collectAsState()
-    val unitUiState by insertFoodViewModel.unitUiState.collectAsState()
-    val updateUiState by foodViewModel.updateUiState.collectAsState()
+    val uiState by foodConsumedViewModel.uiState.collectAsState()
+    val isInserting by insertFoodViewModel.isInserting.collectAsState()
+    val isMutating by foodViewModel.isMutating.collectAsState()
 
-
-    LaunchedEffect(loadDataFromDdb) {
-        if (loadDataFromDdb) {
-            loadDataFromDdb = false
-            foodListLoaded = false
-            foodConsumedViewModel.getConsumedFood()
-        }
+    LaunchedEffect(Unit) {
+        foodConsumedViewModel.getConsumedFood()
     }
 
-    // handling loading food list from db
-    LaunchedEffect(foodListUiState) {
-        when (foodListUiState) {
-            is FoodListUiState.Success -> {
-                showProgressBar = false
-                consumedFoodList = (foodListUiState
-                        as FoodListUiState.Success<List<FoodEntry>>).data
-                foodListLoaded = true
-                Log.d(TAG, "foodConsumedListLoaded : $consumedFoodList")
-            }
-            is FoodListUiState.Error -> {
-                showProgressBar = false
-                Log.e(TAG, "Error recovering foodList from db")
-                foodListLoaded = true
-            }
-            FoodListUiState.Idle -> {
-                showProgressBar = false
-            }
-            FoodListUiState.Loading -> {
-                showProgressBar = true
-            }
-        }
-    }
-
-    // Handle update food response
-    LaunchedEffect(updateUiState) {
-        when (updateUiState) {
-            is FoodUpdateUiState.Success -> {
-                showProgressBar = false
-                Toast.makeText(context,
-                    context.getString(R.string.update_food_successfully),
-                    Toast.LENGTH_SHORT).show()
-                // After Success/Error, reset updateUiState to Idle doesn't re-trigger dialog re-opening
-                foodViewModel.resetUpdateUiStateToIdle()
-                loadDataFromDdb = true // force food list refresh
-            }
-            is FoodUpdateUiState.Error -> {
-                showProgressBar = false
-                Log.e(TAG, "Error updating food in db")
-                foodViewModel.resetUpdateUiStateToIdle()
-            }
-            is FoodUpdateUiState.Loading -> {
-                showProgressBar = true
-            }
-            is FoodUpdateUiState.Idle -> {
-                showProgressBar = false
-            }
-        }
-    }
-
-    // Handle insert food response
-    LaunchedEffect(unitUiState) {
-        when (unitUiState) {
-            is FoodUiState.Success -> {
-                showProgressBar = false
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.insert_food_successfully),
-                    Toast.LENGTH_SHORT
-                ).show()
-                // refresh scheduler for expiring notifications on new product inserted
-                alarmReminderScheduler.setRepeatingAlarm()
-                // After Success/Error, reset updateUiState to Idle doesn't re-trigger dialog re-opening
-                insertFoodViewModel.resetUpdateUiStateToIdle()
-                showBottomSheet = false
-                loadDataFromDdb = true // force food list refresh
-            }
-
-            is FoodUiState.Error -> {
-                showProgressBar = false
-                Log.e(TAG, "Error inserting food in db")
-                insertFoodViewModel.resetUpdateUiStateToIdle()
-            }
-
-            is FoodUiState.Loading -> {
-                showProgressBar = true
-            }
-
-            is FoodUiState.Idle -> {
-                showProgressBar = false
-            }
-        }
-    }
+    FoodListScreenEffects(
+        isInserting = isInserting,
+        isMutating = isMutating,
+        insertEvents = insertFoodViewModel.events,
+        mutationEvents = foodViewModel.events,
+        screenEvents = foodConsumedViewModel.events,
+        onInsertLoading = foodConsumedViewModel::handleInsertLoading,
+        onInsertResult = foodConsumedViewModel::handleInsertResult,
+        onUpdateLoading = foodConsumedViewModel::handleUpdateLoading,
+        onUpdateResult = foodConsumedViewModel::handleUpdateResult,
+    )
 
 
     // ----------------------------- UI ---------------------------------------------------------
@@ -172,7 +76,7 @@ fun FoodConsumedScreen(
             BottomNavigationBar(
                 stringResource(R.string.menu_consumed_label_item),
                 onNewItemClicked = {
-                    showBottomSheet = true
+                    foodConsumedViewModel.setBottomSheetVisible(true)
                 }
             )
 
@@ -201,9 +105,9 @@ fun FoodConsumedScreen(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                if (foodListLoaded) {
+                if (uiState.hasLoadedFood) {
                     ProductListCard(
-                        foods = consumedFoodList,
+                        foods = uiState.foods,
                         isUpdatable = true,
                         isDeletable = true,
                         isOpenable = false,
@@ -213,14 +117,12 @@ fun FoodConsumedScreen(
                             .padding(horizontal = 16.dp)
                             .weight(1f),
                         message = stringResource(R.string.foodConsumed_message),
-                        onCheckChanged = {
-                            loadDataFromDdb = true
-                        },
+                        onCheckChanged = {},
                     )
                 }
 
                 // Show Progress Bar
-                if (showProgressBar) {
+                if (uiState.isLoading) {
                     Box(
                         modifier = Modifier,
                         contentAlignment = Alignment.Center
@@ -237,11 +139,11 @@ fun FoodConsumedScreen(
         }
 
 
-        if (showBottomSheet) {
+        if (uiState.isBottomSheetVisible) {
             ModalBottomSheet(
                 shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
                 modifier = Modifier,
-                onDismissRequest = { showBottomSheet = false },
+                onDismissRequest = { foodConsumedViewModel.setBottomSheetVisible(false) },
                 sheetState = sheetState,
                 containerColor = primaryColor,
             ) {

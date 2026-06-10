@@ -12,9 +12,8 @@ import javax.inject.Inject
 
 class DeleteFoodEntryUseCase @Inject constructor(
     private val repository: FridgeManagerRepository,
-    @ApplicationContext context: Context
+    @ApplicationContext private val context: Context
 ) {
-    private val context = context
     suspend operator fun invoke(foodEntry: FoodEntry): DbResponse<Unit> {
         return try {
             repository.deleteFoodEntry(foodEntry)
