@@ -7,43 +7,63 @@ import eu.indiewalkabout.fridgemanager.core.domain.model.DbResponse
 import eu.indiewalkabout.fridgemanager.core.domain.model.ErrorResponse
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.InsertFoodEntryUseCase
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUiState
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+sealed interface InsertFoodEvent {
+    data object Success : InsertFoodEvent
+    data class Error(val error: ErrorResponse) : InsertFoodEvent
+}
 
 @HiltViewModel
 class InsertFoodViewModel @Inject constructor(
     private val insertFoodEntryUseCase: InsertFoodEntryUseCase,
-    ): ViewModel() {
+) : ViewModel() {
 
-    private val _unitUiState = MutableStateFlow<FoodUiState<Unit>>(FoodUiState.Idle)
-    val unitUiState: StateFlow<FoodUiState<Unit>> = _unitUiState.asStateFlow()
+    private val _isInserting = MutableStateFlow(false)
+    val isInserting: StateFlow<Boolean> = _isInserting.asStateFlow()
+    private val _events = MutableSharedFlow<InsertFoodEvent>()
+    val events: SharedFlow<InsertFoodEvent> = _events.asSharedFlow()
 
-    // Reset updateUiState to idle
-    fun resetUpdateUiStateToIdle() {
-        _unitUiState.value = FoodUiState.Idle
+    fun insertFood(foodEntry: FoodEntry) {
+        insertFoods(listOf(foodEntry))
     }
 
-    // Insert food entry
-    fun insertFood(foodEntry: FoodEntry) {
+    fun insertFoods(foodEntries: List<FoodEntry>) {
         viewModelScope.launch {
-            _unitUiState.value = FoodUiState.Loading
+            _isInserting.value = true
             try {
-                val result: DbResponse<Unit> = insertFoodEntryUseCase(foodEntry) // Assuming insert returns DbResponse<Unit>
-                _unitUiState.value = when (result) {
-                    is DbResponse.Success -> FoodUiState.Success(result.data) // result.data is Unit
-                    is DbResponse.Error -> FoodUiState.Error(result.error)
+                var failure: DbResponse.Error? = null
+                for (foodEntry in foodEntries) {
+                    when (val result = insertFoodEntryUseCase(foodEntry)) {
+                        is DbResponse.Success -> Unit
+                        is DbResponse.Error -> {
+                            failure = result
+                            break
+                        }
+                    }
+                }
+
+                if (failure != null) {
+                    _events.emit(InsertFoodEvent.Error(failure.error))
+                } else {
+                    _events.emit(InsertFoodEvent.Success)
                 }
             } catch (e: Exception) {
-                _unitUiState.value = FoodUiState.Error(
-                    ErrorResponse(0, emptyList(), e.message ?: "Unknown error")
+                _events.emit(
+                    InsertFoodEvent.Error(
+                        ErrorResponse(0, emptyList(), e.message ?: "Unknown error")
+                    )
                 )
+            } finally {
+                _isInserting.value = false
             }
         }
     }
-
 }

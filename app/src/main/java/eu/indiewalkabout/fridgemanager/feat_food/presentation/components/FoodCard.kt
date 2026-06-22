@@ -55,8 +55,7 @@ import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getLocalDateFormat
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntryUI
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.toFoodEntry
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.state.FoodUpdateUiState
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodViewModel
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodMutationViewModel
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.UpdateFoodOverlay
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
@@ -68,7 +67,7 @@ fun FoodCard(
     isDeletable: Boolean = true,
     isOpenable: Boolean = true,
     onCheckChanged: () -> Unit,
-    foodViewModel: FoodViewModel = hiltViewModel(),
+    foodViewModel: FoodMutationViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
     val TAG = "FoodCard"

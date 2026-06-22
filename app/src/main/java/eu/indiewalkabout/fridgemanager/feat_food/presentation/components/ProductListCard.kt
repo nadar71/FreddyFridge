@@ -26,6 +26,7 @@ import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
+import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.toFoodEntryUI
 import kotlinx.coroutines.launch
@@ -72,7 +73,7 @@ fun ProductListCard(
             ) {
                 Text(
                     text = message,
-                    color = colors.lightWhiteSemitransparent,
+                    style = text_16(colors.lightWhiteSemitransparent),
                     textAlign = TextAlign.Center
                 )
             }

@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.ModalBottomSheetDefaults.properties
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -65,10 +66,11 @@ fun GeneralModalDialog(
     buttonStrokeColor: Color = Color.Transparent,
     isHorizontal: Boolean = true, // buttons arrangement: horizontal (default) or vertical.
     onLeftButtonAction: (() -> Unit)? = null,
-    onRightButtonAction: (() -> Unit)? = null
+    onRightButtonAction: (() -> Unit)? = null,
+    onDismissRequest: (() -> Unit)? = null
 ) {
     Dialog(
-        onDismissRequest = { if (cancelable) onLeftButtonAction?.invoke() },
+        onDismissRequest = { if (cancelable) onDismissRequest?.invoke() },
         properties = DialogProperties(
             dismissOnBackPress = cancelable,
             dismissOnClickOutside = cancelable

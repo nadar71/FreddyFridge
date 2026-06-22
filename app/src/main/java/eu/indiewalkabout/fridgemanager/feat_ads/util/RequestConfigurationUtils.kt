@@ -8,11 +8,18 @@ import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.TEST_DEVICE_ID
 class RequestConfigurationUtils {
 
     companion object {
-        fun setTestDeviceIds() {
-            val testDeviceIds = listOf(TEST_DEVICE_ID)
+        fun setTestDeviceIds(isDebug: Boolean) {
+            val testDeviceIds = getTestDeviceIds(
+                isDebug = isDebug,
+                testDeviceId = TEST_DEVICE_ID,
+            )
             val configuration =
                 RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
             MobileAds.setRequestConfiguration(configuration)
+        }
+
+        fun getTestDeviceIds(isDebug: Boolean, testDeviceId: String): List<String> {
+            return if (isDebug) listOf(testDeviceId) else emptyList()
         }
     }
 }
