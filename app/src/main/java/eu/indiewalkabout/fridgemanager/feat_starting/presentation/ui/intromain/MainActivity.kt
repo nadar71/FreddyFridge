@@ -1,6 +1,7 @@
 package eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain
 
 import android.content.Intent
+import android.content.pm.ApplicationInfo
 import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
@@ -79,7 +80,9 @@ class MainActivity: AppCompatActivity()  {
         handleIntent(intent)
 
         // Set your test devices.
-        RequestConfigurationUtils.setTestDeviceIds()
+        RequestConfigurationUtils.setTestDeviceIds(
+            isDebug = applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
+        )
 
         // Request review
         ReviewManagerUtil.requestReviewIfEligible(this)
