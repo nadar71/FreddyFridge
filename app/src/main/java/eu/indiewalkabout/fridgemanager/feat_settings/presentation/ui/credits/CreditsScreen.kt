@@ -23,13 +23,13 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.openUrlInBrowserNotCompose
-import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestinationRoutes
-import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppNavigation.navigate
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.components.SettingsGroupTitle
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.components.SettingsItem
 
 @Composable
-fun CreditsScreen() {
+fun CreditsScreen(
+    onBack: () -> Unit = {},
+) {
 
     val TAG = "CreditsScreen"
     val colors = LocalAppColors.current
@@ -37,8 +37,6 @@ fun CreditsScreen() {
 
     Scaffold(
         bottomBar = {
-            // BottomNavigationBar(AppNavigation.getNavController())
-            // BottomNavigationBar()
         },
         containerColor = colors.primaryColor
     ) { paddingValues ->
@@ -60,7 +58,7 @@ fun CreditsScreen() {
                     titleColor = colors.brown,
                     drawableLeftIcon = R.drawable.ic_arrow_back,
                     onLeftIconClick = {
-                        navigate(AppDestinationRoutes.SettingsScreen.route)
+                        onBack()
                     },
                     backgroundColor = colors.primaryColor
                 )
@@ -177,8 +175,6 @@ fun CreditsScreenPreview() {
         CreditsScreen()
     }
 }
-
-
 
 
 
