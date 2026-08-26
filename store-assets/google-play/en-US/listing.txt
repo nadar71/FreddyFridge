@@ -1,0 +1,30 @@
+App name
+FreddyFridge
+
+Short description
+Track food expiry dates, get reminders and reduce waste from your fridge.
+
+Full description
+Keep track of the food in your fridge and use it before it expires.
+
+FreddyFridge gives you a clear view of products expiring today, coming up next, already consumed, or expired. Add an item with its expiry date, then let configurable reminders help you stay ahead of waste.
+
+KEY FEATURES
+
+• Track food and expiry dates in one place
+• See what expires today and in the coming days
+• Receive configurable expiry reminders
+• Add product names quickly with optional voice input
+• Mark products as opened or consumed
+• Review consumed and expired product history
+• Share useful product lists
+• Choose reminder timing from the app settings
+
+DESIGNED FOR EVERYDAY USE
+
+The color-coded lists make urgent products easy to recognize. FreddyFridge stores your food records locally on your device, keeping the experience focused and straightforward.
+
+Whether you are planning meals, checking the fridge before shopping, or trying to build better habits, FreddyFridge helps you make informed decisions with the food you already have.
+
+Start with a few products, check the app regularly, and turn expiry dates into timely reminders instead of forgotten food.
+

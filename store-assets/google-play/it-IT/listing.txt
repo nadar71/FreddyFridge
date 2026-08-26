@@ -1,0 +1,30 @@
+Nome app
+FreddyFridge
+
+Descrizione breve
+Controlla le scadenze, ricevi promemoria e riduci gli sprechi in frigorifero.
+
+Descrizione completa
+Tieni sotto controllo gli alimenti nel frigorifero e consumali prima che scadano.
+
+FreddyFridge mostra in modo chiaro i prodotti che scadono oggi, quelli in scadenza nei prossimi giorni, quelli già consumati e quelli scaduti. Aggiungi un prodotto con la relativa data di scadenza e configura i promemoria per evitare sprechi.
+
+FUNZIONI PRINCIPALI
+
+• Salva alimenti e date di scadenza in un unico posto
+• Controlla cosa scade oggi e nei prossimi giorni
+• Ricevi promemoria di scadenza configurabili
+• Inserisci rapidamente i prodotti anche tramite riconoscimento vocale
+• Segna i prodotti come aperti o consumati
+• Consulta lo storico dei prodotti consumati e scaduti
+• Condividi gli elenchi utili
+• Personalizza giorni e frequenza dei promemoria
+
+PENSATA PER L'USO QUOTIDIANO
+
+Gli elenchi organizzati per colore permettono di riconoscere subito i prodotti più urgenti. FreddyFridge conserva localmente sul dispositivo i dati relativi ai tuoi alimenti, offrendo un'esperienza semplice e mirata.
+
+Che tu stia pianificando i pasti, controllando il frigorifero prima della spesa o cercando di migliorare le tue abitudini, FreddyFridge ti aiuta a utilizzare meglio ciò che hai già.
+
+Inizia con pochi prodotti, controlla regolarmente l'app e trasforma le date di scadenza in promemoria utili invece che in cibo dimenticato.
+

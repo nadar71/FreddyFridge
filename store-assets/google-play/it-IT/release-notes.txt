@@ -1,0 +1,2 @@
+Navigazione e transizioni tra le schermate sono state rinnovate per un'esperienza più coerente. Gli elenchi si aggiornano ora in modo reattivo dopo ogni modifica, la gestione dei promemoria è più affidabile e architettura e test di regressione sono stati rafforzati per una maggiore stabilità.
+

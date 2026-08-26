@@ -1,0 +1,8 @@
+01: Schermata principale di FreddyFridge con un prodotto in scadenza oggi.
+02: Schermata dei prodotti in scadenza con schede colorate e relative date.
+03: Schermata dei prodotti consumati con date di scadenza e consumo.
+04: Schermata dei prodotti che hanno superato la data di scadenza.
+05: Pannello di inserimento con scadenza, descrizione, quantità e input vocale.
+06: Impostazioni con configurazione dei promemoria e opzioni di assistenza.
+07: Schermata dei crediti con informazioni sullo sviluppo e attribuzioni.
+
