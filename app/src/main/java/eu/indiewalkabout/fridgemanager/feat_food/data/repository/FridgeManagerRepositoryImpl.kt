@@ -39,12 +39,12 @@ class FridgeManagerRepositoryImpl @Inject constructor(
     }
 
     // retrieve EXPIRING FOOD
-    override suspend fun loadAllFoodExpiring(date: Long?): MutableList<FoodEntry> {
+    override suspend fun loadAllFoodExpiring(date: Long?): List<FoodEntry> {
         return foodDbDao.loadAllFoodExpiring(date)
     }
 
     // retrieve EXPIRING FOOD TODAY
-    override suspend fun loadFoodExpiringToday(daybefore: Long?, dayafter: Long?): MutableList<FoodEntry> {
+    override suspend fun loadFoodExpiringToday(daybefore: Long?, dayafter: Long?): List<FoodEntry> {
         return foodDbDao.loadFoodExpiringToday(daybefore, dayafter)
     }
 

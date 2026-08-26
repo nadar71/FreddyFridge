@@ -141,12 +141,41 @@ class FridgeManagerRepositoryImplTest {
         assertEquals(listOf(initialItems, updatedItems), emissions)
     }
 
+    @Test
+    fun loadAllFoodExpiring_returnsDaoSnapshot() = runBlocking {
+        val expected = listOf(FoodEntry(id = 1, name = "Milk"))
+        val repository = FridgeManagerRepositoryImpl(
+            FakeFoodDbDao(expiringSnapshot = expected)
+        )
+
+        val result: List<FoodEntry> = repository.loadAllFoodExpiring(date = 300L)
+
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun loadFoodExpiringToday_returnsDaoSnapshot() = runBlocking {
+        val expected = listOf(FoodEntry(id = 2, name = "Yogurt"))
+        val repository = FridgeManagerRepositoryImpl(
+            FakeFoodDbDao(expiringTodaySnapshot = expected)
+        )
+
+        val result: List<FoodEntry> = repository.loadFoodExpiringToday(
+            daybefore = 100L,
+            dayafter = 200L,
+        )
+
+        assertEquals(expected, result)
+    }
+
     private class FakeFoodDbDao(
         val allFoodFlow: MutableStateFlow<List<FoodEntry>> = MutableStateFlow(emptyList()),
         val expiringFlow: MutableStateFlow<List<FoodEntry>> = MutableStateFlow(emptyList()),
         val expiringTodayFlow: MutableStateFlow<List<FoodEntry>> = MutableStateFlow(emptyList()),
         val expiredFlow: MutableStateFlow<List<FoodEntry>> = MutableStateFlow(emptyList()),
         val consumedFlow: MutableStateFlow<List<FoodEntry>> = MutableStateFlow(emptyList()),
+        private val expiringSnapshot: List<FoodEntry> = emptyList(),
+        private val expiringTodaySnapshot: List<FoodEntry> = emptyList(),
     ) : FoodDbDao {
 
         override fun observeAllFood(): Flow<List<FoodEntry>> = allFoodFlow
@@ -165,12 +194,12 @@ class FridgeManagerRepositoryImplTest {
         override fun observeAllFoodConsumed(): Flow<List<FoodEntry>> =
             consumedFlow
 
-        override suspend fun loadAllFoodExpiring(date: Long?): MutableList<FoodEntry> = mutableListOf()
+        override suspend fun loadAllFoodExpiring(date: Long?): List<FoodEntry> = expiringSnapshot
 
         override suspend fun loadFoodExpiringToday(
             daybefore: Long?,
             dayafter: Long?
-        ): MutableList<FoodEntry> = mutableListOf()
+        ): List<FoodEntry> = expiringTodaySnapshot
 
         override suspend fun insertFoodEntry(foodEntry: FoodEntry) = Unit
 

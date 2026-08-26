@@ -67,4 +67,43 @@ class AppNavigationStateTest {
             restoredState.currentBackStack.toList()
         )
     }
+
+    @Test
+    fun `reselecting a top level destination preserves its nested stack`() {
+        val navigationState = AppNavigationState()
+        navigationState.openSettings()
+
+        navigationState.navigate(AppDestination.Main)
+
+        assertEquals(TopLevelDestination.MAIN, navigationState.selectedTab)
+        assertEquals(
+            listOf(AppDestination.Main, AppDestination.Settings),
+            navigationState.currentBackStack.toList(),
+        )
+    }
+
+    @Test
+    fun `notification legacy route selects its matching top level tab`() {
+        val navigationState = AppNavigationState()
+        val destination = AppDestination.fromLegacyRoute(
+            NavigationScreenConstants.FOOD_EXPIRED_SCREEN
+        )
+
+        requireNotNull(destination)
+        navigationState.navigate(destination)
+
+        assertEquals(TopLevelDestination.EXPIRED, navigationState.selectedTab)
+        assertEquals(listOf(AppDestination.Expired), navigationState.currentBackStack.toList())
+    }
+
+    @Test
+    fun `restoring empty state recreates all default roots`() {
+        val navigationState = AppNavigationState.restore(emptyList())
+
+        assertEquals(TopLevelDestination.MAIN, navigationState.selectedTab)
+        TopLevelDestination.entries.forEach { tab ->
+            navigationState.selectTab(tab)
+            assertEquals(listOf(tab.root), navigationState.currentBackStack.toList())
+        }
+    }
 }

@@ -25,7 +25,7 @@ interface FoodDbDao {
 
     // get EXPIRING FOOD
     @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT >= :date and done == 0 ORDER BY EXPIRING_AT")
-    suspend fun loadAllFoodExpiring(date: Long?): MutableList<FoodEntry>
+    suspend fun loadAllFoodExpiring(date: Long?): List<FoodEntry>
 
     // detect EXPIRING FOOD TODAY changes
     @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT > :daybefore AND EXPIRING_AT < :dayafter " +
@@ -35,7 +35,7 @@ interface FoodDbDao {
     // get EXPIRING FOOD TODAY
     @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT > :daybefore AND EXPIRING_AT < :dayafter " +
             " and done == 0 ORDER BY EXPIRING_AT")
-    suspend fun loadFoodExpiringToday(daybefore: Long?, dayafter: Long?): MutableList<FoodEntry>
+    suspend fun loadFoodExpiringToday(daybefore: Long?, dayafter: Long?): List<FoodEntry>
 
     // detect DEAD/EXPIRED FOOD changes
     @Query("SELECT * FROM FOODLIST WHERE EXPIRING_AT < :date and done == 0 ORDER BY EXPIRING_AT")

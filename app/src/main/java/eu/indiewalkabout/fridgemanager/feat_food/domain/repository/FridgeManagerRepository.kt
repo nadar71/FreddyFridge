@@ -10,8 +10,8 @@ interface FridgeManagerRepository {
     fun observeFoodExpiringToday(daybefore: Long?, dayafter: Long?): Flow<List<FoodEntry>>
     fun observeAllFoodExpired(date: Long?): Flow<List<FoodEntry>>
     fun observeAllFoodConsumed(): Flow<List<FoodEntry>>
-    suspend fun loadAllFoodExpiring(date: Long?): MutableList<FoodEntry>
-    suspend fun loadFoodExpiringToday(daybefore: Long?, dayafter: Long?): MutableList<FoodEntry>
+    suspend fun loadAllFoodExpiring(date: Long?): List<FoodEntry>
+    suspend fun loadFoodExpiringToday(daybefore: Long?, dayafter: Long?): List<FoodEntry>
     //----------------------------------------- INSERT ---------------------------------------------
     suspend fun insertFoodEntry(foodEntry: FoodEntry)
     //------------------------------------------ UPDATE---------------------------------------------

@@ -16,7 +16,7 @@ import androidx.core.graphics.drawable.toBitmap
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
 import eu.indiewalkabout.fridgemanager.feat_food.domain.model.FoodEntry
-import eu.indiewalkabout.fridgemanager.core.presentation.navigation.NavigationScreenConstants
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.NotificationNavigationContract
 import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain.MainActivity
 
 // TODO : All the part commented here is to be refactored to use workmanager
@@ -185,8 +185,8 @@ object NotificationsUtility {
     private fun showFoodExpiringNextDaysAction(context: Context): NotificationCompat.Action {
         val showExpiringFoodIntent = Intent(context, MainActivity::class.java)
         showExpiringFoodIntent.putExtra(
-            "destination",
-            NavigationScreenConstants.FOOD_EXPIRING_SCREEN
+            NotificationNavigationContract.DESTINATION_EXTRA,
+            NotificationNavigationContract.NEXT_DAYS_ROUTE,
         )
 
         val foodReminderPendingIntent = PendingIntent.getActivity(
@@ -208,7 +208,10 @@ object NotificationsUtility {
     // User Action Show list of TODAY expiring food opening app on main activity
     private fun showFoodExpiringTodayAction(context: Context): NotificationCompat.Action {
         val showExpiringFoodTodayIntent = Intent(context, MainActivity::class.java)
-        showExpiringFoodTodayIntent.putExtra("destination", NavigationScreenConstants.MAIN_SCREEN)
+        showExpiringFoodTodayIntent.putExtra(
+            NotificationNavigationContract.DESTINATION_EXTRA,
+            NotificationNavigationContract.TODAY_ROUTE,
+        )
 
         val foodReminderPendingIntent = PendingIntent.getActivity(
             context,

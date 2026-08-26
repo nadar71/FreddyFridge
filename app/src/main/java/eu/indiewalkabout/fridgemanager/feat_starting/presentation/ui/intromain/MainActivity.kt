@@ -46,6 +46,7 @@ import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_OPENINGS
 import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestination
 import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppNavDisplay
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.NotificationNavigationContract
 import eu.indiewalkabout.fridgemanager.core.presentation.navigation.rememberAppNavigationState
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.util.ReviewManagerUtil
@@ -117,9 +118,9 @@ class MainActivity: AppCompatActivity()  {
     }
 
     private fun handleIntent(intent: Intent) {
-        intent.getStringExtra("destination")?.let { route ->
+        intent.getStringExtra(NotificationNavigationContract.DESTINATION_EXTRA)?.let { route ->
             Log.d(TAG, "handleIntent: queue navigation to $route")
-            pendingNavigationDestination = AppDestination.fromLegacyRoute(route)
+            pendingNavigationDestination = NotificationNavigationContract.destinationFromRoute(route)
         }
     }
 
