@@ -1,0 +1,2 @@
+Navigation and screen transitions have been refreshed for a more consistent experience. Food lists now update reactively after changes, reminder handling is more reliable, and architecture and regression coverage have been strengthened for improved stability.
+

@@ -1,0 +1,8 @@
+01: FreddyFridge home screen showing a product expiring today.
+02: Expiring products screen with color-coded food cards and expiry dates.
+03: Consumed products screen showing completed food entries and consumption dates.
+04: Expired products screen showing food that passed its expiry date.
+05: Add product sheet with expiry date, description, quantity, and voice input.
+06: Settings screen with configurable reminder timing and help options.
+07: Credits screen with development details and image attributions.
+

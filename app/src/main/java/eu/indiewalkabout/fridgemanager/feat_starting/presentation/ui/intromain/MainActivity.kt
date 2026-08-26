@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,6 +38,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigationevent.compose.LocalNavigationEventDispatcherOwner
 import com.google.android.gms.ads.MobileAds
 import dagger.hilt.android.AndroidEntryPoint
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp
@@ -89,12 +91,14 @@ class MainActivity: AppCompatActivity()  {
         ReviewManagerUtil.requestReviewIfEligible(this)
 
         setContent {
-            FreddyFridgeTheme {
-                MainActivityContent(
-                    isAppReady = isAppReady,
-                    pendingNavigationDestination = pendingNavigationDestination,
-                    onPendingNavigationConsumed = { pendingNavigationDestination = null }
-                )
+            CompositionLocalProvider(LocalNavigationEventDispatcherOwner provides this@MainActivity) {
+                FreddyFridgeTheme {
+                    MainActivityContent(
+                        isAppReady = isAppReady,
+                        pendingNavigationDestination = pendingNavigationDestination,
+                        onPendingNavigationConsumed = { pendingNavigationDestination = null }
+                    )
+                }
             }
         }
 
