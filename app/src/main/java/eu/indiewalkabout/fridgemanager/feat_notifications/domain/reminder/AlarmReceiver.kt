@@ -9,7 +9,8 @@ import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
 import eu.indiewalkabout.fridgemanager.feat_notifications.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
-import eu.indiewalkabout.fridgemanager.feat_food.domain.repository.FridgeManagerRepository
+import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.LoadFoodExpiringForNotificationUseCase
+import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.LoadFoodExpiringTodayForNotificationUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,7 +21,10 @@ import javax.inject.Inject
 class AlarmReceiver @Inject constructor() : BroadcastReceiver() {
 
     @Inject
-    lateinit var repository: FridgeManagerRepository
+    lateinit var loadFoodExpiringForNotification: LoadFoodExpiringForNotificationUseCase
+
+    @Inject
+    lateinit var loadFoodExpiringTodayForNotification: LoadFoodExpiringTodayForNotificationUseCase
 
     // for real :
     private val days = AppPreferences.days_before_deadline // PreferenceUtility.getDaysCount(context)
@@ -36,7 +40,7 @@ class AlarmReceiver @Inject constructor() : BroadcastReceiver() {
         val expiringDateToBeNotified = dateNormalizedAtMidnight + DAYS_BEFORE_IN_MILLIS
         CoroutineScope(Dispatchers.IO).launch {
             Log.i(TAG, "AlarmReceiver : check food expiring in the next days")
-            val foodEntriesNextDays = repository.loadAllFoodExpiring(expiringDateToBeNotified)
+            val foodEntriesNextDays = loadFoodExpiringForNotification(expiringDateToBeNotified)
             foodEntriesNextDays.let {
                 if (foodEntriesNextDays.size > 0) {
                     NotificationsUtility.remindNextDaysExpiringFood(context, it)
@@ -53,7 +57,7 @@ class AlarmReceiver @Inject constructor() : BroadcastReceiver() {
         val nextDayDate = dateNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS
         CoroutineScope(Dispatchers.IO).launch {
             Log.i(TAG, "AlarmReceiver : check food expiring in today")
-            val foodEntriesToDay = repository.loadFoodExpiringToday(previousDayDate, nextDayDate)
+            val foodEntriesToDay = loadFoodExpiringTodayForNotification(previousDayDate, nextDayDate)
 
             foodEntriesToDay.let {
                 if (foodEntriesToDay.isNotEmpty()) {
