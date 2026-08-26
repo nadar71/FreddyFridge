@@ -58,6 +58,9 @@ fun SettingsScreen(
     val context = LocalContext.current
     val activity = LocalActivity.current
     val uiState by settingsViewModel.uiState.collectAsStateWithLifecycle()
+    val deleteCompleteMessage = stringResource(R.string.settings_delete_end_description)
+    val consentResetMessage = stringResource(R.string.gdpr_dialog_will_show_again)
+    val consentResetDoneMessage = stringResource(R.string.gdpr_dialog_reset_done)
 
     SettingsScreenEffects(
         events = settingsViewModel.events,
@@ -67,7 +70,7 @@ fun SettingsScreen(
             context.cacheDir.deleteRecursively()
             Toast.makeText(
                 context,
-                context.getString(R.string.settings_delete_end_description),
+                deleteCompleteMessage,
                 Toast.LENGTH_LONG,
             ).show()
         },
@@ -83,7 +86,7 @@ fun SettingsScreen(
             UserMessagingPlatform.getConsentInformation(context).reset()
             Toast.makeText(
                 context,
-                context.getString(R.string.gdpr_dialog_will_show_again),
+                consentResetMessage,
                 Toast.LENGTH_LONG,
             ).show()
             ConsentManager.requestConsent(
@@ -92,7 +95,7 @@ fun SettingsScreen(
                 onConsentReady = {
                     Toast.makeText(
                         context,
-                        context.getString(R.string.gdpr_dialog_reset_done),
+                        consentResetDoneMessage,
                         Toast.LENGTH_SHORT,
                     ).show()
                 },

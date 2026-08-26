@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.data.locals.Globals.IS_IN_PREVIEW
 import eu.indiewalkabout.fridgemanager.core.presentation.components.composecalendar.ComposeCalendar
@@ -28,6 +29,8 @@ fun FoodEditorExperience(
     onSubmit: (FoodEditorUiState) -> Unit,
 ) {
     val context = LocalContext.current
+    val permissionDeniedMessage = stringResource(R.string.permission_denied_title)
+    val quantityTitle = stringResource(R.string.insert_quantity_label)
     var isListening by remember(initialState) { mutableStateOf(false) }
     var rmsDb by remember(initialState) { mutableFloatStateOf(0f) }
     var showCalendarDialog by remember(initialState) { mutableStateOf(false) }
@@ -67,7 +70,7 @@ fun FoodEditorExperience(
         } else {
             Toast.makeText(
                 context,
-                context.getString(R.string.permission_denied_title),
+                permissionDeniedMessage,
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -92,7 +95,7 @@ fun FoodEditorExperience(
 
     if (showQuantityWheelPicker) {
         NumberPickerWithTitle(
-            title = context.getString(R.string.insert_quantity_label),
+            title = quantityTitle,
             max = 50,
             onItemSelected = {
                 editorState = editorState.copy(quantityText = it)

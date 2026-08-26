@@ -42,6 +42,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -75,6 +76,7 @@ internal fun CalendarContent(
     // LogCompositions("CalendarContent")
 
     val dateRange = getDateRange(minDate, maxDate)
+    val locale = LocalConfiguration.current.locales[0]
     val dateRangeByYear = dateRange.step(DateRangeStep.Year(1))
     val totalPageCount = dateRange.count()
     val initialPage = getStartPage(startDate, dateRange, totalPageCount)
@@ -162,7 +164,7 @@ internal fun CalendarContent(
                     DayOfWeek.values().forEach {
                         Text(
                             modifier = Modifier.weight(1f),
-                            text = it.getDisplayName(TextStyle.NARROW, Locale.getDefault()),
+                            text = it.getDisplayName(TextStyle.NARROW, locale),
                             textAlign = TextAlign.Center,
                             fontWeight = FontWeight.SemiBold
                         )

@@ -1,4 +1,28 @@
 import org.gradle.kotlin.dsl.implementation
+import java.util.Properties
+
+val signingProperties = Properties().apply {
+    val propertiesFile = rootProject.file("keystore.properties")
+    if (propertiesFile.isFile) {
+        propertiesFile.inputStream().use(::load)
+    }
+}
+
+fun signingCredential(environmentName: String, propertyName: String): String? =
+    providers.environmentVariable(environmentName).orNull
+        ?.takeIf(String::isNotBlank)
+        ?: signingProperties.getProperty(propertyName)?.takeIf(String::isNotBlank)
+
+val releaseStoreFile = signingCredential("FREDDY_UPLOAD_STORE_FILE", "uploadStoreFile")
+val releaseStorePassword = signingCredential("FREDDY_UPLOAD_STORE_PASSWORD", "uploadStorePassword")
+val releaseKeyAlias = signingCredential("FREDDY_UPLOAD_KEY_ALIAS", "uploadKeyAlias")
+val releaseKeyPassword = signingCredential("FREDDY_UPLOAD_KEY_PASSWORD", "uploadKeyPassword")
+val releaseSigningConfigured = listOf(
+    releaseStoreFile,
+    releaseStorePassword,
+    releaseKeyAlias,
+    releaseKeyPassword,
+).all { it != null }
 
 plugins {
     alias(libs.plugins.android.application)
@@ -23,9 +47,22 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        if (releaseSigningConfigured) {
+            create("release") {
+                storeFile = rootProject.file(requireNotNull(releaseStoreFile))
+                storePassword = requireNotNull(releaseStorePassword)
+                keyAlias = requireNotNull(releaseKeyAlias)
+                keyPassword = requireNotNull(releaseKeyPassword)
+            }
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            signingConfig = signingConfigs.findByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -44,13 +81,25 @@ android {
     }
 }
 
+if (!releaseSigningConfigured) {
+    tasks.configureEach {
+        if (name == "preReleaseBuild") {
+            doFirst {
+                throw GradleException(
+                    "Release signing is not configured. Set FREDDY_UPLOAD_* environment " +
+                        "variables or create an ignored keystore.properties file.",
+                )
+            }
+        }
+    }
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
-    implementation(libs.androidx.ui.test.android)
     implementation(libs.review)
     implementation(libs.app.update.ktx)
     implementation(libs.androidx.core.splashscreen)
@@ -61,22 +110,17 @@ dependencies {
     implementation(libs.androidx.runtime)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.foundation)
     implementation(libs.foundation.layout)
     implementation(libs.androidx.material)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.material3.android)
     implementation(libs.androidx.material.icons.extended)
-    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.animation.core.android)
-    implementation(libs.androidx.foundation.android)
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)
@@ -104,23 +148,6 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     testImplementation(libs.androidx.room.testing)
 
-    // coil
-    implementation(libs.coil.compose)
-    implementation(libs.coil.compose.v210)
-
-    // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
-    implementation(libs.okhttp.urlconnection)
-
-    // Multidex
-    implementation(libs.multidex)
-
-    // WorkManager
-    implementation(libs.androidx.work.runtime.ktx)
-
     // Ad mob
     implementation(libs.playservices.ads)
     implementation(libs.user.messaging.platform)
@@ -138,14 +165,12 @@ dependencies {
     implementation(libs.gson.support)
     implementation(libs.livedata.support)
     implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx.v251)
     implementation(libs.preference.screen.dsl)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     // testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)

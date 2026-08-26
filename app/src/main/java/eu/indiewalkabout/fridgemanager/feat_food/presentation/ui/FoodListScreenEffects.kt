@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
 import kotlinx.coroutines.flow.SharedFlow
 
@@ -20,6 +21,7 @@ fun FoodListScreenEffects(
     onUpdateResult: (Boolean) -> Unit,
 ) {
     val context = LocalContext.current
+    val resources = LocalResources.current
 
     LaunchedEffect(isMutating) {
         onUpdateLoading(isMutating)
@@ -53,7 +55,7 @@ fun FoodListScreenEffects(
                 is FoodListScreenUiEvent.ShowToast -> {
                     Toast.makeText(
                         context,
-                        context.getString(event.messageResId),
+                        resources.getString(event.messageResId),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
