@@ -50,7 +50,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
-    implementation(libs.androidx.ui.test.android)
     implementation(libs.review)
     implementation(libs.app.update.ktx)
     implementation(libs.androidx.core.splashscreen)
@@ -61,22 +60,17 @@ dependencies {
     implementation(libs.androidx.runtime)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.foundation)
     implementation(libs.foundation.layout)
     implementation(libs.androidx.material)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.material3.android)
     implementation(libs.androidx.material.icons.extended)
-    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.animation.core.android)
-    implementation(libs.androidx.foundation.android)
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)
@@ -104,23 +98,6 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     testImplementation(libs.androidx.room.testing)
 
-    // coil
-    implementation(libs.coil.compose)
-    implementation(libs.coil.compose.v210)
-
-    // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
-    implementation(libs.okhttp.urlconnection)
-
-    // Multidex
-    implementation(libs.multidex)
-
-    // WorkManager
-    implementation(libs.androidx.work.runtime.ktx)
-
     // Ad mob
     implementation(libs.playservices.ads)
     implementation(libs.user.messaging.platform)
@@ -138,14 +115,12 @@ dependencies {
     implementation(libs.gson.support)
     implementation(libs.livedata.support)
     implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx.v251)
     implementation(libs.preference.screen.dsl)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     // testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)

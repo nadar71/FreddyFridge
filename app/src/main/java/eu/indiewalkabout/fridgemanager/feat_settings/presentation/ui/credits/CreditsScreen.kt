@@ -30,6 +30,11 @@ fun CreditsScreen(
 ) {
     val colors = LocalAppColors.current
     val context = LocalContext.current
+    val gilInstagramLink = stringResource(R.string.credits_gil_instagram_link)
+    val alarmIconsLink = stringResource(R.string.credits_alarm_icons_link)
+    val fridgeImageLink = stringResource(R.string.credits_fridge_img_link)
+    val fruitsImageLink = stringResource(R.string.credits_fruits_img_link)
+    val backgroundLink = stringResource(R.string.credits_background_link)
 
     SecondaryScreenScaffold {
         Column(
@@ -61,7 +66,7 @@ fun CreditsScreen(
                     modifier = Modifier.clickable {
                         openUrlInBrowserNotCompose(
                             context,
-                            context.getString(R.string.credits_gil_instagram_link)
+                            gilInstagramLink
                         )
                     }
                 )
@@ -90,7 +95,7 @@ fun CreditsScreen(
                 modifier = Modifier.clickable {
                     openUrlInBrowserNotCompose(
                         context,
-                        context.getString(R.string.credits_alarm_icons_link)
+                        alarmIconsLink
                     )
                 }
             )
@@ -101,7 +106,7 @@ fun CreditsScreen(
                 modifier = Modifier.clickable {
                     openUrlInBrowserNotCompose(
                         context,
-                        context.getString(R.string.credits_fridge_img_link)
+                        fridgeImageLink
                     )
                 }
             )
@@ -112,7 +117,7 @@ fun CreditsScreen(
                 modifier = Modifier.clickable {
                     openUrlInBrowserNotCompose(
                         context,
-                        context.getString(R.string.credits_fruits_img_link)
+                        fruitsImageLink
                     )
                 }
             )
@@ -123,7 +128,7 @@ fun CreditsScreen(
                 modifier = Modifier.clickable {
                     openUrlInBrowserNotCompose(
                         context,
-                        context.getString(R.string.credits_background_link)
+                        backgroundLink
                     )
                 }
             )
@@ -139,6 +144,5 @@ fun CreditsScreenPreview() {
         CreditsScreen()
     }
 }
-
 
 

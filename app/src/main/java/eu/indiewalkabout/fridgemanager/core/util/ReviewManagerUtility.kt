@@ -3,13 +3,9 @@ package eu.indiewalkabout.fridgemanager.core.util
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.multidex.BuildConfig
 import com.google.android.play.core.review.ReviewException
-import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.android.play.core.review.model.ReviewErrorCode
-import com.google.android.play.core.review.testing.FakeReviewManager
-import eu.indiewalkabout.fridgemanager.FreddyFridgeApp
 import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import kotlinx.coroutines.launch
 
