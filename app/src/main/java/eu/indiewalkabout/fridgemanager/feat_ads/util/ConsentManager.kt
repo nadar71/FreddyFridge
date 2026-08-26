@@ -1,56 +1,52 @@
 package eu.indiewalkabout.fridgemanager.feat_ads.util
 
 import android.app.Activity
-import android.content.Context
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import com.google.android.ump.ConsentInformation
 import com.google.android.ump.ConsentRequestParameters
 import com.google.android.ump.UserMessagingPlatform
 
 object ConsentManager {
     private var consentInformation: ConsentInformation? = null
+    var isPrivacyOptionsRequired by mutableStateOf(false)
+        private set
 
     fun requestConsent(
-        context: Context,
-        activity: Activity?,
+        activity: Activity,
         onConsentReady: (Boolean) -> Unit
     ) {
         val params = ConsentRequestParameters.Builder()
             .setTagForUnderAgeOfConsent(false)
             .build()
 
-        consentInformation = UserMessagingPlatform.getConsentInformation(context)
+        consentInformation = UserMessagingPlatform.getConsentInformation(activity)
         consentInformation?.requestConsentInfoUpdate(
             activity,
             params,
             {
-                if (consentInformation?.isConsentFormAvailable == true) {
-                    loadAndShowForm(context, onConsentReady)
-                } else {
+                UserMessagingPlatform.loadAndShowConsentFormIfRequired(activity) {
+                    updatePrivacyOptionsRequirement()
                     onConsentReady(consentInformation?.canRequestAds() == true)
                 }
             },
             {
-                onConsentReady(false) // Consent failed
+                updatePrivacyOptionsRequirement()
+                onConsentReady(consentInformation?.canRequestAds() == true)
             }
         )
     }
 
-    private fun loadAndShowForm(context: Context, onConsentReady: (Boolean) -> Unit) {
-        UserMessagingPlatform.loadConsentForm(
-            context,
-            { form ->
-                val status = consentInformation?.consentStatus
-                if (status == ConsentInformation.ConsentStatus.REQUIRED) {
-                    form.show(context as Activity) {
-                        onConsentReady(consentInformation?.canRequestAds() == true)
-                    }
-                } else {
-                    onConsentReady(consentInformation?.canRequestAds() == true)
-                }
-            },
-            {
-                onConsentReady(false)
-            }
-        )
+    fun showPrivacyOptions(activity: Activity, onComplete: () -> Unit = {}) {
+        UserMessagingPlatform.showPrivacyOptionsForm(activity) {
+            updatePrivacyOptionsRequirement()
+            onComplete()
+        }
+    }
+
+    private fun updatePrivacyOptionsRequirement() {
+        isPrivacyOptionsRequired = consentInformation?.privacyOptionsRequirementStatus ==
+            ConsentInformation.PrivacyOptionsRequirementStatus.REQUIRED
     }
 }

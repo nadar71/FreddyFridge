@@ -118,7 +118,7 @@
     <string name="gdpr_btn_title">Privacy e consenso per gli annunci</string>
     <string name="gdpr_btn_summary">Gestisci il tuo consenso per la personalizzazione degli annunci</string>
     <string name="gdpr_dialog_will_show_again">Il consenso è stato reimpostato. Ti verrà chiesto di nuovo.</string>
-    <string name="gdpr_dialog_reset_done">Finestra di dialogo per il consenso gestita.</string>
+    <string name="gdpr_dialog_reset_done">Preferenze sulla privacy aggiornate.</string>
 
 
     <!-- - - - - - - - - - - - - Notifications   - - - - - - - - - - - - - - - - - - - - - - - - -->

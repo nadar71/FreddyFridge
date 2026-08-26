@@ -127,7 +127,7 @@
     <string name="gdpr_btn_title">Privacy &amp; Ad Consent</string>
     <string name="gdpr_btn_summary">Manage your ad personalization consent</string>
     <string name="gdpr_dialog_will_show_again">Consent has been reset. You\'ll be asked again.</string>
-    <string name="gdpr_dialog_reset_done">Consent dialog handled.</string>
+    <string name="gdpr_dialog_reset_done">Privacy choices updated.</string>
 
 
 
