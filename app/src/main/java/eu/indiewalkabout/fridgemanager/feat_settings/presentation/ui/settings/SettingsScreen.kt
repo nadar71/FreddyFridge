@@ -40,7 +40,6 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.seconda
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_20
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.openAppSettings
 import eu.indiewalkabout.fridgemanager.core.util.GenericUtility.openAppStore
-import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.openAlarmSettings
 import eu.indiewalkabout.fridgemanager.core.util.extensions.sendEmail
 import eu.indiewalkabout.fridgemanager.feat_ads.presentation.AdMobBannerView
 import eu.indiewalkabout.fridgemanager.feat_ads.util.ConsentManager
@@ -79,7 +78,6 @@ fun SettingsScreen(
         onOpenCredits = onOpenCredits,
         onUpdateDaysBeforeDeadline = settingsViewModel::updateDaysBeforeDeadline,
         onUpdateDailyNotificationCount = settingsViewModel::updateDailyNotificationCount,
-        onOpenAlarmSettings = context::openAlarmSettings,
         onOpenNotificationSettings = context::openAppSettings,
         onResetConsent = {
             UserMessagingPlatform.getConsentInformation(context).reset()
@@ -116,7 +114,6 @@ fun SettingsScreenContent(
     onOpenCredits: () -> Unit,
     onUpdateDaysBeforeDeadline: (Int) -> Unit,
     onUpdateDailyNotificationCount: (Int) -> Unit,
-    onOpenAlarmSettings: () -> Unit,
     onOpenNotificationSettings: () -> Unit,
     onResetConsent: () -> Unit,
     onOpenSystemAppSettings: () -> Unit,
@@ -216,12 +213,6 @@ fun SettingsScreenContent(
                         modifier = Modifier.clickable {
                             showNotificationNumEachDayWheelPicker = true
                         }
-                    )
-
-                    SettingsItem(
-                        title = stringResource(id = R.string.exact_alarm_permission_settings_title),
-                        subtitle = stringResource(id = R.string.exact_alarm_permission_settings_message),
-                        modifier = Modifier.clickable(onClick = onOpenAlarmSettings)
                     )
 
                     SettingsItem(
@@ -410,7 +401,6 @@ fun SettingsScreenPreview() {
             onOpenCredits = {},
             onUpdateDaysBeforeDeadline = {},
             onUpdateDailyNotificationCount = {},
-            onOpenAlarmSettings = {},
             onOpenNotificationSettings = {},
             onResetConsent = {},
             onOpenSystemAppSettings = {},
