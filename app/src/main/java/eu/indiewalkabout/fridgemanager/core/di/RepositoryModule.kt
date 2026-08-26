@@ -7,6 +7,8 @@ import dagger.hilt.components.SingletonComponent
 import eu.indiewalkabout.fridgemanager.feat_food.data.local.db.FoodDbDao
 import eu.indiewalkabout.fridgemanager.feat_food.domain.repository.FridgeManagerRepository
 import eu.indiewalkabout.fridgemanager.feat_food.data.repository.FridgeManagerRepositoryImpl
+import eu.indiewalkabout.fridgemanager.feat_settings.data.repository.SettingsRepositoryImpl
+import eu.indiewalkabout.fridgemanager.feat_settings.domain.repository.SettingsRepository
 import javax.inject.Singleton
 
 @Module
@@ -19,5 +21,11 @@ object RepositoryModule {
         foodDbDao: FoodDbDao
     ): FridgeManagerRepository {
         return FridgeManagerRepositoryImpl(foodDbDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSettingsRepository(): SettingsRepository {
+        return SettingsRepositoryImpl()
     }
 }
