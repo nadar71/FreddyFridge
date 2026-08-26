@@ -17,21 +17,19 @@ class AppDestinationTest {
     }
 
     @Test
-    fun `every destination round trips through its legacy route`() {
-        val destinations = listOf(
-            AppDestination.Main,
-            AppDestination.Expiring,
-            AppDestination.Expired,
-            AppDestination.Consumed,
-            AppDestination.Settings,
-            AppDestination.Credits,
+    fun `every destination has the expected legacy route in both directions`() {
+        val mappings = listOf(
+            AppDestination.Main to NavigationScreenConstants.MAIN_SCREEN,
+            AppDestination.Expiring to NavigationScreenConstants.FOOD_EXPIRING_SCREEN,
+            AppDestination.Expired to NavigationScreenConstants.FOOD_EXPIRED_SCREEN,
+            AppDestination.Consumed to NavigationScreenConstants.FOOD_CONSUMED_SCREEN,
+            AppDestination.Settings to NavigationScreenConstants.SETTINGS_SCREEN,
+            AppDestination.Credits to NavigationScreenConstants.CREDITS_SCREEN,
         )
 
-        destinations.forEach { destination ->
-            assertEquals(
-                destination,
-                AppDestination.fromLegacyRoute(AppDestination.toLegacyRoute(destination)),
-            )
+        mappings.forEach { (destination, route) ->
+            assertEquals(route, AppDestination.toLegacyRoute(destination))
+            assertEquals(destination, AppDestination.fromLegacyRoute(route))
         }
     }
 
