@@ -4,7 +4,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,9 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,7 +29,6 @@ import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_DAYS_BEFORE_DEADLINE
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_DAILY_NOTIFICATIONS_NUMBER
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.support_email
-import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
 import eu.indiewalkabout.fridgemanager.core.presentation.components.GeneralModalDialog
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
@@ -49,6 +45,7 @@ import eu.indiewalkabout.fridgemanager.feat_ads.presentation.AdMobBannerView
 import eu.indiewalkabout.fridgemanager.feat_ads.util.ConsentManager
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.NumberPickerWithTitle
 import eu.indiewalkabout.fridgemanager.core.presentation.navigation.components.BottomNavigationBar
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.components.SecondaryScreenScaffold
 import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.openAppSettings
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.components.SettingsGroupTitle
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.components.SettingsItem
@@ -67,7 +64,6 @@ fun SettingsScreen(
     var dailyNotificationsNumber by remember { mutableStateOf(AppPreferences.daily_notifications_number) }
 
     val scrollState = rememberScrollState()
-    var isFabVisible by remember { mutableStateOf(true) }
     var showDeleteDialog by remember { mutableStateOf(false) }
 
 
@@ -111,37 +107,23 @@ fun SettingsScreen(
         )
     }
 
-
-
-    LaunchedEffect(scrollState.value) {
-        isFabVisible = scrollState.value == 0
-    }
-
     // ------------------------------------ UI -----------------------------------------------------
-    Scaffold(
+    SecondaryScreenScaffold(
         bottomBar = {
             BottomNavigationBar(
                 selectedDestination = null,
                 onDestinationSelected = {},
             )
         },
-        containerColor = colors.primaryColor
-    ) { paddingValues ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
-            BackgroundPattern()
+    ) {
+        Column {
 
-            Column {
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 16.dp, vertical = 0.dp)
-                        .verticalScroll(scrollState)
-                ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp, vertical = 0.dp)
+                    .verticalScroll(scrollState)
+            ) {
 
                     TopBar(
                         title = stringResource(id = R.string.settings_title),
@@ -347,17 +329,15 @@ fun SettingsScreen(
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))*/
-                }
-
-                Spacer(modifier = Modifier.height(4.dp))
-
-                AdMobBannerView(adUnitId = stringResource(R.string.admob_key_bottom_banner))
-
-                Spacer(modifier = Modifier.height(4.dp))
-
             }
-        }
 
+            Spacer(modifier = Modifier.height(4.dp))
+
+            AdMobBannerView(adUnitId = stringResource(R.string.admob_key_bottom_banner))
+
+            Spacer(modifier = Modifier.height(4.dp))
+
+        }
     }
 
     // delete dialog

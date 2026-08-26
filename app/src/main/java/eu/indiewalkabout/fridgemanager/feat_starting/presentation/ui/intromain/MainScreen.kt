@@ -11,13 +11,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -34,25 +30,22 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.ProductListCard
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestination
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.components.TopLevelScreenScaffold
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.colorText
-import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.Fredoka
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getEndOfTodayEpochMillis
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getPreviousDayEndOfDayDate
-import eu.indiewalkabout.fridgemanager.feat_ads.presentation.AdMobBannerView
+import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.ProductListCard
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodMutationEvent
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodMutationViewModel
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodBottomSheetContent
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodEvent
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodViewModel
-import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestination
-import eu.indiewalkabout.fridgemanager.core.presentation.navigation.components.BottomNavigationBar
 import eu.indiewalkabout.fridgemanager.feat_starting.presentation.components.AnimatedFoodBox
 import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.tutorials.OnBoardingScreenOverlay
 
@@ -66,22 +59,17 @@ fun MainScreen(
     selectedDestination: AppDestination = AppDestination.Main,
     onNavigateToDestination: (AppDestination) -> Unit = {},
 ) {
-    val TAG = "MainScreen"
+    val tag = "MainScreen"
     val context = LocalContext.current
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true
-    )
 
-    // ----------------------------- LOGIC ---------------------------------------------------------
     val uiState by mainViewModel.uiState.collectAsState()
     val isInserting by insertFoodViewModel.isInserting.collectAsState()
     val isMutating by foodViewModel.isMutating.collectAsState()
 
     LaunchedEffect(Unit) {
-        mainViewModel.getFoodExpiringToday(getPreviousDayEndOfDayDate(),getEndOfTodayEpochMillis())
+        mainViewModel.getFoodExpiringToday(getPreviousDayEndOfDayDate(), getEndOfTodayEpochMillis())
     }
 
-    // Handle update food response
     LaunchedEffect(isMutating) {
         mainViewModel.handleUpdateLoading(isMutating)
     }
@@ -112,8 +100,13 @@ fun MainScreen(
         mainViewModel.events.collect { event ->
             when (event) {
                 is MainUiEvent.ShowToast -> {
-                    Toast.makeText(context, context.getString(event.messageResId), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        context.getString(event.messageResId),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+
                 MainUiEvent.RefreshExpiringNotifications -> {
                     alarmReminderScheduler.setRepeatingAlarm()
                 }
@@ -121,144 +114,93 @@ fun MainScreen(
         }
     }
 
-    // ----------------------------- UI ---------------------------------------------------------
     if (uiState.showOnBoarding) {
         OnBoardingScreenOverlay()
     }
 
-
-
-    Scaffold(
-        bottomBar = {
-            BottomNavigationBar(
-                selectedDestination = selectedDestination,
-                onDestinationSelected = onNavigateToDestination,
-                onNewItemClicked = {
-                    mainViewModel.setBottomSheetVisible(true)
-                }
-            )
-        },
-        containerColor = primaryColor
+    TopLevelScreenScaffold(
+        selectedDestination = selectedDestination,
+        onDestinationSelected = onNavigateToDestination,
+        onNewItemClicked = { mainViewModel.setBottomSheetVisible(true) },
+        isBottomSheetVisible = uiState.isBottomSheetVisible,
+        onBottomSheetDismiss = { mainViewModel.setBottomSheetVisible(false) },
+        bottomSheetContent = { InsertFoodBottomSheetContent() },
     ) {
-        Box(
-            Modifier
-                .fillMaxSize()
-                .padding(it)
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            BackgroundPattern()
-            Column(
+            Image(
+                painter = painterResource(id = R.drawable.img_app_title),
+                contentDescription = "FreddyFridge Logo",
                 modifier = Modifier
-                    .fillMaxSize(),
-                //.padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-
-
-                // title
-                Image(
-                    painter = painterResource(id = R.drawable.img_app_title), // Replace with actual image
-                    contentDescription = "FreddyFridge Logo",
-                    modifier = Modifier
-                        .height(80.dp)
-                        .padding(vertical = 8.dp, horizontal = 16.dp)
-                        .clickable(onClick = {
-                            Log.d(TAG, "MainScreen: settings icon pressed")
-                            onOpenSettings()
-                        })
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                TopBar(
-                    title = stringResource(R.string.main_subtitle),
-                    // drawableLeftIcon = R.drawable.ic_help_outline,
-                    drawableRightIcon = R.drawable.ic_flower_white,
-                    paddingStart = 16.dp,
-                    paddingEnd = 16.dp,
-                    onLeftIconClick = {
-                        Log.d(TAG, "MainScreen: help icon pressed")
-                        mainViewModel.setOnBoardingVisible(true)
-                    },
-                    onRightIconClick = {
-                        Log.d(TAG, "MainScreen: settings icon pressed")
+                    .height(80.dp)
+                    .padding(vertical = 8.dp, horizontal = 16.dp)
+                    .clickable {
+                        Log.d(tag, "MainScreen: settings icon pressed")
                         onOpenSettings()
                     }
-                )
+            )
 
-                Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-                AnimatedFoodBox()
+            TopBar(
+                title = stringResource(R.string.main_subtitle),
+                drawableRightIcon = R.drawable.ic_flower_white,
+                paddingStart = 16.dp,
+                paddingEnd = 16.dp,
+                onLeftIconClick = {
+                    Log.d(tag, "MainScreen: help icon pressed")
+                    mainViewModel.setOnBoardingVisible(true)
+                },
+                onRightIconClick = {
+                    Log.d(tag, "MainScreen: settings icon pressed")
+                    onOpenSettings()
+                }
+            )
 
-                // List Section
-                Text(
-                    text = stringResource(R.string.main_list_title),
-                    fontFamily = Fredoka,
-                    fontWeight = FontWeight.SemiBold,
-                    style = text_16(colorText, true),
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp, bottom = 4.dp)
-                )
+            Spacer(modifier = Modifier.height(16.dp))
 
-                /*ProductListCard(
+            AnimatedFoodBox()
+
+            Text(
+                text = stringResource(R.string.main_list_title),
+                fontFamily = Fredoka,
+                fontWeight = FontWeight.SemiBold,
+                style = text_16(colorText, true),
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, bottom = 4.dp)
+            )
+
+            if (uiState.hasLoadedFood) {
+                ProductListCard(
+                    foods = uiState.foods,
+                    sharingTitle = stringResource(R.string.settings_share_today_title),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp)
-                        .weight(1f), // card take all available vertical space
-                )*/
-
-                if (uiState.hasLoadedFood) {
-                    ProductListCard(
-                        foods = uiState.foods,
-                        sharingTitle = stringResource(R.string.settings_share_today_title),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
-                            .weight(1f),
-                        isUpdatable = true,
-                        isDeletable = true,
-                        isOpenable = true,
-                        onCheckChanged = {},
-                        message = stringResource(R.string.foodExpiring_message)
-                    )
-                }
-
-                // Show Progress Bar
-                if (uiState.isLoading) {
-                    Box(
-                        modifier = Modifier,
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator(color = secondaryColor)
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(16.dp)) // Space between card and ad
-
-                // Ad Banner
-                AdMobBannerView(adUnitId = stringResource(R.string.admob_key_bottom_banner))
+                        .weight(1f),
+                    isUpdatable = true,
+                    isDeletable = true,
+                    isOpenable = true,
+                    onCheckChanged = {},
+                    message = stringResource(R.string.foodExpiring_message)
+                )
             }
-        }
 
-        if (uiState.isBottomSheetVisible) {
-            ModalBottomSheet(
-                shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
-                modifier = Modifier,
-                onDismissRequest = { mainViewModel.setBottomSheetVisible(false) },
-                sheetState = sheetState,
-                containerColor = primaryColor,
-            ) {
-                InsertFoodBottomSheetContent()
+            if (uiState.isLoading) {
+                Box(
+                    modifier = Modifier,
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(color = secondaryColor)
+                }
             }
         }
     }
-
-
 }
-
-
-
-
-
 
 @Preview
 @Composable
