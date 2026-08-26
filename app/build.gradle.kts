@@ -1,4 +1,28 @@
 import org.gradle.kotlin.dsl.implementation
+import java.util.Properties
+
+val signingProperties = Properties().apply {
+    val propertiesFile = rootProject.file("keystore.properties")
+    if (propertiesFile.isFile) {
+        propertiesFile.inputStream().use(::load)
+    }
+}
+
+fun signingCredential(environmentName: String, propertyName: String): String? =
+    providers.environmentVariable(environmentName).orNull
+        ?.takeIf(String::isNotBlank)
+        ?: signingProperties.getProperty(propertyName)?.takeIf(String::isNotBlank)
+
+val releaseStoreFile = signingCredential("FREDDY_UPLOAD_STORE_FILE", "uploadStoreFile")
+val releaseStorePassword = signingCredential("FREDDY_UPLOAD_STORE_PASSWORD", "uploadStorePassword")
+val releaseKeyAlias = signingCredential("FREDDY_UPLOAD_KEY_ALIAS", "uploadKeyAlias")
+val releaseKeyPassword = signingCredential("FREDDY_UPLOAD_KEY_PASSWORD", "uploadKeyPassword")
+val releaseSigningConfigured = listOf(
+    releaseStoreFile,
+    releaseStorePassword,
+    releaseKeyAlias,
+    releaseKeyPassword,
+).all { it != null }
 
 plugins {
     alias(libs.plugins.android.application)
@@ -23,9 +47,21 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        if (releaseSigningConfigured) {
+            create("release") {
+                storeFile = rootProject.file(requireNotNull(releaseStoreFile))
+                storePassword = requireNotNull(releaseStorePassword)
+                keyAlias = requireNotNull(releaseKeyAlias)
+                keyPassword = requireNotNull(releaseKeyPassword)
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.findByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -41,6 +77,19 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+}
+
+if (!releaseSigningConfigured) {
+    tasks.configureEach {
+        if (name == "preReleaseBuild") {
+            doFirst {
+                throw GradleException(
+                    "Release signing is not configured. Set FREDDY_UPLOAD_* environment " +
+                        "variables or create an ignored keystore.properties file.",
+                )
+            }
+        }
     }
 }
 

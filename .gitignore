@@ -9,6 +9,10 @@
 .externalNativeBuild
 *.apk
 *.abb
+*.aab
+*.jks
+*.keystore
+keystore.properties
 /release
 
 
