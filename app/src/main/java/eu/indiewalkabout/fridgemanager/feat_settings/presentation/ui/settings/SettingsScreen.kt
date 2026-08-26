@@ -104,6 +104,9 @@ fun SettingsScreen(
         onOpenAppStore = { openAppStore(context, context.packageName) },
         onSendSupportEmail = { sendEmail(context, support_email) },
         onResetAppData = settingsViewModel::resetPreferences,
+        adBanner = {
+            AdMobBannerView(adUnitId = stringResource(R.string.admob_key_bottom_banner))
+        },
     )
 }
 
@@ -120,6 +123,7 @@ fun SettingsScreenContent(
     onOpenAppStore: () -> Unit,
     onSendSupportEmail: () -> Unit,
     onResetAppData: () -> Unit,
+    adBanner: @Composable () -> Unit,
 ) {
     val tag = "SettingsScreen"
     val colors = LocalAppColors.current
@@ -361,7 +365,7 @@ fun SettingsScreenContent(
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            AdMobBannerView(adUnitId = stringResource(R.string.admob_key_bottom_banner))
+            adBanner()
 
             Spacer(modifier = Modifier.height(4.dp))
 
@@ -413,6 +417,7 @@ fun SettingsScreenPreview() {
             onOpenAppStore = {},
             onSendSupportEmail = {},
             onResetAppData = {},
+            adBanner = {},
         )
     }
 }
