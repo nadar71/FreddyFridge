@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unityads_id" templateMergeStrategy="preserve" translatable="false">
+        4029837</string>
+
+
+    <!-- ADMOB APP ID -->
+    <!-- Sample AdMob app ID -->
+    <!--<string name="admob_key_app_id" templateMergeStrategy="preserve" translatable="false">
+        ca-app-pub-3940256099942544~3347511713</string>-->
+    <string name="admob_key_app_id" templateMergeStrategy="preserve" translatable="false">
+        ca-app-pub-8846176967909254~3156345913</string>
+
+
+    <!-- ADMOB BOTTOM BANNER ID -->
+    <!-- TEST AdMob banner ID    -->
+    <!-- <string name="admob_key_bottom_banner" templateMergeStrategy="preserve" translatable="false">
+        ca-app-pub-3940256099942544/9214589741</string> -->
+    <!-- PROD AdMob banner ID    -->
+    <string name="admob_key_bottom_banner" templateMergeStrategy="preserve" translatable="false">
+        ca-app-pub-8846176967909254/6197442229</string>
+
+
+    <!-- ADMOB INTERSTITIAL ID -->
+    <!-- TEST AdMob banner ID -->
+    <!--<string name="admob_key_interstitial" templateMergeStrategy="preserve" translatable="false">
+        ca-app-pub-3940256099942544/1033173712</string>-->
+    <string name="admob_key_interstitial" templateMergeStrategy="preserve" translatable="false">
+        ca-app-pub-8846176967909254/5671183832</string>
+
+
+    <!-- Standard Android emulator test device ID; registered only in debug builds. -->
+    <string name="admob_key_test_device" templateMergeStrategy="preserve" translatable="false">
+        B3EEABB8EE11C2BE770B684D95219ECB</string>
+    
+
+</resources>
