@@ -7,66 +7,43 @@ import android.util.Log
 import dagger.hilt.android.AndroidEntryPoint
 import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility
-import eu.indiewalkabout.fridgemanager.feat_notifications.util.NotificationsUtility
 import eu.indiewalkabout.fridgemanager.core.util.extensions.TAG
-import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.LoadFoodExpiringForNotificationUseCase
-import eu.indiewalkabout.fridgemanager.feat_food.domain.use_cases.LoadFoodExpiringTodayForNotificationUseCase
+import eu.indiewalkabout.fridgemanager.feat_notifications.util.NotificationsUtility
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AlarmReceiver @Inject constructor() : BroadcastReceiver() {
+class AlarmReceiver : BroadcastReceiver() {
 
     @Inject
-    lateinit var loadFoodExpiringForNotification: LoadFoodExpiringForNotificationUseCase
-
-    @Inject
-    lateinit var loadFoodExpiringTodayForNotification: LoadFoodExpiringTodayForNotificationUseCase
-
-    // for real :
-    private val days = AppPreferences.days_before_deadline // PreferenceUtility.getDaysCount(context)
-    private val DAYS_BEFORE_IN_MILLIS = TimeUnit.DAYS.toMillis(days.toLong()) // to be used with timestamp which is in millisec
+    lateinit var notificationCoordinator: ReminderNotificationCoordinator
 
     override fun onReceive(context: Context, intent: Intent) {
-        Log.i(TAG, " AlarmReceiver : alarm RECEIVED, executing ...")
+        val pendingResult = goAsync()
+        CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
+            try {
+                val localTodayMidnight = DateUtility.getLocalMidnightFromNormalizedUtcDate(
+                    DateUtility.normalizedUtcMsForToday,
+                )
+                val food = notificationCoordinator.load(
+                    localTodayMidnight = localTodayMidnight,
+                    daysBeforeDeadline = AppPreferences.days_before_deadline,
+                )
 
-        // -----------------------------------------------------------------------------------------
-        // 1 - check for food expiring in the next x days (DAYS_BEFORE), and show notification in case
-        val dateNormalizedAtMidnight = DateUtility
-            .getLocalMidnightFromNormalizedUtcDate(DateUtility.normalizedUtcMsForToday)
-        val expiringDateToBeNotified = dateNormalizedAtMidnight + DAYS_BEFORE_IN_MILLIS
-        CoroutineScope(Dispatchers.IO).launch {
-            Log.i(TAG, "AlarmReceiver : check food expiring in the next days")
-            val foodEntriesNextDays = loadFoodExpiringForNotification(expiringDateToBeNotified)
-            foodEntriesNextDays.let {
-                if (foodEntriesNextDays.size > 0) {
-                    NotificationsUtility.remindNextDaysExpiringFood(context, it)
-                    Log.i(TAG, "AlarmReceiver: food expiring in the NEXT DAYS, notification sent")
+                if (food.expiringSoon.isNotEmpty()) {
+                    NotificationsUtility.remindNextDaysExpiringFood(context, food.expiringSoon)
                 }
+                if (food.expiringToday.isNotEmpty()) {
+                    NotificationsUtility.remindTodayExpiringFood(context, food.expiringToday)
+                }
+            } catch (error: Exception) {
+                Log.e(TAG, "Unable to deliver food reminder notifications", error)
+            } finally {
+                pendingResult.finish()
             }
         }
-
-
-
-        // -----------------------------------------------------------------------------------------
-        // 2 - check for food expiring today, and show notification in case
-        val previousDayDate = dateNormalizedAtMidnight - DateUtility.DAY_IN_MILLIS
-        val nextDayDate = dateNormalizedAtMidnight + DateUtility.DAY_IN_MILLIS
-        CoroutineScope(Dispatchers.IO).launch {
-            Log.i(TAG, "AlarmReceiver : check food expiring in today")
-            val foodEntriesToDay = loadFoodExpiringTodayForNotification(previousDayDate, nextDayDate)
-
-            foodEntriesToDay.let {
-                if (foodEntriesToDay.isNotEmpty()) {
-                    NotificationsUtility.remindTodayExpiringFood(context, it)
-                    Log.i(TAG, "AlarmReceiver : check food expiring  TODAY, notification sent")
-                }
-            }
-        }
-
     }
-
 }
