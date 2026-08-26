@@ -1,6 +1,9 @@
 package eu.indiewalkabout.fridgemanager.feat_settings.presentation.ui.settings
 
 import eu.indiewalkabout.fridgemanager.feat_settings.domain.repository.SettingsRepository
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeoutOrNull
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -38,6 +41,24 @@ class SettingsViewModelTest {
     }
 
     @Test
+    fun `updating daily notification count requests reminder reschedule`() = runBlocking {
+        val viewModel = SettingsViewModel(FakeSettingsRepository())
+
+        viewModel.updateDailyNotificationCount(5)
+
+        assertEquals(SettingsUiEvent.RescheduleNotifications, viewModel.events.first())
+    }
+
+    @Test
+    fun `updating days before deadline emits no framework effect`() = runBlocking {
+        val viewModel = SettingsViewModel(FakeSettingsRepository())
+
+        viewModel.updateDaysBeforeDeadline(6)
+
+        assertEquals(null, withTimeoutOrNull(50) { viewModel.events.first() })
+    }
+
+    @Test
     fun `reset reloads repository defaults into state`() {
         val repository = FakeSettingsRepository(daysBeforeDeadline = 7, dailyNotificationCount = 6)
         val viewModel = SettingsViewModel(repository)
@@ -47,6 +68,15 @@ class SettingsViewModelTest {
         assertEquals(2, repository.daysBeforeDeadline)
         assertEquals(1, repository.dailyNotificationCount)
         assertEquals(SettingsUiState(), viewModel.uiState.value)
+    }
+
+    @Test
+    fun `reset requests app data cleanup`() = runBlocking {
+        val viewModel = SettingsViewModel(FakeSettingsRepository())
+
+        viewModel.resetPreferences()
+
+        assertEquals(SettingsUiEvent.ClearAppData, viewModel.events.first())
     }
 
     private class FakeSettingsRepository(

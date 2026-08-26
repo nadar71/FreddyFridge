@@ -22,10 +22,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.ump.UserMessagingPlatform
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_DAYS_BEFORE_DEADLINE
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_DAILY_NOTIFICATIONS_NUMBER
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.support_email
@@ -52,16 +53,76 @@ import eu.indiewalkabout.fridgemanager.feat_settings.presentation.components.Set
 
 @Composable
 fun SettingsScreen(
+    settingsViewModel: SettingsViewModel = hiltViewModel(),
     onOpenCredits: () -> Unit = {},
 ) {
-    val TAG = "SettingsScreen"
-    Log.d(TAG, "SettingsScreen: shown")
-    val colors = LocalAppColors.current
     val context = LocalContext.current
     val activity = LocalActivity.current
+    val uiState by settingsViewModel.uiState.collectAsStateWithLifecycle()
 
-    var daysBefore by remember { mutableStateOf(AppPreferences.days_before_deadline) }
-    var dailyNotificationsNumber by remember { mutableStateOf(AppPreferences.daily_notifications_number) }
+    SettingsScreenEffects(
+        events = settingsViewModel.events,
+        onRescheduleNotifications = alarmReminderScheduler::setRepeatingAlarm,
+        onClearAppData = {
+            context.databaseList().forEach(context::deleteDatabase)
+            context.cacheDir.deleteRecursively()
+            Toast.makeText(
+                context,
+                context.getString(R.string.settings_delete_end_description),
+                Toast.LENGTH_LONG,
+            ).show()
+        },
+    )
+
+    SettingsScreenContent(
+        uiState = uiState,
+        onOpenCredits = onOpenCredits,
+        onUpdateDaysBeforeDeadline = settingsViewModel::updateDaysBeforeDeadline,
+        onUpdateDailyNotificationCount = settingsViewModel::updateDailyNotificationCount,
+        onOpenAlarmSettings = context::openAlarmSettings,
+        onOpenNotificationSettings = context::openAppSettings,
+        onResetConsent = {
+            UserMessagingPlatform.getConsentInformation(context).reset()
+            Toast.makeText(
+                context,
+                context.getString(R.string.gdpr_dialog_will_show_again),
+                Toast.LENGTH_LONG,
+            ).show()
+            ConsentManager.requestConsent(
+                context = context,
+                activity = activity,
+                onConsentReady = {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.gdpr_dialog_reset_done),
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                },
+            )
+        },
+        onOpenSystemAppSettings = { openAppSettings(context) },
+        onOpenAppStore = { openAppStore(context, context.packageName) },
+        onSendSupportEmail = { sendEmail(context, support_email) },
+        onResetAppData = settingsViewModel::resetPreferences,
+    )
+}
+
+@Composable
+fun SettingsScreenContent(
+    uiState: SettingsUiState,
+    onOpenCredits: () -> Unit,
+    onUpdateDaysBeforeDeadline: (Int) -> Unit,
+    onUpdateDailyNotificationCount: (Int) -> Unit,
+    onOpenAlarmSettings: () -> Unit,
+    onOpenNotificationSettings: () -> Unit,
+    onResetConsent: () -> Unit,
+    onOpenSystemAppSettings: () -> Unit,
+    onOpenAppStore: () -> Unit,
+    onSendSupportEmail: () -> Unit,
+    onResetAppData: () -> Unit,
+) {
+    val tag = "SettingsScreen"
+    val colors = LocalAppColors.current
 
     val scrollState = rememberScrollState()
     var showDeleteDialog by remember { mutableStateOf(false) }
@@ -78,9 +139,8 @@ fun SettingsScreen(
             title = stringResource(R.string.settings_days_label),
             max = NUM_MAX_DAYS_BEFORE_DEADLINE,
             onItemSelected = {
-                daysBefore = it.toInt()
-                AppPreferences.days_before_deadline = daysBefore
-                Log.d(TAG, "Days before notification selected: $it")
+                onUpdateDaysBeforeDeadline(it.toInt())
+                Log.d(tag, "Days before notification selected: $it")
                 showDaysBeforeWheelPicker = false
             },
             onDismiss = {
@@ -95,10 +155,8 @@ fun SettingsScreen(
             title = stringResource(R.string.settings_hours_label),
             max = NUM_MAX_DAILY_NOTIFICATIONS_NUMBER,
             onItemSelected = {
-                dailyNotificationsNumber = it.toInt()
-                AppPreferences.daily_notifications_number = dailyNotificationsNumber
-                alarmReminderScheduler.setRepeatingAlarm()
-                Log.d(TAG, "Notifications number each day selected: $it")
+                onUpdateDailyNotificationCount(it.toInt())
+                Log.d(tag, "Notifications number each day selected: $it")
                 showNotificationNumEachDayWheelPicker = false
             },
             onDismiss = {
@@ -142,7 +200,7 @@ fun SettingsScreen(
 
                     SettingsItem(
                         title = stringResource(id = R.string.settings_how_many_days_before_title),
-                        subtitle = daysBefore.toString(),
+                        subtitle = uiState.daysBeforeDeadline.toString(),
                         modifier = Modifier.clickable {
                             showDaysBeforeWheelPicker = true
                         }
@@ -150,7 +208,7 @@ fun SettingsScreen(
 
                     SettingsItem(
                         title = stringResource(id = R.string.settings_how_many_hours_title),
-                        subtitle = dailyNotificationsNumber.toString(),
+                        subtitle = uiState.dailyNotificationCount.toString(),
                         modifier = Modifier.clickable {
                             showNotificationNumEachDayWheelPicker = true
                         }
@@ -159,17 +217,13 @@ fun SettingsScreen(
                     SettingsItem(
                         title = stringResource(id = R.string.exact_alarm_permission_settings_title),
                         subtitle = stringResource(id = R.string.exact_alarm_permission_settings_message),
-                        modifier = Modifier.clickable {
-                            context.openAlarmSettings()
-                        }
+                        modifier = Modifier.clickable(onClick = onOpenAlarmSettings)
                     )
 
                     SettingsItem(
                         title = stringResource(id = R.string.notification_permission_title),
                         subtitle = stringResource(id = R.string.notification_permission_message),
-                        modifier = Modifier.clickable {
-                            context.openAppSettings()
-                        }
+                        modifier = Modifier.clickable(onClick = onOpenNotificationSettings)
                     )
 
                     Spacer(modifier = Modifier.height(32.dp))
@@ -195,44 +249,20 @@ fun SettingsScreen(
                     SettingsItem(
                         title = stringResource(id = R.string.gdpr_btn_title),
                         subtitle = stringResource(id = R.string.gdpr_btn_summary),
-                        modifier = Modifier.clickable {
-                            UserMessagingPlatform.getConsentInformation(context).reset()
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.gdpr_dialog_will_show_again),
-                                Toast.LENGTH_LONG
-                            ).show()
-
-                            // Trigger re-consent (optional)
-                            ConsentManager.requestConsent(
-                                context = context,
-                                activity = activity,
-                                onConsentReady = { canRequestAds ->
-                                    Toast.makeText(
-                                        context,
-                                        context.getString(R.string.gdpr_dialog_reset_done),
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            )
-                        }
+                        modifier = Modifier.clickable(onClick = onResetConsent)
                     )
 
 
                     SettingsItem(
                         title = stringResource(id = R.string.settings_goto_system_app_settings_title),
                         subtitle = stringResource(id = R.string.settings_goto_system_app_settings_label),
-                        modifier = Modifier.clickable {
-                            openAppSettings(context)
-                        }
+                        modifier = Modifier.clickable(onClick = onOpenSystemAppSettings)
                     )
 
                     SettingsItem(
                         title = stringResource(id = R.string.settings_review_btn_title),
                         subtitle = stringResource(id = R.string.settings_review_btn_summary),
-                        modifier = Modifier.clickable {
-                            openAppStore(context, context.packageName)
-                        }
+                        modifier = Modifier.clickable(onClick = onOpenAppStore)
                     )
 
                     /*SettingsItem(
@@ -244,9 +274,7 @@ fun SettingsScreen(
                         title = stringResource(id = R.string.settings_support_btn_title),
                         subtitle = stringResource(id = R.string.settings_support_btn_summary)
                                 + " " + support_email,
-                        modifier = Modifier.clickable {
-                            sendEmail(context, support_email)
-                        }
+                        modifier = Modifier.clickable(onClick = onSendSupportEmail)
                     )
 
                     SettingsItem(
@@ -356,14 +384,7 @@ fun SettingsScreen(
             rightButtonBackgroundColor = Color.Gray,
             onLeftButtonAction = {
                 showDeleteDialog = false
-                AppPreferences.clear()
-                context.databaseList().forEach { dbName ->
-                    context.deleteDatabase(dbName)
-                }
-                context.cacheDir.deleteRecursively()
-                Toast.makeText(context, context.getString(R.string.settings_delete_end_description),
-                    Toast.LENGTH_LONG).show()
-                // activity?.recreate()
+                onResetAppData()
             },
             onRightButtonAction = {
                 showDeleteDialog = false
@@ -380,6 +401,18 @@ fun SettingsScreen(
 @Composable
 fun SettingsScreenPreview() {
     FreddyFridgeTheme {
-        SettingsScreen()
+        SettingsScreenContent(
+            uiState = SettingsUiState(),
+            onOpenCredits = {},
+            onUpdateDaysBeforeDeadline = {},
+            onUpdateDailyNotificationCount = {},
+            onOpenAlarmSettings = {},
+            onOpenNotificationSettings = {},
+            onResetConsent = {},
+            onOpenSystemAppSettings = {},
+            onOpenAppStore = {},
+            onSendSupportEmail = {},
+            onResetAppData = {},
+        )
     }
 }
