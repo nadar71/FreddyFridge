@@ -1,7 +1,5 @@
 package eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -16,11 +14,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -28,7 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.components.TopBar
 import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestination
@@ -41,10 +37,8 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_16
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getEndOfTodayEpochMillis
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getPreviousDayEndOfDayDate
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.ProductListCard
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodMutationEvent
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodMutationViewModel
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodBottomSheetContent
-import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodEvent
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodViewModel
 import eu.indiewalkabout.fridgemanager.feat_starting.presentation.components.AnimatedFoodBox
 import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.tutorials.OnBoardingScreenOverlay
@@ -59,61 +53,49 @@ fun MainScreen(
     selectedDestination: AppDestination = AppDestination.Main,
     onNavigateToDestination: (AppDestination) -> Unit = {},
 ) {
-    val tag = "MainScreen"
-    val context = LocalContext.current
-
-    val uiState by mainViewModel.uiState.collectAsState()
-    val isInserting by insertFoodViewModel.isInserting.collectAsState()
-    val isMutating by foodViewModel.isMutating.collectAsState()
+    val uiState by mainViewModel.uiState.collectAsStateWithLifecycle()
+    val isInserting by insertFoodViewModel.isInserting.collectAsStateWithLifecycle()
+    val isMutating by foodViewModel.isMutating.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         mainViewModel.getFoodExpiringToday(getPreviousDayEndOfDayDate(), getEndOfTodayEpochMillis())
     }
 
-    LaunchedEffect(isMutating) {
-        mainViewModel.handleUpdateLoading(isMutating)
-    }
+    MainScreenEffects(
+        isInserting = isInserting,
+        isMutating = isMutating,
+        insertEvents = insertFoodViewModel.events,
+        mutationEvents = foodViewModel.events,
+        screenEvents = mainViewModel.events,
+        onInsertLoading = mainViewModel::handleInsertLoading,
+        onInsertResult = mainViewModel::handleInsertResult,
+        onUpdateLoading = mainViewModel::handleUpdateLoading,
+        onUpdateResult = mainViewModel::handleUpdateResult,
+    )
 
-    LaunchedEffect(Unit) {
-        foodViewModel.events.collect { event ->
-            when (event) {
-                FoodMutationEvent.Success -> mainViewModel.handleUpdateResult(true)
-                is FoodMutationEvent.Error -> mainViewModel.handleUpdateResult(false)
-            }
-        }
-    }
+    MainScreenContent(
+        uiState = uiState,
+        selectedDestination = selectedDestination,
+        onNavigateToDestination = onNavigateToDestination,
+        onOpenSettings = onOpenSettings,
+        onShowOnBoarding = { mainViewModel.setOnBoardingVisible(true) },
+        onAddFood = { mainViewModel.setBottomSheetVisible(true) },
+        onDismissAddFood = { mainViewModel.setBottomSheetVisible(false) },
+        bottomSheetContent = { InsertFoodBottomSheetContent() },
+    )
+}
 
-    LaunchedEffect(Unit) {
-        insertFoodViewModel.events.collect { event ->
-            when (event) {
-                InsertFoodEvent.Success -> mainViewModel.handleInsertResult(true)
-                is InsertFoodEvent.Error -> mainViewModel.handleInsertResult(false)
-            }
-        }
-    }
-
-    LaunchedEffect(isInserting) {
-        mainViewModel.handleInsertLoading(isInserting)
-    }
-
-    LaunchedEffect(Unit) {
-        mainViewModel.events.collect { event ->
-            when (event) {
-                is MainUiEvent.ShowToast -> {
-                    Toast.makeText(
-                        context,
-                        context.getString(event.messageResId),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                MainUiEvent.RefreshExpiringNotifications -> {
-                    alarmReminderScheduler.setRepeatingAlarm()
-                }
-            }
-        }
-    }
-
+@Composable
+fun MainScreenContent(
+    uiState: MainUiState,
+    selectedDestination: AppDestination,
+    onNavigateToDestination: (AppDestination) -> Unit,
+    onOpenSettings: () -> Unit,
+    onShowOnBoarding: () -> Unit,
+    onAddFood: () -> Unit,
+    onDismissAddFood: () -> Unit,
+    bottomSheetContent: @Composable () -> Unit,
+) {
     if (uiState.showOnBoarding) {
         OnBoardingScreenOverlay()
     }
@@ -121,10 +103,10 @@ fun MainScreen(
     TopLevelScreenScaffold(
         selectedDestination = selectedDestination,
         onDestinationSelected = onNavigateToDestination,
-        onNewItemClicked = { mainViewModel.setBottomSheetVisible(true) },
+        onNewItemClicked = onAddFood,
         isBottomSheetVisible = uiState.isBottomSheetVisible,
-        onBottomSheetDismiss = { mainViewModel.setBottomSheetVisible(false) },
-        bottomSheetContent = { InsertFoodBottomSheetContent() },
+        onBottomSheetDismiss = onDismissAddFood,
+        bottomSheetContent = bottomSheetContent,
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -136,10 +118,7 @@ fun MainScreen(
                 modifier = Modifier
                     .height(80.dp)
                     .padding(vertical = 8.dp, horizontal = 16.dp)
-                    .clickable {
-                        Log.d(tag, "MainScreen: settings icon pressed")
-                        onOpenSettings()
-                    }
+                    .clickable(onClick = onOpenSettings)
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -149,14 +128,8 @@ fun MainScreen(
                 drawableRightIcon = R.drawable.ic_flower_white,
                 paddingStart = 16.dp,
                 paddingEnd = 16.dp,
-                onLeftIconClick = {
-                    Log.d(tag, "MainScreen: help icon pressed")
-                    mainViewModel.setOnBoardingVisible(true)
-                },
-                onRightIconClick = {
-                    Log.d(tag, "MainScreen: settings icon pressed")
-                    onOpenSettings()
-                }
+                onLeftIconClick = onShowOnBoarding,
+                onRightIconClick = onOpenSettings,
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -206,6 +179,15 @@ fun MainScreen(
 @Composable
 fun PreviewMainScreen() {
     FreddyFridgeTheme {
-        MainScreen()
+        MainScreenContent(
+            uiState = MainUiState(),
+            selectedDestination = AppDestination.Main,
+            onNavigateToDestination = {},
+            onOpenSettings = {},
+            onShowOnBoarding = {},
+            onAddFood = {},
+            onDismissAddFood = {},
+            bottomSheetContent = {},
+        )
     }
 }
