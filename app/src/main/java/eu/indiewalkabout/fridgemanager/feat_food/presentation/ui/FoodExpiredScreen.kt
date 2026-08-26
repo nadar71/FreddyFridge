@@ -32,6 +32,7 @@ import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.primary
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.AppColors.secondaryColor
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestination
 import eu.indiewalkabout.fridgemanager.core.util.DateUtility.getPreviousDayEndOfDayDate
 import eu.indiewalkabout.fridgemanager.feat_ads.presentation.AdMobBannerView
 
@@ -41,7 +42,9 @@ import eu.indiewalkabout.fridgemanager.feat_ads.presentation.AdMobBannerView
 fun FoodExpiredScreen(
     foodExpiredViewModel: FoodExpiredViewModel = hiltViewModel(),
     foodViewModel: FoodMutationViewModel = hiltViewModel(),
-    insertFoodViewModel: InsertFoodViewModel = hiltViewModel()
+    insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
+    selectedDestination: AppDestination = AppDestination.Expired,
+    onNavigateToDestination: (AppDestination) -> Unit = {},
 )  {
     val colors = LocalAppColors.current
 
@@ -74,9 +77,9 @@ fun FoodExpiredScreen(
 
     Scaffold(
         bottomBar = {
-            // BottomNavigationBar(AppNavigation.getNavController())
             BottomNavigationBar(
-                stringResource(R.string.menu_expired_label_item),
+                selectedDestination = selectedDestination,
+                onDestinationSelected = onNavigateToDestination,
                 onNewItemClicked = {
                     foodExpiredViewModel.setBottomSheetVisible(true)
                 }

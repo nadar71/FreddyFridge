@@ -51,8 +51,7 @@ import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.FoodMutationVie
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodBottomSheetContent
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodEvent
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.ui.InsertFoodViewModel
-import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestinationRoutes
-import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppNavigation
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestination
 import eu.indiewalkabout.fridgemanager.core.presentation.navigation.components.BottomNavigationBar
 import eu.indiewalkabout.fridgemanager.feat_starting.presentation.components.AnimatedFoodBox
 import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.tutorials.OnBoardingScreenOverlay
@@ -62,7 +61,10 @@ import eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.tutorials.O
 fun MainScreen(
     mainViewModel: MainViewModel = hiltViewModel(),
     insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
-    foodViewModel: FoodMutationViewModel = hiltViewModel()
+    foodViewModel: FoodMutationViewModel = hiltViewModel(),
+    onOpenSettings: () -> Unit = {},
+    selectedDestination: AppDestination = AppDestination.Main,
+    onNavigateToDestination: (AppDestination) -> Unit = {},
 ) {
     val TAG = "MainScreen"
     val context = LocalContext.current
@@ -129,7 +131,8 @@ fun MainScreen(
     Scaffold(
         bottomBar = {
             BottomNavigationBar(
-                stringResource(R.string.menu_home_item),
+                selectedDestination = selectedDestination,
+                onDestinationSelected = onNavigateToDestination,
                 onNewItemClicked = {
                     mainViewModel.setBottomSheetVisible(true)
                 }
@@ -160,7 +163,7 @@ fun MainScreen(
                         .padding(vertical = 8.dp, horizontal = 16.dp)
                         .clickable(onClick = {
                             Log.d(TAG, "MainScreen: settings icon pressed")
-                            AppNavigation.appNavHostController.navigate(AppDestinationRoutes.SettingsScreen.route)
+                            onOpenSettings()
                         })
                 )
                 Spacer(modifier = Modifier.height(8.dp))
@@ -176,7 +179,7 @@ fun MainScreen(
                     },
                     onRightIconClick = {
                         Log.d(TAG, "MainScreen: settings icon pressed")
-                        AppNavigation.appNavHostController.navigate(AppDestinationRoutes.SettingsScreen.route)
+                        onOpenSettings()
                     }
                 )
 

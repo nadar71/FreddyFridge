@@ -8,111 +8,89 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import eu.indiewalkabout.fridgemanager.R
-import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestinationRoutes
-import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppNavigation
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestination
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.LocalAppColors
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.text_12
 
 
 @Composable
 fun BottomNavigationBar(
-    itemLabelSelected: String,
+    selectedDestination: AppDestination?,
+    onDestinationSelected: (AppDestination) -> Unit,
     onNewItemClicked: (() -> Unit)? = null
 ) {
     val colors = LocalAppColors.current
-    var activeIndex = 3
 
     NavigationBar(containerColor = colors.primaryColor) {
-        when(itemLabelSelected) {
-            "" -> {
-                activeIndex = 0
-            }
-            stringResource(R.string.menu_expired_label_item) -> {
-                activeIndex = 1
-            }
-            stringResource(R.string.menu_consumed_label_item) -> {
-                activeIndex = 2
-            }
-            stringResource(R.string.menu_home_item) -> {
-                activeIndex = 3
-            }
-            stringResource(R.string.menu_expiring_label_item) -> {
-                activeIndex = 4
-            }
-            stringResource(R.string.menu_add_label_item) -> {
-                activeIndex = 5
-            }
-        }
-
         NavigationBarItem(
-            selected = false,
-            onClick = { AppNavigation.navigate(AppDestinationRoutes.FoodExpiredScreen.route) },
+            selected = selectedDestination == AppDestination.Expired,
+            onClick = { onDestinationSelected(AppDestination.Expired) },
             icon = {
                 Icon(
                 painter = painterResource(id = R.drawable.ic_ghost),
                 contentDescription = stringResource(R.string.content_menu_expired_label_item),
-                tint = if (activeIndex == 1) colors.iconColor else colors.lightGreyVeryTransparent
+                tint = if (selectedDestination == AppDestination.Expired) colors.iconColor else colors.lightGreyVeryTransparent
                 )
                    },
             label = { Text(
                 text = stringResource(R.string.menu_expired_label_item),
                 style = text_12(
-                    if (activeIndex == 1) colors.colorText else colors.lightGreyVeryTransparent
+                    if (selectedDestination == AppDestination.Expired) colors.colorText else colors.lightGreyVeryTransparent
                 )
             ) }
         )
         NavigationBarItem(
-            selected = false,
-            onClick = { AppNavigation.navigate(AppDestinationRoutes.FoodConsumedScreen.route) },
+            selected = selectedDestination == AppDestination.Consumed,
+            onClick = { onDestinationSelected(AppDestination.Consumed) },
             icon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_done_all_white),
                     contentDescription = stringResource(R.string.content_menu_consumed_label_item),
-                    tint = if (activeIndex == 2) colors.iconColor else colors.lightGreyVeryTransparent
+                    tint = if (selectedDestination == AppDestination.Consumed) colors.iconColor else colors.lightGreyVeryTransparent
                 )
             },
             label = { Text(
                 text = stringResource(R.string.menu_consumed_label_item),
                 style = text_12(
-                    if (activeIndex == 2) colors.colorText else colors.lightGreyVeryTransparent
+                    if (selectedDestination == AppDestination.Consumed) colors.colorText else colors.lightGreyVeryTransparent
                 )
             ) }
         )
 
 
         NavigationBarItem(
-            selected = false,
-            onClick = { AppNavigation.navigate(AppDestinationRoutes.MainScreen.route) },
+            selected = selectedDestination == AppDestination.Main,
+            onClick = { onDestinationSelected(AppDestination.Main) },
             icon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_home),
                     contentDescription = stringResource(R.string.menu_home_item),
-                    tint = if (activeIndex == 3) colors.iconColor else colors.lightGreyVeryTransparent
+                    tint = if (selectedDestination == AppDestination.Main) colors.iconColor else colors.lightGreyVeryTransparent
                 )
             },
             label = { Text(
                 text = stringResource(R.string.menu_home_item),
                 style = text_12(
-                    if (activeIndex == 3) colors.colorText else colors.lightGreyVeryTransparent
+                    if (selectedDestination == AppDestination.Main) colors.colorText else colors.lightGreyVeryTransparent
                 )
             ) }
         )
 
 
         NavigationBarItem(
-            selected = false,
-            onClick = { AppNavigation.navigate(AppDestinationRoutes.FoodExpiringScreen.route) },
+            selected = selectedDestination == AppDestination.Expiring,
+            onClick = { onDestinationSelected(AppDestination.Expiring) },
             icon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_hourglass),
                     contentDescription = stringResource(R.string.content_menu_expiring_label_item),
-                    tint = if (activeIndex == 4) colors.iconColor else colors.lightGreyVeryTransparent
+                    tint = if (selectedDestination == AppDestination.Expiring) colors.iconColor else colors.lightGreyVeryTransparent
                 )
             },
             label = { Text(
                 text = stringResource(R.string.menu_expiring_label_item),
                 style = text_12(
-                    if (activeIndex == 4) colors.colorText else colors.lightGreyVeryTransparent
+                    if (selectedDestination == AppDestination.Expiring) colors.colorText else colors.lightGreyVeryTransparent
                 )
             ) }
         )
@@ -120,25 +98,22 @@ fun BottomNavigationBar(
         NavigationBarItem(
             selected = false,
             onClick = {
-                // navigate(AppDestinationRoutes.InsertFoodScreen.route)
                 onNewItemClicked?.invoke()
                       },
             icon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_add_box),
                     contentDescription = stringResource(R.string.content_menu_add_label_item),
-                    tint = if (activeIndex == 5) colors.iconColor else colors.lightGreyVeryTransparent
+                    tint = colors.lightGreyVeryTransparent
                 )
             },
             label = { Text(
                 text = stringResource(R.string.menu_add_label_item),
                 style = text_12(
-                    if (activeIndex == 5) colors.colorText else colors.lightGreyVeryTransparent
+                    colors.lightGreyVeryTransparent
                 )
             ) }
         )
     }
 }
-
-
 

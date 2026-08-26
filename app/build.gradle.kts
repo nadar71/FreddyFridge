@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "eu.indiewalkabout.fridgemanager"
-    compileSdk = 35
+    compileSdk = 36
 
 
     defaultConfig {
@@ -69,6 +69,9 @@ dependencies {
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.animation.core.android)

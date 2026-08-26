@@ -48,15 +48,15 @@ import eu.indiewalkabout.fridgemanager.core.util.extensions.sendEmail
 import eu.indiewalkabout.fridgemanager.feat_ads.presentation.AdMobBannerView
 import eu.indiewalkabout.fridgemanager.feat_ads.util.ConsentManager
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.NumberPickerWithTitle
-import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestinationRoutes
-import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppNavigation.navigate
 import eu.indiewalkabout.fridgemanager.core.presentation.navigation.components.BottomNavigationBar
 import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.openAppSettings
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.components.SettingsGroupTitle
 import eu.indiewalkabout.fridgemanager.feat_settings.presentation.components.SettingsItem
 
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(
+    onOpenCredits: () -> Unit = {},
+) {
     val TAG = "SettingsScreen"
     Log.d(TAG, "SettingsScreen: shown")
     val colors = LocalAppColors.current
@@ -120,7 +120,10 @@ fun SettingsScreen() {
     // ------------------------------------ UI -----------------------------------------------------
     Scaffold(
         bottomBar = {
-            BottomNavigationBar("")
+            BottomNavigationBar(
+                selectedDestination = null,
+                onDestinationSelected = {},
+            )
         },
         containerColor = colors.primaryColor
     ) { paddingValues ->
@@ -198,7 +201,7 @@ fun SettingsScreen() {
                         title = stringResource(id = R.string.credits_title_label),
                         subtitle = stringResource(id = R.string.credits_section_subtitle_summary),
                         modifier = Modifier.clickable {
-                            navigate(AppDestinationRoutes.CreditsScreen.route)
+                            onOpenCredits()
                         }
                     )
 
@@ -400,6 +403,3 @@ fun SettingsScreenPreview() {
         SettingsScreen()
     }
 }
-
-
-

@@ -44,13 +44,13 @@ import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderSc
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.data.locals.AppPreferences
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_OPENINGS
-import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestinationRoutes
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestination
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppNavDisplay
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.rememberAppNavigationState
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.util.ReviewManagerUtil
 import eu.indiewalkabout.fridgemanager.feat_ads.util.ConsentManager
 import eu.indiewalkabout.fridgemanager.feat_ads.util.RequestConfigurationUtils
-import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppNavigation
-import eu.indiewalkabout.fridgemanager.core.presentation.navigation.NavigationGraph
 import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.AlarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.feat_notifications.presentation.components.NotificationPermissionDialog
 import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.RequestExactAlarmPermissionDialog
@@ -66,7 +66,7 @@ class MainActivity: AppCompatActivity()  {
     val TAG = "MainActivity"
     private var canRequestAds by mutableStateOf(false)
     private var isAppReady by mutableStateOf(false)
-    private var pendingNavigationRoute by mutableStateOf<String?>(null)
+    private var pendingNavigationDestination by mutableStateOf<AppDestination?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -91,8 +91,8 @@ class MainActivity: AppCompatActivity()  {
             FreddyFridgeTheme {
                 MainActivityContent(
                     isAppReady = isAppReady,
-                    pendingNavigationRoute = pendingNavigationRoute,
-                    onPendingNavigationConsumed = { pendingNavigationRoute = null }
+                    pendingNavigationDestination = pendingNavigationDestination,
+                    onPendingNavigationConsumed = { pendingNavigationDestination = null }
                 )
             }
         }
@@ -119,7 +119,7 @@ class MainActivity: AppCompatActivity()  {
     private fun handleIntent(intent: Intent) {
         intent.getStringExtra("destination")?.let { route ->
             Log.d(TAG, "handleIntent: queue navigation to $route")
-            pendingNavigationRoute = route
+            pendingNavigationDestination = AppDestination.fromLegacyRoute(route)
         }
     }
 
@@ -133,7 +133,7 @@ class MainActivity: AppCompatActivity()  {
 @Composable
 private fun MainActivityContent(
     isAppReady: Boolean,
-    pendingNavigationRoute: String?,
+    pendingNavigationDestination: AppDestination?,
     onPendingNavigationConsumed: () -> Unit,
 ) {
     var launchAnimationCompleted by remember { mutableStateOf(false) }
@@ -149,7 +149,7 @@ private fun MainActivityContent(
                     }
             ) {
                 MainAppContent(
-                    pendingNavigationRoute = pendingNavigationRoute,
+                    pendingNavigationDestination = pendingNavigationDestination,
                     onPendingNavigationConsumed = onPendingNavigationConsumed,
                     allowTransientDialogs = launchAnimationCompleted
                 )
@@ -176,11 +176,12 @@ private fun MainActivityContent(
 
 @Composable
 private fun MainAppContent(
-    pendingNavigationRoute: String?,
+    pendingNavigationDestination: AppDestination?,
     onPendingNavigationConsumed: () -> Unit,
     allowTransientDialogs: Boolean,
 ) {
     val context = LocalContext.current
+    val navigationState = rememberAppNavigationState()
     var showNotificationPermissionDialog by remember { mutableStateOf(true) }
     var askForExactAlarmPermission by remember { mutableStateOf(false) }
     var showExactAlarmPermissionDialog by remember {
@@ -228,17 +229,11 @@ private fun MainAppContent(
         }
     }
 
-    AppNavigation.NavigationInit()
-    NavigationGraph(AppNavigation.appNavHostController)
+    AppNavDisplay(navigationState = navigationState)
 
-    LaunchedEffect(pendingNavigationRoute) {
-        val route = pendingNavigationRoute ?: return@LaunchedEffect
-        AppNavigation.appNavHostController.navigate(route) {
-            popUpTo(AppDestinationRoutes.MainScreen.route) {
-                inclusive = false
-            }
-            launchSingleTop = true
-        }
+    LaunchedEffect(pendingNavigationDestination) {
+        val destination = pendingNavigationDestination ?: return@LaunchedEffect
+        navigationState.navigate(destination)
         onPendingNavigationConsumed()
     }
 }

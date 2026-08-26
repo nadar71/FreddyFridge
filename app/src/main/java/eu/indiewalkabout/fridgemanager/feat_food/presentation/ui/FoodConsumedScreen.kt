@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.presentation.components.BackgroundPattern
+import eu.indiewalkabout.fridgemanager.core.presentation.navigation.AppDestination
 import eu.indiewalkabout.fridgemanager.core.presentation.navigation.components.BottomNavigationBar
 import eu.indiewalkabout.fridgemanager.feat_food.presentation.components.ProductListCard
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
@@ -40,7 +41,9 @@ import eu.indiewalkabout.fridgemanager.feat_ads.presentation.AdMobBannerView
 fun FoodConsumedScreen(
     foodConsumedViewModel: FoodConsumedViewModel = hiltViewModel(),
     insertFoodViewModel: InsertFoodViewModel = hiltViewModel(),
-    foodViewModel: FoodMutationViewModel = hiltViewModel()
+    foodViewModel: FoodMutationViewModel = hiltViewModel(),
+    selectedDestination: AppDestination = AppDestination.Consumed,
+    onNavigateToDestination: (AppDestination) -> Unit = {},
 )  {
     val colors = LocalAppColors.current
 
@@ -74,12 +77,12 @@ fun FoodConsumedScreen(
     Scaffold(
         bottomBar = {
             BottomNavigationBar(
-                stringResource(R.string.menu_consumed_label_item),
+                selectedDestination = selectedDestination,
+                onDestinationSelected = onNavigateToDestination,
                 onNewItemClicked = {
                     foodConsumedViewModel.setBottomSheetVisible(true)
                 }
             )
-
         },
         containerColor = colors.primaryColor
     ) {
