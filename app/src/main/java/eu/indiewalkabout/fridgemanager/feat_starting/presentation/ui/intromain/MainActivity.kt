@@ -2,7 +2,6 @@ package eu.indiewalkabout.fridgemanager.feat_starting.presentation.ui.intromain
 
 import android.content.Intent
 import android.content.pm.ApplicationInfo
-import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
 import android.util.Log
@@ -34,7 +33,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -56,10 +54,6 @@ import eu.indiewalkabout.fridgemanager.feat_ads.util.ConsentManager
 import eu.indiewalkabout.fridgemanager.feat_ads.util.RequestConfigurationUtils
 import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.AlarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.feat_notifications.presentation.components.NotificationPermissionDialog
-import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.RequestExactAlarmPermissionDialog
-import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.canScheduleExactAlarms
-import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.needsExactAlarmPermissionCheck
-import eu.indiewalkabout.fridgemanager.feat_notifications.util.extensions.openAlarmSettings
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -185,13 +179,8 @@ private fun MainAppContent(
     onPendingNavigationConsumed: () -> Unit,
     allowTransientDialogs: Boolean,
 ) {
-    val context = LocalContext.current
     val navigationState = rememberAppNavigationState()
     var showNotificationPermissionDialog by remember { mutableStateOf(true) }
-    var askForExactAlarmPermission by remember { mutableStateOf(false) }
-    var showExactAlarmPermissionDialog by remember {
-        mutableStateOf(needsExactAlarmPermissionCheck() && !context.canScheduleExactAlarms())
-    }
 
     if (allowTransientDialogs &&
         showNotificationPermissionDialog &&
@@ -200,38 +189,11 @@ private fun MainAppContent(
         NotificationPermissionDialog(
             onDismiss = {
                 showNotificationPermissionDialog = false
-                askForExactAlarmPermission = true
             },
             onPermissionGranted = {
                 showNotificationPermissionDialog = false
-                askForExactAlarmPermission = true
             }
         )
-    } else {
-        askForExactAlarmPermission = true
-    }
-
-    if (allowTransientDialogs &&
-        askForExactAlarmPermission &&
-        showExactAlarmPermissionDialog &&
-        AppPreferences.app_opening_counter < NUM_MAX_OPENINGS) {
-        RequestExactAlarmPermissionDialog(
-            onDismiss = {
-                showExactAlarmPermissionDialog = false
-                alarmReminderScheduler.setRepeatingAlarm()
-            },
-            onPermissionGranted = {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    context.openAlarmSettings()
-                }
-                alarmReminderScheduler.setRepeatingAlarm()
-                showExactAlarmPermissionDialog = false
-            }
-        )
-    } else {
-        LaunchedEffect(Unit) {
-            alarmReminderScheduler.setRepeatingAlarm()
-        }
     }
 
     AppNavDisplay(navigationState = navigationState)

@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId = "eu.indiewalkabout.fridgemanager"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 12
         versionName = "2.0.2"
 
