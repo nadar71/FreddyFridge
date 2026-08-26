@@ -24,7 +24,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.android.ump.UserMessagingPlatform
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.R
 import eu.indiewalkabout.fridgemanager.core.data.locals.Constants.NUM_MAX_DAYS_BEFORE_DEADLINE
@@ -59,7 +58,6 @@ fun SettingsScreen(
     val activity = LocalActivity.current
     val uiState by settingsViewModel.uiState.collectAsStateWithLifecycle()
     val deleteCompleteMessage = stringResource(R.string.settings_delete_end_description)
-    val consentResetMessage = stringResource(R.string.gdpr_dialog_will_show_again)
     val consentResetDoneMessage = stringResource(R.string.gdpr_dialog_reset_done)
 
     SettingsScreenEffects(
@@ -82,24 +80,17 @@ fun SettingsScreen(
         onUpdateDaysBeforeDeadline = settingsViewModel::updateDaysBeforeDeadline,
         onUpdateDailyNotificationCount = settingsViewModel::updateDailyNotificationCount,
         onOpenNotificationSettings = context::openAppSettings,
-        onResetConsent = {
-            UserMessagingPlatform.getConsentInformation(context).reset()
-            Toast.makeText(
-                context,
-                consentResetMessage,
-                Toast.LENGTH_LONG,
-            ).show()
-            ConsentManager.requestConsent(
-                context = context,
-                activity = activity,
-                onConsentReady = {
+        showPrivacyOptions = ConsentManager.isPrivacyOptionsRequired,
+        onOpenPrivacyOptions = {
+            activity?.let {
+                ConsentManager.showPrivacyOptions(it) {
                     Toast.makeText(
                         context,
                         consentResetDoneMessage,
                         Toast.LENGTH_SHORT,
                     ).show()
-                },
-            )
+                }
+            }
         },
         onOpenSystemAppSettings = { openAppSettings(context) },
         onOpenAppStore = { openAppStore(context, context.packageName) },
@@ -118,7 +109,8 @@ fun SettingsScreenContent(
     onUpdateDaysBeforeDeadline: (Int) -> Unit,
     onUpdateDailyNotificationCount: (Int) -> Unit,
     onOpenNotificationSettings: () -> Unit,
-    onResetConsent: () -> Unit,
+    showPrivacyOptions: Boolean,
+    onOpenPrivacyOptions: () -> Unit,
     onOpenSystemAppSettings: () -> Unit,
     onOpenAppStore: () -> Unit,
     onSendSupportEmail: () -> Unit,
@@ -244,11 +236,13 @@ fun SettingsScreenContent(
                         subtitle = stringResource(id = R.string.gdpr_btn_summary)
                     )*/
 
-                    SettingsItem(
-                        title = stringResource(id = R.string.gdpr_btn_title),
-                        subtitle = stringResource(id = R.string.gdpr_btn_summary),
-                        modifier = Modifier.clickable(onClick = onResetConsent)
-                    )
+                    if (showPrivacyOptions) {
+                        SettingsItem(
+                            title = stringResource(id = R.string.gdpr_btn_title),
+                            subtitle = stringResource(id = R.string.gdpr_btn_summary),
+                            modifier = Modifier.clickable(onClick = onOpenPrivacyOptions)
+                        )
+                    }
 
 
                     SettingsItem(
@@ -405,7 +399,8 @@ fun SettingsScreenPreview() {
             onUpdateDaysBeforeDeadline = {},
             onUpdateDailyNotificationCount = {},
             onOpenNotificationSettings = {},
-            onResetConsent = {},
+            showPrivacyOptions = true,
+            onOpenPrivacyOptions = {},
             onOpenSystemAppSettings = {},
             onOpenAppStore = {},
             onSendSupportEmail = {},

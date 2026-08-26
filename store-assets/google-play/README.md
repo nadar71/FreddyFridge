@@ -10,6 +10,8 @@ This directory contains the production-ready Google Play listing pack for `en-US
 - `<locale>/listing.txt`: app name, short description, and full description.
 - `<locale>/release-notes.txt`: localized release notes.
 - `<locale>/screenshot-alt-text.txt`: accessibility descriptions in upload order.
+- `app-ads.txt`: authorized AdMob seller record; publish it at
+  `https://www.indie-walkabout.eu/app-ads.txt` before release and verify it in AdMob.
 
 ## Screenshot order
 

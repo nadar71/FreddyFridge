@@ -37,7 +37,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigationevent.compose.LocalNavigationEventDispatcherOwner
-import com.google.android.gms.ads.MobileAds
 import dagger.hilt.android.AndroidEntryPoint
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp
 import eu.indiewalkabout.fridgemanager.FreddyFridgeApp.Companion.alarmReminderScheduler
@@ -51,6 +50,7 @@ import eu.indiewalkabout.fridgemanager.core.presentation.navigation.rememberAppN
 import eu.indiewalkabout.fridgemanager.core.presentation.theme.FreddyFridgeTheme
 import eu.indiewalkabout.fridgemanager.core.util.ReviewManagerUtil
 import eu.indiewalkabout.fridgemanager.feat_ads.util.ConsentManager
+import eu.indiewalkabout.fridgemanager.feat_ads.util.MobileAdsInitializer
 import eu.indiewalkabout.fridgemanager.feat_ads.util.RequestConfigurationUtils
 import eu.indiewalkabout.fridgemanager.feat_notifications.domain.reminder.AlarmReminderScheduler
 import eu.indiewalkabout.fridgemanager.feat_notifications.presentation.components.NotificationPermissionDialog
@@ -61,7 +61,6 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity: AppCompatActivity()  {
     val TAG = "MainActivity"
-    private var canRequestAds by mutableStateOf(false)
     private var isAppReady by mutableStateOf(false)
     private var pendingNavigationDestination by mutableStateOf<AppDestination?>(null)
 
@@ -97,10 +96,9 @@ class MainActivity: AppCompatActivity()  {
         }
 
         // Check consent
-        ConsentManager.requestConsent(this, this@MainActivity) { canRequestAds ->
-            MobileAds.initialize(this)
+        ConsentManager.requestConsent(this) { canRequestAds ->
             FreddyFridgeApp.canRequestAdsFlag = canRequestAds
-            this.canRequestAds = canRequestAds
+            MobileAdsInitializer.initializeIfAllowed(applicationContext, canRequestAds)
             isAppReady = true
         }
         
