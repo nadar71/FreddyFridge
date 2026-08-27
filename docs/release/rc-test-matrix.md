@@ -1,7 +1,9 @@
 # Release Candidate Qualification Matrix
 
-Candidate: `2.0.2 (12)`  
-Package: `eu.indiewalkabout.fridgemanager`  
+Candidate: `2.1.0 (13)`
+
+Package: `eu.indiewalkabout.fridgemanager`
+
 Minimum / target API: `26 / 36`
 
 This document is a release gate, not a declaration that testing happened. Use
@@ -15,6 +17,7 @@ evidence such as a CI run, Play report, screenshot, log, or test notes.
 | Unit regression suite | `./gradlew testDebugUnitTest` | PASS | Local, 2026-08-27 |
 | Debug lint and assembly | `./gradlew lintDebug assembleDebug` | PASS | Local, 2026-08-27 |
 | Instrumentation | API 36 emulator | PASS | `connectedDebugAndroidTest`, 3 tests, 2026-08-27 |
+| Instrumentation | API 35 emulator | PASS | `connectedDebugAndroidTest`, 3 tests, 2026-08-27 |
 | Instrumentation | API 26 emulator | NOT RUN | Required Phase 4 CI job |
 | Minified bundle | Ephemeral CI signing key | PASS | `bundleRelease`, 2026-08-27 |
 | Production-signed bundle | Protected upload key | NOT RUN | Required before internal testing |
@@ -28,7 +31,7 @@ Automated success is necessary but does not replace the journeys below.
 | API 26 small phone | Cold start, CRUD, permissions, reminders | NOT RUN | CI plus manual smoke |
 | API 31 phone | Splash, notifications, backup/restore | NOT RUN | Manual/emulator |
 | API 33 phone | Notification grant and denial | NOT RUN | Manual/emulator |
-| API 35 phone | Upgrade and daily reminder schedule | NOT RUN | Manual/emulator |
+| API 35 phone | Upgrade and daily reminder schedule | NOT RUN | Automated startup/settings passed; manual path remains |
 | API 36 phone | Full critical path and edge-to-edge | NOT RUN | Automated startup/settings passed; manual path remains |
 | Large phone or tablet | Layout, scrolling, dialogs, keyboard | NOT RUN | Manual/emulator |
 | Non-Pixel OEM | Alarm delivery and background restrictions | NOT RUN | Physical device |
@@ -40,7 +43,7 @@ Run each journey in English and Italian where text or layout is involved.
 | Journey | Acceptance criteria | Status |
 | --- | --- | --- |
 | Fresh install | System splash and branded frame complete; home opens without crash | NOT RUN |
-| Upgrade from Play `2.0.2 (12)` | Existing food and preferences remain readable | BLOCKED: candidate version must be incremented |
+| Upgrade from Play `2.0.2 (12)` | Existing food and preferences remain readable | NOT RUN |
 | Add food manually | Saved food appears immediately and survives process restart | NOT RUN |
 | Add food with speech | Permission is just in time; denial leaves manual input usable | NOT RUN |
 | Edit and delete food | Lists update once with no stale or duplicated rows | NOT RUN |
