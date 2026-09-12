@@ -10,12 +10,15 @@ the action occurred.
 - [ ] Set the intended user-facing `versionName` and update EN/IT release notes.
 - [ ] Build the candidate from a reviewed commit on `develop` or a release branch.
 - [ ] Run the complete `docs/release/rc-test-matrix.md`; no `FAIL`, `BLOCKED`, or `NOT RUN` release gate may remain.
-- [ ] Build with the protected upload key: `./gradlew clean bundleRelease`.
+- [ ] Run the local release validation commands in `fastlane/README.md`.
+- [ ] Create annotated tag `v<versionName>` on the exact candidate commit and push it to start `Android CI`.
 - [ ] Record commit: `________________`.
+- [ ] Record tag: `________________`.
 - [ ] Record version code/name: `________________`.
 - [ ] Record CI run: `________________`.
-- [ ] Record AAB SHA-256: `shasum -a 256 app/build/outputs/bundle/release/app-release.aab`.
-- [ ] Archive the exact AAB and `app/build/outputs/mapping/release/mapping.txt` together.
+- [ ] Download the 30-day `google-play-internal-<tag>` workflow artifact and verify its archived `app-release.aab.sha256` against the AAB.
+- [ ] Record AAB SHA-256: `________________`.
+- [ ] Archive the exact AAB, checksum, and `mapping.txt` together.
 
 Never upload the ephemeral CI validation artifact to Play. It proves the release
 pipeline and R8 configuration only; it is not signed by the protected upload key.
@@ -34,7 +37,8 @@ pipeline and R8 configuration only; it is not signed by the protected upload key
 
 ## 3. Internal and closed validation
 
-- [ ] Upload the exact candidate AAB to Internal testing.
+- [ ] Confirm the tag-triggered `Android CI` quality and API 26/API 36 instrumentation gates passed and `publish-internal` uploaded the exact candidate to Internal testing.
+- [ ] Confirm the archived `google-play-internal-<tag>` artifact checksum matches its AAB and record the workflow URL and checksum above.
 - [ ] Install from Play on a fresh device; do not side-load this verification build.
 - [ ] Upgrade from the current production version and verify food/preferences remain intact.
 - [ ] Complete the API 26 and API 36 critical paths from the RC matrix.
@@ -47,8 +51,10 @@ Any code change after upload creates a new candidate and restarts qualification.
 
 ## 4. Production rollout
 
-Use Play staged rollout and promote the same artifact. Observation windows are
-minimums; extend them when the active-user sample is too small to be meaningful.
+In Play Console, manually promote the unchanged Internal artifact and operate
+the staged Production rollout. Production promotion is explicitly outside the
+automated `release_internal` lane. Observation windows are minimums; extend
+them when the active-user sample is too small to be meaningful.
 
 | Stage | Minimum observation | Promotion gate |
 | --- | --- | --- |
@@ -99,8 +105,8 @@ artifact with a higher version code.
 ## 7. Close release
 
 - [ ] Confirm rollout reached 100% while all stop conditions remained clear.
-- [ ] Create annotated tag `v<versionName>` on the exact released commit.
-- [ ] Push the tag and retained release branch.
+- [ ] Confirm the existing annotated `v<versionName>` tag still identifies the exact promoted commit; do not move it.
+- [ ] Push the retained release branch if it is not already present remotely.
 - [ ] Record Play release ID and publication timestamps.
 - [ ] Store AAB checksum, mapping file, release notes, test evidence, and Play reports in the release record.
 - [ ] Confirm production vitals after 24 hours, 72 hours, and seven days.
