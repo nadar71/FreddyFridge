@@ -14,6 +14,9 @@ PROJECT_PLAY_ICON = ROOT / "app" / "src" / "main" / "ic_launcher-playstore.png"
 RES = ROOT / "app" / "src" / "main" / "res"
 
 GREEN = (122, 164, 77, 255)
+BADGE_ART_SCALE = 0.68
+ADAPTIVE_ART_SCALE = 0.50
+MONOCHROME_ART_SCALE = 0.44
 DENSITIES = {
     "mdpi": (48, 108),
     "hdpi": (72, 162),
@@ -67,7 +70,10 @@ def badge_icon(size, artwork, circular_canvas=False):
         draw.ellipse((0, 0, size - 1, size - 1), fill=GREEN)
 
     art = artwork.copy()
-    art.thumbnail((round(size * 0.80), round(size * 0.80)), Image.Resampling.LANCZOS)
+    art.thumbnail(
+        (round(size * BADGE_ART_SCALE), round(size * BADGE_ART_SCALE)),
+        Image.Resampling.LANCZOS,
+    )
     image.alpha_composite(art, ((size - art.width) // 2, (size - art.height) // 2))
     return image
 
@@ -75,14 +81,20 @@ def badge_icon(size, artwork, circular_canvas=False):
 def adaptive_foreground(size, artwork):
     image = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     art = artwork.copy()
-    art.thumbnail((round(size * 0.60), round(size * 0.60)), Image.Resampling.LANCZOS)
+    art.thumbnail(
+        (round(size * ADAPTIVE_ART_SCALE), round(size * ADAPTIVE_ART_SCALE)),
+        Image.Resampling.LANCZOS,
+    )
     image.alpha_composite(art, ((size - art.width) // 2, (size - art.height) // 2))
     return image
 
 
 def monochrome_foreground(size, artwork):
     art = artwork.copy()
-    art.thumbnail((round(size * 0.53), round(size * 0.53)), Image.Resampling.LANCZOS)
+    art.thumbnail(
+        (round(size * MONOCHROME_ART_SCALE), round(size * MONOCHROME_ART_SCALE)),
+        Image.Resampling.LANCZOS,
+    )
     result = Image.new("RGBA", (size, size), (255, 255, 255, 0))
     silhouette = Image.new("RGBA", art.size, (255, 255, 255, 0))
     silhouette.putalpha(art.getchannel("A"))
