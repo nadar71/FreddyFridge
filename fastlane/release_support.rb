@@ -40,7 +40,7 @@ module FreddyRelease
       end
 
       { code: code, name: name }
-    rescue Errno::ENOENT, Errno::EACCES => error
+    rescue SystemCallError, IOError => error
       raise ConfigurationError, "Unable to read Gradle version file #{gradle_file}: #{error.message}"
     end
 

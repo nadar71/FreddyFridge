@@ -32,6 +32,38 @@ class ReleaseSupportTest < Minitest::Test
     assert_includes error.message, "v2.1.0"
   end
 
+  def test_rejects_blank_release_tag
+    write_gradle("versionCode = 13\nversionName = \"2.1.0\"\n")
+
+    error = assert_raises(FreddyRelease::ConfigurationError) do
+      FreddyRelease::Support.new(project_root: @root).validate_tag!("  ")
+    end
+
+    assert_includes error.message, "v2.1.0"
+  end
+
+  def test_rejects_malformed_gradle_version
+    write_gradle("versionCode = thirteen\nversionName = \"2.1.0\"\n")
+
+    error = assert_raises(FreddyRelease::ConfigurationError) do
+      FreddyRelease::Support.new(project_root: @root).version
+    end
+
+    assert_includes error.message, "Malformed version configuration"
+  end
+
+  def test_wraps_unreadable_gradle_file_errors
+    gradle_file = File.join(@root, "app", "build.gradle.kts")
+    FileUtils.mkdir_p(gradle_file)
+
+    error = assert_raises(FreddyRelease::ConfigurationError) do
+      FreddyRelease::Support.new(project_root: @root).version
+    end
+
+    assert_includes error.message, "Unable to read Gradle version file"
+    assert_includes error.message, "app/build.gradle.kts"
+  end
+
   def test_rejects_blank_required_credentials
     environment = {
       "FREDDY_UPLOAD_STORE_FILE" => "/tmp/upload.jks",
