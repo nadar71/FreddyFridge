@@ -1,80 +1,43 @@
-require "fileutils"
+require_relative "release_support"
 
-
-
+PROJECT_ROOT = File.expand_path("..", __dir__)
+RELEASE_SUPPORT = FreddyRelease::Support.new(project_root: PROJECT_ROOT)
 
 default_platform(:android)
 
 platform :android do
   desc "Build the signed release AAB for Google Play"
   lane :build_release do
-    gradle(task: "clean bundleRelease")
+    gradle(
+      task: "clean bundleRelease",
+      project_dir: PROJECT_ROOT
+    )
+  end
+
+  desc "Validate release tag and credentials"
+  lane :validate_release do
+    RELEASE_SUPPORT.validate_tag!(ENV["GITHUB_REF_NAME"])
+    RELEASE_SUPPORT.validate_credentials!(ENV)
   end
 
   desc "Sync Fastlane metadata from store-assets/google-play"
   lane :sync_store_assets do
-    locales = ["en-US", "it-IT"]
-
-    locales.each do |locale|
-      source = File.join("store-assets", "google-play", locale)
-      target = File.join("fastlane", "metadata", "android", locale)
-      image_dir = File.join(target, "images")
-
-      UI.user_error!("Missing listing for #{locale} at #{source}/listing.txt") unless File.exist?(File.join(source, "listing.txt"))
-      listing = File.read(File.join(source, "listing.txt"))
-      lines = listing.lines.map(&:strip)
-
-      title = lines[1]
-      short_description = lines[5]
-      full_start = case locale
-                   when "en-US" then listing.index("Full description")
-                   when "it-IT" then listing.index("Descrizione completa")
-                   end
-      full_description = full_start ? listing[(full_start + listing[full_start..].index("\n") + 1)..].strip : ""
-
-      File.write(File.join(target, "title.txt"), "#{title}\n")
-      File.write(File.join(target, "short_description.txt"), "#{short_description}\n")
-      File.write(File.join(target, "full_description.txt"), "#{full_description}\n")
-
-      FileUtils.mkdir_p(File.join(image_dir, "phoneScreenshots"))
-      FileUtils.cp("store-assets/google-play/shared/icon-512.png", File.join(image_dir, "icon.png"))
-      FileUtils.cp(File.join(source, "feature-graphic-1024x500.png"), File.join(image_dir, "featureGraphic.png"))
-
-      Dir.glob(File.join(source, "phone-screenshots", "*.png")).each do |src|
-        FileUtils.cp(src, File.join(image_dir, "phoneScreenshots", File.basename(src)))
-      end
-
-      release_notes = File.read(File.join(source, "release-notes.txt")).strip
-      version_code = File.read("app/build.gradle.kts").match(/versionCode\s*=\s*(\d+)/)[1]
-      changelog_dir = File.join(target, "changelogs")
-      FileUtils.mkdir_p(changelog_dir)
-      File.write(File.join(changelog_dir, "#{version_code}.txt"), "#{release_notes}\n")
-    end
+    RELEASE_SUPPORT.sync_store_assets!
   end
 
-  desc "Build release AAB and upload to Google Play (internal track by default)"
-  lane :release do |options|
-    track = options[:track] || "internal"
-    status = options[:status] || "completed"
-
-    unless ENV["GOOGLE_PLAY_JSON_KEY"] || ENV["GOOGLE_PLAY_JSON_KEY_DATA"]
-      UI.user_error!("Set GOOGLE_PLAY_JSON_KEY or GOOGLE_PLAY_JSON_KEY_DATA before running this lane.")
-    end
-
-    build_release
+  desc "Build release AAB and upload to Google Play Internal testing"
+  lane :release_internal do
+    validate_release
     sync_store_assets
+    build_release
 
     upload_to_play_store(
       package_name: "eu.indiewalkabout.fridgemanager",
-      aab: File.join("app", "build", "outputs", "bundle", "release", "app-release.aab"),
-      track: track,
-      release_status: status,
+      aab: File.join(PROJECT_ROOT, "app/build/outputs/bundle/release/app-release.aab"),
+      track: "internal",
+      release_status: "completed",
       skip_upload_apk: true,
-      skip_upload_metadata: false,
-      skip_upload_images: false,
-      skip_upload_screenshots: false,
-      json_key: ENV["GOOGLE_PLAY_JSON_KEY"],
-      json_key_data: ENV["GOOGLE_PLAY_JSON_KEY_DATA"],
+      json_key_data: ENV.fetch("GOOGLE_PLAY_JSON_KEY_DATA"),
       timeout: 900
     )
   end
