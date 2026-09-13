@@ -58,6 +58,27 @@ and removes it even when the publish step fails. Rotate a key in its source
 system and replace the corresponding environment secret; do not commit a key
 or paste a value into a workflow or issue.
 
+### Protected release tags
+
+An active GitHub tag ruleset for release tags is a prerequisite for automatic
+publishing. In **Settings > Rules > Rulesets**, create a tag ruleset with these
+settings before pushing the first candidate:
+
+1. Name it `Protected v release tags`, set enforcement to **Active**, and target
+   tags matching the `v*` pattern.
+2. Enable **Restrict creations**, **Restrict updates**, and **Restrict
+   deletions**.
+3. Limit ruleset bypass to the designated release maintainers or release
+   automation that must create approved tags. Do not grant a broad organization
+   role or every repository administrator bypass access, and never use bypass
+   access to move or delete an existing release tag.
+
+The creation restriction ensures that only the designated release actor can
+start a candidate. The update and deletion restrictions keep an existing tag
+stable. The workflow independently rejects tag-update, tag-deletion, and
+force-push events so that a ruleset misconfiguration cannot turn one of those
+events into an automatic Play publication.
+
 ## Prepare and publish an Internal candidate
 
 1. In `app/build.gradle.kts`, set `versionName` to the intended public version
@@ -93,12 +114,15 @@ or paste a value into a workflow or issue.
    Replace `2.1.0` with the value in `app/build.gradle.kts`. Do not move or
    reuse a published release tag.
 
-The `Android CI` workflow runs unit tests, lint, and the debug build, plus
-instrumentation on API 26 and API 36. The `publish-internal` job starts only
-after both quality gates succeed. It revalidates that the tag is exactly
-`v<versionName>`, synchronizes the checked-in metadata, builds with the
-protected upload key, and uploads the AAB only to the Internal track. The
-ordinary disposable `release-bundle` job is skipped for tag refs.
+For a push event, the `Android CI` workflow publishes only when the matching
+`v*` tag was newly created and the event is neither a deletion nor a forced
+update. It runs unit tests, lint, and the debug build, plus instrumentation on
+API 26 and API 36. The `publish-internal` job starts only after both quality
+gates succeed. It revalidates that the tag is exactly `v<versionName>`,
+synchronizes the checked-in metadata, builds with the protected upload key, and
+uploads the AAB only to the Internal track. The ordinary disposable
+`release-bundle` job is skipped for tag refs. Moving, force-updating, or deleting
+an existing tag cannot enter the publishing job.
 
 A manual `workflow_dispatch` run can also publish when it is explicitly
 dispatched against a matching `v<versionName>` tag ref. Dispatching against a
