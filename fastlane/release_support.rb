@@ -1,4 +1,5 @@
 require "fileutils"
+require "json"
 
 module FreddyRelease
   class ConfigurationError < StandardError; end
@@ -23,6 +24,11 @@ module FreddyRelease
       FREDDY_UPLOAD_KEY_ALIAS
       FREDDY_UPLOAD_KEY_PASSWORD
       GOOGLE_PLAY_JSON_KEY_DATA
+    ].freeze
+
+    REQUIRED_FIREBASE_PACKAGE_NAMES = %w[
+      eu.indiewalkabout.fridgemanager
+      eu.indiewalkabout.fridgemanager.testing
     ].freeze
 
     def initialize(project_root:)
@@ -61,6 +67,32 @@ module FreddyRelease
       if missing_key
         raise ConfigurationError, "Missing required release credential: #{missing_key}"
       end
+    end
+
+    def validate_firebase_configuration!(path)
+      configuration = JSON.parse(File.read(path))
+      clients = configuration.is_a?(Hash) && configuration["client"].is_a?(Array) ? configuration["client"] : []
+      package_names = clients.filter_map do |client|
+        next unless client.is_a?(Hash)
+
+        client_info = client["client_info"]
+        next unless client_info.is_a?(Hash)
+
+        android_client_info = client_info["android_client_info"]
+        next unless android_client_info.is_a?(Hash)
+
+        android_client_info["package_name"]
+      end
+      missing_package_names = REQUIRED_FIREBASE_PACKAGE_NAMES - package_names
+
+      unless missing_package_names.empty?
+        raise ConfigurationError,
+          "Firebase configuration #{path} is missing Android client(s): #{missing_package_names.join(", ")}"
+      end
+    rescue JSON::ParserError
+      raise ConfigurationError, "Malformed Firebase configuration file: #{path}"
+    rescue SystemCallError, IOError
+      raise ConfigurationError, "Unable to read Firebase configuration file: #{path}"
     end
 
     def sync_store_assets!

@@ -1,4 +1,5 @@
 require "fileutils"
+require "json"
 require "minitest/autorun"
 require "tmpdir"
 
@@ -81,6 +82,63 @@ class ReleaseSupportTest < Minitest::Test
     assert_includes error.message, "GOOGLE_PLAY_JSON_KEY_DATA"
   end
 
+  def test_accepts_firebase_configuration_with_both_required_clients_and_additional_clients
+    firebase_path = write_firebase_configuration(
+      "com.example.unrelated",
+      "eu.indiewalkabout.fridgemanager.testing",
+      "eu.indiewalkabout.fridgemanager"
+    )
+
+    FreddyRelease::Support.new(project_root: @root).validate_firebase_configuration!(firebase_path)
+  end
+
+  def test_rejects_missing_firebase_configuration
+    firebase_path = File.join(@root, "missing-google-services.json")
+
+    error = assert_raises(FreddyRelease::ConfigurationError) do
+      FreddyRelease::Support.new(project_root: @root).validate_firebase_configuration!(firebase_path)
+    end
+
+    assert_includes error.message, firebase_path
+  end
+
+  def test_rejects_malformed_firebase_configuration_without_leaking_contents
+    firebase_path = File.join(@root, "google-services.json")
+    File.write(firebase_path, "{\"current_key\":\"SYNTHETIC_SECRET\",")
+
+    error = assert_raises(FreddyRelease::ConfigurationError) do
+      FreddyRelease::Support.new(project_root: @root).validate_firebase_configuration!(firebase_path)
+    end
+
+    assert_includes error.message, firebase_path
+    refute_includes error.message, "SYNTHETIC_SECRET"
+    refute_includes error.message, "current_key"
+  end
+
+  def test_rejects_firebase_configuration_missing_release_client_without_leaking_credentials
+    firebase_path = write_firebase_configuration("eu.indiewalkabout.fridgemanager.testing")
+
+    error = assert_raises(FreddyRelease::ConfigurationError) do
+      FreddyRelease::Support.new(project_root: @root).validate_firebase_configuration!(firebase_path)
+    end
+
+    assert_includes error.message, "eu.indiewalkabout.fridgemanager"
+    refute_includes error.message, "SYNTHETIC_SECRET"
+    refute_includes error.message, "current_key"
+  end
+
+  def test_rejects_firebase_configuration_missing_testing_client_without_leaking_credentials
+    firebase_path = write_firebase_configuration("eu.indiewalkabout.fridgemanager")
+
+    error = assert_raises(FreddyRelease::ConfigurationError) do
+      FreddyRelease::Support.new(project_root: @root).validate_firebase_configuration!(firebase_path)
+    end
+
+    assert_includes error.message, "eu.indiewalkabout.fridgemanager.testing"
+    refute_includes error.message, "SYNTHETIC_SECRET"
+    refute_includes error.message, "current_key"
+  end
+
   def test_syncs_localized_metadata_images_and_changelogs
     write_gradle("versionCode = 13\nversionName = \"2.1.0\"\n")
     write_store_assets(
@@ -138,6 +196,22 @@ class ReleaseSupportTest < Minitest::Test
     gradle_file = File.join(@root, "app", "build.gradle.kts")
     FileUtils.mkdir_p(File.dirname(gradle_file))
     File.write(gradle_file, content)
+  end
+
+  def write_firebase_configuration(*package_names)
+    firebase_path = File.join(@root, "google-services.json")
+    clients = package_names.map do |package_name|
+      {
+        "client_info" => {
+          "android_client_info" => {
+            "package_name" => package_name
+          }
+        },
+        "api_key" => [{ "current_key" => "SYNTHETIC_SECRET" }]
+      }
+    end
+    File.write(firebase_path, JSON.generate("client" => clients))
+    firebase_path
   end
 
   def write_store_assets(locale, listing:, release_notes:)

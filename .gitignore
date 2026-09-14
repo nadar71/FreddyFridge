@@ -13,6 +13,7 @@
 *.jks
 *.keystore
 keystore.properties
+**/google-services.json
 /release
 
 
