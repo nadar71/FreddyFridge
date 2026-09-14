@@ -7,6 +7,7 @@ class CrashlyticsConfigurationTest < Minitest::Test
     @root_gradle = read("build.gradle.kts")
     @app_gradle = read("app/build.gradle.kts")
     @manifest = read("app/src/main/AndroidManifest.xml")
+    @fastfile = read("fastlane/Fastfile")
   end
 
   def test_catalog_declares_exact_firebase_versions_and_crashlytics_only_modules
@@ -75,6 +76,13 @@ class CrashlyticsConfigurationTest < Minitest::Test
 
   def test_google_services_configuration_is_ignored
     assert_includes read(".gitignore").lines.map(&:strip), "**/google-services.json"
+  end
+
+  def test_fastlane_release_build_explicitly_enables_mapping_upload
+    assert_match(
+      /lane :build_release do.*gradle\(.*properties:\s*\{\s*"crashlyticsMappingUploadEnabled"\s*=>\s*"true"\s*\}.*\).*end/m,
+      @fastfile
+    )
   end
 
   private

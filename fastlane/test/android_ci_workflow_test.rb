@@ -9,6 +9,7 @@ class AndroidCiWorkflowTest < Minitest::Test
     FREDDY_UPLOAD_KEY_ALIAS
     FREDDY_UPLOAD_KEY_PASSWORD
     GOOGLE_PLAY_JSON_KEY_DATA
+    GOOGLE_SERVICES_JSON_BASE64
   ].freeze
   REQUIRED_ARTIFACT_PATHS = %w[
     app/build/outputs/bundle/release/app-release.aab
@@ -48,14 +49,58 @@ class AndroidCiWorkflowTest < Minitest::Test
     assert_match(/^  workflow_dispatch:\s*$/, @workflow)
     assert_equal expected_condition, @publish_job.fetch("if").gsub(/\s+/, " ").strip
     assert_equal %w[quality instrumentation], @publish_job.fetch("needs")
-    assert_equal "google-play", @publish_job.fetch("environment")
+    assert_equal "production-release", @publish_job.fetch("environment")
   end
 
-  def test_has_only_read_access_and_references_all_five_release_secrets
+  def test_has_only_read_access_and_references_exactly_six_release_secrets
     assert_equal({ "contents" => "read" }, @publish_job.fetch("permissions"))
 
     referenced_secrets = @publish_source.scan(/secrets\.([A-Z0-9_]+)/).flatten.uniq.sort
     assert_equal REQUIRED_SECRETS.sort, referenced_secrets
+  end
+
+  def test_checks_only_boolean_secret_presence_before_provisioning
+    credential_step = named_step("Verify release credentials are configured")
+    expected_environment = {
+      "HAS_UPLOAD_KEYSTORE" => "${{ secrets.FREDDY_UPLOAD_KEYSTORE_BASE64 != '' }}",
+      "HAS_UPLOAD_STORE_PASSWORD" => "${{ secrets.FREDDY_UPLOAD_STORE_PASSWORD != '' }}",
+      "HAS_UPLOAD_KEY_ALIAS" => "${{ secrets.FREDDY_UPLOAD_KEY_ALIAS != '' }}",
+      "HAS_UPLOAD_KEY_PASSWORD" => "${{ secrets.FREDDY_UPLOAD_KEY_PASSWORD != '' }}",
+      "HAS_GOOGLE_PLAY_JSON_KEY_DATA" => "${{ secrets.GOOGLE_PLAY_JSON_KEY_DATA != '' }}",
+      "HAS_GOOGLE_SERVICES_JSON" => "${{ secrets.GOOGLE_SERVICES_JSON_BASE64 != '' }}"
+    }
+
+    assert_equal expected_environment, credential_step.fetch("env")
+    refute_match(/\$\{\{\s*secrets\./, credential_step.fetch("run"))
+  end
+
+  def test_decodes_protected_firebase_configuration_with_restricted_permissions
+    decode_step = named_step("Decode Firebase configuration")
+
+    assert_equal(
+      { "GOOGLE_SERVICES_JSON_BASE64" => "${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}" },
+      decode_step.fetch("env")
+    )
+    assert_match(
+      /printf '%s' "\$GOOGLE_SERVICES_JSON_BASE64"\s*\\\s*\n\s*\| base64 --decode > app\/google-services\.json/,
+      decode_step.fetch("run")
+    )
+    assert_includes decode_step.fetch("run"), "chmod 600 app/google-services.json"
+  end
+
+  def test_validates_firebase_packages_before_fastlane_without_secret_value_scope
+    validation_step = named_step("Validate Firebase configuration")
+    publish_step = named_step("Build and publish Internal release")
+
+    assert_empty validation_step.fetch("env", {})
+    assert_includes(
+      validation_step.fetch("run"),
+      'validate_firebase_configuration!("app/google-services.json")'
+    )
+
+    steps = @publish_job.fetch("steps")
+    assert_operator steps.index(validation_step), :<, steps.index(publish_step)
+    refute_includes publish_step.fetch("env"), "GOOGLE_SERVICES_JSON_BASE64"
   end
 
   def test_uses_locked_fastlane_bundle
@@ -104,15 +149,25 @@ class AndroidCiWorkflowTest < Minitest::Test
     actual_paths = settings.fetch("path").lines.map(&:strip).reject(&:empty?)
     assert_equal "google-play-internal-${{ github.ref_name }}", settings.fetch("name")
     assert_equal REQUIRED_ARTIFACT_PATHS, actual_paths
+    refute_includes actual_paths, "app/google-services.json"
     assert_equal "error", settings.fetch("if-no-files-found")
     assert_equal 30, settings.fetch("retention-days")
   end
 
-  def test_always_removes_the_temporary_upload_keystore
-    cleanup_step = named_step("Remove temporary upload keystore")
+  def test_always_removes_both_temporary_release_files
+    cleanup_step = named_step("Remove temporary release credentials")
 
     assert_equal "always()", cleanup_step.fetch("if")
-    assert_equal 'rm -f "$FREDDY_UPLOAD_STORE_FILE"', cleanup_step.fetch("run")
+    assert_includes cleanup_step.fetch("run"), 'rm -f "$RUNNER_TEMP/freddy-upload.jks"'
+    assert_includes cleanup_step.fetch("run"), "rm -f app/google-services.json"
+  end
+
+  def test_ordinary_ci_jobs_do_not_reference_secrets
+    ordinary_job_source = @jobs.keys.reject { |name| name == "publish-internal" }.map do |name|
+      job_source(name)
+    end.join
+
+    refute_match(/secrets\./, ordinary_job_source)
   end
 
   def test_disposable_release_bundle_excludes_tag_refs
