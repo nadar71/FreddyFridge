@@ -1,4 +1,4 @@
-# Google Play Internal release operations
+# Google Play Internal and Crashlytics release operations
 
 The `android release_internal` lane validates a version tag, synchronizes the
 English and Italian Play metadata from `store-assets/google-play`, builds the
@@ -7,7 +7,64 @@ status `completed`. GitHub Actions is the supported release entry point. The
 lane does not upload to Closed testing or Production; all promotion and staged
 Production rollout decisions remain manual in Play Console.
 
+The same protected build enables Firebase Crashlytics R8 mapping upload so
+release crashes can be deobfuscated. It does not enable Firebase Analytics.
+
 ## One-time external setup
+
+### Firebase applications and Android API-key restrictions
+
+Use one Firebase project whose downloaded Android configuration contains both
+of this repository's application IDs:
+
+- Release: `eu.indiewalkabout.fridgemanager`
+- Debug/testing: `eu.indiewalkabout.fridgemanager.testing`
+
+Register both Android apps, enable Crashlytics, and download a fresh combined
+`google-services.json` after both clients exist. Do not enable Google Analytics
+when creating or configuring the Firebase project. The app includes
+`firebase-crashlytics` only; it does not include the Analytics SDK, deprecated
+Firebase KTX modules, custom Crashlytics user IDs, or application-content
+logging. Automatic Crashlytics collection is disabled in debug builds and
+enabled in release builds.
+
+In **Google Cloud Console > APIs & Services > Credentials**, inspect each API
+key referenced by the two Android clients. Keep its **API restrictions**
+limited to the Firebase APIs required by the configured Firebase products; do
+not add unrelated Google APIs to a Firebase-provisioned key. If **Application
+restrictions** are set to Android apps, allow every package/certificate pair
+that must use the key:
+
+- `eu.indiewalkabout.fridgemanager` with the Google Play App Signing SHA-1
+  certificate used on Play-distributed builds;
+- `eu.indiewalkabout.fridgemanager` with the protected upload-key SHA-1 only
+  when operators deliberately side-load an upload-signed verification build;
+- `eu.indiewalkabout.fridgemanager.testing` with the actual debug/test signing
+  certificate SHA-1 used for controlled non-production checks.
+
+Do not confuse the upload certificate with the Play App Signing certificate:
+Play replaces the upload signature before distribution. When a shared Android
+key is used by both Firebase clients, all required package/signature pairs must
+be on that key. After changing restrictions, download the configuration again
+and test both clients. Firebase API keys identify the project; Firebase
+Security Rules, IAM, and App Check provide authorization where those products
+apply. See Firebase's current [API-key
+guidance](https://firebase.google.com/docs/projects/api-keys) before changing an
+automatically created allowlist.
+
+For local configuration checks only, place the combined file at
+`app/google-services.json`. The repository ignores every
+`google-services.json`; never force-add it. Validate the two package IDs
+without printing the file:
+
+```bash
+ruby -r ./fastlane/release_support.rb -e \
+  'FreddyRelease::Support.new(project_root: Dir.pwd).validate_firebase_configuration!("app/google-services.json")'
+git check-ignore -v app/google-services.json
+git ls-files app/google-services.json
+```
+
+The last command must print nothing.
 
 ### Google Play and service account
 
@@ -30,7 +87,7 @@ See the official Google documentation for [Developer API service-account
 setup](https://developers.google.com/android-publisher/getting_started) and
 [Play Console permissions](https://support.google.com/googleplay/android-developer/answer/9844686).
 
-### Protected upload key and GitHub Environment
+### Protected credentials and GitHub Environment
 
 Keep the upload keystore and both passwords in the approved credential store;
 never add them or the service-account JSON to the repository. Encode the binary
@@ -40,23 +97,37 @@ keystore as a single portable base64 line:
 base64 < /absolute/path/to/freddy-upload.jks | tr -d '\n'
 ```
 
-In the GitHub repository, open **Settings > Environments**, create an
-environment named exactly `google-play`, and leave **Required reviewers**
-unset. Add these five environment secrets:
+Encode the validated combined Firebase configuration the same way, without
+printing either encoded value:
+
+```bash
+base64 < /absolute/path/to/google-services.json | tr -d '\n'
+```
+
+In the GitHub repository, open **Settings > Environments** and rename the
+existing `google-play` environment, or create its replacement, with the exact
+name `production-release`. Leave **Required reviewers** unset so an authorized
+new tag remains automatic. Add these six Environment secrets:
 
 | Secret | Value |
 | --- | --- |
-| `FREDDY_UPLOAD_KEYSTORE_BASE64` | Single-line output of the command above |
+| `FREDDY_UPLOAD_KEYSTORE_BASE64` | Single-line base64 of the protected upload keystore |
 | `FREDDY_UPLOAD_STORE_PASSWORD` | Upload-keystore password |
 | `FREDDY_UPLOAD_KEY_ALIAS` | Upload-key alias |
 | `FREDDY_UPLOAD_KEY_PASSWORD` | Upload-key password |
 | `GOOGLE_PLAY_JSON_KEY_DATA` | Entire service-account JSON document |
+| `GOOGLE_SERVICES_JSON_BASE64` | Single-line base64 of the combined Firebase Android configuration |
 
-The workflow checks only whether all five secrets are present. It decodes the
-keystore under the runner's temporary directory, restricts its permissions,
-and removes it even when the publish step fails. Rotate a key in its source
-system and replace the corresponding environment secret; do not commit a key
-or paste a value into a workflow or issue.
+The workflow's credential gate receives only booleans indicating whether all
+six secrets are present. Later steps receive only the values they need. It
+decodes the keystore under the runner's temporary directory and the Firebase
+configuration at `app/google-services.json`, sets both files to mode `0600`,
+and validates both package IDs before Fastlane. An `always()` cleanup removes
+both decoded files even when validation, build, publication, or evidence
+collection fails. Neither file is included in workflow artifacts. Rotate a key
+in its source system and replace the corresponding Environment secret; do not
+commit a credential or paste a value into a workflow, log, issue, or release
+record.
 
 ### Protected release tags
 
@@ -94,12 +165,13 @@ events into an automatic Play publication.
 
    ```bash
    ruby fastlane/test/release_support_test.rb
+   ruby fastlane/test/crashlytics_configuration_test.rb
    ruby fastlane/test/android_ci_workflow_test.rb
    ruby -c fastlane/release_support.rb
    ruby -c fastlane/Fastfile
    BUNDLE_GEMFILE=fastlane/Gemfile bundle check
    BUNDLE_GEMFILE=fastlane/Gemfile bundle exec fastlane lanes
-   ./gradlew testDebugUnitTest lintDebug
+   ./gradlew testDebugUnitTest lintDebug assembleDebug
    git diff --check
    ```
 
@@ -119,10 +191,18 @@ For a push event, the `Android CI` workflow publishes only when the matching
 update. It runs unit tests, lint, and the debug build, plus instrumentation on
 API 26 and API 36. The `publish-internal` job starts only after both quality
 gates succeed. It revalidates that the tag is exactly `v<versionName>`,
-synchronizes the checked-in metadata, builds with the protected upload key, and
-uploads the AAB only to the Internal track. The ordinary disposable
-`release-bundle` job is skipped for tag refs. Moving, force-updating, or deleting
-an existing tag cannot enter the publishing job.
+synchronizes the checked-in metadata, validates the combined Firebase
+configuration, builds with the protected upload key, uploads the release R8
+mapping to Crashlytics, and uploads the AAB only to the Internal track. A
+mapping-upload failure fails the build before Play publication. The ordinary
+disposable `release-bundle` job is skipped for tag refs. Moving,
+force-updating, or deleting an existing tag cannot enter the publishing job.
+
+`crashlyticsMappingUploadEnabled` defaults to `false`. Ordinary local Gradle
+builds, the `quality` job, and the disposable `release-bundle` validation job
+therefore do not upload mappings. The Fastlane `android build_release` lane
+explicitly sets it to `true` and is reserved for the protected
+`production-release` flow; do not run that lane as a local smoke test.
 
 A manual `workflow_dispatch` run can also publish when it is explicitly
 dispatched against a matching `v<versionName>` tag ref. Dispatching against a
@@ -145,6 +225,43 @@ creating and pushing the release tag.
    (for example, `shasum -a 256 <downloaded-aab>` and compare the digest).
 4. Record the tag, commit, workflow URL, Play release/version code, checksum,
    and Internal tester sign-off in `docs/release/production-checklist.md`.
+5. On the first tagged run after enabling Crashlytics, retain the successful
+   `uploadCrashlyticsMappingFileRelease` task evidence from the build log. In
+   Firebase Console, select the release Android app
+   `eu.indiewalkabout.fridgemanager` under **DevOps & Engagement >
+   Crashlytics**. For an event from the matching version code/name, confirm the
+   report was received and its application frames show readable class, method,
+   and line information rather than obfuscated symbols. Record a redacted
+   Console screenshot or link in the release record; do not copy identifiers or
+   report payloads into a public issue.
+
+### Controlled non-production test crash
+
+If no suitable event exists to prove receipt and symbolication, an authorized
+operator may perform one controlled test after the tagged workflow has proved
+the protected mapping-upload path:
+
+1. Use an isolated, disposable checkout and a dedicated device or emulator
+   containing no personal data. Start from the candidate source but use a
+   clearly non-production version identity and keep the build out of every Play
+   track.
+2. Add a one-time, unmistakable test exception trigger only in that disposable
+   checkout. Do not commit it, create a release tag from it, expose it in normal
+   UI, or upload its APK/AAB to Play. Confirm the applicable package/signing
+   pair is allowed by the Firebase Android API-key restriction.
+3. Build a minified, Crashlytics-enabled operator artifact and intentionally
+   upload only that build's matching R8 mapping to Firebase. Side-load it on the
+   controlled device, trigger the exception once, restart the app so the report
+   can be sent, and wait for the event in the matching Firebase Android app.
+4. Confirm the stack is deobfuscated, retain redacted evidence, then remove the
+   temporary trigger and all test artifacts. Verify the release candidate
+   checkout never contained the trigger.
+
+Follow Firebase's current [Android test-crash
+procedure](https://firebase.google.com/docs/crashlytics/android/test-implementation)
+when performing this operator step. This procedure causes a deliberate
+external Crashlytics report and mapping upload; it is not part of local
+implementation verification and requires explicit release-operator approval.
 
 ## Failure and retry decisions
 
@@ -173,8 +290,11 @@ The checked-in bundle exposes these lanes:
 
 - `android build_release` — build the signed release AAB; configure signing
   with the four `FREDDY_UPLOAD_*` environment variables or an ignored local
-  `keystore.properties` file.
-- `android validate_release` — check the exact tag and all five credentials.
+  `keystore.properties` file. This lane enables Crashlytics mapping upload and
+  is reserved for the protected release flow.
+- `android validate_release` — check the exact tag, five Fastlane credentials,
+  and the combined Firebase configuration. The sixth GitHub Environment secret
+  is decoded by the workflow before this lane runs.
 - `android sync_store_assets` — generate Fastlane metadata from
   `store-assets/google-play`.
 - `android release_internal` — validate, sync, build, and upload to Internal.
