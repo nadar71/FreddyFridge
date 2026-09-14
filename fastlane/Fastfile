@@ -1,0 +1,44 @@
+require_relative "release_support"
+
+PROJECT_ROOT = File.expand_path("..", __dir__)
+RELEASE_SUPPORT = FreddyRelease::Support.new(project_root: PROJECT_ROOT)
+
+default_platform(:android)
+
+platform :android do
+  desc "Build the signed release AAB for Google Play"
+  lane :build_release do
+    gradle(
+      task: "clean bundleRelease",
+      project_dir: PROJECT_ROOT
+    )
+  end
+
+  desc "Validate release tag and credentials"
+  lane :validate_release do
+    RELEASE_SUPPORT.validate_tag!(ENV["GITHUB_REF_NAME"])
+    RELEASE_SUPPORT.validate_credentials!(ENV)
+  end
+
+  desc "Sync Fastlane metadata from store-assets/google-play"
+  lane :sync_store_assets do
+    RELEASE_SUPPORT.sync_store_assets!
+  end
+
+  desc "Build release AAB and upload to Google Play Internal testing"
+  lane :release_internal do
+    validate_release
+    sync_store_assets
+    build_release
+
+    upload_to_play_store(
+      package_name: "eu.indiewalkabout.fridgemanager",
+      aab: File.join(PROJECT_ROOT, "app/build/outputs/bundle/release/app-release.aab"),
+      track: "internal",
+      release_status: "completed",
+      skip_upload_apk: true,
+      json_key_data: ENV.fetch("GOOGLE_PLAY_JSON_KEY_DATA"),
+      timeout: 900
+    )
+  end
+end
