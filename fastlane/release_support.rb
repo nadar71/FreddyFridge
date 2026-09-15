@@ -180,7 +180,7 @@ module FreddyRelease
     end
 
     def read_required_text(path)
-      content = File.read(path).strip
+      content = File.read(path, encoding: Encoding::UTF_8).strip
       if content.empty?
         raise ConfigurationError, "Missing or blank required text file: #{relative_path(path)}"
       end

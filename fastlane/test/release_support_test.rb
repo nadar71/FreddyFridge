@@ -148,8 +148,8 @@ class ReleaseSupportTest < Minitest::Test
     )
     write_store_assets(
       "it-IT",
-      listing: "Nome app\nFreddyFridge IT\n\nDescrizione breve\nDescrizione breve italiana\n\nDescrizione completa\nDescrizione completa italiana.\n",
-      release_notes: "Note di rilascio italiane"
+      listing: "Nome app\nFreddyFridge IT\n\nDescrizione breve\nDescrizione più chiara\n\nDescrizione completa\nDescrizione completa italiana.\n",
+      release_notes: "Novità dell'app"
     )
 
     FreddyRelease::Support.new(project_root: @root).sync_store_assets!
@@ -164,9 +164,9 @@ class ReleaseSupportTest < Minitest::Test
     assert_metadata(
       "it-IT",
       title: "FreddyFridge IT",
-      short_description: "Descrizione breve italiana",
+      short_description: "Descrizione più chiara",
       full_description: "Descrizione completa italiana.",
-      release_notes: "Note di rilascio italiane"
+      release_notes: "Novità dell'app"
     )
   end
 
@@ -232,14 +232,15 @@ class ReleaseSupportTest < Minitest::Test
   def assert_metadata(locale, title:, short_description:, full_description:, release_notes:)
     target = File.join(@root, "fastlane", "metadata", "android", locale)
 
-    assert_equal "#{title}\n", File.read(File.join(target, "title.txt"))
-    assert_equal "#{short_description}\n", File.read(File.join(target, "short_description.txt"))
-    assert_equal "#{full_description}\n", File.read(File.join(target, "full_description.txt"))
+    assert_equal "#{title}\n", File.read(File.join(target, "title.txt"), encoding: Encoding::UTF_8)
+    assert_equal "#{short_description}\n", File.read(File.join(target, "short_description.txt"), encoding: Encoding::UTF_8)
+    assert_equal "#{full_description}\n", File.read(File.join(target, "full_description.txt"), encoding: Encoding::UTF_8)
     assert_equal "shared-icon", File.binread(File.join(target, "images", "icon.png"))
     assert_equal "feature-#{locale}", File.binread(File.join(target, "images", "featureGraphic.png"))
     assert_equal %w[01-first.png 02-second.png], Dir.children(File.join(target, "images", "phoneScreenshots")).sort
     assert_equal "first-#{locale}", File.binread(File.join(target, "images", "phoneScreenshots", "01-first.png"))
     assert_equal "second-#{locale}", File.binread(File.join(target, "images", "phoneScreenshots", "02-second.png"))
-    assert_equal "#{release_notes}\n", File.read(File.join(target, "changelogs", "13.txt"))
+    assert_equal "#{release_notes}\n",
+      File.read(File.join(target, "changelogs", "13.txt"), encoding: Encoding::UTF_8)
   end
 end
