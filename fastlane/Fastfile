@@ -10,7 +10,8 @@ platform :android do
   lane :build_release do
     gradle(
       task: "clean bundleRelease",
-      project_dir: PROJECT_ROOT
+      project_dir: PROJECT_ROOT,
+      properties: { "crashlyticsMappingUploadEnabled" => "true" }
     )
   end
 
@@ -18,6 +19,7 @@ platform :android do
   lane :validate_release do
     RELEASE_SUPPORT.validate_tag!(ENV["GITHUB_REF_NAME"])
     RELEASE_SUPPORT.validate_credentials!(ENV)
+    RELEASE_SUPPORT.validate_firebase_configuration!(File.join(PROJECT_ROOT, "app/google-services.json"))
   end
 
   desc "Sync Fastlane metadata from store-assets/google-play"

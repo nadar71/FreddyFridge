@@ -124,7 +124,7 @@ jobs:
         github.event_name == 'workflow_dispatch'
       )
     needs: [quality, instrumentation]
-    environment: google-play
+    environment: production-release
     permissions: { contents: read }
     runs-on: ubuntu-latest
     timeout-minutes: 45
@@ -148,12 +148,14 @@ jobs:
           HAS_UPLOAD_KEY_ALIAS: ${{ secrets.FREDDY_UPLOAD_KEY_ALIAS != '' }}
           HAS_UPLOAD_KEY_PASSWORD: ${{ secrets.FREDDY_UPLOAD_KEY_PASSWORD != '' }}
           HAS_GOOGLE_PLAY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_JSON_KEY_DATA != '' }}
+          HAS_GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 != '' }}
         run: |
           if [[ "$HAS_UPLOAD_KEYSTORE" != true \
             || "$HAS_UPLOAD_STORE_PASSWORD" != true \
             || "$HAS_UPLOAD_KEY_ALIAS" != true \
             || "$HAS_UPLOAD_KEY_PASSWORD" != true \
-            || "$HAS_GOOGLE_PLAY_JSON_KEY_DATA" != true ]]; then
+            || "$HAS_GOOGLE_PLAY_JSON_KEY_DATA" != true \
+            || "$HAS_GOOGLE_SERVICES_JSON" != true ]]; then
             echo "::error::Required Google Play release credentials are not configured."
             exit 1
           fi
@@ -161,9 +163,22 @@ jobs:
         env:
           FREDDY_UPLOAD_KEYSTORE_BASE64: ${{ secrets.FREDDY_UPLOAD_KEYSTORE_BASE64 }}
         run: |
+          umask 077
           printf '%s' "$FREDDY_UPLOAD_KEYSTORE_BASE64" \
             | base64 --decode > "$RUNNER_TEMP/freddy-upload.jks"
           chmod 600 "$RUNNER_TEMP/freddy-upload.jks"
+      - name: Decode Firebase configuration
+        env:
+          GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
+        run: |
+          umask 077
+          printf '%s' "$GOOGLE_SERVICES_JSON_BASE64" \
+            | base64 --decode > app/google-services.json
+          chmod 600 app/google-services.json
+      - name: Validate Firebase configuration
+        run: >-
+          ruby -r ./fastlane/release_support.rb -e
+          'FreddyRelease::Support.new(project_root: Dir.pwd).validate_firebase_configuration!("app/google-services.json")'
       - name: Build and publish Internal release
         env:
           BUNDLE_GEMFILE: fastlane/Gemfile
@@ -196,8 +211,8 @@ jobs:
             app-release.aab.sha256
           if-no-files-found: error
           retention-days: 30
-      - name: Remove temporary upload keystore
+      - name: Remove temporary release credentials
         if: always()
-        env:
-          FREDDY_UPLOAD_STORE_FILE: ${{ runner.temp }}/freddy-upload.jks
-        run: rm -f "$FREDDY_UPLOAD_STORE_FILE"
+        run: |
+          rm -f "$RUNNER_TEMP/freddy-upload.jks"
+          rm -f app/google-services.json

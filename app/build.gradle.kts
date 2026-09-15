@@ -1,3 +1,4 @@
+import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
 import org.gradle.kotlin.dsl.implementation
 import java.util.Properties
 
@@ -32,6 +33,16 @@ plugins {
     alias(libs.plugins.hilt.android)
 }
 
+val firebaseConfigurationFile = file("google-services.json")
+if (firebaseConfigurationFile.isFile) {
+    pluginManager.apply("com.google.gms.google-services")
+    pluginManager.apply("com.google.firebase.crashlytics")
+}
+
+val crashlyticsMappingUploadEnabled = providers.gradleProperty("crashlyticsMappingUploadEnabled")
+    .map(String::toBooleanStrict)
+    .orElse(false)
+
 android {
     namespace = "eu.indiewalkabout.fridgemanager"
     compileSdk = 36
@@ -64,11 +75,18 @@ android {
         }*/
         debug {
             applicationIdSuffix = ".testing"
+            manifestPlaceholders["CRASHLYTICS_COLLECTION_ENABLED"] = false
         }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
             signingConfig = signingConfigs.findByName("release")
+            manifestPlaceholders["CRASHLYTICS_COLLECTION_ENABLED"] = true
+            if (firebaseConfigurationFile.isFile) {
+                configure<CrashlyticsExtension> {
+                    mappingFileUploadEnabled = crashlyticsMappingUploadEnabled.get()
+                }
+            }
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -102,6 +120,8 @@ if (!releaseSigningConfigured) {
 
 dependencies {
 
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)

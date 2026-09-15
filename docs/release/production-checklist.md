@@ -16,6 +16,8 @@ the action occurred.
 - [ ] Record tag: `________________`.
 - [ ] Record version code/name: `________________`.
 - [ ] Record CI run: `________________`.
+- [ ] Confirm the protected build log shows successful
+  `uploadCrashlyticsMappingFileRelease`; retain the redacted log evidence.
 - [ ] Download the 30-day `google-play-internal-<tag>` workflow artifact and verify its archived `app-release.aab.sha256` against the AAB.
 - [ ] Record AAB SHA-256: `________________`.
 - [ ] Archive the exact AAB, checksum, and `mapping.txt` together.
@@ -25,9 +27,18 @@ pipeline and R8 configuration only; it is not signed by the protected upload key
 
 ## 2. Store and policy gate
 
-- [ ] Privacy policy is publicly reachable over HTTPS and matches `privacy-data-safety.md`.
+- [ ] Privacy policy is publicly reachable over HTTPS, matches
+  `privacy-data-safety.md`, and discloses release crash/ANR and diagnostic
+  processing by Firebase Crashlytics.
 - [ ] `app-ads.txt` is reachable at the developer website root and verified by AdMob.
-- [ ] Data safety declares local food/reminder data and current Google Mobile Ads/UMP behavior accurately.
+- [ ] Data safety declares local food/reminder data, current Google Mobile
+  Ads/UMP behavior, and current Crashlytics crash logs, diagnostics, and
+  installation/device identifiers accurately; review collection purpose,
+  sharing, encryption, retention, and deletion against current Firebase and
+  Play guidance.
+- [ ] Dependency and source review confirms Firebase Analytics, Analytics
+  breadcrumbs, custom Crashlytics user IDs/keys/logs, application-content
+  logging, and manual non-fatal reporting remain absent.
 - [ ] Ads declaration identifies that the app contains ads.
 - [ ] Target audience, content rating, app access, and content declarations are complete.
 - [ ] Exact-alarm declaration is not required; the app uses inexact alarms.
@@ -39,6 +50,15 @@ pipeline and R8 configuration only; it is not signed by the protected upload key
 
 - [ ] Confirm the tag-triggered `Android CI` quality and API 26/API 36 instrumentation gates passed and `publish-internal` uploaded the exact candidate to Internal testing.
 - [ ] Confirm the archived `google-play-internal-<tag>` artifact checksum matches its AAB and record the workflow URL and checksum above.
+- [ ] In Firebase Console, select
+  `eu.indiewalkabout.fridgemanager`, confirm an event for the candidate version
+  code/name was received, and verify application frames are deobfuscated with
+  readable class, method, and line information. If a controlled event is
+  required, follow the operator-only non-production procedure in
+  `fastlane/README.md`; never ship the intentional crash trigger or upload it to
+  a Play track.
+- [ ] Record redacted Firebase receipt/symbolication evidence:
+  `________________`.
 - [ ] Install from Play on a fresh device; do not side-load this verification build.
 - [ ] Upgrade from the current production version and verify food/preferences remain intact.
 - [ ] Complete the API 26 and API 36 critical paths from the RC matrix.
