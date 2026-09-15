@@ -1,7 +1,9 @@
 require "minitest/autorun"
+require "open3"
 require "yaml"
 
 class AndroidCiWorkflowTest < Minitest::Test
+  PROJECT_ROOT = File.expand_path("../..", __dir__)
   WORKFLOW_PATH = File.expand_path("../../.github/workflows/android-ci.yml", __dir__)
   REQUIRED_SECRETS = %w[
     FREDDY_UPLOAD_KEYSTORE_BASE64
@@ -175,6 +177,19 @@ class AndroidCiWorkflowTest < Minitest::Test
       "github.event_name != 'pull_request' && !startsWith(github.ref, 'refs/tags/')",
       @jobs.fetch("release-bundle").fetch("if")
     )
+  end
+
+  def test_android_resources_required_by_clean_ci_checkout_are_tracked
+    required_resources = %w[
+      app/src/main/res/drawable/ic_warning_white.xml
+      app/src/main/res/drawable/splash_transparent_icon.xml
+    ]
+
+    output, status = Open3.capture2e(
+      "git", "-C", PROJECT_ROOT, "ls-files", "--error-unmatch", *required_resources
+    )
+
+    assert status.success?, "Required Android resources are not tracked:\n#{output}"
   end
 
   private
