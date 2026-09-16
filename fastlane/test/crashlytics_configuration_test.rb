@@ -85,6 +85,29 @@ class CrashlyticsConfigurationTest < Minitest::Test
     )
   end
 
+  def test_fastlane_declares_the_locked_firebase_app_distribution_plugin
+    assert_includes(
+      read("fastlane/Gemfile"),
+      'gem "fastlane-plugin-firebase_app_distribution", "1.0.0"'
+    )
+  end
+
+  def test_fastlane_distributes_the_existing_aab_to_the_configured_firebase_group
+    lane_source = @fastfile[@fastfile.index("  lane :distribute_firebase do")..]
+
+    assert_includes lane_source, "firebase_app_distribution("
+    assert_includes lane_source, 'app: ENV.fetch("FIREBASE_APP_ID")'
+    assert_includes lane_source, 'android_artifact_type: "AAB"'
+    assert_includes lane_source, 'android_artifact_path: ENV.fetch("FIREBASE_AAB_PATH")'
+    assert_includes lane_source, 'groups: ENV.fetch("FIREBASE_APP_DISTRIBUTION_GROUPS")'
+    assert_match(
+      /release_notes_file:\s*File\.join\(\s*PROJECT_ROOT,\s*"store-assets",\s*"google-play",\s*"en-US",\s*"release-notes\.txt"\s*\)/m,
+      lane_source
+    )
+    assert_includes lane_source,
+      'service_credentials_file: ENV.fetch("GOOGLE_APPLICATION_CREDENTIALS")'
+  end
+
   private
 
   def read(relative_path)

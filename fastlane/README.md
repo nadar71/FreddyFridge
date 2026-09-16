@@ -1,4 +1,4 @@
-# Google Play Internal and Crashlytics release operations
+# Google Play Internal, Firebase App Distribution, and Crashlytics release operations
 
 The `android release_internal` lane validates a version tag, synchronizes the
 English and Italian Play metadata from `store-assets/google-play`, builds the
@@ -6,6 +6,13 @@ signed release AAB, and uploads it to Google Play Internal testing with release
 status `completed`. GitHub Actions is the supported release entry point. The
 lane does not upload to Closed testing or Production; all promotion and staged
 Production rollout decisions remain manual in Play Console.
+
+After the Play Internal job succeeds, a separate GitHub Actions job downloads
+the exact retained AAB and distributes it to Firebase App Distribution group
+`owner-testers`. Firebase sends first-time invitations and new-release
+notifications to the members of that group. Keeping this as a dependent job
+allows a Firebase-only failure to be retried without attempting to upload the
+same version code to Google Play again.
 
 The same protected build enables Firebase Crashlytics R8 mapping upload so
 release crashes can be deobfuscated. It does not enable Firebase Analytics.
@@ -87,6 +94,25 @@ See the official Google documentation for [Developer API service-account
 setup](https://developers.google.com/android-publisher/getting_started) and
 [Play Console permissions](https://support.google.com/googleplay/android-developer/answer/9844686).
 
+### Firebase App Distribution
+
+In Firebase project `e-rampart-226407`, enable App Distribution for the
+FreddyFridge Android app and link that app to its Google Play application so
+Firebase can process the Play AAB. The release app has these fixed identifiers:
+
+- Package: `eu.indiewalkabout.fridgemanager`
+- Firebase app ID: `1:632111455840:android:76571b3604a6c14b3aed05`
+
+Do not use `1:632111455840:android:05746e0f2eb20e1b3aed05`; that app ID belongs
+to EarthquakeWatchdog in the shared Firebase project.
+
+Create a dedicated service account named
+`freddyfridge-app-distribution@e-rampart-226407.iam.gserviceaccount.com` and
+grant it the **Firebase App Distribution Admin** role. Do not substitute the
+similarly named **Firebase App Distribution Admin SDK Service Agent** role.
+Create the tester group with alias `owner-testers` and manage its recipients in
+Firebase Console under **App Distribution > Testers and Groups**.
+
 ### Protected credentials and GitHub Environment
 
 Keep the upload keystore and both passwords in the approved credential store;
@@ -107,7 +133,7 @@ base64 < /absolute/path/to/google-services.json | tr -d '\n'
 In the GitHub repository, open **Settings > Environments** and rename the
 existing `google-play` environment, or create its replacement, with the exact
 name `production-release`. Leave **Required reviewers** unset so an authorized
-new tag remains automatic. Add these six Environment secrets:
+new tag remains automatic. Add these seven Environment secrets:
 
 | Secret | Value |
 | --- | --- |
@@ -117,9 +143,18 @@ new tag remains automatic. Add these six Environment secrets:
 | `FREDDY_UPLOAD_KEY_PASSWORD` | Upload-key password |
 | `GOOGLE_PLAY_JSON_KEY_DATA` | Entire service-account JSON document |
 | `GOOGLE_SERVICES_JSON_BASE64` | Single-line base64 of the combined Firebase Android configuration |
+| `FIREBASE_APP_DISTRIBUTION_CREDENTIALS_BASE64` | Single-line base64 of the dedicated Firebase App Distribution service-account JSON |
 
-The workflow's credential gate receives only booleans indicating whether all
-six secrets are present. Later steps receive only the values they need. It
+Add these Environment variables:
+
+| Variable | Value |
+| --- | --- |
+| `FIREBASE_APP_ID` | `1:632111455840:android:76571b3604a6c14b3aed05` |
+| `FIREBASE_APP_DISTRIBUTION_GROUPS` | `owner-testers` |
+
+The Play-publishing job's credential gate receives only booleans indicating
+whether its six secrets are present. Later steps receive only the values they
+need. It
 decodes the keystore under the runner's temporary directory and the Firebase
 configuration at `app/google-services.json`, sets both files to mode `0600`,
 and validates both package IDs before Fastlane. An `always()` cleanup removes
@@ -128,6 +163,12 @@ collection fails. Neither file is included in workflow artifacts. Rotate a key
 in its source system and replace the corresponding Environment secret; do not
 commit a credential or paste a value into a workflow, log, issue, or release
 record.
+
+The dependent Firebase job separately verifies its secret and the two exact
+Environment-variable values. It decodes the Firebase service-account JSON to
+the runner's temporary directory with mode `0600`, validates its type, project,
+and service-account email without printing the document, and removes it under
+`always()`. The Firebase credential is never uploaded as an artifact.
 
 ### Protected release tags
 
@@ -198,6 +239,12 @@ mapping-upload failure fails the build before Play publication. The ordinary
 disposable `release-bundle` job is skipped for tag refs. Moving,
 force-updating, or deleting an existing tag cannot enter the publishing job.
 
+After `Publish to Google Play Internal` succeeds and uploads the evidence
+artifact, `Distribute with Firebase App Distribution` downloads that artifact,
+verifies the AAB, and runs `android distribute_firebase`. The lane uploads the
+same AAB with the English release notes to `owner-testers`; it neither rebuilds
+the app nor changes any Play track. Firebase then emails the configured group.
+
 `crashlyticsMappingUploadEnabled` defaults to `false`. Ordinary local Gradle
 builds, the `quality` job, and the disposable `release-bundle` validation job
 therefore do not upload mappings. The Fastlane `android build_release` lane
@@ -218,14 +265,18 @@ creating and pushing the release tag.
 2. In Play Console **Testing > Internal testing**, confirm that the new version
    code is present, release status is completed, and the intended tester group
    can install it from Play.
-3. Download the GitHub Actions artifact named
+3. In Firebase Console **App Distribution > FreddyFridge > Releases**, confirm
+   the same version name and code is assigned to `owner-testers`. Check the
+   tester status for invitation acceptance and download without copying tester
+   addresses into public logs or issues.
+4. Download the GitHub Actions artifact named
    `google-play-internal-<tag>`. It is retained for 30 days and contains the
    exact AAB, `mapping.txt`, and `app-release.aab.sha256`. Archive the artifact
    with the release record and verify the AAB against the archived checksum
    (for example, `shasum -a 256 <downloaded-aab>` and compare the digest).
-4. Record the tag, commit, workflow URL, Play release/version code, checksum,
+5. Record the tag, commit, workflow URL, Play release/version code, checksum,
    and Internal tester sign-off in `docs/release/production-checklist.md`.
-5. On the first tagged run after enabling Crashlytics, retain the successful
+6. On the first tagged run after enabling Crashlytics, retain the successful
    `uploadCrashlyticsMappingFileRelease` task evidence from the build log. In
    Firebase Console, select the release Android app
    `eu.indiewalkabout.fridgemanager` under **DevOps & Engagement >
@@ -276,6 +327,10 @@ implementation verification and requires explicit release-operator approval.
   when a later evidence-upload step failed. Do not retry an upload with that
   code. Preserve the available Play and workflow evidence; any replacement AAB
   requires a higher `versionCode`, a new candidate commit, and a new tag.
+- If only `Distribute with Firebase App Distribution` fails, rerun that failed
+  job after correcting the Firebase secret, role, Play link, app ID, or group.
+  Its successful `publish-internal` dependency and accepted Play version code
+  must not be re-uploaded.
 - Do not delete and recreate or force-move a release tag. A changed build or
   metadata set is a new candidate and must use a higher version code.
 
@@ -298,6 +353,8 @@ The checked-in bundle exposes these lanes:
 - `android sync_store_assets` — generate Fastlane metadata from
   `store-assets/google-play`.
 - `android release_internal` — validate, sync, build, and upload to Internal.
+- `android distribute_firebase` — upload an existing AAB to the configured
+  Firebase App Distribution group using dedicated service-account credentials.
 
 Local lane discovery does not require release credentials:
 

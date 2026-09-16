@@ -43,4 +43,22 @@ platform :android do
       timeout: 900
     )
   end
+
+  desc "Distribute the published release AAB to Firebase testers"
+  lane :distribute_firebase do
+    firebase_app_distribution(
+      app: ENV.fetch("FIREBASE_APP_ID"),
+      android_artifact_type: "AAB",
+      android_artifact_path: ENV.fetch("FIREBASE_AAB_PATH"),
+      groups: ENV.fetch("FIREBASE_APP_DISTRIBUTION_GROUPS"),
+      release_notes_file: File.join(
+        PROJECT_ROOT,
+        "store-assets",
+        "google-play",
+        "en-US",
+        "release-notes.txt"
+      ),
+      service_credentials_file: ENV.fetch("GOOGLE_APPLICATION_CREDENTIALS")
+    )
+  end
 end

@@ -26,6 +26,8 @@ class AndroidCiWorkflowTest < Minitest::Test
     ["ruby/setup-ruby", "95ef2b042f9d7a56d8268cba8559e2842e2ad01b", "v1.321.0"],
     ["actions/upload-artifact", "ea165f8d65b6e75b540449e92b4886f43607fa02", "v4.6.2"]
   ].freeze
+  FIREBASE_DOWNLOAD_ACTION =
+    "actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093"
 
   def setup
     @workflow = File.read(WORKFLOW_PATH)
@@ -52,6 +54,81 @@ class AndroidCiWorkflowTest < Minitest::Test
     assert_equal expected_condition, @publish_job.fetch("if").gsub(/\s+/, " ").strip
     assert_equal %w[quality instrumentation], @publish_job.fetch("needs")
     assert_equal "production-release", @publish_job.fetch("environment")
+  end
+
+  def test_distributes_to_firebase_only_after_google_play_publish_succeeds
+    firebase_job = @jobs.fetch("distribute-firebase")
+
+    assert_equal @publish_job.fetch("if"), firebase_job.fetch("if")
+    assert_equal "publish-internal", firebase_job.fetch("needs")
+    assert_equal "production-release", firebase_job.fetch("environment")
+    assert_equal({ "contents" => "read" }, firebase_job.fetch("permissions"))
+
+    download_step = firebase_job.fetch("steps").find do |step|
+      step["uses"]&.start_with?("actions/download-artifact@")
+    end
+    refute_nil download_step
+    assert_equal FIREBASE_DOWNLOAD_ACTION, download_step.fetch("uses")
+    assert_equal "google-play-internal-${{ github.ref_name }}", download_step.fetch("with").fetch("name")
+    assert_equal "firebase-release", download_step.fetch("with").fetch("path")
+  end
+
+  def test_firebase_job_uses_only_its_dedicated_secret_and_approved_variables
+    source = job_source("distribute-firebase")
+
+    assert_equal ["FIREBASE_APP_DISTRIBUTION_CREDENTIALS_BASE64"],
+      source.scan(/secrets\.([A-Z0-9_]+)/).flatten.uniq.sort
+    assert_equal %w[FIREBASE_APP_DISTRIBUTION_GROUPS FIREBASE_APP_ID],
+      source.scan(/vars\.([A-Z0-9_]+)/).flatten.uniq.sort
+
+    configuration_step = firebase_named_step("Verify Firebase distribution configuration")
+    assert_equal(
+      {
+        "HAS_FIREBASE_CREDENTIALS" =>
+          "${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS_BASE64 != '' }}",
+        "FIREBASE_APP_ID" => "${{ vars.FIREBASE_APP_ID }}",
+        "FIREBASE_APP_DISTRIBUTION_GROUPS" =>
+          "${{ vars.FIREBASE_APP_DISTRIBUTION_GROUPS }}"
+      },
+      configuration_step.fetch("env")
+    )
+    refute_match(/\$\{\{\s*secrets\./, configuration_step.fetch("run"))
+  end
+
+  def test_firebase_job_protects_validates_uses_and_removes_service_credentials
+    decode_step = firebase_named_step("Decode Firebase App Distribution credentials")
+    assert_equal(
+      {
+        "FIREBASE_APP_DISTRIBUTION_CREDENTIALS_BASE64" =>
+          "${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS_BASE64 }}"
+      },
+      decode_step.fetch("env")
+    )
+    assert_includes decode_step.fetch("run"), 'base64 --decode > "$RUNNER_TEMP/firebase-app-distribution.json"'
+    assert_includes decode_step.fetch("run"), 'chmod 600 "$RUNNER_TEMP/firebase-app-distribution.json"'
+
+    validation_step = firebase_named_step("Validate Firebase App Distribution credentials")
+    assert_includes validation_step.fetch("run"), '"type"'
+    assert_includes validation_step.fetch("run"), '"project_id"'
+    assert_includes validation_step.fetch("run"), '"client_email"'
+    assert_includes validation_step.fetch("run"), 'e-rampart-226407'
+    assert_includes validation_step.fetch("run"),
+      'freddyfridge-app-distribution@e-rampart-226407.iam.gserviceaccount.com'
+
+    distribution_step = firebase_named_step("Distribute release with Firebase")
+    assert_equal "bundle exec fastlane android distribute_firebase", distribution_step.fetch("run")
+    assert_equal "fastlane/Gemfile", distribution_step.fetch("env").fetch("BUNDLE_GEMFILE")
+    assert_equal "${{ vars.FIREBASE_APP_ID }}", distribution_step.fetch("env").fetch("FIREBASE_APP_ID")
+    assert_equal "${{ vars.FIREBASE_APP_DISTRIBUTION_GROUPS }}",
+      distribution_step.fetch("env").fetch("FIREBASE_APP_DISTRIBUTION_GROUPS")
+    assert_equal "${{ github.workspace }}/firebase-release/app/build/outputs/bundle/release/app-release.aab",
+      distribution_step.fetch("env").fetch("FIREBASE_AAB_PATH")
+    assert_equal "${{ runner.temp }}/firebase-app-distribution.json",
+      distribution_step.fetch("env").fetch("GOOGLE_APPLICATION_CREDENTIALS")
+
+    cleanup_step = firebase_named_step("Remove temporary Firebase credentials")
+    assert_equal "always()", cleanup_step.fetch("if")
+    assert_includes cleanup_step.fetch("run"), 'rm -f "$RUNNER_TEMP/firebase-app-distribution.json"'
   end
 
   def test_has_only_read_access_and_references_exactly_six_release_secrets
@@ -165,7 +242,8 @@ class AndroidCiWorkflowTest < Minitest::Test
   end
 
   def test_ordinary_ci_jobs_do_not_reference_secrets
-    ordinary_job_source = @jobs.keys.reject { |name| name == "publish-internal" }.map do |name|
+    release_jobs = %w[publish-internal distribute-firebase]
+    ordinary_job_source = @jobs.keys.reject { |name| release_jobs.include?(name) }.map do |name|
       job_source(name)
     end.join
 
@@ -197,6 +275,11 @@ class AndroidCiWorkflowTest < Minitest::Test
   def named_step(name)
     @publish_job.fetch("steps").find { |step| step["name"] == name } ||
       flunk("Missing publish-internal step named #{name.inspect}")
+  end
+
+  def firebase_named_step(name)
+    @jobs.fetch("distribute-firebase").fetch("steps").find { |step| step["name"] == name } ||
+      flunk("Missing distribute-firebase step named #{name.inspect}")
   end
 
   def job_source(name)

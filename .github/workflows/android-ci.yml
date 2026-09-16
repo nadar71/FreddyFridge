@@ -216,3 +216,89 @@ jobs:
         run: |
           rm -f "$RUNNER_TEMP/freddy-upload.jks"
           rm -f app/google-services.json
+
+  distribute-firebase:
+    name: Distribute with Firebase App Distribution
+    if: >-
+      startsWith(github.ref, 'refs/tags/v') &&
+      (
+        (
+          github.event_name == 'push' &&
+          github.event.created == true &&
+          github.event.deleted == false &&
+          github.event.forced == false
+        ) ||
+        github.event_name == 'workflow_dispatch'
+      )
+    needs: publish-internal
+    environment: production-release
+    permissions: { contents: read }
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+          working-directory: fastlane
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: google-play-internal-${{ github.ref_name }}
+          path: firebase-release
+      - name: Verify Firebase distribution configuration
+        env:
+          HAS_FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS_BASE64 != '' }}
+          FIREBASE_APP_ID: ${{ vars.FIREBASE_APP_ID }}
+          FIREBASE_APP_DISTRIBUTION_GROUPS: ${{ vars.FIREBASE_APP_DISTRIBUTION_GROUPS }}
+        run: |
+          if [[ "$HAS_FIREBASE_CREDENTIALS" != true ]]; then
+            echo "::error::FIREBASE_APP_DISTRIBUTION_CREDENTIALS_BASE64 is not configured."
+            exit 1
+          fi
+          if [[ "$FIREBASE_APP_ID" != "1:632111455840:android:76571b3604a6c14b3aed05" ]]; then
+            echo "::error::FIREBASE_APP_ID is not the FreddyFridge release app ID."
+            exit 1
+          fi
+          if [[ "$FIREBASE_APP_DISTRIBUTION_GROUPS" != "owner-testers" ]]; then
+            echo "::error::FIREBASE_APP_DISTRIBUTION_GROUPS must be owner-testers."
+            exit 1
+          fi
+      - name: Decode Firebase App Distribution credentials
+        env:
+          FIREBASE_APP_DISTRIBUTION_CREDENTIALS_BASE64: ${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS_BASE64 }}
+        run: |
+          umask 077
+          printf '%s' "$FIREBASE_APP_DISTRIBUTION_CREDENTIALS_BASE64" \
+            | base64 --decode > "$RUNNER_TEMP/firebase-app-distribution.json"
+          chmod 600 "$RUNNER_TEMP/firebase-app-distribution.json"
+      - name: Validate Firebase App Distribution credentials
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-app-distribution.json
+        run: |
+          ruby -rjson -e '
+            credentials = JSON.parse(File.read(ENV.fetch("GOOGLE_APPLICATION_CREDENTIALS")))
+            expected = {
+              "type" => "service_account",
+              "project_id" => "e-rampart-226407",
+              "client_email" => "freddyfridge-app-distribution@e-rampart-226407.iam.gserviceaccount.com"
+            }
+            abort("Firebase App Distribution credentials do not match the expected service account.") unless expected.all? { |key, value| credentials[key] == value }
+          '
+      - name: Verify Firebase release artifact
+        run: |
+          if [[ ! -s firebase-release/app/build/outputs/bundle/release/app-release.aab ]]; then
+            echo "::error::Firebase release AAB is missing or empty."
+            exit 1
+          fi
+      - name: Distribute release with Firebase
+        env:
+          BUNDLE_GEMFILE: fastlane/Gemfile
+          FIREBASE_APP_ID: ${{ vars.FIREBASE_APP_ID }}
+          FIREBASE_APP_DISTRIBUTION_GROUPS: ${{ vars.FIREBASE_APP_DISTRIBUTION_GROUPS }}
+          FIREBASE_AAB_PATH: ${{ github.workspace }}/firebase-release/app/build/outputs/bundle/release/app-release.aab
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-app-distribution.json
+        run: bundle exec fastlane android distribute_firebase
+      - name: Remove temporary Firebase credentials
+        if: always()
+        run: rm -f "$RUNNER_TEMP/firebase-app-distribution.json"
