@@ -123,7 +123,7 @@ class AndroidCiWorkflowTest < Minitest::Test
 
     assert_equal ["FIREBASE_APP_DISTRIBUTION_CREDENTIALS_BASE64"],
       source.scan(/secrets\.([A-Z0-9_]+)/).flatten.uniq.sort
-    assert_equal %w[FIREBASE_APP_DISTRIBUTION_GROUPS FIREBASE_APP_ID],
+    assert_equal %w[FIREBASE_APP_DISTRIBUTION_GROUPS FIREBASE_APP_ID FIREBASE_TESTER_GROUPS],
       source.scan(/vars\.([A-Z0-9_]+)/).flatten.uniq.sort
 
     configuration_step = firebase_named_step("Verify Firebase distribution configuration")
@@ -133,7 +133,7 @@ class AndroidCiWorkflowTest < Minitest::Test
           "${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS_BASE64 != '' }}",
         "FIREBASE_APP_ID" => "${{ vars.FIREBASE_APP_ID }}",
         "FIREBASE_APP_DISTRIBUTION_GROUPS" =>
-          "${{ vars.FIREBASE_APP_DISTRIBUTION_GROUPS }}"
+          "${{ vars.FIREBASE_APP_DISTRIBUTION_GROUPS || vars.FIREBASE_TESTER_GROUPS }}"
       },
       configuration_step.fetch("env")
     )
@@ -164,7 +164,7 @@ class AndroidCiWorkflowTest < Minitest::Test
     assert_equal "bundle exec fastlane android distribute_firebase", distribution_step.fetch("run")
     assert_equal "fastlane/Gemfile", distribution_step.fetch("env").fetch("BUNDLE_GEMFILE")
     assert_equal "${{ vars.FIREBASE_APP_ID }}", distribution_step.fetch("env").fetch("FIREBASE_APP_ID")
-    assert_equal "${{ vars.FIREBASE_APP_DISTRIBUTION_GROUPS }}",
+    assert_equal "${{ vars.FIREBASE_APP_DISTRIBUTION_GROUPS || vars.FIREBASE_TESTER_GROUPS }}",
       distribution_step.fetch("env").fetch("FIREBASE_APP_DISTRIBUTION_GROUPS")
     assert_equal "${{ github.workspace }}/firebase-release/app/build/outputs/bundle/release/app-release.aab",
       distribution_step.fetch("env").fetch("FIREBASE_AAB_PATH")

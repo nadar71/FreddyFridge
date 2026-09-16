@@ -152,6 +152,11 @@ Add these Environment variables:
 | `FIREBASE_APP_ID` | `1:632111455840:android:76571b3604a6c14b3aed05` |
 | `FIREBASE_APP_DISTRIBUTION_GROUPS` | `owner-testers` |
 
+For compatibility with the environment's earlier configuration, the workflow
+also accepts `FIREBASE_TESTER_GROUPS` when
+`FIREBASE_APP_DISTRIBUTION_GROUPS` is not set. The preferred name remains
+`FIREBASE_APP_DISTRIBUTION_GROUPS`.
+
 The Play-publishing job's credential gate receives only booleans indicating
 whether its six secrets are present. Later steps receive only the values they
 need. It

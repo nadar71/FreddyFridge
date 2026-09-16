@@ -285,7 +285,7 @@ jobs:
         env:
           HAS_FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS_BASE64 != '' }}
           FIREBASE_APP_ID: ${{ vars.FIREBASE_APP_ID }}
-          FIREBASE_APP_DISTRIBUTION_GROUPS: ${{ vars.FIREBASE_APP_DISTRIBUTION_GROUPS }}
+          FIREBASE_APP_DISTRIBUTION_GROUPS: ${{ vars.FIREBASE_APP_DISTRIBUTION_GROUPS || vars.FIREBASE_TESTER_GROUPS }}
         run: |
           if [[ "$HAS_FIREBASE_CREDENTIALS" != true ]]; then
             echo "::error::FIREBASE_APP_DISTRIBUTION_CREDENTIALS_BASE64 is not configured."
@@ -330,7 +330,7 @@ jobs:
         env:
           BUNDLE_GEMFILE: fastlane/Gemfile
           FIREBASE_APP_ID: ${{ vars.FIREBASE_APP_ID }}
-          FIREBASE_APP_DISTRIBUTION_GROUPS: ${{ vars.FIREBASE_APP_DISTRIBUTION_GROUPS }}
+          FIREBASE_APP_DISTRIBUTION_GROUPS: ${{ vars.FIREBASE_APP_DISTRIBUTION_GROUPS || vars.FIREBASE_TESTER_GROUPS }}
           FIREBASE_AAB_PATH: ${{ github.workspace }}/firebase-release/app/build/outputs/bundle/release/app-release.aab
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-app-distribution.json
         run: bundle exec fastlane android distribute_firebase
