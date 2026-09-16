@@ -7,6 +7,15 @@ on:
     branches: [develop]
     tags: ['v*']
   workflow_dispatch:
+    inputs:
+      firebase_artifact_run_id:
+        description: Existing successful workflow run ID for Firebase-only distribution
+        required: false
+        type: string
+      firebase_release_tag:
+        description: Release tag used in the retained artifact name (for example v2.1.0)
+        required: false
+        type: string
 
 concurrency:
   group: android-ci-${{ github.ref }}
@@ -18,6 +27,7 @@ permissions:
 jobs:
   quality:
     name: Unit tests, lint, and debug build
+    if: github.event_name != 'workflow_dispatch' || inputs.firebase_artifact_run_id == ''
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -41,7 +51,9 @@ jobs:
 
   instrumentation:
     name: Instrumentation API ${{ matrix.api-level }}
-    if: github.event_name != 'pull_request'
+    if: >-
+      (github.event_name != 'workflow_dispatch' || inputs.firebase_artifact_run_id == '') &&
+      github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     strategy:
@@ -78,7 +90,10 @@ jobs:
 
   release-bundle:
     name: Minified release bundle
-    if: github.event_name != 'pull_request' && !startsWith(github.ref, 'refs/tags/')
+    if: >-
+      (github.event_name != 'workflow_dispatch' || inputs.firebase_artifact_run_id == '') &&
+      github.event_name != 'pull_request' &&
+      !startsWith(github.ref, 'refs/tags/')
     needs: [quality, instrumentation]
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -113,6 +128,7 @@ jobs:
   publish-internal:
     name: Publish to Google Play Internal
     if: >-
+      (github.event_name != 'workflow_dispatch' || inputs.firebase_artifact_run_id == '') &&
       startsWith(github.ref, 'refs/tags/v') &&
       (
         (
@@ -220,19 +236,14 @@ jobs:
   distribute-firebase:
     name: Distribute with Firebase App Distribution
     if: >-
-      startsWith(github.ref, 'refs/tags/v') &&
+      always() &&
       (
-        (
-          github.event_name == 'push' &&
-          github.event.created == true &&
-          github.event.deleted == false &&
-          github.event.forced == false
-        ) ||
-        github.event_name == 'workflow_dispatch'
+        needs.publish-internal.result == 'success' ||
+        (github.event_name == 'workflow_dispatch' && inputs.firebase_artifact_run_id != '')
       )
     needs: publish-internal
     environment: production-release
-    permissions: { contents: read }
+    permissions: { actions: read, contents: read }
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -242,10 +253,34 @@ jobs:
           ruby-version: '3.3'
           bundler-cache: true
           working-directory: fastlane
-      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+      - name: Verify retained artifact request
+        if: ${{ inputs.firebase_artifact_run_id != '' }}
+        env:
+          FIREBASE_ARTIFACT_RUN_ID: ${{ inputs.firebase_artifact_run_id }}
+          FIREBASE_RELEASE_TAG: ${{ inputs.firebase_release_tag }}
+        run: |
+          if [[ ! "$FIREBASE_ARTIFACT_RUN_ID" =~ ^[0-9]+$ ]]; then
+            echo "::error::firebase_artifact_run_id must contain only digits."
+            exit 1
+          fi
+          if [[ ! "$FIREBASE_RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::firebase_release_tag must be a version tag such as v2.1.0."
+            exit 1
+          fi
+      - name: Download current release artifact
+        if: ${{ inputs.firebase_artifact_run_id == '' }}
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: google-play-internal-${{ github.ref_name }}
           path: firebase-release
+      - name: Download retained Firebase release artifact
+        if: ${{ inputs.firebase_artifact_run_id != '' }}
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: google-play-internal-${{ inputs.firebase_release_tag }}
+          path: firebase-release
+          github-token: ${{ github.token }}
+          run-id: ${{ inputs.firebase_artifact_run_id }}
       - name: Verify Firebase distribution configuration
         env:
           HAS_FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS_BASE64 != '' }}

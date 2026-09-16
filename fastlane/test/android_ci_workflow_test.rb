@@ -39,6 +39,7 @@ class AndroidCiWorkflowTest < Minitest::Test
 
   def test_publishes_only_new_safe_tag_pushes_or_manual_matching_tag_retries
     expected_condition = <<~CONDITION.gsub(/\s+/, " ").strip
+      (github.event_name != 'workflow_dispatch' || inputs.firebase_artifact_run_id == '') &&
       startsWith(github.ref, 'refs/tags/v') && (
         (
           github.event_name == 'push' &&
@@ -56,19 +57,63 @@ class AndroidCiWorkflowTest < Minitest::Test
     assert_equal "production-release", @publish_job.fetch("environment")
   end
 
+  def test_manual_firebase_only_dispatch_skips_google_play_and_ordinary_ci
+    assert_match(/firebase_artifact_run_id:/, @workflow)
+    assert_match(/firebase_release_tag:/, @workflow)
+
+    publish_condition = @publish_job.fetch("if").gsub(/\s+/, " ")
+    assert_includes publish_condition,
+      "(github.event_name != 'workflow_dispatch' || inputs.firebase_artifact_run_id == '')"
+
+    firebase_only_guard =
+      "github.event_name != 'workflow_dispatch' || inputs.firebase_artifact_run_id == ''"
+    assert_equal firebase_only_guard, @jobs.fetch("quality").fetch("if")
+    assert_includes @jobs.fetch("instrumentation").fetch("if"), firebase_only_guard
+    assert_includes @jobs.fetch("release-bundle").fetch("if"), firebase_only_guard
+  end
+
+  def test_manual_firebase_only_dispatch_downloads_the_retained_release_artifact
+    firebase_job = @jobs.fetch("distribute-firebase")
+    condition = firebase_job.fetch("if").gsub(/\s+/, " ")
+
+    assert_includes condition, "always()"
+    assert_includes condition, "needs.publish-internal.result == 'success'"
+    assert_includes condition,
+      "github.event_name == 'workflow_dispatch' && inputs.firebase_artifact_run_id != ''"
+    assert_equal({ "actions" => "read", "contents" => "read" }, firebase_job.fetch("permissions"))
+
+    validation_step = firebase_named_step("Verify retained artifact request")
+    assert_equal "${{ inputs.firebase_artifact_run_id != '' }}", validation_step.fetch("if")
+    assert_includes validation_step.fetch("run"), '[[ ! "$FIREBASE_ARTIFACT_RUN_ID" =~ ^[0-9]+$ ]]'
+    assert_includes validation_step.fetch("run"),
+      '[[ ! "$FIREBASE_RELEASE_TAG" =~ ^v[0-9]+\\.[0-9]+\\.[0-9]+$ ]]'
+
+    download_step = firebase_named_step("Download retained Firebase release artifact")
+    assert_equal FIREBASE_DOWNLOAD_ACTION, download_step.fetch("uses")
+    assert_equal "${{ inputs.firebase_artifact_run_id != '' }}", download_step.fetch("if")
+    assert_equal(
+      {
+        "name" => "google-play-internal-${{ inputs.firebase_release_tag }}",
+        "path" => "firebase-release",
+        "github-token" => "${{ github.token }}",
+        "run-id" => "${{ inputs.firebase_artifact_run_id }}"
+      },
+      download_step.fetch("with")
+    )
+  end
+
   def test_distributes_to_firebase_only_after_google_play_publish_succeeds
     firebase_job = @jobs.fetch("distribute-firebase")
 
-    assert_equal @publish_job.fetch("if"), firebase_job.fetch("if")
+    assert_includes firebase_job.fetch("if"), "needs.publish-internal.result == 'success'"
     assert_equal "publish-internal", firebase_job.fetch("needs")
     assert_equal "production-release", firebase_job.fetch("environment")
-    assert_equal({ "contents" => "read" }, firebase_job.fetch("permissions"))
+    assert_equal({ "actions" => "read", "contents" => "read" }, firebase_job.fetch("permissions"))
 
-    download_step = firebase_job.fetch("steps").find do |step|
-      step["uses"]&.start_with?("actions/download-artifact@")
-    end
+    download_step = firebase_named_step("Download current release artifact")
     refute_nil download_step
     assert_equal FIREBASE_DOWNLOAD_ACTION, download_step.fetch("uses")
+    assert_equal "${{ inputs.firebase_artifact_run_id == '' }}", download_step.fetch("if")
     assert_equal "google-play-internal-${{ github.ref_name }}", download_step.fetch("with").fetch("name")
     assert_equal "firebase-release", download_step.fetch("with").fetch("path")
   end
@@ -252,7 +297,7 @@ class AndroidCiWorkflowTest < Minitest::Test
 
   def test_disposable_release_bundle_excludes_tag_refs
     assert_equal(
-      "github.event_name != 'pull_request' && !startsWith(github.ref, 'refs/tags/')",
+      "(github.event_name != 'workflow_dispatch' || inputs.firebase_artifact_run_id == '') && github.event_name != 'pull_request' && !startsWith(github.ref, 'refs/tags/')",
       @jobs.fetch("release-bundle").fetch("if")
     )
   end

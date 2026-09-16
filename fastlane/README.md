@@ -331,6 +331,12 @@ implementation verification and requires explicit release-operator approval.
   job after correcting the Firebase secret, role, Play link, app ID, or group.
   Its successful `publish-internal` dependency and accepted Play version code
   must not be re-uploaded.
+- To distribute an AAB retained by an earlier successful release run without
+  touching Google Play, manually run `Android CI` with
+  `firebase_artifact_run_id` set to that run's numeric ID and
+  `firebase_release_tag` set to its immutable version tag. This skips ordinary
+  CI and `publish-internal`, downloads only the named retained artifact, and
+  runs the Firebase distribution job with `actions: read` permission.
 - Do not delete and recreate or force-move a release tag. A changed build or
   metadata set is a new candidate and must use a higher version code.
 
