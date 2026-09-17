@@ -42,7 +42,7 @@ roomRuntime = "2.7.1"
 
 preferenceScreenDsl = "2.10.0"
 unityAds = "4.14.1"
-userMessagingPlatform = "3.2.0"
+userMessagingPlatform = "4.0.0"
 
 
 
