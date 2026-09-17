@@ -1,6 +1,6 @@
 [versions]
 accompanistPager = "0.22.0-rc"
-accompanistPermissions = "0.31.2-alpha"
+accompanistPermissions = "0.37.3"
 agp = "8.9.1"
 appUpdateKtx = "2.1.0"
 coreKtx = "1.16.0"
